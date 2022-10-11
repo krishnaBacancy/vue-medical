@@ -7,6 +7,12 @@ import vuetify from "./plugins/vuetify";
 
 Vue.config.productionTip = false;
 
+// let email = localStorage.getItem("email");
+
+// if (email) {
+//   store.dispatch("users/loginUser", { email, password });
+// }
+
 new Vue({
   router,
   store,

@@ -106,12 +106,16 @@ export default {
         showLine: true,
         scales: {
           yAxes: {
-            display: true,
+            display: false,
             ticks: {
               beginAtZero: true,
-              min: 0,
-              max: 100,
+              //   min: 0,
+              //   max: 100,
             },
+          },
+          y: {
+            min: Math.min(...fileData.ecg_vals),
+            max: Math.max(...fileData.ecg_vals),
           },
         },
       },

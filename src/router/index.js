@@ -10,6 +10,16 @@ const routes = [
     name: "home",
     component: HomeView,
   },
+  {
+    path: "/login",
+    name: "userlogin",
+    component: () => import("../views/user/UserLogin.vue"),
+  },
+  {
+    path: "/user-management",
+    name: "usermanagement",
+    component: () => import("../views/userManagement/UserManagement.vue"),
+  },
   // {
   //   path: "/about",
   //   name: "about",

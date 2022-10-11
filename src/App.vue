@@ -1,14 +1,19 @@
 <template>
   <v-app>
-    <v-main>
+    <nav>
+      <NavbarLayout />
+    </nav>
+    <v-container fluid class="grey lighten-5">
       <router-view />
-    </v-main>
+    </v-container>
   </v-app>
 </template>
 
 <script>
+import NavbarLayout from "./layouts/NavbarLayout.vue";
 export default {
   name: "App",
+  components: { NavbarLayout },
 };
 </script>
 
@@ -19,10 +24,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
 }
 
 nav a {

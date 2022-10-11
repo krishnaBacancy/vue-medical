@@ -1,10 +1,12 @@
 <template>
   <div class="home">
-    <!-- <div>
+    <v-app>
+      <v-main>
+        <!-- <div>
       <h1 v-if="isLoading">Loading..</h1>
     </div> -->
-    <div class="grid-container">
-      <!-- <CustomCard class="grid-item">
+        <div class="grid-container">
+          <!-- <CustomCard class="grid-item">
         <ChartCoponent
           type=""
           id="chart1"
@@ -15,7 +17,7 @@
           :border-color="'rgba(153, 102, 255, 1)'"
         ></ChartCoponent>
       </CustomCard> -->
-      <!-- <CustomCard class="grid-item">
+          <!-- <CustomCard class="grid-item">
         <ChartCoponent
           type="line"
           id="chart2"
@@ -26,7 +28,7 @@
           :border-color="'rgba(153, 102, 255, 1)'"
         ></ChartCoponent>
       </CustomCard> -->
-      <!-- <CustomCard class="grid-item">
+          <!-- <CustomCard class="grid-item">
         <ChartCoponent
           type="line"
           id="chart3"
@@ -37,7 +39,7 @@
           :border-color="'rgba(153, 102, 255, 1)'"
         ></ChartCoponent>
       </CustomCard> -->
-      <!-- <CustomCard class="grid-item">
+          <!-- <CustomCard class="grid-item">
         <ChartCoponent
           v-if="!isLoading"
           type="line"
@@ -49,7 +51,7 @@
           :border-color="'blue'"
         ></ChartCoponent>
       </CustomCard> -->
-      <!-- <CustomCard class="grid-item">
+          <!-- <CustomCard class="grid-item">
         <ChartCoponent
           v-if="!isLoading"
           type="line"
@@ -61,31 +63,33 @@
           :border-color="'red'"
         ></ChartCoponent>
       </CustomCard> -->
-      <!-- <CustomCard class="grid-item"> -->
-      <!-- :labels="[...Array(60).keys()]" -->
-      <!-- :data="testFileData -->
-      <!-- :data="[...Array(60).keys()]" -->
-      <!-- :labels="testFileData" -->
-      <ChartCoponent
-        type="line"
-        :height="200"
-        id="chart7"
-        title="test"
-        :labels="[...Array(60).keys()]"
-        :data="testFileData"
-      ></ChartCoponent>
-      <!-- </CustomCard> -->
-      <CustomCard class="grid-item">
-        <!-- <TestChart /> -->
-        <LineChart />
-      </CustomCard>
-      <!-- <CustomCard class="grid-item">
+          <!-- <CustomCard class="grid-item"> -->
+          <!-- :labels="[...Array(60).keys()]" -->
+          <!-- :data="testFileData -->
+          <!-- :data="[...Array(60).keys()]" -->
+          <!-- :labels="testFileData" -->
+          <ChartCoponent
+            type="line"
+            :height="200"
+            id="chart7"
+            title="test"
+            :labels="[...Array(60).keys()]"
+            :data="testFileData"
+          ></ChartCoponent>
+          <!-- </CustomCard> -->
+          <CustomCard class="grid-item">
+            <!-- <TestChart /> -->
+            <LineChart />
+          </CustomCard>
+          <!-- <CustomCard class="grid-item">
         <TestRealChart />
       </CustomCard> -->
-      <CustomCard class="grid-item">
-        <real-time-chart />
-      </CustomCard>
-    </div>
+          <CustomCard class="grid-item">
+            <real-time-chart />
+          </CustomCard>
+        </div>
+      </v-main>
+    </v-app>
   </div>
 </template>
 
