@@ -20,15 +20,15 @@ const routes = [
     name: "usermanagement",
     component: () => import("../views/userManagement/UserManagement.vue"),
   },
-  // {
-  //   path: "/about",
-  //   name: "about",
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () =>
-  //     import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
-  // },
+  {
+    path: "/add-user",
+    name: "adduser",
+    component: () => import("../views/userManagement/AddUser.vue"),
+  },
+  {
+    path: "*",
+    redirect: "/login",
+  },
 ];
 
 const router = new VueRouter({

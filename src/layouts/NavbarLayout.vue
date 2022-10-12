@@ -26,16 +26,20 @@
 
       <v-spacer></v-spacer>
 
-      <!-- <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn text v-for="item in menuItems" :key="item.title">
-          <span @click="goToLink(item.path)">{{ item.title }}</span>
+      <v-toolbar-items class="hidden-sm-and-down">
+        <v-btn text>
+          <span @click="$router.push('/')">Home</span>
         </v-btn>
-      </v-toolbar-items> -->
-      <v-list nav dense link v-for="(menu, index) in menuItems" :key="index">
-        <v-list-item @click="goToLink(menu.path)">
-          <v-list-item-title>{{ menu.title }}</v-list-item-title>
-        </v-list-item>
-      </v-list>
+        <v-btn text v-if="getRole !== 'Customer'">
+          <span @click="$router.push('/user-management')">User Management</span>
+        </v-btn>
+        <v-btn text v-if="!isLoggedIn">
+          <span @click="$router.push('/login')">Login</span>
+        </v-btn>
+        <v-btn text v-if="isLoggedIn">
+          <span @click="logOut">Logout</span>
+        </v-btn>
+      </v-toolbar-items>
     </v-toolbar>
 
     <!-- <v-navigation-drawer permanent expand-on-hover>
@@ -56,6 +60,8 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
+
 export default {
   data() {
     return {
@@ -85,9 +91,18 @@ export default {
       ],
     };
   },
+  computed: {
+    ...mapGetters("users", ["isLoggedIn", "getRole"]),
+  },
   methods: {
+    ...mapActions("users", ["logoutUser"]),
     goToLink(path) {
       return this.$router.push(path);
+    },
+    logOut() {
+      this.logoutUser();
+      this.$router.push("/login");
+      this.$toast.success("Logout successful", { timeout: 3000 });
     },
   },
 };

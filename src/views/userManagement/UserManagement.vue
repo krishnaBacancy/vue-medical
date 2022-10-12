@@ -2,11 +2,25 @@
   <v-container>
     <h1>User Management</h1>
     <br /><br />
-    <v-row align-content="center" align-content-sm="center">
-      <v-col class="d-flex" cols="12" sm="6">
-        <v-select :items="[1, 2, 3, 4]" filled label="Filled style"></v-select>
-      </v-col>
-    </v-row>
+    <v-col cols="12" class="py-2">
+      <v-btn-toggle v-model="icon" borderless>
+        <v-btn value="left" color="primary">
+          <span class="hidden-sm-and-down">Admin</span>
+        </v-btn>
+
+        <v-btn value="center" color="secondary">
+          <span class="hidden-sm-and-down">Doctors</span>
+        </v-btn>
+
+        <v-btn value="right" color="green">
+          <span class="hidden-sm-and-down">Patients</span>
+        </v-btn>
+
+        <v-btn value="right" color="warning" @click="addUser">
+          <span class="hidden-sm-and-down">Add</span>
+        </v-btn>
+      </v-btn-toggle>
+    </v-col>
     <div>
       <v-data-table
         :headers="headers"
@@ -20,37 +34,40 @@
 </template>
 
 <script>
-import roles from "@/api/roles";
+// import roles from "@/api/roles";
+import { mapActions } from "vuex";
 
 export default {
   data() {
     return {
+      icon: "justify",
       headers: [
         {
-          text: "Dessert (100g serving)",
+          text: "FirstName",
           align: "start",
           sortable: false,
           value: "name",
         },
-        { text: "Calories", value: "calories" },
-        { text: "Fat (g)", value: "fat" },
-        { text: "Carbs (g)", value: "carbs" },
-        { text: "Protein (g)", value: "protein" },
-        { text: "Iron (%)", value: "iron" },
+        { text: "LastName", value: "calories" },
+        { text: "Email", value: "fat" },
+        { text: "Mobile", value: "carbs" },
+        { text: "Gender", value: "protein" },
+        { text: "Aadhar-Card", value: "iron" },
+        { text: "Address", value: "address" },
       ],
       desserts: [
         {
           name: "Frozen Yogurt",
           calories: 159,
-          fat: 6.0,
+          fat: 6,
           carbs: 24,
-          protein: 4.0,
+          protein: 4,
           iron: "1%",
         },
         {
           name: "Ice cream sandwich",
           calories: 237,
-          fat: 9.0,
+          fat: 9,
           carbs: 37,
           protein: 4.3,
           iron: "1%",
@@ -58,9 +75,9 @@ export default {
         {
           name: "Eclair",
           calories: 262,
-          fat: 16.0,
+          fat: 16,
           carbs: 23,
-          protein: 6.0,
+          protein: 6,
           iron: "7%",
         },
         {
@@ -74,7 +91,7 @@ export default {
         {
           name: "Gingerbread",
           calories: 356,
-          fat: 16.0,
+          fat: 16,
           carbs: 49,
           protein: 3.9,
           iron: "16%",
@@ -83,15 +100,25 @@ export default {
     };
   },
   methods: {
-    async getRoles() {
-      const { data } = await roles.getAllRolesApi();
-      console.log("data", data);
+    ...mapActions("userManagement", ["getAllUsers"]),
+    // async getRoles() {
+    //   const { data } = await roles.getAllRolesApi();
+    //   console.log("data", data);
+    // },
+    addUser() {
+      this.$router.push({ path: "/add-user" });
     },
   },
   mounted() {
-    this.getRoles();
+    // this.getRoles();
+    this.getAllUsers();
   },
 };
 </script>
 
-<style></style>
+<style scoped>
+.v-item-group {
+  display: flex;
+  justify-content: space-evenly;
+}
+</style>
