@@ -8,15 +8,21 @@
           <span class="hidden-sm-and-down">Admin</span>
         </v-btn>
 
-        <v-btn value="center" color="secondary">
+        <v-btn value="center" color="secondary" class="ml-4">
           <span class="hidden-sm-and-down">Doctors</span>
         </v-btn>
 
-        <v-btn value="right" color="green">
+        <v-btn value="right" color="green" class="ml-4">
           <span class="hidden-sm-and-down">Patients</span>
         </v-btn>
 
-        <v-btn value="right" color="warning" @click="addUser">
+        <v-spacer></v-spacer>
+        <v-btn
+          value="right"
+          color="warning"
+          @click="addUser"
+          style="border-radius: 30%"
+        >
           <span class="hidden-sm-and-down">Add</span>
         </v-btn>
       </v-btn-toggle>

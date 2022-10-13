@@ -6,26 +6,30 @@ const state = {
     email: null,
     password: null,
   },
+  roleId: null,
   loggedIn: false,
 };
 
 const getters = {
   isLoggedIn(state) {
-    const loggedOut = state.user?.email == null;
+    const loggedOut = state.user.id == null;
     return !loggedOut;
+  },
+  getRole(state) {
+    return state?.user[0]?.role;
   },
 };
 
 const mutations = {
   setUserInfo(state, data) {
-    state.user = data.data.data.userData[0];
+    state.user = data.data.data;
     state.loggedIn = true;
-    localStorage.setItem("email", data.data.data.userData[0].email);
+    localStorage.setItem("role_id", data.data.data.roleId);
   },
   removeUserInfo(state) {
     state.user = {};
     state.loggedIn = false;
-    localStorage.removeItem("email");
+    localStorage.removeItem("role_id");
   },
 };
 
@@ -42,6 +46,9 @@ const actions = {
         })
         .catch((err) => reject(err));
     });
+  },
+  logoutUser({ commit }) {
+    commit("removeUserInfo");
   },
 };
 

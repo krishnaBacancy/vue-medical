@@ -111,7 +111,8 @@ export default {
       this.loginUser(data)
         .then((success) => {
           console.log(success);
-          // this.$router.push({ path: "/" });
+          this.$router.push({ path: "/" });
+          this.$toast.success("Login successful", { timeout: 3000 });
         })
         .catch((err) => console.log(err));
     },
