@@ -5,6 +5,16 @@
     </div>
     <v-card style="padding: 10px">
       <v-form ref="form" v-model="valid" lazy-validation>
+        <v-col class="d-flex" cols="12" sm="6">
+          <v-select
+            :items="items"
+            filled
+            label="Select User"
+            :rules="selectRules"
+            v-model="selected"
+          ></v-select>
+        </v-col>
+
         <v-text-field
           v-model="fname"
           :rules="nameRules"
@@ -150,6 +160,9 @@ export default {
   data() {
     return {
       valid: true,
+      items: ["Admin", "Doctor", "Customer"],
+      selected: "",
+      selectRules: [(v) => !!v || "Must select a user."],
       fname: "",
       lname: "",
       nameRules: [(v) => !!v || "Name is required"],
@@ -218,4 +231,4 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped></style>
