@@ -18,14 +18,31 @@
 </template>
 
 <script>
-import { Chart } from "chart.js";
+import {
+  Chart,
+  LineController,
+  LineElement,
+  PointElement,
+  LinearScale,
+  Title,
+  CategoryScale,
+} from "chart.js";
 import moment from "moment";
 import "chartjs-plugin-streaming";
 import "chartjs-adapter-moment";
 import { RealTimeScale, StreamingPlugin } from "chartjs-plugin-streaming";
-import { fileData } from "@/views/testData";
 // import { fileData } from "@/views/testData";
-Chart.register(StreamingPlugin, RealTimeScale);
+
+Chart.register(
+  LineController,
+  LineElement,
+  PointElement,
+  LinearScale,
+  Title,
+  StreamingPlugin,
+  RealTimeScale,
+  CategoryScale
+);
 
 export default {
   name: "monthly-sales-chart",
@@ -167,9 +184,9 @@ export default {
                   // console.log("dataset--", dataset.data);
                   dataset.data.push({
                     x: moment(),
-                    // y: [Math.random() * 100],
+                    y: [Math.random() * 100],
                     //eslint-disable-next-line
-                    y: fileData.ecg_vals[idx],
+                    // y: fileData.ecg_vals[idx],
                   });
                   chart.update();
                   // console.log("data--", dataset.data);

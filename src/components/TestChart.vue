@@ -21,18 +21,10 @@ import {
   Legend,
   BarElement,
   CategoryScale,
-  LinearScale,
 } from "chart.js";
 import { fileData } from "@/views/testData";
 
-ChartJS.register(
-  Title,
-  Tooltip,
-  Legend,
-  BarElement,
-  CategoryScale,
-  LinearScale
-);
+ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale);
 
 export default {
   name: "BarChart",
