@@ -24,12 +24,12 @@ const mutations = {
   setUserInfo(state, data) {
     state.user = data.data.data;
     state.loggedIn = true;
-    localStorage.setItem("role_id", data.data.data.roleId);
+    localStorage.setItem("user_id", data.data?.data[0]?.userId);
   },
   removeUserInfo(state) {
     state.user = {};
     state.loggedIn = false;
-    localStorage.removeItem("role_id");
+    localStorage.removeItem("user_id");
   },
 };
 

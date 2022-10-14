@@ -1,19 +1,16 @@
 <template>
   <v-app>
-    <nav>
-      <NavbarLayout />
-    </nav>
-    <v-container fluid class="grey lighten-5">
-      <router-view />
-    </v-container>
+    <SideBar />
   </v-app>
 </template>
 
 <script>
-import NavbarLayout from "./layouts/NavbarLayout.vue";
+import SideBar from "./layouts/SideBar.vue";
 export default {
   name: "App",
-  components: { NavbarLayout },
+  components: {
+    SideBar,
+  },
 };
 </script>
 
