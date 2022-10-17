@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import HomeView from "../views/HomeView.vue";
+import HomeView from "../views/dashboard/HomeView.vue";
 
 Vue.use(VueRouter);
 
@@ -24,6 +24,21 @@ const routes = [
     path: "/add-user",
     name: "adduser",
     component: () => import("../views/userManagement/AddUser.vue"),
+  },
+  {
+    path: "/graph",
+    name: "graph",
+    component: () => import("../views/GraphView.vue"),
+  },
+  {
+    path: "/patients",
+    name: "patients",
+    component: () => import("../views/patients/PatientsData.vue"),
+  },
+  {
+    path: "/patients/patient/:id",
+    name: "patient-details",
+    component: () => import("../views/patients/PatientDetails.vue"),
   },
   {
     path: "*",
