@@ -11,6 +11,11 @@ const routes = [
     component: HomeView,
   },
   {
+    path: "/patient-details",
+    name: "patient-details",
+    component: () => import("../views/dashboard/PatientDetails.vue"),
+  },
+  {
     path: "/login",
     name: "userlogin",
     component: () => import("../views/user/UserLogin.vue"),
@@ -26,19 +31,14 @@ const routes = [
     component: () => import("../views/userManagement/AddUser.vue"),
   },
   {
-    path: "/graph",
-    name: "graph",
-    component: () => import("../views/GraphView.vue"),
-  },
-  {
     path: "/patients",
     name: "patients",
     component: () => import("../views/patients/PatientsData.vue"),
   },
   {
     path: "/patients/patient/:id",
-    name: "patient-details",
-    component: () => import("../views/patients/PatientDetails.vue"),
+    name: "patient-profile",
+    component: () => import("../views/patients/PatientProfile.vue"),
   },
   {
     path: "*",

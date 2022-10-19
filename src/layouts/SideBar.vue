@@ -2,7 +2,9 @@
   <v-app>
     <v-app-bar app>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>Medical</v-toolbar-title>
+      <v-toolbar-title @click="$router.push('/')" style="cursor: pointer"
+        >Medical</v-toolbar-title
+      >
       <v-spacer></v-spacer>
       <v-btn class="success" @click="$router.push('/login')" v-if="!getUserId">
         Login
@@ -66,7 +68,6 @@ export default {
       getUserId: localStorage.getItem("user_id"),
       items: [
         { title: "Dashboard", icon: "mdi-view-dashboard", link: "/" },
-        { title: "Graph", icon: "mdi-chart-bar-stacked", link: "/graph" },
         { title: "Patients", icon: "mdi-account-injury", link: "/patients" },
       ],
     };
