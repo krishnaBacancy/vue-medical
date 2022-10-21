@@ -211,7 +211,10 @@ export default {
             this.$router.push({ path: "/user-management" });
             this.$toast.success("User Added successfully.", { timeout: 3000 });
           })
-          .catch((err) => console.log(err));
+          .catch((err) => {
+            console.log(err);
+            this.$toast.error("some error occured.", { timeout: 3000 });
+          });
       }
     },
     reset() {

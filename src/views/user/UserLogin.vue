@@ -113,7 +113,10 @@ export default {
           this.$router.push({ path: "/" });
           this.$toast.success("Login successful", { timeout: 3000 });
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          this.$toast.error("Invalid Credentials", { timeout: 3000 });
+          console.log(err);
+        });
     },
     register() {
       if (this.password == this.confirmPassword) {
