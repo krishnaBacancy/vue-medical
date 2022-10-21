@@ -5,7 +5,6 @@
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md8>
             <v-card class="elevation-12">
-              {{ isLoggedIn }}
               <v-toolbar dark color="primary">
                 <v-toolbar-title>Login form</v-toolbar-title>
               </v-toolbar>

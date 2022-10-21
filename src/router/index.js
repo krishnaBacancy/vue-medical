@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/dashboard/HomeView.vue";
+import store from "../store/index";
 
 Vue.use(VueRouter);
 
@@ -42,7 +43,7 @@ const routes = [
   },
   {
     path: "*",
-    redirect: "/login",
+    redirect: "/",
   },
 ];
 
@@ -50,6 +51,17 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.name !== "userlogin" && store.getters["users/isLoggedIn"]) {
+    next({
+      path: "login",
+      replace: true,
+    });
+  } else {
+    next();
+  }
 });
 
 export default router;

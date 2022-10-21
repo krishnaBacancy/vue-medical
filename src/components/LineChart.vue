@@ -47,28 +47,19 @@ Chart.register(
 export default {
   name: "monthly-sales-chart",
   props: {
-    // The canvas's width.
     width: {
       type: Number,
       validator: (value) => value > 0,
     },
-
-    // The canvas's height.
     height: {
       type: Number,
       validator: (value) => value > 0,
     },
-
-    // The chart's data.labels
     labels: Array,
-
-    // The chart's data.datasets
+    chartData: Array,
     datasets: {
       type: Array,
-      //   required: true,
     },
-
-    // The chart's options.
     options: Object,
   },
   mounted() {
@@ -78,6 +69,8 @@ export default {
       prev += 5 - Math.random() * 10;
       data.push({ x: i, y: prev });
     }
+
+    var index = 0;
 
     // const totalDuration = 10000;
     // const delayBetweenPoints = totalDuration / data.length;
@@ -103,6 +96,7 @@ export default {
             borderWidth: 1,
             fill: false,
             pointRadius: 0.1,
+            categoryPercentage: 1.5,
           },
         ],
       },
@@ -179,15 +173,17 @@ export default {
                 //   values = elements;
                 // }
                 //eslint-disable-next-line
-                chart.data.datasets.map((dataset, idx) => {
+                chart.data.datasets.map((dataset) => {
                   // dataset.data = fileData.ecg_vals;
                   // console.log("dataset--", dataset.data);
                   dataset.data.push({
                     x: moment(),
-                    y: [Math.random() * 100],
+                    // y: [Math.random() * 100],
                     //eslint-disable-next-line
-                    // y: fileData.ecg_vals[idx],
+                    // y: fileData.ecg_vals[index],
+                    y: this.chartData[index],
                   });
+                  index = index + 1;
                   chart.update();
                   // console.log("data--", dataset.data);
                 });
@@ -209,7 +205,7 @@ export default {
               maxRotation: 0,
               minRotation: 0,
               stepSize: 1,
-              maxTicksLimit: 30,
+              maxTicksLimit: 10,
               minUnit: "second",
               source: "data",
               autoSkip: true,
