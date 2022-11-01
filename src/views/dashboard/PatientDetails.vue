@@ -50,6 +50,7 @@
               </div>
               <div class="d-flex align-start">
                 <div class="grid-container">
+                  <!-- <HighChartTest /> -->
                   <LineChart :chart-data="tempData" />
                   <!-- <RealTimeChart :height="100" :datasets="ecgChartData" /> -->
                 </div>
@@ -377,12 +378,14 @@ import { mapActions, mapGetters } from "vuex";
 import mqtt from "mqtt/dist/mqtt";
 import LineChart from "../../components/LineChart.vue";
 import RealTimeChart from "@/components/RealTimeChart.vue";
+// import HighChartTest from "@/components/HighChartTest.vue";
 // import CustomCard from "@/components/CustomCard.vue";
 export default {
   name: "PatientDetails",
   components: {
     LineChart,
     RealTimeChart,
+    // HighChartTest,
   },
   data() {
     return {
@@ -471,6 +474,10 @@ export default {
         this.client.subscribe(
           `BMSFSEV/${this.getPatients[0]?.mac_address_framed}/sTOf`
         );
+        // this.client.subscribe(
+        //   `BacAccuLive/${this.getPatients[0]?.mac_address_framed}/ctoa`
+        // );
+        // console.log("hello", this.client);
         // this.client.subscribe(this.subscription.topic, () => {
         //   // if (!err) {
         //   this.client.publish(this.subscription.topic);
@@ -484,7 +491,7 @@ export default {
         // this.receiveNews = this.receiveNews.concat(message);
         let data = JSON.parse(message);
         // console.log(`Message -- ${message}`);
-        // console.log("data--", JSON.parse(message));
+        console.log("data--", JSON.parse(message));
         // setTimeout(() => {
         // console.log("data12121--", data);
         this.ecgChartData = data?.ecg_vals;

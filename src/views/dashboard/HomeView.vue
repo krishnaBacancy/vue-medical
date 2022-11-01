@@ -6,7 +6,8 @@
       v-if="loadingStatus"
     ></v-progress-circular>
 
-    <v-layout row wrap v-for="patient in getPatients" :key="patient._id" v-else>
+    <SearchBar />
+    <v-layout row wrap v-for="patient in getPatients" :key="patient._id">
       <v-flex d-flex xs12 sm6 md4>
         <v-card
           dark
@@ -46,7 +47,7 @@
           <div class="d-flex mt-1" style="font-size: 12px">
             <div class="d-flex ml-2 justify-center align-center">
               <v-icon>mdi-slot-machine</v-icon>
-              <span class="ml-1">0073fa</span>
+              <span class="ml-1">{{ patient?.mac_address_framed }}</span>
             </div>
             <v-spacer></v-spacer>
             <div class="d-flex mr-2 justify-center align-center">
@@ -157,6 +158,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import SearchBar from "@/components/SearchBar.vue";
 export default {
   name: "HomeView",
   data() {
@@ -181,6 +183,7 @@ export default {
       this.getPatientsForDoctor(this.getDoctorId);
     }
   },
+  components: { SearchBar },
 };
 </script>
 

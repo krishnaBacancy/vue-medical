@@ -5,10 +5,13 @@ import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
 import Toast from "vue-toastification";
+
+import HighchartsVue from "highcharts-vue";
 import "vue-toastification/dist/index.css";
 
 Vue.config.productionTip = false;
 Vue.use(Toast, {});
+Vue.use(HighchartsVue);
 
 new Vue({
   router,
