@@ -13,5 +13,8 @@ jobs:
           node-version: '14.20.1'
       - name: yarn install
         run: yarn install
+      - name: pm2
+        run: pm2 list
       - name: Deploy application
-        run: pm2 restart --no-daemon app
+        run: pm2 start yarn --interpreter bash --name app -- serve
+    
