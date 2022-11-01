@@ -9,6 +9,8 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
+        with:
+          node-version: '14.20.1'
       - name: yarn install
         run: yarn install
       - name: Deploy application
