@@ -9,6 +9,8 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
+        with:
+          node-version: '16.17.1'
       - name: yarn install
         run: yarn install
       - name: pm2 list
