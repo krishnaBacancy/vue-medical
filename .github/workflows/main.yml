@@ -14,4 +14,4 @@ jobs:
       - name: yarn install
         run: yarn install
       - name: Deploy application
-        run: pm2 start yarn --interpreter bash --name app -- serve
+        run: pm2 restart app
