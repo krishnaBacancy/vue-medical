@@ -13,6 +13,8 @@
     "chartjs-adapter-moment": "^1.0.0",
     "chartjs-plugin-streaming": "^2.0.0",
     "core-js": "^3.8.3",
+    "highcharts": "^10.2.1",
+    "highcharts-vue": "^1.4.0",
     "moment": "^2.29.4",
     "mqtt": "^4.3.7",
     "register-service-worker": "^1.7.2",
