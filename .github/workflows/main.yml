@@ -1,0 +1,15 @@
+name: vuejs-medical-CICD
+on:
+  push:
+    branches: master
+    
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+      - name: yarn install
+        run: npm install
+      - name: Deploy application
+        run: pm2 restart 0
