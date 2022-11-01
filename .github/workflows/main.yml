@@ -17,3 +17,5 @@ jobs:
         run: pm2 list
       - name: Deploy application
         run: pm2 restart vue-app
+      - name: Deployment completed
+        run: echo "deployed on http://194.233.69.96/"
