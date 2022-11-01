@@ -5,7 +5,7 @@ on:
     
 jobs:
   build:
-    runs-on: rpi
+    runs-on: [self-hosted,rpi]
     steps:
       - uses: actions/checkout@v1
       - name: yarn install
