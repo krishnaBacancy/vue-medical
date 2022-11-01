@@ -16,4 +16,4 @@ jobs:
       - name: pm2 list
         run: pm2 list
       - name: Deploy application
-        run: pm2 start yarn --interpreter bash --name vue-app -- serve
+        run: pm2 restart vue-app
