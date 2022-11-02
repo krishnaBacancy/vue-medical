@@ -2304,7 +2304,7 @@
     "ansi-styles" "^4.1.0"
     "supports-color" "^7.1.0"
 
-"chart.js@^3.0.0", "chart.js@^3.7.0", "chart.js@^3.9.1":
+"chart.js@^3.0.0", "chart.js@^3.2.0", "chart.js@^3.7.0", "chart.js@^3.9.1":
   "integrity" "sha512-Ro2JbLmvg83gXF5F4sniaQ+lTbSv18E+TIf2cOeiH1Iqd2PGFOtem+DUufMZsCJwFE7ywPOpfXFBwRTGq7dh6w=="
   "resolved" "https://registry.npmjs.org/chart.js/-/chart.js-3.9.1.tgz"
   "version" "3.9.1"
@@ -2318,6 +2318,13 @@
   "integrity" "sha512-oBwHRmovGbPDS1h8PhpttnlKjI6eiJO13v4h+xz+mfbHhIc+iNF9xuMobCIFMKFH7rlVWi5TJAOIxoXyGElYYg=="
   "resolved" "https://registry.npmjs.org/chartjs-plugin-streaming/-/chartjs-plugin-streaming-2.0.0.tgz"
   "version" "2.0.0"
+
+"chartjs-plugin-zoom@^1.2.1":
+  "integrity" "sha512-2zbWvw2pljrtMLMXkKw1uxYzAne5PtjJiOZftcut4Lo3Ee8qUt95RpMKDWrZ+pBZxZKQKOD/etdU4pN2jxZUmg=="
+  "resolved" "https://registry.npmjs.org/chartjs-plugin-zoom/-/chartjs-plugin-zoom-1.2.1.tgz"
+  "version" "1.2.1"
+  dependencies:
+    "hammerjs" "^2.0.8"
 
 "chokidar@^3.5.3", "chokidar@>=3.0.0 <4.0.0":
   "integrity" "sha512-Dr3sfKRP6oTcjf2JmUmFJfeVMvXBdegxB0iVQ5eb2V10uFJUCAS8OByZdVAyVb8xXNz3GjjTgj9kLWsZTqE6kw=="
@@ -3741,6 +3748,11 @@
   "version" "6.0.0"
   dependencies:
     "duplexer" "^0.1.2"
+
+"hammerjs@^2.0.8":
+  "integrity" "sha512-tSQXBXS/MWQOn/RKckawJ61vvsDpCom87JgxiYdGwHdOa0ht0vzUWDlfioofFCRU0L+6NGDt6XzbgoJvZkMeRQ=="
+  "resolved" "https://registry.npmjs.org/hammerjs/-/hammerjs-2.0.8.tgz"
+  "version" "2.0.8"
 
 "handle-thing@^2.0.0":
   "integrity" "sha512-9Qn4yBxelxoh2Ow62nP+Ka/kMnOXRi8BXnRaUwezLNhqelnN49xKz4F/dPP8OYLxLxq6JDtZb2i9XznUQbNPTg=="

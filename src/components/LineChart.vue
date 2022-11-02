@@ -31,6 +31,7 @@ import moment from "moment";
 import "chartjs-plugin-streaming";
 import "chartjs-adapter-moment";
 import { RealTimeScale, StreamingPlugin } from "chartjs-plugin-streaming";
+import zoomPlugin from "chartjs-plugin-zoom";
 // import { fileData } from "@/views/testData";
 
 Chart.register(
@@ -41,7 +42,8 @@ Chart.register(
   Title,
   StreamingPlugin,
   RealTimeScale,
-  CategoryScale
+  CategoryScale,
+  zoomPlugin
 );
 
 export default {
@@ -106,6 +108,28 @@ export default {
             tension: 0.5,
           },
         },
+        transitions: {
+          zoom: {
+            animation: {
+              duration: 1000,
+              easing: "easeInCirc",
+            },
+          },
+        },
+        plugins: {
+          zoom: {
+            zoom: {
+              wheel: {
+                enabled: true,
+              },
+              mode: "x",
+            },
+            // limits: {
+            //   // y: { min: 0, max: 100000 },
+            //   x: { min: 0, max: 30 },
+            // },
+          },
+        },
         // animation: {
         //   x: {
         //     type: "number",
@@ -145,6 +169,7 @@ export default {
         spanGaps: false,
         scales: {
           y: {
+            suggestedMin: 0,
             // min: Math.min(...fileData.ecg_vals),
             // max: Math.max(...fileData.ecg_vals),
             // suggestedMax: 1000000,
@@ -183,7 +208,7 @@ export default {
                     // y: fileData.ecg_vals[index],
                     y: this.chartData[index],
                   });
-                  index = index + 1;
+                  index = index + 10;
                   chart.update();
                   // console.log("data--", dataset.data);
                 });
@@ -200,6 +225,9 @@ export default {
             // delay: 3000,
             // },
             ticks: {
+              major: {
+                enabled: true,
+              },
               color: "#FFFFFF",
               displayFormats: 1,
               maxRotation: 0,

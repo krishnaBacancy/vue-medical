@@ -84,8 +84,9 @@ export default {
       // immediate: true,
 
       // We have to move our method to a handler field
-      handler(val) {
-        console.log("value--", val);
+      handler() {
+        // console.log("value--", val);
+        console.log("ppg--", this.ppgDatasets);
         // console.log("datasets--", this.datasets);
         // console.log("chartData--", this.chartData);
       },
