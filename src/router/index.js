@@ -12,7 +12,7 @@ const routes = [
     component: HomeView,
   },
   {
-    path: "/patient-details",
+    path: "/patient-details/:id",
     name: "patient-details",
     component: () => import("../views/dashboard/PatientDetails.vue"),
   },

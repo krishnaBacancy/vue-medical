@@ -17,10 +17,11 @@
         <h3 class="mr-2">
           {{
             getFullName(
-              getPatients[0]?.customerfirstName,
-              getPatients[0]?.customerlastName
+              getPatients[1]?.customerfirstName,
+              getPatients[1]?.customerlastName
             )
           }}
+          - {{ getPatients[1]?.mac_address_framed }}
         </h3>
         <v-spacer></v-spacer>
         <h3 class="mr-3">Floor - 2</h3>
@@ -472,7 +473,7 @@ export default {
       this.client.on("connect", () => {
         console.log("Connection succeeded!");
         this.client.subscribe(
-          `BMSFSEV/${this.getPatients[0]?.mac_address_framed}/sTOf`
+          `BMSFSEV/${this.getPatients[1]?.mac_address_framed}/sTOf`
         );
         // this.client.subscribe(
         //   `BacAccuLive/${this.getPatients[0]?.mac_address_framed}/ctoa`

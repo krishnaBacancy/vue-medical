@@ -29,7 +29,7 @@ const mutations = {
     state.loading = loadingStatus;
   },
   SET_PATIENTS_FOR_DOCTOR(state, data) {
-    state.doctorsData = data.data.data;
+    state.doctorsData = data.data.data.reverse();
   },
   SET_ALL_PATIENT(state, patients) {
     state.patientsData = patients.map((patient) => {
