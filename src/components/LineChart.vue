@@ -27,12 +27,12 @@ import {
   Title,
   CategoryScale,
 } from "chart.js";
-import moment from "moment";
+// import moment from "moment";
 import "chartjs-plugin-streaming";
 import "chartjs-adapter-moment";
 import { RealTimeScale, StreamingPlugin } from "chartjs-plugin-streaming";
 import zoomPlugin from "chartjs-plugin-zoom";
-// import { fileData } from "@/views/testData";
+import { fileData } from "@/views/testData";
 
 Chart.register(
   LineController,
@@ -64,7 +64,36 @@ export default {
     },
     options: Object,
   },
+  data() {
+    return {
+      ecgData: [],
+    };
+  },
+  watch: {
+    chartData: {
+      deep: true,
+      handler(val) {
+        // this.ecgData = val;
+        console.log("chartData---", val);
+      },
+    },
+  },
   mounted() {
+    var zero = 0;
+    function adddata() {
+      var value = Math.floor(Math.random() * 100 + 1);
+      myChart?.data.labels.push(zero);
+      myChart?.data.labels.splice(0, 5);
+      myChart?.data.datasets[0].data.splice(0, 5);
+      //   console.log(myLineChart.data.datasets[0].data);
+      myChart?.data.datasets[0].data.push(value);
+      myChart.update();
+      zero++;
+    }
+    setInterval(function () {
+      adddata();
+      //   console.log(myLineChart);
+    }, 1000);
     const data = [];
     let prev = 100;
     for (let i = 0; i < 1000; i++) {
@@ -86,12 +115,14 @@ export default {
     const myChart = new Chart(this.$refs.myChart, {
       type: "line",
       data: {
-        labels: [...Array(900).keys()],
+        labels: [...Array(2000).keys()],
         datasets: [
           {
             label: "2018 Sales",
             // data: fileData.ecg_vals,
-            data: [],
+            data: this.chartData,
+            // data: this.ecgData,
+            // data: [],
             borderColor: "red",
             hoverBorderColor: "red",
             tension: 0.4,
@@ -117,6 +148,9 @@ export default {
           },
         },
         plugins: {
+          streaming: {
+            refresh: 1000,
+          },
           zoom: {
             zoom: {
               wheel: {
@@ -170,8 +204,8 @@ export default {
         scales: {
           y: {
             suggestedMin: 0,
-            // min: Math.min(...fileData.ecg_vals),
-            // max: Math.max(...fileData.ecg_vals),
+            min: Math.min(...fileData.ecg_vals),
+            max: Math.max(...fileData.ecg_vals),
             // suggestedMax: 1000000,
             stacked: true,
             offset: true,
@@ -187,7 +221,7 @@ export default {
           x: {
             // min: 0,
             // max: fileData.ecg_vals.length + fileData.ecg_vals.length,
-            type: "realtime",
+            // type: "realtime",
             realtime: {
               onRefresh: (chart) => {
                 // console.log("chart--", chart);
@@ -202,11 +236,12 @@ export default {
                   // dataset.data = fileData.ecg_vals;
                   // console.log("dataset--", dataset.data);
                   dataset.data.push({
-                    x: moment(),
+                    // x: moment(),
+                    x: [...Array(2000)].keys(),
                     // y: [Math.random() * 100],
                     //eslint-disable-next-line
-                    // y: fileData.ecg_vals[index],
-                    y: this.chartData[index],
+                    y: fileData.ecg_vals[index],
+                    // y: this.chartData[index],
                   });
                   index = index + 10;
                   chart.update();
@@ -233,16 +268,17 @@ export default {
               maxRotation: 0,
               minRotation: 0,
               stepSize: 1,
-              maxTicksLimit: 10,
-              minUnit: "second",
+              // maxTicksLimit: 10,
+              minUnit: "millisecond",
               source: "data",
               autoSkip: true,
-              callback: function (value) {
-                return moment(value, "HH:mm:ss").format("ss").concat("s");
-              },
+              // callback: function (value) {
+              //   return moment(value, "HH:mm:ss").format("ss").concat("s");
+              //   // return moment(value, "HH:mm:ss:SSS").format("SSS").concat("ms");
+              // },
             },
             time: {
-              unit: "second",
+              unit: "millisecond",
               displayFormat: "h:mm",
             },
             grid: {

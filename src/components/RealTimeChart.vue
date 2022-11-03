@@ -129,8 +129,8 @@ export default {
           datasets: [
             {
               label: "2018 Sales",
-              data: fileData.ppg_vals,
-              // data: this.ppgDatasets,
+              // data: fileData.ppg_vals,
+              data: this.ppgDatasets,
               borderColor: "red",
               hoverBorderColor: "red",
               tension: 0.4,
@@ -158,7 +158,7 @@ export default {
               // max: this.maxValue,
             },
             x: {
-              display: false,
+              // display: false,
             },
           },
         },

@@ -17,11 +17,11 @@
         <h3 class="mr-2">
           {{
             getFullName(
-              getPatients[1]?.customerfirstName,
-              getPatients[1]?.customerlastName
+              getSingleDeviceData[0]?.customerFirstName,
+              getSingleDeviceData[0]?.customerLastName
             )
           }}
-          - {{ getPatients[1]?.mac_address_framed }}
+          - {{ getSingleDeviceData[0]?.macAddressFramed.toUpperCase() }}
         </h3>
         <v-spacer></v-spacer>
         <h3 class="mr-3">Floor - 2</h3>
@@ -52,7 +52,7 @@
               <div class="d-flex align-start">
                 <div class="grid-container">
                   <!-- <HighChartTest /> -->
-                  <LineChart :chart-data="tempData" />
+                  <LineChart :chart-data="ecgChartData" :key="showEcgChart" />
                   <!-- <RealTimeChart :height="100" :datasets="ecgChartData" /> -->
                 </div>
               </div>
@@ -69,9 +69,10 @@
                 <div class="grid-container">
                   <RealTimeChart
                     :height="100"
-                    :ppgDatasets="ppgTempData"
+                    :ppgDatasets="ppgChartData"
                     :minValue="Math.min(...ppgChartData)"
                     :maxValue="Math.max(...ppgChartData)"
+                    :key="showPpgChart"
                   />
                 </div>
               </div>
@@ -395,6 +396,8 @@ export default {
       ecgChartData: [],
       ppgChartData: [],
       tempData: [],
+      showEcgChart: true,
+      showPpgChart: true,
       ppgTempData: [],
       connection: {
         host: "194.233.69.96",
@@ -437,28 +440,33 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("doctors", ["getPatients", "loadingStatus"]),
+    ...mapGetters("doctors", [
+      "getPatients",
+      "loadingStatus",
+      "getSingleDeviceData",
+    ]),
   },
   mounted() {
+    this.getSingleDevice(this.$route?.params?.id);
     this.createConnection();
-    this.getPatientsForDoctor(this.getDoctorId);
   },
-  watch: {
-    ecgChartData: {
-      deep: true,
-      handler(val) {
-        this.tempData = val;
-      },
-    },
-    ppgChartData: {
-      deep: true,
-      handler(val) {
-        this.ppgTempData = val;
-      },
-    },
-  },
+  // watch: {
+  //   ecgChartData: {
+  //     deep: true,
+  //     handler(val) {
+  //       this.tempData = val;
+  //       console.log("Value of ecg--", val);
+  //     },
+  //   },
+  //   ppgChartData: {
+  //     deep: true,
+  //     handler(val) {
+  //       this.ppgTempData = val;
+  //     },
+  //   },
+  // },
   methods: {
-    ...mapActions("doctors", ["getPatientsForDoctor"]),
+    ...mapActions("doctors", ["getPatientsForDoctor", "getSingleDevice"]),
     getFullName(s1, s2) {
       return s1 + " " + s2;
     },
@@ -473,12 +481,12 @@ export default {
       this.client.on("connect", () => {
         console.log("Connection succeeded!");
         this.client.subscribe(
-          `BMSFSEV/${this.getPatients[1]?.mac_address_framed}/sTOf`
+          `BMSFSEV/${this.getSingleDeviceData[0]?.macAddressFramed.toUpperCase()}/sTOf`
         );
         // this.client.subscribe(
         //   `BacAccuLive/${this.getPatients[0]?.mac_address_framed}/ctoa`
         // );
-        // console.log("hello", this.client);
+        console.log("hello", this.client);
         // this.client.subscribe(this.subscription.topic, () => {
         //   // if (!err) {
         //   this.client.publish(this.subscription.topic);
@@ -489,6 +497,7 @@ export default {
         console.log("Connection failed", error);
       });
       this.client.on("message", (_, message) => {
+        console.log("hi");
         // this.receiveNews = this.receiveNews.concat(message);
         let data = JSON.parse(message);
         // console.log(`Message -- ${message}`);
@@ -497,8 +506,16 @@ export default {
         // console.log("data12121--", data);
         this.ecgChartData = data?.ecg_vals;
         this.ppgChartData = data?.ppg_vals;
+        this.showEcgChart = false;
+        this.showPpgChart = false;
+        this.$nextTick(() => {
+          this.showEcgChart = true;
+          this.showPpgChart = true;
+        });
         // }, 5000);
         console.log("ppg--", this.ppgChartData);
+        console.log("ecg--", this.ecgChartData);
+        this.client.end();
       });
     },
   },
