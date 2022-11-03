@@ -21,9 +21,7 @@
             dark
             class="ml-2 mb-2 pa-2"
             style="width: 100%"
-            @click="
-              $router.push(`/patient-details/${patient.mac_address_framed}`)
-            "
+            @click="$router.push(`/patient-details/${patient._id}`)"
           >
             <div class="d-flex">
               <div class="d-flex justify-center align-center">

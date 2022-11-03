@@ -6,4 +6,6 @@ export default {
   getAllPatientsData: (params) => client.get(`/users?doctorId=${params}`),
   getSinglePatientData: (params) =>
     client.get(`/users/useroperation/${params}`),
+  getSingleDeviceData: (params) =>
+    client.get(`/devices/viewsingledevicedetails/${params}`),
 };

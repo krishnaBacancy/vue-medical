@@ -4,6 +4,7 @@ const state = {
   doctorsData: {},
   patientsData: [],
   singlePatientData: [],
+  singleDeviceData: [],
   loading: false,
 };
 
@@ -21,6 +22,9 @@ const getters = {
   },
   getSinglePatientData(state) {
     return state?.singlePatientData;
+  },
+  getSingleDeviceData(state) {
+    return state?.singleDeviceData;
   },
 };
 
@@ -69,6 +73,24 @@ const mutations = {
       };
     });
   },
+  SET_SINGLE_DEVICE(state, deviceData) {
+    state.singleDeviceData = deviceData.map((device) => {
+      return {
+        id: device._id,
+        name: device.name,
+        macAddress: device.mac_address,
+        manufactureMonth: device.manufacture_month_year,
+        macAddressFramed: device.mac_address_framed,
+        doctorFirstName: device.doctorfirstName,
+        doctorLastName: device.doctorlastName,
+        customerFirstName: device.customerfirstName,
+        customerLastName: device.customerlastName,
+        adminId: device.adminId,
+        doctorId: device.doctorId,
+        customeId: device.customerId,
+      };
+    });
+  },
 };
 
 const actions = {
@@ -88,6 +110,12 @@ const actions = {
     commit("SET_LOADING_STATUS", true);
     const res = await doctors.getSinglePatientData(id);
     commit("SET_SINGLE_PATIENT", res.data.data);
+    commit("SET_LOADING_STATUS", false);
+  },
+  async getSingleDevice({ commit }, id) {
+    commit("SET_LOADING_STATUS", true);
+    const res = await doctors.getSingleDeviceData(id);
+    commit("SET_SINGLE_DEVICE", res.data.data);
     commit("SET_LOADING_STATUS", false);
   },
 };
