@@ -1,6 +1,6 @@
 <template>
-  <v-container>
-    <h1>User Management</h1>
+  <v-container style="height: 100vh; background-color: #282934" fluid>
+    <h1 class="white--text">User Management</h1>
     <br /><br />
     <v-col cols="12" class="py-2">
       <v-btn-toggle v-model="icon" borderless>
@@ -27,13 +27,14 @@
         </v-btn>
       </v-btn-toggle>
     </v-col>
-    <div>
+    <div class="mt-3">
       <v-data-table
         :headers="headers"
         :items="desserts"
         :items-per-page="5"
         class="elevation-1"
         height="350"
+        dark
       ></v-data-table>
     </div>
   </v-container>

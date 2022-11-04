@@ -1,7 +1,7 @@
 <template>
   <v-container fluid grid-list-md>
     <v-layout row wrap style="margin-left: -14px">
-      <v-flex d-flex xs6 sm6 md4>
+      <v-flex d-flex xs12 sm8 md4>
         <div class="">
           <v-card
             dark

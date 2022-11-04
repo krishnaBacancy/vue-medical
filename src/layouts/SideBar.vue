@@ -1,10 +1,20 @@
 <template>
   <v-app>
-    <v-app-bar app>
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title @click="$router.push('/')" style="cursor: pointer"
-        >Medical</v-toolbar-title
-      >
+    <v-app-bar app color="grey" class="white--text">
+      <v-app-bar-nav-icon
+        @click="drawer = !drawer"
+        class="white--text"
+      ></v-app-bar-nav-icon>
+      <v-toolbar-title @click="$router.push('/')" style="cursor: pointer">
+        <v-img
+          src="https://accu.live/images/logo.svg"
+          @click="$router.push('/')"
+          height="30"
+          style="cursor: pointer"
+          contain
+        >
+        </v-img>
+      </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn class="success" @click="$router.push('/login')" v-if="!getUserId">
         Login
@@ -15,7 +25,16 @@
     <v-navigation-drawer app v-model="drawer" temporary>
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title class="text-h6"> Application </v-list-item-title>
+          <v-list-item-title class="text-h6 mb-4 mt-4">
+            <v-img
+              src="https://accu.live/images/logo.svg"
+              @click="$router.push('/')"
+              height="30"
+              style="cursor: pointer"
+              contain
+            >
+            </v-img>
+          </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
 
@@ -39,7 +58,7 @@
             class="item__container"
             @click="$router.push('/user-management')"
           >
-            <v-list-item-icon style="margin-left: 40px">
+            <v-list-item-icon style="margin-left: 44px">
               <v-icon>mdi-account-box</v-icon>
             </v-list-item-icon>
 
@@ -52,7 +71,11 @@
     </v-navigation-drawer>
 
     <v-main>
-      <v-container class="grey lighten-4">
+      <v-container
+        class="grey lighten-4 pa-5"
+        style="background-color: #212529"
+        fluid
+      >
         <router-view />
       </v-container>
     </v-main>
@@ -69,6 +92,7 @@ export default {
       items: [
         { title: "Dashboard", icon: "mdi-view-dashboard", link: "/" },
         { title: "Patients", icon: "mdi-account-injury", link: "/patients" },
+        { title: "Settings", icon: "mdi-cog-outline", link: "/settings" },
       ],
     };
   },
