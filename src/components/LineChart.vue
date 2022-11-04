@@ -31,7 +31,7 @@ import {
 import "chartjs-plugin-streaming";
 import "chartjs-adapter-moment";
 import { RealTimeScale, StreamingPlugin } from "chartjs-plugin-streaming";
-import zoomPlugin from "chartjs-plugin-zoom";
+// import zoomPlugin from "chartjs-plugin-zoom";
 // import { fileData } from "@/views/testData";
 
 Chart.register(
@@ -42,8 +42,8 @@ Chart.register(
   Title,
   StreamingPlugin,
   RealTimeScale,
-  CategoryScale,
-  zoomPlugin
+  CategoryScale
+  // zoomPlugin
 );
 
 export default {
@@ -141,30 +141,30 @@ export default {
             tension: 0.5,
           },
         },
-        transitions: {
-          zoom: {
-            animation: {
-              duration: 1000,
-              easing: "easeInCirc",
-            },
-          },
-        },
+        // transitions: {
+        //   zoom: {
+        //     animation: {
+        //       duration: 1000,
+        //       easing: "easeInCirc",
+        //     },
+        //   },
+        // },
         plugins: {
           streaming: {
             refresh: 1000,
           },
-          zoom: {
-            zoom: {
-              wheel: {
-                enabled: true,
-              },
-              mode: "x",
-            },
-            // limits: {
-            //   // y: { min: 0, max: 100000 },
-            //   x: { min: 0, max: 30 },
-            // },
-          },
+          // zoom: {
+          //   zoom: {
+          //     wheel: {
+          //       enabled: true,
+          //     },
+          //     mode: "x",
+          //   },
+          //   // limits: {
+          //   //   // y: { min: 0, max: 100000 },
+          //   //   x: { min: 0, max: 30 },
+          //   // },
+          // },
         },
         // animation: {
         //   x: {

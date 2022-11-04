@@ -88,11 +88,16 @@
         <v-layout row wrap>
           <v-flex d-flex xs12 sm12 md3>
             <v-card dark class="ml-2 mb-2 pa-2" style="width: 100%">
-              <div class="d-flex justify-xs-start justify-sm-center ml-3 mt-2">
-                <v-btn class="mr-3" color="success" height="70" width="70" dark>
-                  <v-icon dark> mdi-heart-pulse </v-icon>
-                </v-btn>
-                <div>
+              <div
+                class="d-flex justify-xs-start justify-sm-center align-center mt-2"
+              >
+                <v-img
+                  class="ml-10"
+                  src="https://accu.live/images/doctor_dashboard/heartbeat.svg"
+                  height="40"
+                  contain
+                ></v-img>
+                <div class="mr-16">
                   <h1>74</h1>
                   <div class="d-flex" style="flex-direction: column">
                     <small>>120-30</small>
@@ -104,15 +109,14 @@
           </v-flex>
           <v-flex d-flex xs12 sm12 md3>
             <v-card dark class="ml-2 mb-2 pa-2" style="width: 100%">
-              <div class="d-flex justify-xs-start justify-sm-center ml-3 mt-2">
-                <v-btn class="mr-3" color="success" height="70" width="70" dark>
-                  <v-img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUPOPmV75QuVElVvma4Gx3eo-euDvi6lSzCA&usqp=CAU"
-                    width="50"
-                    height="50"
-                  ></v-img>
-                </v-btn>
-                <div>
+              <div class="d-flex align-center ml-3 mt-2">
+                <v-img
+                  class=""
+                  src="https://accu.live/images/doctor_dashboard/doc-lunghs.svg"
+                  height="45"
+                  contain
+                ></v-img>
+                <div class="mr-16">
                   <h1>16</h1>
                   <div class="d-flex" style="flex-direction: column">
                     <small>C1</small>
@@ -123,11 +127,16 @@
           </v-flex>
           <v-flex d-flex xs12 sm12 md3>
             <v-card dark class="ml-2 mb-2 pa-2" style="width: 100%">
-              <div class="d-flex justify-xs-start justify-sm-center ml-3 mt-2">
-                <v-btn class="mr-3" color="success" height="70" width="70" dark>
-                  <v-icon dark> mdi-coolant-temperature </v-icon>
-                </v-btn>
-                <div>
+              <div
+                class="d-flex justify-xs-start justify-sm-center align-center ml-3 mt-2"
+              >
+                <v-img
+                  class="mr-5"
+                  src="https://accu.live/images/doctor_dashboard/temprature.svg"
+                  height="50"
+                  contain
+                ></v-img>
+                <div class="mr-16">
                   <h1>98.7</h1>
                   <div class="d-flex" style="flex-direction: column">
                     <small>6 hours</small>
@@ -139,12 +148,16 @@
           </v-flex>
           <v-flex d-flex xs12 sm12 md3>
             <v-card dark class="ml-2 mb-2 pa-2" style="width: 100%">
-              <div class="d-flex justify-xs-start justify-sm-center ml-3 mt-2">
-                <v-btn class="mr-3" color="success" height="70" width="70" dark>
-                  <v-icon dark> mdi-foot-print </v-icon>
-                  <v-icon dark> mdi-foot-print </v-icon>
-                </v-btn>
-                <div>
+              <div
+                class="d-flex justify-xs-start justify-sm-center align-center ml-3 mt-2"
+              >
+                <v-img
+                  class="ml-2"
+                  src="https://accu.live/images/doctor_dashboard/doc-step.svg"
+                  height="50"
+                  contain
+                ></v-img>
+                <div class="mr-16">
                   <h1>3000</h1>
                   <div class="d-flex" style="flex-direction: column">
                     <small>Steps</small>
@@ -158,8 +171,10 @@
         <v-layout row wrap>
           <v-flex d-flex xs12 sm12 md12>
             <v-card dark class="ml-2 mb-2 pa-2" style="width: 100%">
-              <div class="d-flex justify-xs-start justify-sm-center ml-5">
-                <div style="background-color: pink" class="mr-3 ml-1">
+              <div
+                class="d-flex justify-xs-start justify-sm-center align-center ml-5"
+              >
+                <div class="mr-3 ml-1">
                   <v-icon dark size="50"> mdi-human-male </v-icon>
                 </div>
                 <div>
@@ -187,15 +202,14 @@
                   <small>2 hour ago</small>
                 </div>
               </div>
-              <div class="d-flex justify-center ml-5 mt-5">
-                <v-btn class="mr-3" color="success" height="70" width="70" dark>
-                  <v-img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLwxalL1AdbOEGQZ0tcerGvRHCHF21XiAvn5scM4A&s"
-                    width="70"
-                    height="70"
-                  ></v-img>
-                </v-btn>
-                <div>
+              <div class="d-flex justify-center ml-5 align-center mt-5">
+                <v-img
+                  class="mr-3"
+                  src="https://accu.live/images/doctor_dashboard/doc-oxi.svg"
+                  height="50"
+                  contain
+                ></v-img>
+                <div class="mr-16">
                   <h1>98</h1>
                   <div class="d-flex" style="flex-direction: column">
                     <small>Streaming Mode</small>
@@ -218,15 +232,13 @@
                   <small>2 hour ago</small>
                 </div>
               </div>
-              <div class="d-flex justify-center ml-5 mt-5">
-                <v-btn class="mr-3" color="success" height="70" width="70" dark>
-                  <v-img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqhMFwNm_SkDfYGFa5g_7RXOrU-HUqthtqMQ&usqp=CAU"
-                    width="70"
-                    height="70"
-                  ></v-img>
-                </v-btn>
-                <div>
+              <div class="d-flex justify-center align-center ml-5 mt-5">
+                <v-img
+                  src="https://accu.live/images/doctor_dashboard/oxi-meter.svg"
+                  height="50"
+                  contain
+                ></v-img>
+                <div class="mr-16">
                   <h1>118/77</h1>
                   <div class="d-flex" style="flex-direction: column">
                     <small>Manual Entry</small>
@@ -276,13 +288,15 @@
                 <div class="d-flex justify-center align-center">
                   <h3 class="d-flex align-center mt-2">
                     <span>
-                      <div style="background-color: #dc143c" class="mr-3 ml-1">
-                        <v-icon dark size="50">
-                          mdi-coolant-temperature
-                        </v-icon>
-                      </div>
+                      <v-img
+                        class="ml-2"
+                        src="https://accu.live/images/doctor_dashboard/temprature.svg"
+                        height="40"
+                        width="40"
+                        contain
+                      ></v-img>
                     </span>
-                    <div class="d-flex" style="flex-direction: column">
+                    <div class="d-flex ml-5" style="flex-direction: column">
                       <span>Body Temperature</span>
                       <span>00:0B:57:AC:66:DA</span>
                     </div>
@@ -299,15 +313,14 @@
               <div>
                 <div class="d-flex justify-center align-center">
                   <h3 class="d-flex align-center mt-2">
-                    <span>
-                      <v-img
-                        class="mr-3"
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUPOPmV75QuVElVvma4Gx3eo-euDvi6lSzCA&usqp=CAU"
-                        height="50"
-                        width="50"
-                      ></v-img>
-                    </span>
-                    <div class="d-flex" style="flex-direction: column">
+                    <v-img
+                      class="ml-2"
+                      src="https://accu.live/images/doctor_dashboard/doc-lunghs.svg"
+                      height="40"
+                      width="40"
+                      contain
+                    ></v-img>
+                    <div class="d-flex ml-5" style="flex-direction: column">
                       <span>Blood Oxygen</span>
                       <span>mmHg</span>
                     </div>
@@ -326,12 +339,14 @@
               <div>
                 <div class="d-flex justify-center align-center">
                   <h3 class="d-flex align-center mt-2">
-                    <span>
-                      <div style="background-color: green" class="mr-3 ml-1">
-                        <v-icon dark size="50"> mdi-heart-pulse </v-icon>
-                      </div>
-                    </span>
-                    <div class="d-flex" style="flex-direction: column">
+                    <v-img
+                      class="ml-2"
+                      src="https://accu.live/images/doctor_dashboard/heartbeat.svg"
+                      height="40"
+                      width="40"
+                      contain
+                    ></v-img>
+                    <div class="d-flex ml-5" style="flex-direction: column">
                       <span>Heart Rate</span>
                       <span>mmHg</span>
                     </div>
@@ -349,11 +364,11 @@
                 <div class="d-flex justify-center align-center">
                   <h3 class="d-flex align-center mt-2">
                     <span>
-                      <div style="background-color: grey" class="mr-3 ml-1">
-                        <v-icon dark size="50"> mdi-power-sleep </v-icon>
+                      <div style="background-color: grey" class="mr-3 ml-2">
+                        <v-icon dark size="40"> mdi-power-sleep </v-icon>
                       </div>
                     </span>
-                    <div class="d-flex" style="flex-direction: column">
+                    <div class="d-flex ml-5" style="flex-direction: column">
                       <span>Sleep</span>
                       <span>Hrs/Day</span>
                     </div>

@@ -1,6 +1,6 @@
 <template>
-  <div style="background-color: aqua">
-    <h1>Patients</h1>
+  <v-container style="background-color: #282934" fluid>
+    <h1 class="white--text">Patients</h1>
     <v-progress-circular
       indeterminate
       color="pink"
@@ -82,7 +82,7 @@
         </CustomCard>
       </div>
     </div> -->
-  </div>
+  </v-container>
 </template>
 
 <script>
