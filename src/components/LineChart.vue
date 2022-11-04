@@ -32,7 +32,7 @@ import "chartjs-plugin-streaming";
 import "chartjs-adapter-moment";
 import { RealTimeScale, StreamingPlugin } from "chartjs-plugin-streaming";
 import zoomPlugin from "chartjs-plugin-zoom";
-import { fileData } from "@/views/testData";
+// import { fileData } from "@/views/testData";
 
 Chart.register(
   LineController,
@@ -62,6 +62,8 @@ export default {
     datasets: {
       type: Array,
     },
+    minValue: Number,
+    maxValue: Number,
     options: Object,
   },
   data() {
@@ -83,8 +85,8 @@ export default {
     function adddata() {
       var value = Math.floor(Math.random() * 100 + 1);
       myChart?.data.labels.push(zero);
-      myChart?.data.labels.splice(0, 5);
-      myChart?.data.datasets[0].data.splice(0, 5);
+      myChart?.data.labels.splice(0, 10);
+      myChart?.data.datasets[0].data.splice(0, 30);
       //   console.log(myLineChart.data.datasets[0].data);
       myChart?.data.datasets[0].data.push(value);
       myChart.update();
@@ -204,8 +206,10 @@ export default {
         scales: {
           y: {
             suggestedMin: 0,
-            min: Math.min(...fileData.ecg_vals),
-            max: Math.max(...fileData.ecg_vals),
+            min: this.minValue,
+            max: this.maxValue,
+            // min: Math.min(...fileData.ecg_vals),
+            // max: Math.max(...fileData.ecg_vals),
             // suggestedMax: 1000000,
             stacked: true,
             offset: true,

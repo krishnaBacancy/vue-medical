@@ -8,7 +8,7 @@
     >
       <!-- <div style="overflow: hidden"> -->
       <canvas
-        ref="myChart"
+        ref="myLineChart"
         :width="width"
         :height="height"
         style="background-color: black"
@@ -31,7 +31,6 @@ import {
 import "chartjs-plugin-streaming";
 import "chartjs-adapter-moment";
 import { RealTimeScale, StreamingPlugin } from "chartjs-plugin-streaming";
-import { fileData } from "@/views/testData";
 // import { fileData } from "@/views/testData";
 Chart.register(
   LineController,
@@ -92,89 +91,107 @@ export default {
       },
     },
   },
-  methods: {
-    // addData(myLineChart) {
-    //   let zero = 0;
-    //   var value = Math.floor(Math.random() * 100 + 1);
-    //   myLineChart.data.labels.push(zero);
-    //   myLineChart.data.labels.splice(0, 1);
-    //   myLineChart.data.datasets[0].data.splice(0, 1);
-    //   //   console.log(myLineChart.data.datasets[0].data);
-    //   myLineChart.data.datasets[0].data.push(value);
-    //   myLineChart.update();
-    //   zero++;
-    // },
-    createChart() {
-      console.log("ppgDataaaa-", this.ppgDatasets);
-      var zero = 0;
-      function adddata() {
-        var value = Math.floor(Math.random() * 100 + 1);
-        myLineChart?.data.labels.push(zero);
-        myLineChart?.data.labels.splice(0, 5);
-        myLineChart?.data.datasets[0].data.splice(0, 5);
-        //   console.log(myLineChart.data.datasets[0].data);
-        myLineChart?.data.datasets[0].data.push(value);
-        myLineChart.update();
-        zero++;
-      }
-      setInterval(function () {
-        adddata();
-        //   console.log(myLineChart);
-      }, 1000);
+  mounted() {
+    var zero = 0;
+    function adddata() {
+      var value = Math.floor(Math.random() * 100 + 1);
+      myLineChart?.data.labels.push(zero);
+      myLineChart?.data.labels.splice(0, 10);
+      myLineChart?.data.datasets[0].data.splice(0, 30);
+      //   console.log(myLineChart.data.datasets[0].data);
+      myLineChart?.data.datasets[0].data.push(value);
+      myLineChart.update();
+      zero++;
+    }
+    setInterval(function () {
+      adddata();
+      //   console.log(myLineChart);
+    }, 1000);
 
-      var myLineChart = new Chart(this.$refs.myChart, {
-        type: "line",
-        data: {
-          labels: [...Array(2000).keys()],
-          datasets: [
-            {
-              label: "2018 Sales",
-              // data: fileData.ppg_vals,
-              data: this.ppgDatasets,
-              borderColor: "red",
-              hoverBorderColor: "red",
-              tension: 0.4,
-              borderWidth: 1,
-              fill: false,
-              pointRadius: 0.1,
-            },
-          ],
+    const data = [];
+    let prev = 100;
+    for (let i = 0; i < 1000; i++) {
+      prev += 5 - Math.random() * 10;
+      data.push({ x: i, y: prev });
+    }
+
+    var myLineChart = new Chart(this.$refs.myLineChart, {
+      type: "line",
+      data: {
+        labels: [...Array(2000).keys()],
+        datasets: [
+          {
+            label: "2018 Sales",
+            // data: fileData.ppg_vals,
+            data: this.ppgDatasets,
+            borderColor: "red",
+            hoverBorderColor: "red",
+            tension: 0.4,
+            borderWidth: 1,
+            fill: false,
+            pointRadius: 0.1,
+            categoryPercentage: 1.5,
+          },
+        ],
+      },
+      options: {
+        elements: {
+          line: {
+            tension: 0.5,
+          },
         },
-        options: {
-          showLine: true,
-          scales: {
-            yAxes: {
+        responsive: true,
+        aspectRatio: 1.2,
+        maintainAspectRatio: false,
+        spanGaps: false,
+        showLine: true,
+        scales: {
+          // yAxes: {
+          //   display: false,
+          //   ticks: {
+          //     beginAtZero: true,
+          //     //   min: 0,
+          //     //   max: 100,
+          //   },
+          // },
+          y: {
+            suggestedMin: 0,
+            // min: Math.min(...fileData.ecg_vals),
+            // max: Math.max(...fileData.ecg_vals),
+            min: this.minValue,
+            max: this.maxValue,
+            stacked: true,
+            offset: true,
+          },
+          x: {
+            // display: false,
+            grid: {
               display: false,
-              ticks: {
-                beginAtZero: true,
-                //   min: 0,
-                //   max: 100,
+            },
+            ticks: {
+              major: {
+                enabled: true,
               },
-            },
-            y: {
-              min: Math.min(...fileData.ecg_vals),
-              max: Math.max(...fileData.ecg_vals),
-              // min: this.minValue,
-              // max: this.maxValue,
-            },
-            x: {
-              // display: false,
+              color: "#FFFFFF",
+              displayFormats: 1,
+              maxRotation: 0,
+              minRotation: 0,
+              stepSize: 1,
+              // maxTicksLimit: 10,
+              minUnit: "millisecond",
+              source: "data",
+              autoSkip: true,
+              // callback: function (value) {
+              //   return moment(value, "HH:mm:ss").format("ss").concat("s");
+              //   // return moment(value, "HH:mm:ss:SSS").format("SSS").concat("ms");
+              // },
             },
           },
         },
-      });
-      myLineChart.update();
-    },
-  },
-  updated() {
-    var dat = this.$props;
-    console.log("updated", dat);
-    if (dat.datasets.length > 0) {
-      this.createChart();
-    }
-  },
-  mounted() {
-    this.createChart();
+      },
+    });
+    myLineChart.update();
+    // this.createChart();
   },
 };
 </script>

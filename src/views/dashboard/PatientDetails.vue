@@ -52,7 +52,12 @@
               <div class="d-flex align-start">
                 <div class="grid-container">
                   <!-- <HighChartTest /> -->
-                  <LineChart :chart-data="ecgChartData" :key="showEcgChart" />
+                  <LineChart
+                    :chart-data="ecgChartData"
+                    :key="showEcgChart"
+                    :minValue="Math.min(...ecgChartData) - 1000"
+                    :maxValue="Math.max(...ecgChartData) + 1000"
+                  />
                   <!-- <RealTimeChart :height="100" :datasets="ecgChartData" /> -->
                 </div>
               </div>
@@ -68,10 +73,9 @@
               <div class="d-flex align-start">
                 <div class="grid-container">
                   <RealTimeChart
-                    :height="100"
                     :ppgDatasets="ppgChartData"
-                    :minValue="Math.min(...ppgChartData)"
-                    :maxValue="Math.max(...ppgChartData)"
+                    :minValue="Math.min(...ppgChartData) - 1000"
+                    :maxValue="Math.max(...ppgChartData) + 1000"
                     :key="showPpgChart"
                   />
                 </div>
@@ -399,6 +403,8 @@ export default {
       showEcgChart: true,
       showPpgChart: true,
       ppgTempData: [],
+      minEcgValue: null,
+      minPpgValue: null,
       connection: {
         host: "194.233.69.96",
         port: 15675,
@@ -506,6 +512,19 @@ export default {
         // console.log("data12121--", data);
         this.ecgChartData = data?.ecg_vals;
         this.ppgChartData = data?.ppg_vals;
+        let sumEcgData = 0;
+        for (let i = 0; i < this.ecgChartData.length; i++) {
+          sumEcgData += parseInt(this.ecgChartData[i], 10);
+        }
+        let ecgAvgMin = sumEcgData / this.ecgChartData.length;
+        this.minEcgValue = ecgAvgMin;
+
+        let sumPpgData = 0;
+        for (let i = 0; i < this.ppgChartData.length; i++) {
+          sumPpgData += parseInt(this.ppgChartData[i], 10);
+        }
+        let ppgAvgMin = sumPpgData / this.ppgChartData.length;
+        this.minPpgValue = ppgAvgMin;
         this.showEcgChart = false;
         this.showPpgChart = false;
         this.$nextTick(() => {
