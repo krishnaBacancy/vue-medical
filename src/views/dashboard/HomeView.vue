@@ -1,176 +1,203 @@
 <template>
-  <v-container fluid grid-list-md style="background-color: black">
-    <v-progress-circular
-      indeterminate
-      color="amber"
-      v-if="loadingStatus"
-    ></v-progress-circular>
+  <div style="background-color: #282934; height: 100vh">
+    <PageHeader title="Dashboard" pageIcon="mdi-home" />
+    <br />
+    <v-container fluid grid-list-md style="background-color: black">
+      <v-progress-circular
+        indeterminate
+        color="amber"
+        v-if="loadingStatus"
+      ></v-progress-circular>
 
-    <div v-else>
-      <SearchBar />
-      <v-layout row wrap>
-        <v-flex
-          d-flex
-          xs12
-          sm6
-          md4
-          v-for="patient in getPatients"
-          :key="patient._id"
-        >
-          <v-card
-            color="#282934"
-            class="ml-2 mb-2 pa-2 white--text"
-            style="width: 100%"
-            @click="$router.push(`/patient-details/${patient._id}`)"
+      <div v-else>
+        <SearchBar />
+        <v-layout row wrap>
+          <v-flex
+            d-flex
+            xs12
+            sm6
+            md4
+            lg3
+            v-for="patient in getPatients"
+            :key="patient._id"
           >
-            <div class="d-flex">
-              <div class="d-flex justify-center align-center">
-                <v-icon class="ml-2 white--text">mdi-account</v-icon>
-                <h3 class="ml-2">
-                  {{
-                    patient?.customerfirstName.charAt(0).toUpperCase() +
-                    patient?.customerfirstName.slice(1) +
-                    " " +
-                    patient?.customerlastName.charAt(0).toUpperCase() +
-                    patient?.customerlastName.slice(1)
-                  }}
-                </h3>
+            <v-card
+              color="#282934"
+              class="ml-2 mb-2 pa-2 white--text"
+              style="width: 100%"
+              @click="$router.push(`/patient-details/${patient._id}`)"
+            >
+              <div class="d-flex">
+                <div class="d-flex justify-center align-center">
+                  <v-icon class="ml-2 white--text">mdi-account</v-icon>
+                  <h3 class="ml-2">
+                    {{
+                      patient?.customerfirstName.charAt(0).toUpperCase() +
+                      patient?.customerfirstName.slice(1) +
+                      " " +
+                      patient?.customerlastName.charAt(0).toUpperCase() +
+                      patient?.customerlastName.slice(1)
+                    }}
+                  </h3>
+                </div>
+                <v-spacer></v-spacer>
+                <v-icon color="green" size="50">mdi-circle-small</v-icon>
               </div>
-              <v-spacer></v-spacer>
-              <v-icon color="green" size="50">mdi-circle-small</v-icon>
-            </div>
 
-            <div class="d-flex mt-1" style="font-size: 12px">
-              <div class="d-flex ml-2 justify-center align-center">
-                <v-icon class="white--text">mdi-floor-plan</v-icon>
-                <span style="color: orange" class="ml-1">Floor - 1 </span>
+              <div class="d-flex mt-1" style="font-size: 12px">
+                <div class="d-flex ml-2 justify-center align-center">
+                  <v-icon class="white--text">mdi-floor-plan</v-icon>
+                  <span style="color: orange" class="ml-1">Floor - 1 </span>
+                </div>
+                <v-spacer></v-spacer>
+                <div class="d-flex mr-9 justify-center align-center">
+                  <v-icon class="white--text">mdi-bed</v-icon>
+                  <span style="color: orange" class="ml-1">Room - 1 </span>
+                </div>
               </div>
-              <v-spacer></v-spacer>
-              <div class="d-flex mr-9 justify-center align-center">
-                <v-icon class="white--text">mdi-bed</v-icon>
-                <span style="color: orange" class="ml-1">Room - 1 </span>
+
+              <div class="d-flex mt-1" style="font-size: 12px">
+                <div class="d-flex ml-2 justify-center align-center">
+                  <v-icon class="white--text">mdi-slot-machine</v-icon>
+                  <span class="ml-1">{{
+                    patient?.mac_address_framed.toUpperCase()
+                  }}</span>
+                </div>
+                <v-spacer></v-spacer>
+                <div class="d-flex mr-3 justify-center align-center">
+                  <v-icon class="white--text">mdi-battery</v-icon>
+                  <span class="ml-1">114Hrs 45 Min</span>
+                </div>
               </div>
-            </div>
 
-            <div class="d-flex mt-1" style="font-size: 12px">
-              <div class="d-flex ml-2 justify-center align-center">
-                <v-icon class="white--text">mdi-slot-machine</v-icon>
-                <span class="ml-1">{{
-                  patient?.mac_address_framed.toUpperCase()
-                }}</span>
+              <div class="mt-5 d-flex">
+                <v-card class="elevation-1" color="black" style="width: 50%">
+                  <div class="d-flex align-center ml-1">
+                    <v-img
+                      class="mr-3"
+                      src="https://accu.live/images/doctor_dashboard/heartbeat.svg"
+                      height="20"
+                      contain
+                    ></v-img>
+                    <div class="d-flex mr-9" style="flex-direction: column">
+                      <h5 class="green--text">74</h5>
+                      <small class="white--text">>120-30 c1</small>
+                    </div>
+                  </div>
+                </v-card>
+
+                <v-card
+                  class="elevation-1 ml-3"
+                  color="black"
+                  style="width: 50%"
+                >
+                  <div class="d-flex align-center ml-1">
+                    <v-img
+                      class="mr-3"
+                      src="https://accu.live/images/doctor_dashboard/doc-oxi.svg"
+                      height="25"
+                      contain
+                    ></v-img>
+                    <div
+                      class="d-flex ml-2 mr-16"
+                      style="flex-direction: column"
+                    >
+                      <h5 class="yellow--text">98</h5>
+                      <small class="white--text">Good</small>
+                    </div>
+                  </div>
+                </v-card>
               </div>
-              <v-spacer></v-spacer>
-              <div class="d-flex mr-3 justify-center align-center">
-                <v-icon class="white--text">mdi-battery</v-icon>
-                <span class="ml-1">114Hrs 45 Min</span>
+
+              <div class="mt-5 d-flex">
+                <v-card class="elevation-1" color="black" style="width: 50%">
+                  <div class="d-flex align-center ml-1">
+                    <v-img
+                      class="mr-8"
+                      src="https://accu.live/images/doctor_dashboard/doc-lunghs.svg"
+                      height="25"
+                      contain
+                    ></v-img>
+                    <div class="d-flex mr-16" style="flex-direction: column">
+                      <h5 class="purple--text">16</h5>
+                      <small class="white--text">C1</small>
+                    </div>
+                  </div>
+                </v-card>
+
+                <v-card
+                  class="elevation-1 ml-3"
+                  color="black"
+                  style="width: 50%"
+                >
+                  <div class="d-flex align-center ml-1">
+                    <v-img
+                      class="ml-2"
+                      src="https://accu.live/images/doctor_dashboard/oxi-meter.svg"
+                      height="25"
+                      contain
+                    ></v-img>
+                    <div
+                      class="d-flex ml-2 mr-12"
+                      style="flex-direction: column"
+                    >
+                      <h5 class="cyan--text">120/85</h5>
+                      <small class="white--text">6 hours ago</small>
+                    </div>
+                  </div>
+                </v-card>
               </div>
-            </div>
 
-            <div class="mt-5 d-flex">
-              <v-card class="elevation-1" color="black" style="width: 50%">
-                <div class="d-flex align-center ml-1">
-                  <v-img
-                    class="mr-3"
-                    src="https://accu.live/images/doctor_dashboard/heartbeat.svg"
-                    height="20"
-                    contain
-                  ></v-img>
-                  <div class="d-flex mr-9" style="flex-direction: column">
-                    <h5 class="green--text">74</h5>
-                    <small class="white--text">>120-30 c1</small>
+              <div class="mt-5 d-flex">
+                <v-card class="elevation-1" color="black" style="width: 50%">
+                  <div class="d-flex align-center ml-1">
+                    <v-img
+                      class="mr-5"
+                      src="https://accu.live/images/doctor_dashboard/temprature.svg"
+                      height="30"
+                      contain
+                    ></v-img>
+                    <div class="d-flex mr-8" style="flex-direction: column">
+                      <h5 class="red--text">98.7<sup>F</sup></h5>
+                      <small class="white--text">>120-30 C1</small>
+                    </div>
                   </div>
-                </div>
-              </v-card>
+                </v-card>
 
-              <v-card class="elevation-1 ml-3" color="black" style="width: 50%">
-                <div class="d-flex align-center ml-1">
-                  <v-img
-                    class="mr-3"
-                    src="https://accu.live/images/doctor_dashboard/doc-oxi.svg"
-                    height="25"
-                    contain
-                  ></v-img>
-                  <div class="d-flex ml-2 mr-16" style="flex-direction: column">
-                    <h5 class="yellow--text">98</h5>
-                    <small class="white--text">Good</small>
+                <v-card
+                  class="elevation-1 ml-3"
+                  color="black"
+                  style="width: 50%"
+                >
+                  <div class="d-flex align-center ml-1">
+                    <v-img
+                      class="ml-2"
+                      src="https://accu.live/images/doctor_dashboard/doc-step.svg"
+                      height="30"
+                      contain
+                    ></v-img>
+                    <div
+                      class="d-flex ml-2 mr-16"
+                      style="flex-direction: column"
+                    >
+                      <h5 class="pink--text">10000</h5>
+                      <small class="white--text">Steps</small>
+                    </div>
                   </div>
-                </div>
-              </v-card>
-            </div>
-
-            <div class="mt-5 d-flex">
-              <v-card class="elevation-1" color="black" style="width: 50%">
-                <div class="d-flex align-center ml-1">
-                  <v-img
-                    class="mr-8"
-                    src="https://accu.live/images/doctor_dashboard/doc-lunghs.svg"
-                    height="25"
-                    contain
-                  ></v-img>
-                  <div class="d-flex mr-16" style="flex-direction: column">
-                    <h5 class="purple--text">16</h5>
-                    <small class="white--text">C1</small>
-                  </div>
-                </div>
-              </v-card>
-
-              <v-card class="elevation-1 ml-3" color="black" style="width: 50%">
-                <div class="d-flex align-center ml-1">
-                  <v-img
-                    class="ml-2"
-                    src="https://accu.live/images/doctor_dashboard/oxi-meter.svg"
-                    height="25"
-                    contain
-                  ></v-img>
-                  <div class="d-flex ml-2 mr-12" style="flex-direction: column">
-                    <h5 class="cyan--text">120/85</h5>
-                    <small class="white--text">6 hours ago</small>
-                  </div>
-                </div>
-              </v-card>
-            </div>
-
-            <div class="mt-5 d-flex">
-              <v-card class="elevation-1" color="black" style="width: 50%">
-                <div class="d-flex align-center ml-1">
-                  <v-img
-                    class="mr-5"
-                    src="https://accu.live/images/doctor_dashboard/temprature.svg"
-                    height="30"
-                    contain
-                  ></v-img>
-                  <div class="d-flex mr-8" style="flex-direction: column">
-                    <h5 class="red--text">98.7<sup>F</sup></h5>
-                    <small class="white--text">>120-30 C1</small>
-                  </div>
-                </div>
-              </v-card>
-
-              <v-card class="elevation-1 ml-3" color="black" style="width: 50%">
-                <div class="d-flex align-center ml-1">
-                  <v-img
-                    class="ml-2"
-                    src="https://accu.live/images/doctor_dashboard/doc-step.svg"
-                    height="30"
-                    contain
-                  ></v-img>
-                  <div class="d-flex ml-2 mr-16" style="flex-direction: column">
-                    <h5 class="pink--text">10000</h5>
-                    <small class="white--text">Steps</small>
-                  </div>
-                </div>
-              </v-card>
-            </div>
-          </v-card>
-        </v-flex>
-      </v-layout>
-    </div>
-  </v-container>
+                </v-card>
+              </div>
+            </v-card>
+          </v-flex>
+        </v-layout>
+      </div>
+    </v-container>
+  </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
 import SearchBar from "@/components/SearchBar.vue";
+import PageHeader from "@/layouts/PageHeader.vue";
 export default {
   name: "HomeView",
   data() {
@@ -195,7 +222,7 @@ export default {
       this.getPatientsForDoctor(this.getDoctorId);
     }
   },
-  components: { SearchBar },
+  components: { SearchBar, PageHeader },
 };
 </script>
 

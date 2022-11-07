@@ -1,28 +1,23 @@
 <template>
   <v-app>
-    <v-app-bar app color="grey" class="white--text">
-      <v-app-bar-nav-icon
-        @click="drawer = !drawer"
-        class="white--text"
-      ></v-app-bar-nav-icon>
+    <!-- <v-app-bar app color="grey" class="white--text">
       <v-toolbar-title @click="$router.push('/')" style="cursor: pointer">
-        <v-img
-          src="https://accu.live/images/logo.svg"
-          @click="$router.push('/')"
-          height="30"
-          style="cursor: pointer"
-          contain
-        >
-        </v-img>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn class="success" @click="$router.push('/login')" v-if="!getUserId">
         Login
       </v-btn>
       <v-btn class="warning" @click="logOut" v-else> Logout </v-btn>
-    </v-app-bar>
+    </v-app-bar> -->
 
-    <v-navigation-drawer app v-model="drawer" temporary>
+    <v-navigation-drawer
+      app
+      v-model="drawer"
+      dark
+      permanent
+      mobile-breakpoint="900"
+      width="10%"
+    >
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="text-h6 mb-4 mt-4">
@@ -58,12 +53,24 @@
             class="item__container"
             @click="$router.push('/user-management')"
           >
-            <v-list-item-icon style="margin-left: 44px">
+            <v-list-item-icon style="margin-left: 40px">
               <v-icon>mdi-account-box</v-icon>
             </v-list-item-icon>
 
             <v-list-item-content>
               <v-list-item-title>User Management</v-list-item-title>
+            </v-list-item-content>
+          </div>
+        </v-list-item>
+
+        <v-list-item link>
+          <div class="item__container" @click="logOut">
+            <v-list-item-icon style="margin-left: 40px">
+              <v-icon>mdi-logout</v-icon>
+            </v-list-item-icon>
+
+            <v-list-item-content>
+              <v-list-item-title>Logout</v-list-item-title>
             </v-list-item-content>
           </div>
         </v-list-item>
@@ -99,6 +106,10 @@ export default {
   computed: {
     ...mapState("users", ["user"]),
     ...mapGetters("users", ["isLoggedIn", "getRole"]),
+    // getBreakPoint() {
+    //   console.log("name--", this.$vuetify.breakpoint.xs);
+    //   return this.$vuetify.breakpoint.xs;
+    // },
   },
   methods: {
     ...mapActions("users", ["logoutUser"]),
