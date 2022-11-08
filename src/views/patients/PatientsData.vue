@@ -7,72 +7,73 @@
       color-name="warning"
     />
     <br />
-    <v-container style="background-color: #282934" fluid>
-      <v-progress-circular
-        indeterminate
-        color="pink"
-        v-if="loadingStatus"
-      ></v-progress-circular>
-      <v-container fluid grid-list-md v-else>
-        <v-layout
-          row
-          wrap
-          v-for="patient in getAllPatientsOnly"
-          :key="patient.id"
-        >
-          <v-flex d-flex xs12 sm12 md12>
-            <v-card dark class="ml-2 mb-2 pa-2" style="width: 100%">
-              <div class="d-flex align-center justify-space-between">
-                <div class="d-flex justify-center align-center">
-                  <div>
-                    <v-img src="https://accu.live/images/user_logo.png"></v-img>
-                  </div>
-                  <div
-                    class="d-flex flex-column justify-center text-start align-center ml-3"
-                    style="width: 100%"
+    <v-container fluid grid-list-md>
+      <v-layout
+        row
+        wrap
+        v-for="patient in getAllPatientsOnly"
+        :key="patient.id"
+      >
+        <v-flex d-flex xs12 sm12 md12>
+          <v-card
+            color="#1E1E1E"
+            class="ml-2 mb-2 pa-2 white--text"
+            style="width: 100%"
+          >
+            <div class="d-flex mb-3 align-center justify-space-between">
+              <div class="d-flex align-center justify-start">
+                <v-img
+                  src="https://accu.live/images/author-image.png"
+                  class="ml-4"
+                  contain
+                  height="70"
+                ></v-img>
+                <div class="d-flex flex-column ml-3">
+                  <small class="font-weight-bold text-start"
+                    >Patient Name</small
                   >
-                    <span class="text-start">Patient Name</span>
-                    <h2>
-                      {{ getFullName(patient?.firstName, patient?.lastName) }}
-                    </h2>
-                  </div>
-                </div>
-
-                <div>
-                  <span>Room Number</span>
-                  <h2>001</h2>
-                </div>
-
-                <div>
-                  <span>Floor Number</span>
-                  <h2>001</h2>
-                </div>
-
-                <div>
-                  <span>Phone Number</span>
-                  <h3>{{ patient?.mobileNo }}</h3>
-                </div>
-
-                <div>
-                  <span>Patient Status</span>
-                  <h3 style="color: green">Hospitalized</h3>
-                </div>
-
-                <div>
-                  <v-icon
-                    color="warning"
-                    class="mr-3"
-                    @click="$router.push(`/patients/patient/${patient.id}`)"
-                    >mdi-eye</v-icon
-                  >
-                  <v-icon color="info" class="mr-2">mdi-pencil</v-icon>
-                  <v-icon color="red" class="mr-2">mdi-delete</v-icon>
+                  <h3 class="text-start text-h5">
+                    {{ getFullName(patient?.firstName, patient?.lastName) }}
+                  </h3>
                 </div>
               </div>
-            </v-card>
-          </v-flex>
-        </v-layout>
-      </v-container>
+              <v-spacer></v-spacer>
+              <div class="d-flex flex-column" style="width: 16%">
+                <small class="font-weight-bold text-start">Room Number</small>
+                <h3 class="text-start text-h5">001</h3>
+              </div>
+
+              <div class="d-flex flex-column" style="width: 16%">
+                <small class="font-weight-bold text-start">Floor Number</small>
+                <h3 class="text-start text-h5">001</h3>
+              </div>
+
+              <div class="d-flex flex-column" style="width: 16%">
+                <small class="font-weight-bold text-start">Phone Number</small>
+                <h3 class="text-start text-h5">{{ patient?.mobileNo }}</h3>
+              </div>
+
+              <div class="d-flex flex-column" style="width: 16%">
+                <small class="font-weight-bold text-start"
+                  >Patient Status</small
+                >
+                <h3 class="text-start text-h5 info--text">Hospitalized</h3>
+              </div>
+
+              <div class="d-flex" style="width: 10%">
+                <v-icon
+                  color="warning"
+                  class="mr-3"
+                  @click="$router.push(`/patients/patient/${patient.id}`)"
+                  >mdi-eye</v-icon
+                >
+                <v-icon color="info" class="mr-2">mdi-pencil</v-icon>
+                <v-icon color="red" class="mr-2">mdi-delete</v-icon>
+              </div>
+            </div>
+          </v-card>
+        </v-flex>
+      </v-layout>
     </v-container>
   </div>
 </template>
@@ -93,7 +94,13 @@ export default {
   methods: {
     ...mapActions("doctors", ["getAllPatientsData"]),
     getFullName(s1, s2) {
-      return s1 + " " + s2;
+      return (
+        s1.charAt(0).toUpperCase() +
+        s1.slice(1) +
+        " " +
+        s2.charAt(0).toUpperCase() +
+        s2.slice(1)
+      );
     },
   },
   mounted() {

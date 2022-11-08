@@ -162,7 +162,9 @@
             class="ml-2 mb-2 pa-2 white--text"
             style="width: 100%"
           >
-            <v-card-title class="warning--text">Emegency Contacts</v-card-title>
+            <v-card-title class="warning--text"
+              >Emergency Contacts</v-card-title
+            >
             <div class="d-flex mb-3">
               <div class="d-flex align-center">
                 <v-img
