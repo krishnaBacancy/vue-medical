@@ -1,15 +1,18 @@
 <template>
   <v-app>
-    <SideBar />
+    <SideBar v-if="$route.path !== '/login'" />
+    <UserLogin v-if="$route.path === '/login'" />
   </v-app>
 </template>
 
 <script>
 import SideBar from "./layouts/SideBar.vue";
+import UserLogin from "./views/user/UserLogin.vue";
 export default {
   name: "App",
   components: {
     SideBar,
+    UserLogin,
   },
 };
 </script>
