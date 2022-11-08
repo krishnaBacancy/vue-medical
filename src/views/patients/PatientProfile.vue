@@ -37,7 +37,9 @@
                     getSinglePatientData[0]?.lastName.slice(1)
                   }}
                 </h3>
-                <h5>+ {{ getSinglePatientData[0]?.mobileNo }}</h5>
+                <h4 class="text-start">
+                  + {{ getSinglePatientData[0]?.mobileNo }}
+                </h4>
               </div>
             </div>
             <v-spacer></v-spacer>
