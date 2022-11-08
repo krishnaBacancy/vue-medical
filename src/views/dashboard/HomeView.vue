@@ -71,15 +71,23 @@
               </div>
 
               <div class="mt-5 d-flex">
-                <v-card class="elevation-1" color="black" style="width: 50%">
-                  <div class="d-flex align-center ml-1">
+                <v-card
+                  class="elevation-1"
+                  height="50"
+                  color="black"
+                  style="width: 50%"
+                >
+                  <div class="d-flex align-center ml-2">
                     <v-img
-                      class="mr-3"
+                      class="mr-3 mt-2"
                       src="https://accu.live/images/doctor_dashboard/heartbeat.svg"
                       height="20"
                       contain
                     ></v-img>
-                    <div class="d-flex mr-9" style="flex-direction: column">
+                    <div
+                      class="d-flex mr-7 mt-1"
+                      style="flex-direction: column"
+                    >
                       <h5 class="green--text">74</h5>
                       <small class="white--text">>120-30 c1</small>
                     </div>
@@ -90,16 +98,17 @@
                   class="elevation-1 ml-3"
                   color="black"
                   style="width: 50%"
+                  height="50"
                 >
-                  <div class="d-flex align-center ml-1">
+                  <div class="d-flex align-center ml-2">
                     <v-img
-                      class="mr-3"
+                      class="mr-3 mt-2"
                       src="https://accu.live/images/doctor_dashboard/doc-oxi.svg"
                       height="25"
                       contain
                     ></v-img>
                     <div
-                      class="d-flex ml-2 mr-16"
+                      class="d-flex ml-2 mr-15 mt-2"
                       style="flex-direction: column"
                     >
                       <h5 class="yellow--text">98</h5>
@@ -110,12 +119,12 @@
               </div>
 
               <div class="mt-5 d-flex">
-                <v-card class="elevation-1" color="black" style="width: 50%">
-                  <div class="d-flex align-center ml-1">
+                <v-card class="elevation-1" height="50" color="black">
+                  <div class="d-flex align-center ml-3">
                     <v-img
                       class="mr-8"
                       src="https://accu.live/images/doctor_dashboard/doc-lunghs.svg"
-                      height="25"
+                      height="50"
                       contain
                     ></v-img>
                     <div class="d-flex mr-16" style="flex-direction: column">
@@ -129,6 +138,7 @@
                   class="elevation-1 ml-3"
                   color="black"
                   style="width: 50%"
+                  height="50"
                 >
                   <div class="d-flex align-center ml-1">
                     <v-img
@@ -149,8 +159,13 @@
               </div>
 
               <div class="mt-5 d-flex">
-                <v-card class="elevation-1" color="black" style="width: 50%">
-                  <div class="d-flex align-center ml-1">
+                <v-card
+                  class="elevation-1"
+                  height="50"
+                  color="black"
+                  style="width: 50%"
+                >
+                  <div class="d-flex align-center ml-3">
                     <v-img
                       class="mr-5"
                       src="https://accu.live/images/doctor_dashboard/temprature.svg"
@@ -168,16 +183,17 @@
                   class="elevation-1 ml-3"
                   color="black"
                   style="width: 50%"
+                  height="50"
                 >
                   <div class="d-flex align-center ml-1">
                     <v-img
-                      class="ml-2"
+                      class="ml-2 mt-1"
                       src="https://accu.live/images/doctor_dashboard/doc-step.svg"
-                      height="30"
+                      height="40"
                       contain
                     ></v-img>
                     <div
-                      class="d-flex ml-2 mr-16"
+                      class="d-flex ml-5 mr-16 mt-1"
                       style="flex-direction: column"
                     >
                       <h5 class="pink--text">10000</h5>

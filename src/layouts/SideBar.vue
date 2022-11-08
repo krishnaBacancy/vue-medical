@@ -10,14 +10,7 @@
       <v-btn class="warning" @click="logOut" v-else> Logout </v-btn>
     </v-app-bar> -->
 
-    <v-navigation-drawer
-      app
-      v-model="drawer"
-      dark
-      permanent
-      mobile-breakpoint="900"
-      width="10%"
-    >
+    <v-navigation-drawer app v-model="drawer" dark permanent width="10%">
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="text-h6 mb-4 mt-4">
@@ -78,13 +71,7 @@
     </v-navigation-drawer>
 
     <v-main>
-      <v-container
-        class="grey lighten-4 pa-5"
-        style="background-color: #212529"
-        fluid
-      >
-        <router-view />
-      </v-container>
+      <router-view />
     </v-main>
   </v-app>
 </template>

@@ -500,7 +500,13 @@ export default {
   methods: {
     ...mapActions("doctors", ["getPatientsForDoctor", "getSingleDevice"]),
     getFullName(s1, s2) {
-      return s1 + " " + s2;
+      return (
+        s1.charAt(0).toUpperCase() +
+        s1.slice(1) +
+        " " +
+        s2.charAt(0).toUpperCase() +
+        s2.slice(1)
+      );
     },
     createConnection() {
       const { host, port, options } = this.connection;

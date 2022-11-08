@@ -3,8 +3,6 @@
     <PageHeader title="User Management" pageIcon="mdi-account-box" />
     <br />
     <v-container style="height: 100vh; background-color: #282934" fluid>
-      <h1 class="white--text">User Management</h1>
-      <br /><br />
       <v-col cols="12" class="py-2">
         <v-btn-toggle v-model="icon" borderless>
           <v-btn value="left" color="primary">

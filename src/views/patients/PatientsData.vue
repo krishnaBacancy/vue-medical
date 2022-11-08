@@ -1,6 +1,11 @@
 <template>
-  <div style="background-color: #282934">
-    <PageHeader title="Patients" pageIcon="mdi-account-injury" />
+  <div>
+    <PageHeader
+      title="Patients"
+      pageIcon="mdi-account-injury"
+      btnName="Add User"
+      color-name="warning"
+    />
     <br />
     <v-container style="background-color: #282934" fluid>
       <v-progress-circular
@@ -23,10 +28,10 @@
                     <v-img src="https://accu.live/images/user_logo.png"></v-img>
                   </div>
                   <div
-                    class="d-flex justify-center align-center ml-3"
-                    style="flex-direction: column"
+                    class="d-flex flex-column justify-center text-start align-center ml-3"
+                    style="width: 100%"
                   >
-                    <span>Patient Name</span>
+                    <span class="text-start">Patient Name</span>
                     <h2>
                       {{ getFullName(patient?.firstName, patient?.lastName) }}
                     </h2>
@@ -68,22 +73,6 @@
           </v-flex>
         </v-layout>
       </v-container>
-      <!-- <div v-for="patient in getAllPatientsOnly" :key="patient.id">
-      <div>
-        <CustomCard
-          cls="flex-nowrap"
-          :cols="'12'"
-          :wdh="1000"
-          :colors="'#1F7087'"
-          :title="getFullName(patient.firstName, patient.lastName)"
-          :phone="patient.mobileNo"
-          class="mt-5 card__item"
-          @goToLink="$router.push(`/patients/patient/${patient.id}`)"
-          :styles="'display: flex; justify-content: space-around'"
-        >
-        </CustomCard>
-      </div>
-    </div> -->
     </v-container>
   </div>
 </template>
@@ -91,7 +80,6 @@
 <script>
 import PageHeader from "@/layouts/PageHeader.vue";
 import { mapActions, mapGetters } from "vuex";
-// import CustomCard from "@/components/CustomCard.vue";
 export default {
   name: "PatientsData",
   data() {
@@ -113,12 +101,10 @@ export default {
       this.getAllPatientsData(this.getDoctorId);
     }
   },
-  components: { PageHeader },
+  components: {
+    PageHeader,
+  },
 };
 </script>
 
-<style scoped>
-.card__item:hover {
-  scale: 1.03;
-}
-</style>
+<style scoped></style>
