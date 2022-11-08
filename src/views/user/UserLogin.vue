@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-main>
-      <v-container class="fill-height mt-3" fluid>
+      <v-container class="fill-height mt-3" fluid style="height: 100vh">
         <v-row justify="center">
           <v-col cols="12" sm="8" md="8" lg="10">
             <v-card class="elevation-12">
@@ -93,123 +93,10 @@
       </v-container>
     </v-main>
   </v-app>
-  <!-- <v-app>
-    <v-main>
-      <v-container fluid grid-list-md class="mt-10">
-        <v-layout row wrap>
-          <v-flex>
-            <div class="d-flex white--text align-center justify-center">
-              <div
-                class="d-sm-flex flex-column d-none"
-                style="width: 30%; background-color"
-              >
-                <v-flex d-flex xs12 sm10 md8 lg8>
-                  <h2 style="text-align: start">Sneak Peek Into Health</h2>
-                </v-flex>
-                <v-flex d-flex xs12 sm10 md8>
-                  <p style="text-align: start">
-                    Get access to essential health data that aids in taking
-                    crucial decisions for life. Track vital information in a
-                    graphical view and hasten the next step.
-                  </p>
-                </v-flex>
-
-                <div class="d-flex" style="background-color: green">
-                  <div class="">
-                    <v-img
-                      src="https://accu.live/images/Heart-hand.png"
-                      contain
-                      height="100"
-                    ></v-img>
-                  </div>
-                  <div class="ml-2">
-                    <v-img
-                      src="https://accu.live/images/Shild.png"
-                      contain
-                      height="100"
-                    ></v-img>
-                  </div>
-                  <div class="ml-2">
-                    <v-img
-                      src="https://accu.live/images/watch.png"
-                      contain
-                      height="100"
-                    ></v-img>
-                  </div>
-                </div>
-              </div>
-
-              <div class="d-md-none d-lg-flex d-sm-none d-xs-flex second__div">
-                <v-flex d-flex xs12 sm12 md6 lg6>
-                  <v-img
-                    src="https://accu.live/images/Fan.png"
-                    contain
-                    height="300"
-                  ></v-img>
-                </v-flex>
-              </div>
-
-              <div style="width: 30%">
-                <v-flex d-flex xs12 sm12 md6 lg6>
-                  <v-img
-                    src="https://accu.live/images/Fan.png"
-                    contain
-                    height="300"
-                  ></v-img>
-                </v-flex>
-              </div>
-              <v-card class="elevation-12">
-                <v-toolbar dark color="primary">
-                  <v-toolbar-title>Login form</v-toolbar-title>
-                </v-toolbar>
-                <v-card-text>
-                  <form ref="form" @submit.prevent="login">
-                    <v-text-field
-                      prepend-icon="mdi-email"
-                      v-model="email"
-                      name="email"
-                      label="Email"
-                      type="email"
-                      :rules="emailRules"
-                      placeholder="email"
-                      required
-                    ></v-text-field>
-
-                    <v-text-field
-                      prepend-icon="mdi-lock"
-                      :append-icon="showPassIcon ? 'mdi-eye' : 'mdi-eye-off'"
-                      :type="showPassIcon ? 'text' : 'password'"
-                      v-model="password"
-                      name="password"
-                      label="Password"
-                      hint="At least 6 characters"
-                      placeholder="password"
-                      required
-                      @click:append="showPassIcon = !showPassIcon"
-                    ></v-text-field>
-
-                    <div class="red--text">{{ errorMessage }}</div>
-                    <v-btn
-                      type="submit"
-                      class="mt-4"
-                      color="primary"
-                      value="log in"
-                      >{{ stateObj.login.name }}</v-btn
-                    >
-                  </form>
-                </v-card-text>
-              </v-card>
-            </div>
-          </v-flex>
-        </v-layout>
-      </v-container>
-    </v-main>
-  </v-app> -->
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-// import user from "../../api/login";
 export default {
   name: "UserLogin",
   data() {
@@ -235,16 +122,6 @@ export default {
   },
   methods: {
     ...mapActions("users", ["loginUser"]),
-    // async login() {
-    //   const data = {
-    //     email: this.email,
-    //     password: this.password,
-    //   };
-    //   let res = await user.loginApi(data);
-    //   if (res?.data?.data) {
-    //     this.$router.push({ path: "/" });
-    //   }
-    // },
     login() {
       const data = {
         email: this.email,
