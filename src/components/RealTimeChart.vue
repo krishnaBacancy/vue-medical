@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 100%; overflow-x: auto">
+  <div style="width: 100%" class="main__div">
     <div
       :style="{
         width: [...Array(80).keys()].length * 10 + 'px',
@@ -121,13 +121,13 @@ export default {
         labels: [...Array(2000).keys()],
         datasets: [
           {
-            label: "2018 Sales",
+            label: "PPG",
             // data: fileData.ppg_vals,
             data: this.ppgDatasets,
             borderColor: "red",
             hoverBorderColor: "red",
             tension: 0.4,
-            borderWidth: 1,
+            borderWidth: 3,
             fill: false,
             pointRadius: 0.1,
             categoryPercentage: 1.5,
@@ -196,4 +196,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.main__div:hover {
+  overflow-x: auto;
+}
+</style>

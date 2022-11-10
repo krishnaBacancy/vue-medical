@@ -1,12 +1,12 @@
 <template>
   <div style="width: 100%; overflow-x: auto">
     <!-- <div
-      :style="{
-        width: [...Array(80).keys()].length * 10 + 'px',
-      }"
-      style="overflow: hidden"
-    > -->
-    <Bar
+        :style="{
+          width: [...Array(80).keys()].length * 10 + 'px',
+        }"
+        style="overflow: hidden"
+      > -->
+    <LineChart
       :chart-options="chartOptions"
       :chart-data="chartData"
       :chart-id="chartId"
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { Bar } from "vue-chartjs/legacy";
+import { Line as LineChart } from "vue-chartjs/legacy";
 import {
   Chart as ChartJS,
   Title,
@@ -31,14 +31,26 @@ import {
   Legend,
   BarElement,
   CategoryScale,
+  LinearScale,
+  LineElement,
+  PointElement,
 } from "chart.js";
 // import { fileData } from "@/views/testData";
 
-ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale);
+ChartJS.register(
+  Title,
+  Tooltip,
+  Legend,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  LineElement,
+  PointElement
+);
 
 export default {
-  name: "BarChart",
-  components: { Bar },
+  name: "AreaChart",
+  components: { LineChart },
   props: {
     chartId: {
       type: String,
@@ -84,7 +96,7 @@ export default {
             data: this.dataOfChart,
             borderColor: "red",
             hoverBorderColor: "pink",
-            // tension: 0.4,
+            tension: 0.4,
             borderWidth: 1,
             fill: 1,
             // pointRadius: 0.1,

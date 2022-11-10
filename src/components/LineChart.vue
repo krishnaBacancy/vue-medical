@@ -1,10 +1,10 @@
 <template>
-  <div style="width: 100%; overflow-x: auto">
+  <div style="width: 100%" class="main__div">
     <div
+      style="overflow: hidden"
       :style="{
         width: [...Array(80).keys()].length * 10 + 'px',
       }"
-      style="overflow: hidden"
     >
       <!-- <div style="overflow: hidden"> -->
       <canvas
@@ -120,7 +120,7 @@ export default {
         labels: [...Array(2000).keys()],
         datasets: [
           {
-            label: "2018 Sales",
+            label: "ECG",
             // data: fileData.ecg_vals,
             data: this.chartData,
             // data: this.ecgData,
@@ -128,7 +128,7 @@ export default {
             borderColor: "red",
             hoverBorderColor: "red",
             tension: 0.4,
-            borderWidth: 1,
+            borderWidth: 3,
             fill: false,
             pointRadius: 0.1,
             categoryPercentage: 1.5,
@@ -322,4 +322,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.main__div:hover {
+  overflow-x: auto;
+}
+</style>

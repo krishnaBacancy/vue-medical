@@ -1,6 +1,6 @@
 <template>
   <div style="background-color: #282934">
-    <PageHeader title="Patient Details" pageIcon="" />
+    <PageHeader title="Patient Details" pageIcon="mdi-account-box" />
     <br />
     <div class="white--text">
       <v-progress-circular
@@ -26,20 +26,12 @@
             - {{ getSingleDeviceData[0]?.macAddressFramed.toUpperCase() }}
           </h3>
           <v-spacer></v-spacer>
-          <h3 class="mr-3">Floor - 2</h3>
-          <h3 class="mr-3">Room - 205</h3>
           <h3 class="mr-3">0073fa</h3>
           <h3 class="mr-3">114Hrs 45Min</h3>
           <v-spacer></v-spacer>
           <div class="d-flex align-center justify-center mr-7">
-            <h3>Device Status</h3>
-            <v-switch
-              v-model="deviceStatus"
-              color="success"
-              value="success"
-              hide-details
-              class="ml-3 mb-5"
-            ></v-switch>
+            <h3 class="mr-5">Device Status</h3>
+            <v-btn outlined color="red" class="mr-2">. Live</v-btn>
           </div>
         </div>
 
@@ -50,9 +42,11 @@
                 <div class="d-flex">
                   <h3>ECG</h3>
                   <v-spacer></v-spacer>
-                  <v-btn class="mr-3" color="warning" outlined>Export</v-btn>
+                  <v-btn class="mr-3 export__btn" color="warning" outlined
+                    >Export</v-btn
+                  >
                 </div>
-                <div class="d-flex align-start">
+                <div class="d-flex align-start mt-2">
                   <div class="grid-container">
                     <!-- <HighChartTest /> -->
                     <LineChart
@@ -71,9 +65,11 @@
                 <div class="d-flex">
                   <h3>PPG</h3>
                   <v-spacer></v-spacer>
-                  <v-btn class="mr-3" color="warning" outlined>Export</v-btn>
+                  <v-btn class="mr-3 export__btn" color="warning" outlined
+                    >Export</v-btn
+                  >
                 </div>
-                <div class="d-flex align-start">
+                <div class="d-flex align-start mt-2">
                   <div class="grid-container">
                     <RealTimeChart
                       :ppgDatasets="ppgChartData"
@@ -141,7 +137,7 @@
                   ></v-img>
                   <div class="mr-16">
                     <h1>98.7</h1>
-                    <div class="d-flex" style="flex-direction: column">
+                    <div class="d-flex text-start flex-column">
                       <small>6 hours</small>
                       <small>ago</small>
                     </div>
@@ -194,7 +190,7 @@
           <v-layout row wrap>
             <v-flex d-flex xs12 sm4 md4>
               <v-card dark class="ml-2 mb-2 pa-2" style="width: 100%">
-                <div class="d-flex">
+                <div class="d-flex text-start">
                   <div>
                     <h3>Oxygen Saturation</h3>
                     <small>00:0B:57:AC:66:DA</small>
@@ -212,7 +208,7 @@
                     height="50"
                     contain
                   ></v-img>
-                  <div class="mr-16">
+                  <div class="mr-16 text-start">
                     <h1>98</h1>
                     <div class="d-flex" style="flex-direction: column">
                       <small>Streaming Mode</small>
@@ -224,7 +220,7 @@
             </v-flex>
             <v-flex d-flex xs12 sm4 md4>
               <v-card dark class="ml-2 mb-2 pa-2" style="width: 100%">
-                <div class="d-flex">
+                <div class="d-flex text-start">
                   <div>
                     <h3>Blood Pressure</h3>
                     <small>No Device Paired</small>
@@ -241,7 +237,7 @@
                     height="50"
                     contain
                   ></v-img>
-                  <div class="mr-16">
+                  <div class="mr-16 text-start">
                     <h1>118/77</h1>
                     <div class="d-flex" style="flex-direction: column">
                       <small>Manual Entry</small>
@@ -253,7 +249,7 @@
             </v-flex>
             <v-flex d-flex xs12 sm4 md4>
               <v-card dark class="ml-2 mb-2 pa-2" style="width: 100%">
-                <div class="d-flex">
+                <div class="d-flex text-start">
                   <div>
                     <h3>Weight</h3>
                     <small>No Device Paired</small>
@@ -278,7 +274,7 @@
                       height="70"
                     ></v-img>
                   </v-btn>
-                  <div>
+                  <div class="text-start">
                     <h1>61.3 kg</h1>
                     <div class="d-flex" style="flex-direction: column">
                       <small>Manual Entry</small>
@@ -305,14 +301,26 @@
                           contain
                         ></v-img>
                       </span>
-                      <div class="d-flex ml-5" style="flex-direction: column">
+                      <div
+                        class="d-flex ml-5 text-start"
+                        style="flex-direction: column"
+                      >
                         <span>Body Temperature</span>
                         <span>00:0B:57:AC:66:DA</span>
                       </div>
                     </h3>
                     <v-spacer></v-spacer>
-                    <v-btn class="mr-3" color="warning" outlined>Export</v-btn>
+                    <v-btn class="mr-3 export__btn" color="warning" outlined
+                      >Export</v-btn
+                    >
                   </div>
+                </div>
+                <div class="grid-container">
+                  <TestChart
+                    :height="200"
+                    :data-of-chart="[72, 115, 95, 130, 60, 116, 88]"
+                    :label="['12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm']"
+                  />
                 </div>
               </v-card>
             </v-flex>
@@ -329,14 +337,26 @@
                         width="40"
                         contain
                       ></v-img>
-                      <div class="d-flex ml-5" style="flex-direction: column">
+                      <div
+                        class="d-flex ml-5 text-start"
+                        style="flex-direction: column"
+                      >
                         <span>Blood Oxygen</span>
                         <span>mmHg</span>
                       </div>
                     </h3>
                     <v-spacer></v-spacer>
-                    <v-btn class="mr-3" color="warning" outlined>Export</v-btn>
+                    <v-btn class="mr-3 export__btn" color="warning" outlined
+                      >Export</v-btn
+                    >
                   </div>
+                </div>
+                <div class="grid-container">
+                  <AreaChart
+                    :height="200"
+                    :data-of-chart="[72, 115, 95, 130, 60, 116, 88]"
+                    :label="['12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm']"
+                  />
                 </div>
               </v-card>
             </v-flex>
@@ -355,14 +375,26 @@
                         width="40"
                         contain
                       ></v-img>
-                      <div class="d-flex ml-5" style="flex-direction: column">
+                      <div
+                        class="d-flex ml-5 text-start"
+                        style="flex-direction: column"
+                      >
                         <span>Heart Rate</span>
                         <span>mmHg</span>
                       </div>
                     </h3>
                     <v-spacer></v-spacer>
-                    <v-btn class="mr-3" color="warning" outlined>Export</v-btn>
+                    <v-btn class="mr-3 export__btn" color="warning" outlined
+                      >Export</v-btn
+                    >
                   </div>
+                </div>
+                <div class="grid-container">
+                  <TestChart
+                    :height="200"
+                    :data-of-chart="[72, 115, 95, 130, 60, 116, 88]"
+                    :label="['12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm']"
+                  />
                 </div>
               </v-card>
             </v-flex>
@@ -377,7 +409,10 @@
                           <v-icon dark size="40"> mdi-power-sleep </v-icon>
                         </div>
                       </span>
-                      <div class="d-flex ml-5" style="flex-direction: column">
+                      <div
+                        class="d-flex ml-5 text-start"
+                        style="flex-direction: column"
+                      >
                         <span>Sleep</span>
                         <span>Hrs/Day</span>
                       </div>
@@ -392,8 +427,17 @@
                       <span class="mr-3">6M</span>
                     </div>
                     <v-spacer></v-spacer>
-                    <v-btn class="mr-3" color="warning" outlined>Export</v-btn>
+                    <v-btn class="mr-3 export__btn" color="warning" outlined
+                      >Export</v-btn
+                    >
                   </div>
+                </div>
+                <div class="grid-container">
+                  <AreaChart
+                    :height="200"
+                    :data-of-chart="[72, 115, 95, 130, 60, 116, 88]"
+                    :label="['12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm']"
+                  />
                 </div>
               </v-card>
             </v-flex>
@@ -410,19 +454,22 @@ import mqtt from "mqtt/dist/mqtt";
 import LineChart from "../../components/LineChart.vue";
 import RealTimeChart from "@/components/RealTimeChart.vue";
 import PageHeader from "@/layouts/PageHeader.vue";
-// import HighChartTest from "@/components/HighChartTest.vue";
-// import CustomCard from "@/components/CustomCard.vue";
+// import ChartComponent from "@/components/ChartComponent.vue";
+import TestChart from "@/components/TestChart.vue";
+import AreaChart from "@/components/AreaChart.vue";
 export default {
   name: "PatientDetails",
   components: {
     LineChart,
     RealTimeChart,
     PageHeader,
+    TestChart,
+    AreaChart,
   },
   data() {
     return {
+      tempTitle: ["12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm"],
       getDoctorId: localStorage.getItem("user_id"),
-      deviceStatus: false,
       ecgChartData: [],
       ppgChartData: [],
       tempData: [],
@@ -477,6 +524,10 @@ export default {
       "loadingStatus",
       "getSingleDeviceData",
     ]),
+  },
+  unmounted() {
+    this.client.close();
+    console.log("Connection Closed");
   },
   mounted() {
     this.getSingleDevice(this.$route?.params?.id);
@@ -585,5 +636,19 @@ export default {
   flex-flow: row wrap;
   justify-content: start;
   max-width: 100%;
+}
+.grid-item {
+  background-color: lightgrey;
+  margin: auto;
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  width: 700px;
+  /* padding: 10px; */
+  /* font-size: 30px; */
+  /* text-align: center; */
+  /* min-width: 600px; */
+}
+.export__btn:hover {
+  background-color: orange;
+  color: white !important;
 }
 </style>
