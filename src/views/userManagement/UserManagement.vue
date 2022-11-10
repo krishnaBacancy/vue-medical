@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PageHeader title="User Management" pageIcon="mdi-account-box" />
+    <PageHeader title="Device List" pageIcon="mdi-devices" />
     <br />
     <v-container style="height: 100vh; background-color: #282934" fluid>
       <v-col cols="12" class="py-2">
@@ -31,7 +31,7 @@
       <div class="mt-3">
         <v-data-table
           :headers="headers"
-          :items="desserts"
+          :items="getUsersData"
           :items-per-page="5"
           class="elevation-1"
           height="350"
@@ -45,7 +45,7 @@
 <script>
 // import roles from "@/api/roles";
 import PageHeader from "@/layouts/PageHeader.vue";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   data() {
@@ -56,58 +56,21 @@ export default {
           text: "FirstName",
           align: "start",
           sortable: false,
-          value: "name",
+          value: "firstName",
         },
-        { text: "LastName", value: "calories" },
-        { text: "Email", value: "fat" },
-        { text: "Mobile", value: "carbs" },
-        { text: "Gender", value: "protein" },
-        { text: "Aadhar-Card", value: "iron" },
+        { text: "LastName", value: "lastName" },
+        { text: "Email", value: "email" },
+        { text: "Mobile", value: "mobileNo" },
+        { text: "Gender", value: "gender" },
         { text: "Address", value: "address" },
       ],
-      desserts: [
-        {
-          name: "Frozen Yogurt",
-          calories: 159,
-          fat: 6,
-          carbs: 24,
-          protein: 4,
-          iron: "1%",
-        },
-        {
-          name: "Ice cream sandwich",
-          calories: 237,
-          fat: 9,
-          carbs: 37,
-          protein: 4.3,
-          iron: "1%",
-        },
-        {
-          name: "Eclair",
-          calories: 262,
-          fat: 16,
-          carbs: 23,
-          protein: 6,
-          iron: "7%",
-        },
-        {
-          name: "Cupcake",
-          calories: 305,
-          fat: 3.7,
-          carbs: 67,
-          protein: 4.3,
-          iron: "8%",
-        },
-        {
-          name: "Gingerbread",
-          calories: 356,
-          fat: 16,
-          carbs: 49,
-          protein: 3.9,
-          iron: "16%",
-        },
-      ],
     };
+  },
+  computed: {
+    ...mapGetters("userManagement", ["getUsersData"]),
+    // getRole() {
+    //   return this.getUsersData.map()
+    // }
   },
   methods: {
     ...mapActions("userManagement", ["getAllUsers"]),

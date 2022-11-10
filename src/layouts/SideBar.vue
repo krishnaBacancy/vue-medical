@@ -29,44 +29,87 @@
       <v-divider></v-divider>
 
       <v-list dense nav>
-        <v-list-item link v-for="item in items" :key="item.title">
-          <div class="item__container" @click="$router.push(item.link)">
-            <v-list-item-icon style="margin-left: 40px">
-              <v-icon>{{ item.icon }}</v-icon>
-            </v-list-item-icon>
-
-            <v-list-item-content>
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
-            </v-list-item-content>
-          </div>
-        </v-list-item>
-
-        <v-list-item link v-if="getRole !== 'Customer'">
-          <div
-            class="item__container"
-            @click="$router.push('/user-management')"
+        <v-list-item-group color="warning">
+          <!-- <v-list-item
+            class="list__item"
+            link
+            v-for="item in items"
+            :key="item.title"
           >
-            <v-list-item-icon style="margin-left: 40px">
-              <v-icon>mdi-account-box</v-icon>
-            </v-list-item-icon>
+            <div class="item__container" @click="$router.push(item.link)">
+              <v-list-item-icon style="margin-left: 40px">
+                <v-icon>{{ item.icon }}</v-icon>
+              </v-list-item-icon>
 
-            <v-list-item-content>
-              <v-list-item-title>User Management</v-list-item-title>
-            </v-list-item-content>
-          </div>
-        </v-list-item>
+              <v-list-item-content>
+                <v-list-item-title>{{ item.title }}</v-list-item-title>
+              </v-list-item-content>
+            </div>
+          </v-list-item> -->
 
-        <v-list-item link>
-          <div class="item__container" @click="logOut">
-            <v-list-item-icon style="margin-left: 40px">
-              <v-icon>mdi-logout</v-icon>
-            </v-list-item-icon>
+          <v-list-item class="list__item" link>
+            <div class="item__container" @click="goToLink('/')">
+              <v-list-item-icon style="margin-left: 40px">
+                <v-icon>mdi-view-dashboard</v-icon>
+              </v-list-item-icon>
 
-            <v-list-item-content>
-              <v-list-item-title>Logout</v-list-item-title>
-            </v-list-item-content>
-          </div>
-        </v-list-item>
+              <v-list-item-content>
+                <v-list-item-title>Dashboard</v-list-item-title>
+              </v-list-item-content>
+            </div>
+          </v-list-item>
+
+          <v-list-item class="list__item" link>
+            <div class="item__container" @click="goToLink('/patients')">
+              <v-list-item-icon style="margin-left: 40px">
+                <v-icon>mdi-account-injury</v-icon>
+              </v-list-item-icon>
+
+              <v-list-item-content>
+                <v-list-item-title>Patients</v-list-item-title>
+              </v-list-item-content>
+            </div>
+          </v-list-item>
+
+          <v-list-item class="list__item" link v-if="getRole !== 'Customer'">
+            <div
+              class="item__container"
+              @click="$router.push('/user-management')"
+            >
+              <v-list-item-icon style="margin-left: 40px">
+                <v-icon>mdi-devices</v-icon>
+              </v-list-item-icon>
+
+              <v-list-item-content>
+                <v-list-item-title>Device List</v-list-item-title>
+              </v-list-item-content>
+            </div>
+          </v-list-item>
+
+          <v-list-item class="list__item" link>
+            <div class="item__container" @click="goToLink('/settings')">
+              <v-list-item-icon style="margin-left: 40px">
+                <v-icon>mdi-cog-outline</v-icon>
+              </v-list-item-icon>
+
+              <v-list-item-content>
+                <v-list-item-title>Settings</v-list-item-title>
+              </v-list-item-content>
+            </div>
+          </v-list-item>
+
+          <v-list-item class="list__item" link>
+            <div class="item__container" @click="logOut">
+              <v-list-item-icon style="margin-left: 40px">
+                <v-icon>mdi-logout</v-icon>
+              </v-list-item-icon>
+
+              <v-list-item-content>
+                <v-list-item-title>Logout</v-list-item-title>
+              </v-list-item-content>
+            </div>
+          </v-list-item>
+        </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
 
@@ -105,6 +148,9 @@ export default {
       this.$router.push("/login");
       this.$toast.success("Logout successful", { timeout: 3000 });
     },
+    goToLink(path) {
+      this.$router.push(path);
+    },
   },
 };
 </script>
@@ -116,5 +162,8 @@ export default {
   margin-left: auto;
   margin-right: auto;
   padding: 10px;
+}
+.list__item:hover {
+  background-color: green;
 }
 </style>

@@ -18,6 +18,7 @@
             sm6
             md4
             lg3
+            xl2
             v-for="patient in getPatients"
             :key="patient._id"
           >
@@ -205,6 +206,10 @@
             </v-card>
           </v-flex>
         </v-layout>
+      </div>
+
+      <div v-if="getPatients.length === 0" class="white--text display-1">
+        No Patients to display...
       </div>
     </v-container>
   </div>

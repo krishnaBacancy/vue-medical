@@ -3,8 +3,9 @@
     <PageHeader
       title="Patients"
       pageIcon="mdi-account-injury"
-      btnName="Add User"
+      btnName="Add"
       color-name="warning"
+      btnIconName="mdi-account-plus"
     />
     <br />
     <v-container fluid grid-list-md>
@@ -20,7 +21,9 @@
             class="ml-2 mb-2 pa-2 white--text"
             style="width: 100%"
           >
-            <div class="d-flex mb-3 align-center justify-space-between">
+            <div
+              class="d-flex mb-3 d-sm-flex flex-md-row flex-sm-column align-center justify-space-between"
+            >
               <div class="d-flex align-center justify-start">
                 <v-img
                   src="https://accu.live/images/author-image.png"

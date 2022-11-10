@@ -4,15 +4,17 @@
       <v-flex d-flex xs12 sm12 md12>
         <v-card></v-card>
         <v-icon class="white--text ml-4">{{ pageIcon }}</v-icon>
-        <div class="d-flex justify-space-around" style="width: 100%">
+        <div class="d-flex" style="width: 100%">
           <v-card-title class="text-h5 white--text">{{ title }}</v-card-title>
           <!-- <v-spacer></v-spacer> -->
           <v-btn
-            v-if="btnName === 'Add User'"
-            class="align-self-center"
+            class="align-self-center ml-auto mr-10"
             :color="colorName"
-            >{{ btnName }}</v-btn
+            rounded
+            v-if="btnIconName"
           >
+            <v-icon>{{ btnIconName }}</v-icon>
+          </v-btn>
         </div>
       </v-flex>
     </v-layout>
@@ -22,7 +24,7 @@
 <script>
 export default {
   name: "PageHeader",
-  props: ["title", "pageIcon", "btnName", "colorName"],
+  props: ["title", "pageIcon", "btnName", "colorName", "btnIconName"],
 };
 </script>
 
