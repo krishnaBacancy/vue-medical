@@ -8,7 +8,12 @@
       btnIconName="mdi-account-plus"
     />
     <br />
-    <v-container fluid grid-list-md>
+    <v-container
+      fluid
+      grid-list-md
+      style="background-color: rgba(0, 0, 0, 0.5)"
+      class="mb-4"
+    >
       <v-layout
         row
         wrap
@@ -17,8 +22,8 @@
       >
         <v-flex d-flex xs12 sm12 md12>
           <v-card
-            color="#1E1E1E"
-            class="ml-2 mb-2 pa-2 white--text"
+            color="#282934"
+            class="ml-2 mt-2 mb-2 pa-2 white--text"
             style="width: 100%"
           >
             <div

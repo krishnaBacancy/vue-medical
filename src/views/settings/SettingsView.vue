@@ -1,8 +1,8 @@
 <template>
-  <div style="background-color: #212529">
+  <div>
     <PageHeader title="Settings" pageIcon="mdi-cog-outline" />
     <br />
-    <v-container style="height: 100vh" fluid>
+    <v-container style="background-color: rgba(0, 0, 0, 0.3)" fluid>
       <v-layout row wrap class="pa-3">
         <v-flex d-flex xs12 sm12 md6 class="mt-sm-2 mt-2">
           <v-card

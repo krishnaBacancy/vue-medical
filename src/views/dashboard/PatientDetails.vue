@@ -2,7 +2,7 @@
   <div style="background-color: #282934">
     <PageHeader title="Patient Details" pageIcon="mdi-account-box" />
     <br />
-    <div class="white--text">
+    <div class="white--text" style="background-color: rgba(0, 0, 0, 0.5)">
       <v-progress-circular
         indeterminate
         color="amber"
@@ -97,7 +97,7 @@
                     contain
                   ></v-img>
                   <div class="mr-16">
-                    <h1>74</h1>
+                    <h1 class="success--text">74</h1>
                     <div class="d-flex" style="flex-direction: column">
                       <small>>120-30</small>
                       <small>C1</small>
@@ -116,7 +116,7 @@
                     contain
                   ></v-img>
                   <div class="mr-16">
-                    <h1>16</h1>
+                    <h1 class="info--text">16</h1>
                     <div class="d-flex" style="flex-direction: column">
                       <small>C1</small>
                     </div>
@@ -136,7 +136,7 @@
                     contain
                   ></v-img>
                   <div class="mr-16">
-                    <h1>98.7</h1>
+                    <h1 class="red--text">98.7</h1>
                     <div class="d-flex text-start flex-column">
                       <small>6 hours</small>
                       <small>ago</small>
@@ -157,7 +157,7 @@
                     contain
                   ></v-img>
                   <div class="mr-16">
-                    <h1>3000</h1>
+                    <h1 class="purple--text">3000</h1>
                     <div class="d-flex" style="flex-direction: column">
                       <small>Steps</small>
                     </div>
@@ -193,7 +193,7 @@
                 <div class="d-flex text-start">
                   <div>
                     <h3>Oxygen Saturation</h3>
-                    <small>00:0B:57:AC:66:DA</small>
+                    <small class="warning--text">00:0B:57:AC:66:DA</small>
                   </div>
                   <v-spacer></v-spacer>
                   <div>
@@ -209,7 +209,7 @@
                     contain
                   ></v-img>
                   <div class="mr-16 text-start">
-                    <h1>98</h1>
+                    <h1 class="warning--text">98</h1>
                     <div class="d-flex" style="flex-direction: column">
                       <small>Streaming Mode</small>
                       <small>%SPO2</small>
@@ -223,7 +223,7 @@
                 <div class="d-flex text-start">
                   <div>
                     <h3>Blood Pressure</h3>
-                    <small>No Device Paired</small>
+                    <small class="warning--text">No Device Paired</small>
                   </div>
                   <v-spacer></v-spacer>
                   <div>
@@ -238,7 +238,7 @@
                     contain
                   ></v-img>
                   <div class="mr-16 text-start">
-                    <h1>118/77</h1>
+                    <h1 class="cyan--text">118/77</h1>
                     <div class="d-flex" style="flex-direction: column">
                       <small>Manual Entry</small>
                       <small>mmHg</small>
@@ -252,7 +252,7 @@
                 <div class="d-flex text-start">
                   <div>
                     <h3>Weight</h3>
-                    <small>No Device Paired</small>
+                    <small class="red--text">No Device Paired</small>
                   </div>
                   <v-spacer></v-spacer>
                   <div>
@@ -275,7 +275,7 @@
                     ></v-img>
                   </v-btn>
                   <div class="text-start">
-                    <h1>61.3 kg</h1>
+                    <h1 class="red--text">61.3 kg</h1>
                     <div class="d-flex" style="flex-direction: column">
                       <small>Manual Entry</small>
                       <small>%SPO2</small>
@@ -306,7 +306,7 @@
                         style="flex-direction: column"
                       >
                         <span>Body Temperature</span>
-                        <span>00:0B:57:AC:66:DA</span>
+                        <span class="warning--text">00:0B:57:AC:66:DA</span>
                       </div>
                     </h3>
                     <v-spacer></v-spacer>
@@ -320,6 +320,7 @@
                     :height="200"
                     :data-of-chart="[72, 115, 95, 130, 60, 116, 88]"
                     :label="['12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm']"
+                    :chart-bg-color="'pink'"
                   />
                 </div>
               </v-card>
@@ -342,7 +343,7 @@
                         style="flex-direction: column"
                       >
                         <span>Blood Oxygen</span>
-                        <span>mmHg</span>
+                        <span class="warning--text">mmHg</span>
                       </div>
                     </h3>
                     <v-spacer></v-spacer>
@@ -356,6 +357,7 @@
                     :height="200"
                     :data-of-chart="[72, 115, 95, 130, 60, 116, 88]"
                     :label="['12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm']"
+                    :chart-border-color="'purple'"
                   />
                 </div>
               </v-card>
@@ -380,7 +382,7 @@
                         style="flex-direction: column"
                       >
                         <span>Heart Rate</span>
-                        <span>mmHg</span>
+                        <span class="warning--text">mmHg</span>
                       </div>
                     </h3>
                     <v-spacer></v-spacer>
@@ -394,6 +396,7 @@
                     :height="200"
                     :data-of-chart="[72, 115, 95, 130, 60, 116, 88]"
                     :label="['12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm']"
+                    :chart-bg-color="'cyan'"
                   />
                 </div>
               </v-card>
@@ -414,7 +417,7 @@
                         style="flex-direction: column"
                       >
                         <span>Sleep</span>
-                        <span>Hrs/Day</span>
+                        <span class="warning--text">Hrs/Day</span>
                       </div>
                     </h3>
                     <v-spacer></v-spacer>
@@ -434,6 +437,7 @@
                 </div>
                 <div class="grid-container">
                   <AreaChart
+                    :chart-border-color="'cyan'"
                     :height="200"
                     :data-of-chart="[72, 115, 95, 130, 60, 116, 88]"
                     :label="['12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm']"
@@ -549,14 +553,14 @@ export default {
   //   },
   // },
   methods: {
-    ...mapActions("doctors", ["getPatientsForDoctor", "getSingleDevice"]),
+    ...mapActions("doctors", ["getSingleDevice"]),
     getFullName(s1, s2) {
       return (
-        s1.charAt(0).toUpperCase() +
-        s1.slice(1) +
+        s1?.charAt(0).toUpperCase() +
+        s1?.slice(1) +
         " " +
-        s2.charAt(0).toUpperCase() +
-        s2.slice(1)
+        s2?.charAt(0).toUpperCase() +
+        s2?.slice(1)
       );
     },
     createConnection() {
@@ -575,7 +579,7 @@ export default {
         // this.client.subscribe(
         //   `BacAccuLive/${this.getPatients[0]?.mac_address_framed}/ctoa`
         // );
-        console.log("hello", this.client);
+        // console.log("hello", this.client);
         // this.client.subscribe(this.subscription.topic, () => {
         //   // if (!err) {
         //   this.client.publish(this.subscription.topic);
@@ -586,13 +590,14 @@ export default {
         console.log("Connection failed", error);
       });
       this.client.on("message", (_, message) => {
-        console.log("hi");
+        // console.log("hi");
         // this.receiveNews = this.receiveNews.concat(message);
         let data = JSON.parse(message);
         // console.log(`Message -- ${message}`);
         console.log("data--", JSON.parse(message));
         // setTimeout(() => {
         // console.log("data12121--", data);
+        // if (data?.message === "Online") {
         this.ecgChartData = data?.ecg_vals;
         this.ppgChartData = data?.ppg_vals;
         let sumEcgData = 0;
@@ -615,10 +620,14 @@ export default {
           this.showPpgChart = true;
         });
         // }, 5000);
-        console.log("ppg--", this.ppgChartData);
+        // console.log("ppg--", this.ppgChartData);
         console.log("ecg--", this.ecgChartData);
         this.client.end();
+        // }
       });
+      // setTimeout(() => {
+      //   this.client.end();
+      // }, 100000);
     },
   },
 };

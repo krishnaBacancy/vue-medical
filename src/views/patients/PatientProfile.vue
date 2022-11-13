@@ -1,8 +1,13 @@
 <template>
-  <div style="background-color: #282934">
+  <div>
     <PageHeader title="Profile Details" pageIcon="mdi-card-account-details" />
     <br />
-    <v-container fluid grid-list-md>
+    <v-container
+      fluid
+      grid-list-md
+      style="background-color: rgba(0, 0, 0, 0.5)"
+      class="mb-4"
+    >
       <v-progress-circular
         indeterminate
         color="purple"
@@ -49,12 +54,9 @@
           </div>
         </v-flex>
 
-        <br />
-        <br />
-        <br />
-        <v-flex d-flex xs12 sm12 md6>
+        <v-flex d-flex xs12 sm12 md6 class="mt-3">
           <v-card
-            color="black"
+            color="#282934"
             class="ml-2 mb-2 pa-2 white--text"
             style="width: 100%"
           >
@@ -114,9 +116,9 @@
           </v-card>
         </v-flex>
 
-        <v-flex d-flex xs12 sm12 md6>
+        <v-flex d-flex xs12 sm12 md6 class="mt-3">
           <v-card
-            color="black"
+            color="#282934"
             class="ml-2 mb-2 pa-2 white--text"
             style="width: 100%"
           >
@@ -158,7 +160,7 @@
 
         <v-flex d-flex xs12 sm12 md6>
           <v-card
-            color="black"
+            color="#282934"
             class="ml-2 mb-2 pa-2 white--text"
             style="width: 100%"
           >
@@ -198,7 +200,7 @@
 
         <v-flex d-flex xs12 sm12 md6>
           <v-card
-            color="black"
+            color="#282934"
             class="ml-2 mb-2 pa-2 white--text"
             style="width: 100%"
           >

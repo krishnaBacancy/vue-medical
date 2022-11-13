@@ -1,7 +1,7 @@
 import doctors from "../../api/doctor";
 
 const state = {
-  doctorsData: {},
+  doctorsData: [],
   patientsData: [],
   singlePatientData: [],
   singleDeviceData: [],
@@ -32,8 +32,23 @@ const mutations = {
   SET_LOADING_STATUS(state, loadingStatus) {
     state.loading = loadingStatus;
   },
-  SET_PATIENTS_FOR_DOCTOR(state, data) {
-    state.doctorsData = data.data.data.reverse();
+  SET_PATIENTS_FOR_DOCTOR(state, doctorsData) {
+    state.doctorsData = doctorsData.map((data) => {
+      return {
+        id: data._id,
+        firstName:
+          data.customerfirstName?.charAt(0).toUpperCase() +
+          data.customerfirstName?.slice(1),
+        lastName:
+          data.customerlastName?.charAt(0).toUpperCase() +
+          data.customerlastName?.slice(1),
+        doctorFirstName: data.doctorfirstName,
+        doctorLastName: data.doctorlastName,
+        macAddress: data.mac_address,
+        macAddressFramed: data.mac_address_framed.toUpperCase(),
+        name: data.name,
+      };
+    });
   },
   SET_ALL_PATIENT(state, patients) {
     state.patientsData = patients.map((patient) => {
@@ -97,7 +112,7 @@ const actions = {
   async getPatientsForDoctor({ commit }, id) {
     commit("SET_LOADING_STATUS", true);
     const res = await doctors.getAllDevicesOfDoctor(id);
-    commit("SET_PATIENTS_FOR_DOCTOR", res);
+    commit("SET_PATIENTS_FOR_DOCTOR", res.data.data);
     commit("SET_LOADING_STATUS", false);
   },
   async getAllPatientsData({ commit }, id) {

@@ -2,7 +2,7 @@
   <div>
     <PageHeader title="Device List" pageIcon="mdi-devices" />
     <br />
-    <v-container style="height: 100vh; background-color: #282934" fluid>
+    <v-container style="background-color: rgba(0, 0, 0, 0.3)" fluid>
       <v-col cols="12" class="py-2">
         <v-btn-toggle v-model="icon" borderless>
           <v-btn value="left" color="primary">
@@ -28,10 +28,10 @@
           </v-btn>
         </v-btn-toggle>
       </v-col>
-      <div class="mt-3">
+      <div class="mt-3 mb-3">
         <v-data-table
           :headers="headers"
-          :items="getUsersData"
+          :items="getPatients"
           :items-per-page="5"
           class="elevation-1"
           height="350"
@@ -51,6 +51,7 @@ export default {
   data() {
     return {
       icon: "justify",
+      getDoctorId: localStorage.getItem("user_id"),
       headers: [
         {
           text: "FirstName",
@@ -59,21 +60,18 @@ export default {
           value: "firstName",
         },
         { text: "LastName", value: "lastName" },
-        { text: "Email", value: "email" },
-        { text: "Mobile", value: "mobileNo" },
-        { text: "Gender", value: "gender" },
-        { text: "Address", value: "address" },
+        { text: "Mac Address", value: "macAddressFramed" },
       ],
     };
   },
   computed: {
-    ...mapGetters("userManagement", ["getUsersData"]),
+    ...mapGetters("doctors", ["getPatients"]),
     // getRole() {
     //   return this.getUsersData.map()
     // }
   },
   methods: {
-    ...mapActions("userManagement", ["getAllUsers"]),
+    ...mapActions("doctors", ["getPatientsForDoctor"]),
     // async getRoles() {
     //   const { data } = await roles.getAllRolesApi();
     //   console.log("data", data);
@@ -84,7 +82,7 @@ export default {
   },
   mounted() {
     // this.getRoles();
-    this.getAllUsers();
+    this.getPatientsForDoctor(this.getDoctorId);
   },
   components: { PageHeader },
 };

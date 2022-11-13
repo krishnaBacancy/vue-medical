@@ -2,7 +2,11 @@
   <div style="background-color: #282934; height: 100vh">
     <PageHeader title="Dashboard" pageIcon="mdi-home" />
     <br />
-    <v-container fluid grid-list-md style="background-color: black">
+    <v-container
+      fluid
+      grid-list-md
+      style="background-color: rgba(0, 0, 0, 0.5)"
+    >
       <v-progress-circular
         indeterminate
         color="amber"
@@ -20,25 +24,19 @@
             lg3
             xl2
             v-for="patient in getPatients"
-            :key="patient._id"
+            :key="patient.id"
           >
             <v-card
               color="#282934"
               class="ml-2 mb-2 pa-2 white--text"
               style="width: 100%"
-              @click="$router.push(`/patient-details/${patient._id}`)"
+              @click="$router.push(`/patient-details/${patient?.id}`)"
             >
               <div class="d-flex">
                 <div class="d-flex justify-center align-center">
                   <v-icon class="ml-2 white--text">mdi-account</v-icon>
                   <h3 class="ml-2">
-                    {{
-                      patient?.customerfirstName.charAt(0).toUpperCase() +
-                      patient?.customerfirstName.slice(1) +
-                      " " +
-                      patient?.customerlastName.charAt(0).toUpperCase() +
-                      patient?.customerlastName.slice(1)
-                    }}
+                    {{ patient?.firstName + " " + patient?.lastName }}
                   </h3>
                 </div>
                 <v-spacer></v-spacer>
@@ -61,7 +59,7 @@
                 <div class="d-flex ml-2 justify-center align-center">
                   <v-icon class="white--text">mdi-slot-machine</v-icon>
                   <span class="ml-1">{{
-                    patient?.mac_address_framed.toUpperCase()
+                    patient?.macAddressFramed.toUpperCase()
                   }}</span>
                 </div>
                 <v-spacer></v-spacer>
@@ -90,7 +88,7 @@
                       style="flex-direction: column"
                     >
                       <h5 class="green--text">74</h5>
-                      <small class="white--text">>120-30 c1</small>
+                      <small class="white--text">>120-30 C1</small>
                     </div>
                   </div>
                 </v-card>
@@ -109,7 +107,7 @@
                       contain
                     ></v-img>
                     <div
-                      class="d-flex ml-2 mr-15 mt-2"
+                      class="d-flex ml-2 mr-10 mt-2"
                       style="flex-direction: column"
                     >
                       <h5 class="yellow--text">98</h5>
@@ -120,7 +118,12 @@
               </div>
 
               <div class="mt-5 d-flex">
-                <v-card class="elevation-1" height="50" color="black">
+                <v-card
+                  class="elevation-1"
+                  height="50"
+                  width="135"
+                  color="black"
+                >
                   <div class="d-flex align-center ml-3">
                     <v-img
                       class="mr-8"
@@ -141,19 +144,16 @@
                   style="width: 50%"
                   height="50"
                 >
-                  <div class="d-flex align-center ml-1">
+                  <div class="d-flex align-center mt-1 ml-n1">
                     <v-img
                       class="ml-2"
                       src="https://accu.live/images/doctor_dashboard/oxi-meter.svg"
                       height="25"
                       contain
                     ></v-img>
-                    <div
-                      class="d-flex ml-2 mr-12"
-                      style="flex-direction: column"
-                    >
+                    <div class="d-flex mr-8" style="flex-direction: column">
                       <h5 class="cyan--text">120/85</h5>
-                      <small class="white--text">6 hours ago</small>
+                      <small class="white--text">6 hrs ago</small>
                     </div>
                   </div>
                 </v-card>
@@ -166,14 +166,14 @@
                   color="black"
                   style="width: 50%"
                 >
-                  <div class="d-flex align-center ml-3">
+                  <div class="d-flex align-center ml-3 mt-1">
                     <v-img
-                      class="mr-5"
+                      class="mr-5 ml-n1"
                       src="https://accu.live/images/doctor_dashboard/temprature.svg"
-                      height="30"
+                      height="25"
                       contain
                     ></v-img>
-                    <div class="d-flex mr-8" style="flex-direction: column">
+                    <div class="d-flex mr-7" style="flex-direction: column">
                       <h5 class="red--text">98.7<sup>F</sup></h5>
                       <small class="white--text">>120-30 C1</small>
                     </div>
@@ -186,15 +186,15 @@
                   style="width: 50%"
                   height="50"
                 >
-                  <div class="d-flex align-center ml-1">
+                  <div class="d-flex align-center ml-3">
                     <v-img
-                      class="ml-2 mt-1"
+                      class="mt-1"
                       src="https://accu.live/images/doctor_dashboard/doc-step.svg"
-                      height="40"
+                      height="30"
                       contain
                     ></v-img>
                     <div
-                      class="d-flex ml-5 mr-16 mt-1"
+                      class="d-flex ml-5 mr-10 mt-1"
                       style="flex-direction: column"
                     >
                       <h5 class="pink--text">10000</h5>
@@ -208,7 +208,7 @@
         </v-layout>
       </div>
 
-      <div v-if="getPatients.length === 0" class="white--text display-1">
+      <div v-if="!getPatients" class="white--text display-1">
         No Patients to display...
       </div>
     </v-container>
