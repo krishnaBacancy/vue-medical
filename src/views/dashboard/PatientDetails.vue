@@ -86,7 +86,12 @@
           <br />
           <v-layout row wrap>
             <v-flex d-flex xs12 sm12 md3>
-              <v-card dark class="ml-2 mb-2 pa-2" style="width: 100%">
+              <v-card
+                color="#282934"
+                class="ml-2 mb-2 pa-2"
+                dark
+                style="width: 100%"
+              >
                 <div
                   class="d-flex justify-xs-start justify-sm-center align-center mt-2"
                 >
@@ -107,7 +112,12 @@
               </v-card>
             </v-flex>
             <v-flex d-flex xs12 sm12 md3>
-              <v-card dark class="ml-2 mb-2 pa-2" style="width: 100%">
+              <v-card
+                dark
+                color="#282934"
+                class="ml-2 mb-2 pa-2"
+                style="width: 100%"
+              >
                 <div class="d-flex align-center ml-3 mt-2">
                   <v-img
                     class=""
@@ -125,7 +135,12 @@
               </v-card>
             </v-flex>
             <v-flex d-flex xs12 sm12 md3>
-              <v-card dark class="ml-2 mb-2 pa-2" style="width: 100%">
+              <v-card
+                color="#282934"
+                dark
+                class="ml-2 mb-2 pa-2"
+                style="width: 100%"
+              >
                 <div
                   class="d-flex justify-xs-start justify-sm-center align-center ml-3 mt-2"
                 >
@@ -146,7 +161,12 @@
               </v-card>
             </v-flex>
             <v-flex d-flex xs12 sm12 md3>
-              <v-card dark class="ml-2 mb-2 pa-2" style="width: 100%">
+              <v-card
+                color="#282934"
+                dark
+                class="ml-2 mb-2 pa-2"
+                style="width: 100%"
+              >
                 <div
                   class="d-flex justify-xs-start justify-sm-center align-center ml-3 mt-2"
                 >
@@ -168,28 +188,13 @@
           </v-layout>
 
           <v-layout row wrap>
-            <v-flex d-flex xs12 sm12 md12>
-              <v-card dark class="ml-2 mb-2 pa-2" style="width: 100%">
-                <div
-                  class="d-flex justify-xs-start justify-sm-center align-center ml-5"
-                >
-                  <div class="mr-3 ml-1">
-                    <v-icon dark size="50"> mdi-human-male </v-icon>
-                  </div>
-                  <div>
-                    <h1>Upright</h1>
-                    <div class="d-flex" style="flex-direction: column">
-                      <small>Posture</small>
-                    </div>
-                  </div>
-                </div>
-              </v-card>
-            </v-flex>
-          </v-layout>
-
-          <v-layout row wrap>
             <v-flex d-flex xs12 sm4 md4>
-              <v-card dark class="ml-2 mb-2 pa-2" style="width: 100%">
+              <v-card
+                color="#282934"
+                dark
+                class="ml-2 mb-2 pa-2"
+                style="width: 100%"
+              >
                 <div class="d-flex text-start">
                   <div>
                     <h3>Oxygen Saturation</h3>
@@ -219,7 +224,12 @@
               </v-card>
             </v-flex>
             <v-flex d-flex xs12 sm4 md4>
-              <v-card dark class="ml-2 mb-2 pa-2" style="width: 100%">
+              <v-card
+                color="#282934"
+                dark
+                class="ml-2 mb-2 pa-2"
+                style="width: 100%"
+              >
                 <div class="d-flex text-start">
                   <div>
                     <h3>Blood Pressure</h3>
@@ -248,7 +258,12 @@
               </v-card>
             </v-flex>
             <v-flex d-flex xs12 sm4 md4>
-              <v-card dark class="ml-2 mb-2 pa-2" style="width: 100%">
+              <v-card
+                color="#282934"
+                dark
+                class="ml-2 mb-2 pa-2"
+                style="width: 100%"
+              >
                 <div class="d-flex text-start">
                   <div>
                     <h3>Weight</h3>
@@ -288,7 +303,12 @@
 
           <v-layout row wrap>
             <v-flex d-flex xs12 sm12 md6>
-              <v-card dark class="ml-2 mb-2 pa-2" style="width: 100%">
+              <v-card
+                color="#282934"
+                dark
+                class="ml-2 mb-2 pa-2"
+                style="width: 100%"
+              >
                 <div>
                   <div class="d-flex justify-center align-center">
                     <h3 class="d-flex align-center mt-2">
@@ -327,7 +347,12 @@
             </v-flex>
 
             <v-flex d-flex xs12 sm12 md6>
-              <v-card dark class="ml-2 mb-2 pa-2" style="width: 100%">
+              <v-card
+                color="#282934"
+                dark
+                class="ml-2 mb-2 pa-2"
+                style="width: 100%"
+              >
                 <div>
                   <div class="d-flex justify-center align-center">
                     <h3 class="d-flex align-center mt-2">
@@ -366,7 +391,12 @@
 
           <v-layout row wrap>
             <v-flex d-flex xs12 sm12 md6>
-              <v-card dark class="ml-2 mb-2 pa-2" style="width: 100%">
+              <v-card
+                color="#282934"
+                dark
+                class="ml-2 mb-2 pa-2"
+                style="width: 100%"
+              >
                 <div>
                   <div class="d-flex justify-center align-center">
                     <h3 class="d-flex align-center mt-2">
@@ -403,7 +433,12 @@
             </v-flex>
 
             <v-flex d-flex xs12 sm12 md6>
-              <v-card dark class="ml-2 mb-2 pa-2" style="width: 100%">
+              <v-card
+                color="#282934"
+                dark
+                class="ml-2 mb-2 pa-2"
+                style="width: 100%"
+              >
                 <div>
                   <div class="d-flex justify-center align-center">
                     <h3 class="d-flex align-center mt-2">
