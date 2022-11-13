@@ -1,11 +1,6 @@
 <template>
   <div style="width: 100%" class="main__div">
-    <div
-      :style="{
-        width: [...Array(80).keys()].length * 10 + 'px',
-      }"
-      style="overflow: hidden"
-    >
+    <div style="overflow: hidden; width: 101%">
       <!-- <div style="overflow: hidden"> -->
       <canvas
         ref="myLineChart"
@@ -85,7 +80,7 @@ export default {
       // We have to move our method to a handler field
       handler() {
         // console.log("value--", val);
-        console.log("ppg--", this.ppgDatasets);
+        // console.log("ppg--", this.ppgDatasets);
         // console.log("datasets--", this.datasets);
         // console.log("chartData--", this.chartData);
       },
@@ -124,7 +119,7 @@ export default {
             label: "PPG",
             // data: fileData.ppg_vals,
             data: this.ppgDatasets,
-            borderColor: "red",
+            borderColor: "green",
             hoverBorderColor: "red",
             tension: 0.4,
             borderWidth: 3,
@@ -164,7 +159,7 @@ export default {
             offset: true,
           },
           x: {
-            // display: false,
+            display: false,
             grid: {
               display: false,
             },

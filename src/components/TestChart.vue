@@ -70,6 +70,9 @@ export default {
       type: Object,
       default: () => {},
     },
+    chartBgColor: {
+      type: String,
+    },
   },
   data() {
     return {
@@ -82,11 +85,13 @@ export default {
             // data: fileData.ecg_vals,
             // data: ["72", "115", "95", "130", "60", "116", "88"],
             data: this.dataOfChart,
-            borderColor: "red",
-            hoverBorderColor: "pink",
+            // borderColor: "red",
+            // hoverBorderColor: "pink",
             // tension: 0.4,
             borderWidth: 1,
             fill: 1,
+            barPercentage: 0.25,
+            backgroundColor: this.chartBgColor,
             // pointRadius: 0.1,
           },
         ],

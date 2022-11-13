@@ -19,7 +19,11 @@ export default {
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  /*font-family: Gilroy, Helvetica, Arial, sans-serif;*/
+  /*font-family: "Roboto Condensed", sans-serif;*/
+  /*font-family: "Poppins", sans-serif;*/
+  font-family: "Gilroy";
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

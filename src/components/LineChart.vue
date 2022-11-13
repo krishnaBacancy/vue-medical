@@ -1,11 +1,6 @@
 <template>
   <div style="width: 100%" class="main__div">
-    <div
-      style="overflow: hidden"
-      :style="{
-        width: [...Array(80).keys()].length * 10 + 'px',
-      }"
-    >
+    <div style="overflow: hidden; width: 101%">
       <!-- <div style="overflow: hidden"> -->
       <canvas
         ref="myChart"
@@ -71,15 +66,15 @@ export default {
       ecgData: [],
     };
   },
-  watch: {
-    chartData: {
-      deep: true,
-      handler(val) {
-        // this.ecgData = val;
-        console.log("chartData---", val);
-      },
-    },
-  },
+  // watch: {
+  //   chartData: {
+  //     deep: true,
+  //     // handler(val) {
+  //     //   // this.ecgData = val;
+  //     //   // console.log("chartData---", val);
+  //     // },
+  //   },
+  // },
   mounted() {
     var zero = 0;
     function adddata() {
@@ -226,6 +221,7 @@ export default {
             // min: 0,
             // max: fileData.ecg_vals.length + fileData.ecg_vals.length,
             // type: "realtime",
+            display: false,
             realtime: {
               onRefresh: (chart) => {
                 // console.log("chart--", chart);

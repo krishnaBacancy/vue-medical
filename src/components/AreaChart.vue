@@ -34,6 +34,7 @@ import {
   LinearScale,
   LineElement,
   PointElement,
+  Filler,
 } from "chart.js";
 // import { fileData } from "@/views/testData";
 
@@ -45,7 +46,8 @@ ChartJS.register(
   CategoryScale,
   LinearScale,
   LineElement,
-  PointElement
+  PointElement,
+  Filler
 );
 
 export default {
@@ -82,6 +84,12 @@ export default {
       type: Object,
       default: () => {},
     },
+    chartBorderColor: {
+      type: String,
+    },
+    chartBgColor: {
+      type: String,
+    },
   },
   data() {
     return {
@@ -94,11 +102,13 @@ export default {
             // data: fileData.ecg_vals,
             // data: ["72", "115", "95", "130", "60", "116", "88"],
             data: this.dataOfChart,
-            borderColor: "red",
-            hoverBorderColor: "pink",
+            // borderColor: "blue",
+            borderColor: this.chartBorderColor,
+            // hoverBorderColor: "pink",
             tension: 0.4,
             borderWidth: 1,
-            fill: 1,
+            fill: true,
+            backgroundColor: this.chartBgColor,
             // pointRadius: 0.1,
           },
         ],
