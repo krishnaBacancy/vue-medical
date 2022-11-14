@@ -42,6 +42,12 @@ const mutations = {
         lastName:
           data.customerlastName?.charAt(0).toUpperCase() +
           data.customerlastName?.slice(1),
+        fullName:
+          data.customerfirstName?.charAt(0).toUpperCase() +
+          data.customerfirstName?.slice(1) +
+          " " +
+          data.customerlastName?.charAt(0).toUpperCase() +
+          data.customerlastName?.slice(1),
         doctorFirstName: data.doctorfirstName,
         doctorLastName: data.doctorlastName,
         macAddress: data.mac_address,

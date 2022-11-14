@@ -10,7 +10,14 @@
       <v-btn class="warning" @click="logOut" v-else> Logout </v-btn>
     </v-app-bar> -->
 
-    <v-navigation-drawer app v-model="drawer" dark permanent width="10%">
+    <v-navigation-drawer
+      app
+      v-model="drawer"
+      color="rgba(0,0,0,0.3)"
+      permanent
+      width="10%"
+      dark
+    >
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="text-h6 mb-4 mt-4">

@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: #282934; height: 100vh">
+  <div style="background-color: #282934">
     <PageHeader title="Dashboard" pageIcon="mdi-home" />
     <br />
     <v-container

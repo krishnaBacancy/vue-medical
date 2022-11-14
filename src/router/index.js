@@ -38,6 +38,11 @@ const routes = [
     component: () => import("../views/patients/PatientsData.vue"),
   },
   {
+    path: "/add-new-patient",
+    name: "add-patient",
+    component: () => import("../views/patients/AddPatient.vue"),
+  },
+  {
     path: "/patients/patient/:id",
     name: "patient-profile",
     component: () => import("../views/patients/PatientProfile.vue"),

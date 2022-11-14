@@ -15,6 +15,7 @@
             class="align-self-center ml-auto mr-10"
             :color="colorName"
             rounded
+            @click="$emit('addNewPatient')"
             v-if="btnIconName"
           >
             <v-icon>{{ btnIconName }}</v-icon>
@@ -29,6 +30,11 @@
 export default {
   name: "PageHeader",
   props: ["title", "pageIcon", "btnName", "colorName", "btnIconName"],
+  methods: {
+    addPatient() {
+      this.$emit("addNewPatient");
+    },
+  },
 };
 </script>
 
