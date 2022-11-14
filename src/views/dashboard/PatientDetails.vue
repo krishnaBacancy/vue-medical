@@ -657,7 +657,10 @@ export default {
         // }, 5000);
         // console.log("ppg--", this.ppgChartData);
         console.log("ecg--", this.ecgChartData);
-        this.client.end();
+        // this.client.end();
+        setTimeout(() => {
+          this.client.end();
+        }, 100000);
         // }
       });
       // setTimeout(() => {

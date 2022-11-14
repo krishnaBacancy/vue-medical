@@ -6,6 +6,7 @@
       btnName="Add"
       color-name="warning"
       btnIconName="mdi-account-plus"
+      @addNewPatient="addPatient"
     />
     <br />
     <v-container
@@ -40,32 +41,32 @@
                   <small class="font-weight-bold text-start"
                     >Patient Name</small
                   >
-                  <h3 class="text-start text-h5">
+                  <h2 class="text-start">
                     {{ getFullName(patient?.firstName, patient?.lastName) }}
-                  </h3>
+                  </h2>
                 </div>
               </div>
               <v-spacer></v-spacer>
               <div class="d-flex flex-column" style="width: 16%">
                 <small class="font-weight-bold text-start">Room Number</small>
-                <h3 class="text-start text-h5">001</h3>
+                <h2 class="text-start">001</h2>
               </div>
 
               <div class="d-flex flex-column" style="width: 16%">
                 <small class="font-weight-bold text-start">Floor Number</small>
-                <h3 class="text-start text-h5">001</h3>
+                <h2 class="text-start">001</h2>
               </div>
 
               <div class="d-flex flex-column" style="width: 16%">
                 <small class="font-weight-bold text-start">Phone Number</small>
-                <h3 class="text-start text-h5">{{ patient?.mobileNo }}</h3>
+                <h2 class="text-start">{{ patient?.mobileNo }}</h2>
               </div>
 
               <div class="d-flex flex-column" style="width: 16%">
                 <small class="font-weight-bold text-start"
                   >Patient Status</small
                 >
-                <h3 class="text-start text-h5 info--text">Hospitalized</h3>
+                <h2 class="text-start info--text">Hospitalized</h2>
               </div>
 
               <div class="d-flex" style="width: 10%">
@@ -101,6 +102,9 @@ export default {
   },
   methods: {
     ...mapActions("doctors", ["getAllPatientsData"]),
+    addPatient() {
+      this.$router.push("/add-new-patient");
+    },
     getFullName(s1, s2) {
       return (
         s1.charAt(0).toUpperCase() +

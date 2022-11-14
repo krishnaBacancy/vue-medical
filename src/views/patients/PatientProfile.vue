@@ -109,7 +109,7 @@
               <v-flex d-flex lg8 xs12>
                 <div class="d-flex flex-column align-start ml-3">
                   <small>Address</small>
-                  <h3>{{ getSinglePatientData[0].address }}</h3>
+                  <h3>{{ getSinglePatientData[0]?.address }}</h3>
                 </div>
               </v-flex>
             </div>
