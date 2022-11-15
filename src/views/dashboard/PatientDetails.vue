@@ -31,7 +31,9 @@
           <v-spacer></v-spacer>
           <div class="d-flex align-center justify-center mr-7">
             <h3 class="mr-5">Device Status</h3>
-            <v-btn outlined color="red" class="mr-2">. Live</v-btn>
+            <v-icon color="green" size="50" class="mr-5"
+              >mdi-circle-small</v-icon
+            >
           </div>
         </div>
 
@@ -203,7 +205,7 @@
                   <v-spacer></v-spacer>
                   <div>
                     <h3>Last Reading</h3>
-                    <small>2 hour ago</small>
+                    <small class="grey--text">2 hour ago</small>
                   </div>
                 </div>
                 <div class="d-flex justify-center ml-5 align-center mt-5">
@@ -238,7 +240,7 @@
                   <v-spacer></v-spacer>
                   <div>
                     <h3>Last Reading</h3>
-                    <small>2 hour ago</small>
+                    <small class="grey--text">2 hour ago</small>
                   </div>
                 </div>
                 <div class="d-flex justify-center align-center ml-5 mt-5">
@@ -272,7 +274,7 @@
                   <v-spacer></v-spacer>
                   <div>
                     <h3>Last Reading</h3>
-                    <small>2 hour ago</small>
+                    <small class="grey--text">2 hour ago</small>
                   </div>
                 </div>
                 <div class="d-flex justify-center ml-5 mt-5">
@@ -340,7 +342,7 @@
                     :height="200"
                     :data-of-chart="[72, 115, 95, 130, 60, 116, 88]"
                     :label="['12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm']"
-                    :chart-bg-color="'pink'"
+                    :chart-bg-color="'#fd5d5d'"
                   />
                 </div>
               </v-card>
@@ -382,7 +384,7 @@
                     :height="200"
                     :data-of-chart="[72, 115, 95, 130, 60, 116, 88]"
                     :label="['12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm']"
-                    :chart-border-color="'purple'"
+                    :chart-border-color="'#774af1'"
                   />
                 </div>
               </v-card>

@@ -60,7 +60,9 @@
             class="ml-2 mb-2 pa-2 white--text"
             style="width: 100%"
           >
-            <v-card-title class="warning--text">Patient Info</v-card-title>
+            <v-card-title class="warning--text text-h5"
+              >Patient Info</v-card-title
+            >
             <div class="d-flex">
               <div class="d-flex flex-column align-start ml-4">
                 <small>Email Address</small>
@@ -122,7 +124,9 @@
             class="ml-2 mb-2 pa-2 white--text"
             style="width: 100%"
           >
-            <v-card-title class="warning--text">Doctor Info</v-card-title>
+            <v-card-title class="warning--text text-h5"
+              >Doctor Info</v-card-title
+            >
             <div class="d-flex">
               <div class="d-flex flex-column align-start ml-4">
                 <small>Doctor Name</small>
@@ -164,7 +168,7 @@
             class="ml-2 mb-2 pa-2 white--text"
             style="width: 100%"
           >
-            <v-card-title class="warning--text"
+            <v-card-title class="warning--text text-h5"
               >Emergency Contacts</v-card-title
             >
             <div class="d-flex mb-3">
@@ -204,7 +208,9 @@
             class="ml-2 mb-2 pa-2 white--text"
             style="width: 100%"
           >
-            <v-card-title class="warning--text">Medical Info</v-card-title>
+            <v-card-title class="warning--text text-h5"
+              >Medical Info</v-card-title
+            >
             <div class="d-flex">
               <div
                 class="d-flex flex-column align-start ml-4"
@@ -270,5 +276,9 @@ export default {
   display: flex;
   flex-direction: column;
   margin-top: 10px;
+}
+small {
+  color: #ababab;
+  font-size: 0.9rem;
 }
 </style>

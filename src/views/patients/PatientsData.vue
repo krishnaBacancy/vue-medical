@@ -126,4 +126,12 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+h2 {
+  font-size: 1.4rem;
+}
+small {
+  font-size: 0.9rem;
+  color: grey;
+}
+</style>

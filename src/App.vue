@@ -19,15 +19,14 @@ export default {
 
 <style>
 #app {
-  /*font-family: Gilroy, Helvetica, Arial, sans-serif;*/
   /*font-family: "Roboto Condensed", sans-serif;*/
   /*font-family: "Poppins", sans-serif;*/
-  font-family: "Gilroy";
+  /*font-family: "Gilroy";*/
+  font-family: "Quicksand", sans-serif;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
   background-color: #282934;
 }
 

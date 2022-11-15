@@ -15,6 +15,15 @@
 
       <div v-else>
         <SearchBar />
+        <!-- <div class="d-flex align-center">
+          <SearchBar />
+          <div class="white--text d-flex mr-5">
+            <h3>Filter</h3>
+            <v-icon class="ml-4" color="white">mdi-view-grid</v-icon>
+            <v-icon class="ml-2" color="white">mdi-tally-mark-3</v-icon>
+            <v-icon class="ml-2" color="white">mdi-numeric-2-circle</v-icon>
+          </div>
+        </div> -->
         <v-layout row wrap>
           <v-flex
             d-flex
@@ -80,11 +89,11 @@
                     <v-img
                       class="mr-3 mt-2"
                       src="https://accu.live/images/doctor_dashboard/heartbeat.svg"
-                      height="20"
+                      height="17"
                       contain
                     ></v-img>
                     <div
-                      class="d-flex mr-7 mt-1"
+                      class="d-flex mr-10 mt-1"
                       style="flex-direction: column"
                     >
                       <h5 class="green--text">74</h5>
@@ -107,7 +116,7 @@
                       contain
                     ></v-img>
                     <div
-                      class="d-flex ml-2 mr-10 mt-2"
+                      class="d-flex ml-2 mr-13 mt-2"
                       style="flex-direction: column"
                     >
                       <h5 class="yellow--text">98</h5>
@@ -144,14 +153,14 @@
                   style="width: 50%"
                   height="50"
                 >
-                  <div class="d-flex align-center mt-1 ml-n1">
+                  <div class="d-flex align-center mt-2 ml-n1">
                     <v-img
-                      class="ml-2"
+                      class=""
                       src="https://accu.live/images/doctor_dashboard/oxi-meter.svg"
                       height="25"
                       contain
                     ></v-img>
-                    <div class="d-flex mr-8" style="flex-direction: column">
+                    <div class="d-flex mr-10" style="flex-direction: column">
                       <h5 class="cyan--text">120/85</h5>
                       <small class="white--text">6 hrs ago</small>
                     </div>
@@ -166,14 +175,14 @@
                   color="black"
                   style="width: 50%"
                 >
-                  <div class="d-flex align-center ml-3 mt-1">
+                  <div class="d-flex align-center ml-3 mt-2">
                     <v-img
                       class="mr-5 ml-n1"
                       src="https://accu.live/images/doctor_dashboard/temprature.svg"
                       height="25"
                       contain
                     ></v-img>
-                    <div class="d-flex mr-7" style="flex-direction: column">
+                    <div class="d-flex mr-10" style="flex-direction: column">
                       <h5 class="red--text">98.7<sup>F</sup></h5>
                       <small class="white--text">>120-30 C1</small>
                     </div>
@@ -194,7 +203,7 @@
                       contain
                     ></v-img>
                     <div
-                      class="d-flex ml-5 mr-10 mt-1"
+                      class="d-flex ml-5 mr-11 mt-1"
                       style="flex-direction: column"
                     >
                       <h5 class="pink--text">10000</h5>
@@ -248,6 +257,9 @@ export default {
 </script>
 
 <style scoped>
+small {
+  font-size: 10px;
+}
 .grid-container {
   /* display: grid; */
   display: flex;
