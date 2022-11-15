@@ -31,9 +31,13 @@
           <v-spacer></v-spacer>
           <div class="d-flex align-center justify-center mr-7">
             <h3 class="mr-5">Device Status</h3>
-            <v-icon color="green" size="50" class="mr-5"
-              >mdi-circle-small</v-icon
-            >
+            <v-img
+              class="mt-1"
+              src="@/assets/live.png"
+              height="50"
+              width="50"
+              contain
+            ></v-img>
           </div>
         </div>
 
@@ -380,11 +384,27 @@
                   </div>
                 </div>
                 <div class="grid-container">
-                  <AreaChart
+                  <!-- <AreaChart
                     :height="200"
                     :data-of-chart="[72, 115, 95, 130, 60, 116, 88]"
                     :label="['12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm']"
                     :chart-border-color="'#774af1'"
+                    :chart-bg-color="'rgba(255, 99, 132, 1)'"
+                  /> -->
+                  <ApexAreaChart
+                    :height="350"
+                    :data-of-chart="[72, 115, 95, 130, 60, 116, 88]"
+                    :chart-label="[
+                      '12pm',
+                      '1pm',
+                      '2pm',
+                      '3pm',
+                      '4pm',
+                      '5pm',
+                      '6pm',
+                    ]"
+                    :chart-border-color="'#774af1'"
+                    :chart-bg-color="['#7741f1']"
                   />
                 </div>
               </v-card>
@@ -473,11 +493,26 @@
                   </div>
                 </div>
                 <div class="grid-container">
-                  <AreaChart
+                  <!-- <AreaChart
                     :chart-border-color="'cyan'"
                     :height="200"
                     :data-of-chart="[72, 115, 95, 130, 60, 116, 88]"
                     :label="['12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm']"
+                  /> -->
+                  <ApexAreaChart
+                    :height="350"
+                    :data-of-chart="[72, 115, 95, 130, 60, 116, 88]"
+                    :chart-label="[
+                      '12pm',
+                      '1pm',
+                      '2pm',
+                      '3pm',
+                      '4pm',
+                      '5pm',
+                      '6pm',
+                    ]"
+                    :chart-border-color="'cyan'"
+                    :chart-bg-color="['cyan']"
                   />
                 </div>
               </v-card>
@@ -497,7 +532,8 @@ import RealTimeChart from "@/components/RealTimeChart.vue";
 import PageHeader from "@/layouts/PageHeader.vue";
 // import ChartComponent from "@/components/ChartComponent.vue";
 import TestChart from "@/components/TestChart.vue";
-import AreaChart from "@/components/AreaChart.vue";
+// import AreaChart from "@/components/AreaChart.vue";
+import ApexAreaChart from "@/components/ApexAreaChart.vue";
 export default {
   name: "PatientDetails",
   components: {
@@ -505,7 +541,8 @@ export default {
     RealTimeChart,
     PageHeader,
     TestChart,
-    AreaChart,
+    // AreaChart,
+    ApexAreaChart,
   },
   data() {
     return {

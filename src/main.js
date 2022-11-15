@@ -8,6 +8,7 @@ import Toast from "vue-toastification";
 
 import HighchartsVue from "highcharts-vue";
 import "vue-toastification/dist/index.css";
+import "@/plugins/apexcharts";
 
 Vue.config.productionTip = false;
 Vue.use(Toast, {});

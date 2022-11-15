@@ -14,24 +14,29 @@
       ></v-progress-circular>
 
       <div v-else>
-        <SearchBar />
-        <!-- <div class="d-flex align-center">
+        <!-- <SearchBar /> -->
+        <div class="d-flex align-center">
           <SearchBar />
           <div class="white--text d-flex mr-5">
             <h3>Filter</h3>
-            <v-icon class="ml-4" color="white">mdi-view-grid</v-icon>
-            <v-icon class="ml-2" color="white">mdi-tally-mark-3</v-icon>
-            <v-icon class="ml-2" color="white">mdi-numeric-2-circle</v-icon>
+            <v-icon class="ml-4" color="white" @click="gridNumber = 3"
+              >mdi-view-grid</v-icon
+            >
+            <v-icon class="ml-2" color="white" @click="gridNumber = 4"
+              >mdi-tally-mark-3</v-icon
+            >
+            <v-icon class="ml-2" color="white" @click="gridNumber = 6"
+              >mdi-numeric-2-circle</v-icon
+            >
           </div>
-        </div> -->
+        </div>
         <v-layout row wrap>
           <v-flex
             d-flex
             xs12
             sm6
             md4
-            lg3
-            xl2
+            :class="showGrid"
             v-for="patient in getPatients"
             :key="patient.id"
           >
@@ -130,14 +135,14 @@
                 <v-card
                   class="elevation-1"
                   height="50"
-                  width="135"
                   color="black"
+                  style="width: 50%"
                 >
-                  <div class="d-flex align-center ml-3">
+                  <div class="d-flex align-center ml-3 mt-1">
                     <v-img
                       class="mr-8"
                       src="https://accu.live/images/doctor_dashboard/doc-lunghs.svg"
-                      height="50"
+                      height="25"
                       contain
                     ></v-img>
                     <div class="d-flex mr-16" style="flex-direction: column">
@@ -233,10 +238,14 @@ export default {
   data() {
     return {
       getDoctorId: localStorage.getItem("user_id"),
+      gridNumber: 3,
     };
   },
   computed: {
     ...mapGetters("doctors", ["getPatients", "loadingStatus"]),
+    showGrid() {
+      return `lg${this.gridNumber}`;
+    },
   },
   methods: {
     ...mapActions("doctors", ["getPatientsForDoctor"]),
