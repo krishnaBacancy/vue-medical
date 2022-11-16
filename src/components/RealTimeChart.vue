@@ -193,6 +193,6 @@ export default {
 
 <style scoped>
 .main__div:hover {
-  overflow-x: auto;
+  overflow-x: hidden;
 }
 </style>

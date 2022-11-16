@@ -22,7 +22,7 @@ import {
   Title,
   CategoryScale,
 } from "chart.js";
-import moment from "moment";
+// import moment from "moment";
 import "chartjs-plugin-streaming";
 import "chartjs-adapter-moment";
 import { RealTimeScale, StreamingPlugin } from "chartjs-plugin-streaming";
@@ -61,31 +61,34 @@ export default {
     maxValue: Number,
     options: Object,
   },
-  // watch: {
-  //   chartData: {
-  //     deep: true,
-  //     // handler(val) {
-  //     //   // this.ecgData = val;
-  //     //   // console.log("chartData---", val);
-  //     // },
-  //   },
-  // },
+  watch: {
+    chartData: {
+      // This will let Vue know to look inside the array
+      deep: true,
+      // immediate: true,
+
+      // We have to move our method to a handler field
+      handler() {
+        // console.log("chartData--", val);
+      },
+    },
+  },
   mounted() {
-    // var zero = 0;
-    // function adddata() {
-    //   var value = Math.floor(Math.random() * 100 + 1);
-    //   myChart?.data.labels.push(zero);
-    //   myChart?.data.labels.splice(0, 10);
-    //   myChart?.data.datasets[0].data.splice(0, 30);
-    //   //   console.log(myLineChart.data.datasets[0].data);
-    //   myChart?.data.datasets[0].data.push(value);
-    //   myChart.update();
-    //   zero++;
-    // }
-    // setInterval(function () {
-    //   adddata();
-    //   //   console.log(myLineChart);
-    // }, 1000);
+    var zero = 0;
+    function adddata() {
+      var value = Math.floor(Math.random() * 100 + 1);
+      myChart?.data.labels.push(zero);
+      myChart?.data.labels.splice(0, 10);
+      myChart?.data.datasets[0].data.splice(0, 30);
+      //   console.log(myLineChart.data.datasets[0].data);
+      myChart?.data.datasets[0].data.push(value);
+      myChart.update();
+      zero++;
+    }
+    setInterval(function () {
+      adddata();
+      //   console.log(myLineChart);
+    }, 1000);
     const data = [];
     let prev = 100;
     for (let i = 0; i < 1000; i++) {
@@ -93,7 +96,7 @@ export default {
       data.push({ x: i, y: prev });
     }
 
-    var index = 0;
+    // var index = 0;
 
     // const totalDuration = 10000;
     // const delayBetweenPoints = totalDuration / data.length;
@@ -107,14 +110,14 @@ export default {
     const myChart = new Chart(this.$refs.myChart, {
       type: "line",
       data: {
-        // labels: [...Array(2000).keys()],
+        labels: [...Array(2000).keys()],
         datasets: [
           {
             label: "ECG",
             // data: fileData.ecg_vals,
-            // data: this.chartData,
+            data: this.chartData,
             // data: this.ecgData,
-            data: [],
+            // data: [],
             borderColor: "red",
             hoverBorderColor: "red",
             tension: 0.4,
@@ -220,35 +223,35 @@ export default {
           x: {
             // min: 0,
             // max: fileData.ecg_vals.length + fileData.ecg_vals.length,
-            type: "realtime",
+            // type: "realtime",
             // display: false,
-            realtime: {
-              onRefresh: (chart) => {
-                // console.log("chart--", chart);
-                // chart.data.datasets = fileData.ecg_vals;
-                // let dummyData = fileData.ecg_vals;
-                // let values;
-                // for (let elements of dummyData.values()) {
-                //   values = elements;
-                // }
-                //eslint-disable-next-line
-                chart.data.datasets.map((dataset) => {
-                  // dataset.data = fileData.ecg_vals;
-                  // console.log("dataset--", dataset.data);
-                  dataset.data.push({
-                    x: moment(),
-                    // x: [...Array(2000)].keys(),
-                    // y: [Math.random() * 100],
-                    //eslint-disable-next-line
-                    // y: fileData.ecg_vals[index],
-                    y: this.chartData[index],
-                  });
-                  index = index + 10;
-                  chart.update();
-                  // console.log("data--", dataset.data);
-                });
-              },
-            },
+            // realtime: {
+            //   onRefresh: (chart) => {
+            //     // console.log("chart--", chart);
+            //     // chart.data.datasets = fileData.ecg_vals;
+            //     // let dummyData = fileData.ecg_vals;
+            //     // let values;
+            //     // for (let elements of dummyData.values()) {
+            //     //   values = elements;
+            //     // }
+            //     //eslint-disable-next-line
+            //     chart.data.datasets.map((dataset) => {
+            //       // dataset.data = fileData.ecg_vals;
+            //       // console.log("dataset--", dataset.data);
+            //       dataset.data.push({
+            //         x: moment(),
+            //         // x: [...Array(2000)].keys(),
+            //         // y: [Math.random() * 100],
+            //         //eslint-disable-next-line
+            //         // y: fileData.ecg_vals[index],
+            //         y: this.chartData[index],
+            //       });
+            //       index = index + 10;
+            //       chart.update();
+            //       // console.log("data--", dataset.data);
+            //     });
+            //   },
+            // },
             // distribution: "linear",
             // realtime: {
             //   onRefresh: function (chart) {
@@ -272,10 +275,10 @@ export default {
               minUnit: "second",
               source: "data",
               autoSkip: true,
-              callback: function (value) {
-                return moment(value, "HH:mm:ss").format("ss").concat("s");
-                // return moment(value, "HH:mm:ss:SSS").format("SSS").concat("ms");
-              },
+              // callback: function (value) {
+              //   return moment(value, "HH:mm:ss").format("ss").concat("s");
+              //   // return moment(value, "HH:mm:ss:SSS").format("SSS").concat("ms");
+              // },
             },
             time: {
               unit: "second",
@@ -286,7 +289,7 @@ export default {
             },
             // offset: true,
             // max: 70,
-            // display: false,
+            display: false,
           },
           // xAxes: {
           //   // type: "time",
@@ -320,6 +323,6 @@ export default {
 
 <style scoped>
 .main__div:hover {
-  overflow-x: auto;
+  overflow-x: hidden;
 }
 </style>

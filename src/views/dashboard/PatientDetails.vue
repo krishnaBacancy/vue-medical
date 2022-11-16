@@ -58,8 +58,8 @@
                     <LineChart
                       :chart-data="ecgChartData"
                       :key="showEcgChart"
-                      :minValue="Math.min(...ecgChartData) - 1000"
-                      :maxValue="Math.max(...ecgChartData) + 1000"
+                      :minValue="minEcgValue - 30000"
+                      :maxValue="minEcgValue + 30000"
                     />
                     <!-- <RealTimeChart :height="100" :datasets="ecgChartData" /> -->
                   </div>
