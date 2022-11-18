@@ -1,6 +1,11 @@
 <template>
   <div style="width: 100%" class="main__div">
-    <div style="overflow: hidden; width: 101%">
+    <div
+      style="overflow: hidden"
+      :style="{
+        width: [...Array(80).keys()].length * 10 + 'px',
+      }"
+    >
       <!-- <div style="overflow: hidden"> -->
       <canvas
         ref="myChart"
@@ -26,6 +31,7 @@ import {
 import "chartjs-plugin-streaming";
 import "chartjs-adapter-moment";
 import { RealTimeScale, StreamingPlugin } from "chartjs-plugin-streaming";
+import { mapGetters } from "vuex";
 // import zoomPlugin from "chartjs-plugin-zoom";
 // import { fileData } from "@/views/testData";
 
@@ -61,24 +67,33 @@ export default {
     maxValue: Number,
     options: Object,
   },
-  // watch: {
-  //   chartData: {
-  //     deep: true,
-  //     handler() {
-  //       // console.log("chartData--", val);
-  //     },
-  //   },
-  // },
+  data() {
+    return {
+      minEcgValue: null,
+    };
+  },
+  watch: {
+    getEcgChartData: {
+      deep: true,
+      handler(val) {
+        console.log("ecgchartData--", val);
+      },
+    },
+  },
+  computed: {
+    ...mapGetters("chartData", ["getEcgChartData", "getMinEcgData"]),
+  },
   mounted() {
-    var zero = 0;
+    let myChart;
+    let zero = 0;
     function adddata() {
-      var value = Math.floor(Math.random() * 100 + 1);
+      // var value = Math.floor(Math.random() * 100 + 1);
       myChart?.data.labels.push(zero);
       myChart?.data.labels.splice(0, 10);
       myChart?.data.datasets[0].data.splice(0, 30);
       //   console.log(myLineChart.data.datasets[0].data);
-      myChart?.data.datasets[0].data.push(value);
-      myChart.update();
+      // myChart?.data.datasets[0].data.push(value);
+      myChart?.update();
       zero++;
     }
     setInterval(function () {
@@ -91,9 +106,15 @@ export default {
       data.push({ x: i, y: prev });
     }
 
+    // let sumEcgData = 0;
+    // for (let i = 0; i < this.getEcgChartData?.length; i++) {
+    //   sumEcgData += parseInt(this.getEcgChartData[i], 10);
+    // }
+    // let ecgAvgMin = sumEcgData / this.getEcgChartData?.length;
+    // this.minEcgValue = ecgAvgMin;
     // var index = 0;
 
-    const myChart = new Chart(this.$refs.myChart, {
+    myChart = new Chart(this.$refs.myChart, {
       type: "line",
       data: {
         labels: [...Array(2000).keys()],
@@ -101,7 +122,8 @@ export default {
           {
             label: "ECG",
             // data: fileData.ecg_vals,
-            data: this.chartData,
+            // data: this.chartData,
+            data: this.getEcgChartData,
             // data: [],
             borderColor: "red",
             hoverBorderColor: "red",
@@ -136,10 +158,14 @@ export default {
         scales: {
           y: {
             suggestedMin: 0,
-            min: this.minValue,
-            max: this.maxValue,
-            // min: Math.min(...fileData.ecg_vals),
-            // max: Math.max(...fileData.ecg_vals),
+            // min: this.minValue,
+            // max: this.maxValue,
+            // min: this.minEcgValue - 30000,
+            // max: this.minEcgValue + 30000,
+            min: this.getMinEcgData - 30000,
+            max: this.getMinEcgData + 30000,
+            // min: Math.min(...this.getEcgChartData),
+            // max: Math.max(...this.getEcgChartData),
             stacked: true,
             offset: true,
             ticks: {

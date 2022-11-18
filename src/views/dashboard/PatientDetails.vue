@@ -55,12 +55,7 @@
                 <div class="d-flex align-start mt-2">
                   <div class="grid-container">
                     <!-- <HighChartTest /> -->
-                    <LineChart
-                      :chart-data="ecgChartData"
-                      :key="showEcgChart"
-                      :minValue="minEcgValue - 30000"
-                      :maxValue="minEcgValue + 30000"
-                    />
+                    <LineChart :chart-data="ecgChartData" :key="showEcgChart" />
                     <!-- <RealTimeChart :height="100" :datasets="ecgChartData" /> -->
                   </div>
                 </div>
@@ -597,11 +592,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("doctors", [
-      "getPatients",
-      "loadingStatus",
-      "getSingleDeviceData",
-    ]),
+    ...mapGetters("doctors", ["loadingStatus", "getSingleDeviceData"]),
   },
   unmounted() {
     this.client.close();
@@ -613,6 +604,7 @@ export default {
   },
   methods: {
     ...mapActions("doctors", ["getSingleDevice"]),
+    ...mapActions("chartData", ["setEcgData"]),
     getFullName(s1, s2) {
       return (
         s1?.charAt(0).toUpperCase() +
@@ -642,7 +634,9 @@ export default {
       this.client.on("message", (_, message) => {
         let data = JSON.parse(message);
         console.log("data--", JSON.parse(message));
-        this.ecgChartData = data?.ecg_vals;
+        //setTimeout implementation here...
+        this.setEcgData(data?.ecg_vals);
+        // this.ecgChartData = data?.ecg_vals;
         this.ppgChartData = data?.ppg_vals;
         let sumEcgData = 0;
         for (let i = 0; i < this.ecgChartData.length; i++) {
