@@ -611,21 +611,6 @@ export default {
     this.getSingleDevice(this.$route?.params?.id);
     this.createConnection();
   },
-  // watch: {
-  //   ecgChartData: {
-  //     deep: true,
-  //     handler(val) {
-  //       this.tempData = val;
-  //       console.log("Value of ecg--", val);
-  //     },
-  //   },
-  //   ppgChartData: {
-  //     deep: true,
-  //     handler(val) {
-  //       this.ppgTempData = val;
-  //     },
-  //   },
-  // },
   methods: {
     ...mapActions("doctors", ["getSingleDevice"]),
     getFullName(s1, s2) {
@@ -650,28 +635,13 @@ export default {
         this.client.subscribe(
           `BMSFSEV/${this.getSingleDeviceData[0]?.macAddressFramed.toUpperCase()}/sTOf`
         );
-        // this.client.subscribe(
-        //   `BacAccuLive/${this.getPatients[0]?.mac_address_framed}/ctoa`
-        // );
-        // console.log("hello", this.client);
-        // this.client.subscribe(this.subscription.topic, () => {
-        //   // if (!err) {
-        //   this.client.publish(this.subscription.topic);
-        //   // }
-        // });
       });
       this.client.on("error", (error) => {
         console.log("Connection failed", error);
       });
       this.client.on("message", (_, message) => {
-        // console.log("hi");
-        // this.receiveNews = this.receiveNews.concat(message);
         let data = JSON.parse(message);
-        // console.log(`Message -- ${message}`);
         console.log("data--", JSON.parse(message));
-        // setTimeout(() => {
-        // console.log("data12121--", data);
-        // if (data?.message === "Online") {
         this.ecgChartData = data?.ecg_vals;
         this.ppgChartData = data?.ppg_vals;
         let sumEcgData = 0;
@@ -693,18 +663,10 @@ export default {
           this.showEcgChart = true;
           this.showPpgChart = true;
         });
-        // }, 5000);
         // console.log("ppg--", this.ppgChartData);
-        console.log("ecg--", this.ecgChartData);
-        this.client.end();
-        // setTimeout(() => {
-        //   this.client.end();
-        // }, 100000);
-        // }
+        // console.log("ecg--", this.ecgChartData);
+        // this.client.end();
       });
-      // setTimeout(() => {
-      //   this.client.end();
-      // }, 100000);
     },
   },
 };

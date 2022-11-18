@@ -61,18 +61,14 @@ export default {
     maxValue: Number,
     options: Object,
   },
-  watch: {
-    chartData: {
-      // This will let Vue know to look inside the array
-      deep: true,
-      // immediate: true,
-
-      // We have to move our method to a handler field
-      handler() {
-        // console.log("chartData--", val);
-      },
-    },
-  },
+  // watch: {
+  //   chartData: {
+  //     deep: true,
+  //     handler() {
+  //       // console.log("chartData--", val);
+  //     },
+  //   },
+  // },
   mounted() {
     var zero = 0;
     function adddata() {
@@ -87,7 +83,6 @@ export default {
     }
     setInterval(function () {
       adddata();
-      //   console.log(myLineChart);
     }, 1000);
     const data = [];
     let prev = 100;
@@ -98,15 +93,6 @@ export default {
 
     // var index = 0;
 
-    // const totalDuration = 10000;
-    // const delayBetweenPoints = totalDuration / data.length;
-    // const previousY = (ctx) =>
-    //   ctx.index === 0
-    //     ? ctx.chart.scales.y.getPixelForValue(100)
-    //     : ctx.chart
-    //         .getDatasetMeta(ctx.datasetIndex)
-    //         .data[ctx.index - 1].getProps(["y"], true).y;
-
     const myChart = new Chart(this.$refs.myChart, {
       type: "line",
       data: {
@@ -116,7 +102,6 @@ export default {
             label: "ECG",
             // data: fileData.ecg_vals,
             data: this.chartData,
-            // data: this.ecgData,
             // data: [],
             borderColor: "red",
             hoverBorderColor: "red",
@@ -137,64 +122,11 @@ export default {
         interaction: {
           intersect: false,
         },
-        // transitions: {
-        //   zoom: {
-        //     animation: {
-        //       duration: 1000,
-        //       easing: "easeInCirc",
-        //     },
-        //   },
-        // },
         plugins: {
           streaming: {
             refresh: 100,
             duration: 20000,
             // ttl: 60000,
-          },
-          // zoom: {
-          //   zoom: {
-          //     wheel: {
-          //       enabled: true,
-          //     },
-          //     mode: "x",
-          //   },
-          //   // limits: {
-          //   //   // y: { min: 0, max: 100000 },
-          //   //   x: { min: 0, max: 30 },
-          //   // },
-          // },
-        },
-        // animation: {
-        //   x: {
-        //     type: "number",
-        //     easing: "linear",
-        //     duration: delayBetweenPoints,
-        //     from: NaN, // the point is initially skipped
-        //     delay(ctx) {
-        //       if (ctx.type !== "data" || ctx.xStarted) {
-        //         return 0;
-        //       }
-        //       ctx.xStarted = true;
-        //       return ctx.index * delayBetweenPoints;
-        //     },
-        //   },
-        //   y: {
-        //     type: "number",
-        //     easing: "linear",
-        //     duration: delayBetweenPoints,
-        //     from: previousY,
-        //     delay(ctx) {
-        //       if (ctx.type !== "data" || ctx.yStarted) {
-        //         return 0;
-        //       }
-        //       ctx.yStarted = true;
-        //       return ctx.index * delayBetweenPoints;
-        //     },
-        //   },
-        // },
-        layout: {
-          padding: {
-            // bottom: -20,
           },
         },
         responsive: true,
@@ -208,59 +140,30 @@ export default {
             max: this.maxValue,
             // min: Math.min(...fileData.ecg_vals),
             // max: Math.max(...fileData.ecg_vals),
-            // suggestedMax: 1000000,
             stacked: true,
             offset: true,
-            grid: {
-              // color: "green",
-              // display: false,
-            },
             ticks: {
               color: "#FFFFFF",
             },
-            // display: false,
           },
           x: {
-            // min: 0,
-            // max: fileData.ecg_vals.length + fileData.ecg_vals.length,
             // type: "realtime",
             // display: false,
             // realtime: {
             //   onRefresh: (chart) => {
-            //     // console.log("chart--", chart);
-            //     // chart.data.datasets = fileData.ecg_vals;
-            //     // let dummyData = fileData.ecg_vals;
-            //     // let values;
-            //     // for (let elements of dummyData.values()) {
-            //     //   values = elements;
-            //     // }
             //     //eslint-disable-next-line
             //     chart.data.datasets.map((dataset) => {
-            //       // dataset.data = fileData.ecg_vals;
-            //       // console.log("dataset--", dataset.data);
             //       dataset.data.push({
             //         x: moment(),
             //         // x: [...Array(2000)].keys(),
-            //         // y: [Math.random() * 100],
             //         //eslint-disable-next-line
             //         // y: fileData.ecg_vals[index],
             //         y: this.chartData[index],
             //       });
             //       index = index + 10;
             //       chart.update();
-            //       // console.log("data--", dataset.data);
             //     });
             //   },
-            // },
-            // distribution: "linear",
-            // realtime: {
-            //   onRefresh: function (chart) {
-            //     chart.data.datasets[0].data.push({
-            //       x: moment(),
-            //       // y: Math.random(),
-            //     });
-            //   },
-            // delay: 3000,
             // },
             ticks: {
               major: {
@@ -277,7 +180,6 @@ export default {
               autoSkip: true,
               // callback: function (value) {
               //   return moment(value, "HH:mm:ss").format("ss").concat("s");
-              //   // return moment(value, "HH:mm:ss:SSS").format("SSS").concat("ms");
               // },
             },
             time: {
@@ -287,32 +189,8 @@ export default {
             grid: {
               display: false,
             },
-            // offset: true,
-            // max: 70,
             display: false,
           },
-          // xAxes: {
-          //   // type: "time",
-          //   position: "bottom",
-          //   time: {
-          //     displayFormats: {
-          //       years: "YYYY",
-          //     },
-          //     unit: "year",
-          //   },
-          // },
-          // yAxes: {
-          //   display: true,
-          //   ticks: {
-          //     stepSize: 20,
-          //     // beginAtZero: true,
-          //     // steps: 10,
-          //     // stepValue: 5,
-          //     // min: 0,
-          //     // max: 100000,
-          //     // precision: 0,
-          //   },
-          // },
         },
       },
     });
