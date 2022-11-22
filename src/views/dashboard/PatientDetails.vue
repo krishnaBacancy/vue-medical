@@ -37,6 +37,15 @@
               height="50"
               width="50"
               contain
+              v-if="liveMessage === 'online'"
+            ></v-img>
+            <v-img
+              class="mt-1"
+              src="@/assets/Oracle-Scheduler.jpg"
+              height="50"
+              width="50"
+              contain
+              v-if="liveMessage === 'offline'"
             ></v-img>
           </div>
         </div>
@@ -55,7 +64,12 @@
                 <div class="d-flex align-start mt-2">
                   <div class="grid-container">
                     <!-- <HighChartTest /> -->
-                    <LineChart :chart-data="ecgChartData" :key="showEcgChart" />
+                    <LineChart
+                      :chart-data="ecgChartData"
+                      :key="showEcgChart"
+                      :width="600"
+                      :height="250"
+                    />
                     <!-- <RealTimeChart :height="100" :datasets="ecgChartData" /> -->
                   </div>
                 </div>
@@ -267,8 +281,8 @@
               >
                 <div class="d-flex text-start">
                   <div>
-                    <h3>Weight</h3>
-                    <small class="red--text">No Device Paired</small>
+                    <h3>Map</h3>
+                    <small class="red--text">Mean arterial pressure</small>
                   </div>
                   <v-spacer></v-spacer>
                   <div>
@@ -276,25 +290,197 @@
                     <small class="grey--text">2 hour ago</small>
                   </div>
                 </div>
-                <div class="d-flex justify-center ml-5 mt-5">
-                  <v-btn
-                    class="mr-3"
-                    color="success"
-                    height="70"
+                <div class="d-flex justify-center mt-5">
+                  <v-img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyqpbFKW78u7-eVk9xSUprI5H-Q2Y33gMQ3A&usqp=CAU"
                     width="70"
-                    dark
-                  >
-                    <v-img
-                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqhMFwNm_SkDfYGFa5g_7RXOrU-HUqthtqMQ&usqp=CAU"
-                      width="70"
-                      height="70"
-                    ></v-img>
-                  </v-btn>
-                  <div class="text-start">
+                    height="70"
+                    contain
+                    class="mt-3"
+                  ></v-img>
+                  <div class="text-start mr-16">
                     <h1 class="red--text">61.3 kg</h1>
                     <div class="d-flex" style="flex-direction: column">
                       <small>Manual Entry</small>
-                      <small>%SPO2</small>
+                      <small>mmHg</small>
+                    </div>
+                  </div>
+                </div>
+              </v-card>
+            </v-flex>
+          </v-layout>
+
+          <v-layout row wrap>
+            <!--rr interval-->
+            <v-flex d-flex xs12 sm12 md3>
+              <v-card
+                color="#282934"
+                dark
+                class="ml-2 mb-2 pa-2"
+                style="width: 100%"
+              >
+                <div
+                  class="d-flex justify-xs-start justify-sm-center align-center ml-3 mt-2"
+                >
+                  <v-img
+                    class="mr-5"
+                    src="https://www.shutterstock.com/image-illustration/frequency-ectopic-junctional-impulse-higher-600w-1888283284.jpg"
+                    height="50"
+                    width="50"
+                    contain
+                  ></v-img>
+                  <div class="mr-10">
+                    <h1 class="red--text">R.R.</h1>
+                    <div class="d-flex text-start flex-column">
+                      <small>6 hours</small>
+                      <small>ago</small>
+                    </div>
+                  </div>
+                </div>
+              </v-card>
+            </v-flex>
+
+            <!--pulse pressure-->
+            <v-flex d-flex xs12 sm12 md3>
+              <v-card
+                color="#282934"
+                dark
+                class="ml-2 mb-2 pa-2"
+                style="width: 100%"
+              >
+                <div
+                  class="d-flex justify-xs-start justify-sm-center align-center mt-2"
+                >
+                  <v-img
+                    class="mr-5"
+                    src="https://www.shutterstock.com/shutterstock/photos/1390281845/display_1500/stock-vector-pulse-icon-graphic-design-template-vector-isolated-1390281845.jpg"
+                    height="50"
+                    width="50"
+                    contain
+                  ></v-img>
+                  <div class="mr-10">
+                    <h1 class="red--text text-start">P.P.</h1>
+                    <div class="d-flex text-start flex-column">
+                      <small>6 hours</small>
+                      <small>ago</small>
+                    </div>
+                  </div>
+                </div>
+              </v-card>
+            </v-flex>
+
+            <!--arrthymia-->
+            <v-flex d-flex xs12 sm12 md3>
+              <v-card
+                color="#282934"
+                dark
+                class="ml-2 mb-2 pa-2"
+                style="width: 100%"
+              >
+                <div
+                  class="d-flex justify-xs-start justify-sm-center align-center ml-3 mt-2"
+                >
+                  <v-img
+                    class="mr-5"
+                    src="https://www.shutterstock.com/image-photo/cardiology-diagnosis-treatment-prevention-myocardial-600w-1236688648.jpg"
+                    height="50"
+                    width="50"
+                    contain
+                  ></v-img>
+                  <div class="mr-10">
+                    <h1 class="red--text">Arrthymia</h1>
+                    <div class="d-flex text-start flex-column">
+                      <small>6 hours</small>
+                      <small>ago</small>
+                    </div>
+                  </div>
+                </div>
+              </v-card>
+            </v-flex>
+
+            <!--Stroke Volume-->
+            <v-flex d-flex xs12 sm12 md3>
+              <v-card
+                color="#282934"
+                dark
+                class="ml-2 mb-2 pa-2"
+                style="width: 100%"
+              >
+                <div
+                  class="d-flex justify-xs-start justify-sm-center align-center ml-3 mt-2"
+                >
+                  <v-img
+                    class="mr-5"
+                    src="https://www.shutterstock.com/image-illustration/human-heart-anatomy-healthy-body-600w-91378037.jpg"
+                    height="50"
+                    width="50"
+                    contain
+                  ></v-img>
+                  <div class="mr-10">
+                    <h1 class="red--text">S.V.</h1>
+                    <div class="d-flex text-start flex-column">
+                      <small>6 hours</small>
+                      <small>ago</small>
+                    </div>
+                  </div>
+                </div>
+              </v-card>
+            </v-flex>
+          </v-layout>
+
+          <v-layout row wrap>
+            <!--Cardiac Output-->
+            <v-flex d-flex xs12 sm12 md3>
+              <v-card
+                color="#282934"
+                dark
+                class="ml-2 mb-2 pa-2"
+                style="width: 100%"
+              >
+                <div
+                  class="d-flex justify-xs-start justify-sm-center align-center ml-3 mt-2"
+                >
+                  <v-img
+                    class="mr-5"
+                    src="https://www.shutterstock.com/image-illustration/3d-illustration-cardiac-output-title-600w-1441779827.jpg"
+                    height="50"
+                    width="50"
+                    contain
+                  ></v-img>
+                  <div class="mr-5">
+                    <h1 class="red--text">C.O.</h1>
+                    <div class="d-flex text-start flex-column">
+                      <small>6 hours</small>
+                      <small>ago</small>
+                    </div>
+                  </div>
+                </div>
+              </v-card>
+            </v-flex>
+
+            <!--Pulse transit time-->
+            <v-flex d-flex xs12 sm12 md3>
+              <v-card
+                color="#282934"
+                dark
+                class="ml-2 mb-2 pa-2"
+                style="width: 100%"
+              >
+                <div
+                  class="d-flex justify-xs-start justify-sm-center align-center ml-3 mt-2"
+                >
+                  <v-img
+                    class="mr-5"
+                    src="https://www.shutterstock.com/image-vector/emergency-ekg-monitoring-blue-glowing-600w-2172529989.jpg"
+                    height="50"
+                    width="100"
+                    contain
+                  ></v-img>
+                  <div class="mr-10">
+                    <h1 class="red--text text-start">Ptt</h1>
+                    <div class="d-flex text-start flex-column">
+                      <small>6 hours</small>
+                      <small>ago</small>
                     </div>
                   </div>
                 </div>
@@ -589,22 +775,39 @@ export default {
         connected: false,
       },
       subscribeSuccess: false,
+      liveMessage: "offline",
     };
   },
   computed: {
-    ...mapGetters("doctors", ["loadingStatus", "getSingleDeviceData"]),
+    ...mapGetters("doctors", [
+      "loadingStatus",
+      "getSingleDeviceData",
+      "getMacAddress",
+    ]),
   },
   unmounted() {
     this.client.close();
     console.log("Connection Closed");
   },
-  mounted() {
+  created() {
     this.getSingleDevice(this.$route?.params?.id);
+  },
+  mounted() {
     this.createConnection();
+    this.getAlgoData();
+    this.getBodyTempGraph();
+    this.getBloodO2Grpah();
+    this.getStepsGraph();
   },
   methods: {
     ...mapActions("doctors", ["getSingleDevice"]),
     ...mapActions("chartData", ["setEcgData"]),
+    ...mapActions("patientData", [
+      "getPatientAlgoData",
+      "getPatientBodyTempData",
+      "getPatientBloodOxygenData",
+      "getPatientStepsData",
+    ]),
     getFullName(s1, s2) {
       return (
         s1?.charAt(0).toUpperCase() +
@@ -613,6 +816,47 @@ export default {
         s2?.charAt(0).toUpperCase() +
         s2?.slice(1)
       );
+    },
+    getAlgoData() {
+      const payload = {
+        speedometerId: this.getMacAddress.toString(),
+        startDate: 1667301683000,
+        endDate: 1669288883000,
+      };
+      this.getPatientAlgoData(payload);
+    },
+    getBodyTempGraph() {
+      const payload = {
+        speedometerId:
+          this.getSingleDeviceData[0]?.macAddressFramed.toUpperCase(),
+        agrFunction: "average",
+        timePeriod: "1day",
+        startDate: 1667301683000,
+        endDate: 1669288883000,
+      };
+      this.getPatientBodyTempData(payload);
+    },
+    getBloodO2Grpah() {
+      const payload = {
+        speedometerId:
+          this.getSingleDeviceData[0]?.macAddressFramed.toUpperCase(),
+        agrFunction: "average",
+        timePeriod: "1day",
+        startDate: 1667301683000,
+        endDate: 1669288883000,
+      };
+      this.getPatientBloodOxygenData(payload);
+    },
+    getStepsGraph() {
+      const payload = {
+        speedometerId:
+          this.getSingleDeviceData[0]?.macAddressFramed.toUpperCase(),
+        agrFunction: "average",
+        timePeriod: "1day",
+        startDate: 1667301683000,
+        endDate: 1669288883000,
+      };
+      this.getPatientStepsData(payload);
     },
     createConnection() {
       const { host, port, options } = this.connection;
@@ -634,23 +878,11 @@ export default {
       this.client.on("message", (_, message) => {
         let data = JSON.parse(message);
         console.log("data--", JSON.parse(message));
+        this.liveMessage = data?.message;
         //setTimeout implementation here...
         this.setEcgData(data?.ecg_vals);
         // this.ecgChartData = data?.ecg_vals;
         this.ppgChartData = data?.ppg_vals;
-        let sumEcgData = 0;
-        for (let i = 0; i < this.ecgChartData.length; i++) {
-          sumEcgData += parseInt(this.ecgChartData[i], 10);
-        }
-        let ecgAvgMin = sumEcgData / this.ecgChartData.length;
-        this.minEcgValue = ecgAvgMin;
-
-        let sumPpgData = 0;
-        for (let i = 0; i < this.ppgChartData.length; i++) {
-          sumPpgData += parseInt(this.ppgChartData[i], 10);
-        }
-        let ppgAvgMin = sumPpgData / this.ppgChartData.length;
-        this.minPpgValue = ppgAvgMin;
         this.showEcgChart = false;
         this.showPpgChart = false;
         this.$nextTick(() => {
@@ -692,5 +924,9 @@ export default {
 .export__btn:hover {
   background-color: orange;
   color: white !important;
+}
+
+h1 {
+  font-size: 2rem;
 }
 </style>
