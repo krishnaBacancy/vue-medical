@@ -19,7 +19,15 @@ const getters = {
 const mutations = {
   SET_ECG_CHART_DATA(state, ecgData) {
     // state.ecgChartData = ecgData;
-    Array.prototype.push.apply(state.ecgChartData, ecgData);
+    const res = [];
+    while (ecgData.length > 0) {
+      const chunk = ecgData.splice(0, 2000);
+      res.push(chunk);
+    }
+    console.log("res--", res);
+    // state.ecgChartData.push(...res);
+    Array.prototype.push.apply(state.ecgChartData, ...res);
+    // Array.prototype.push.apply(state.ecgChartData, ecgData);
   },
 };
 
