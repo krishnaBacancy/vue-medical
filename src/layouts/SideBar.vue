@@ -14,9 +14,9 @@
       app
       v-model="drawer"
       color="rgba(0,0,0,0.3)"
-      permanent
       width="10%"
       dark
+      :permanent="$vuetify.breakpoint.mdAndUp"
       v-if="!getRoute"
     >
       <v-list-item>
