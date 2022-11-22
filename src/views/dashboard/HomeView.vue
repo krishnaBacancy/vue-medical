@@ -17,7 +17,7 @@
         <!-- <SearchBar /> -->
         <div class="d-flex align-center">
           <SearchBar />
-          <div class="white--text d-flex mr-5">
+          <div class="white--text d-flex mr-5" v-if="mobile">
             <h3>Filter</h3>
             <v-icon class="ml-4" color="white" @click="gridNumber = 3"
               >mdi-view-grid</v-icon
@@ -26,7 +26,7 @@
               >mdi-tally-mark-3</v-icon
             >
             <v-icon class="ml-2" color="white" @click="gridNumber = 6"
-              >mdi-numeric-2-circle</v-icon
+              >mdi-tally-mark-2</v-icon
             >
           </div>
         </div>
@@ -54,7 +54,19 @@
                   </h3>
                 </div>
                 <v-spacer></v-spacer>
-                <v-icon color="green" size="50">mdi-circle-small</v-icon>
+                <v-icon
+                  color="warning"
+                  size="50"
+                  v-if="realTimeMessage === 'offline'"
+                  >mdi-circle-small</v-icon
+                >
+                <v-img
+                  src="@/assets/live.png"
+                  height="50"
+                  width="50"
+                  contain
+                  v-if="realTimeMessage === 'online'"
+                ></v-img>
               </div>
 
               <div class="d-flex mt-1" style="font-size: 12px">
@@ -63,7 +75,7 @@
                   <span style="color: orange" class="ml-1">Floor - 1 </span>
                 </div>
                 <v-spacer></v-spacer>
-                <div class="d-flex mr-9 justify-center align-center">
+                <div class="d-flex mr-8 justify-center align-center">
                   <v-icon class="white--text">mdi-bed</v-icon>
                   <span style="color: orange" class="ml-1">Room - 1 </span>
                 </div>
@@ -138,7 +150,7 @@
                   color="black"
                   style="width: 50%"
                 >
-                  <div class="d-flex align-center ml-3 mt-1">
+                  <div class="d-flex align-center ml-3 mt-2">
                     <v-img
                       class="mr-8"
                       src="https://accu.live/images/doctor_dashboard/doc-lunghs.svg"
@@ -200,7 +212,7 @@
                   style="width: 50%"
                   height="50"
                 >
-                  <div class="d-flex align-center ml-3">
+                  <div class="d-flex align-center ml-3 mt-1">
                     <v-img
                       class="mt-1"
                       src="https://accu.live/images/doctor_dashboard/doc-step.svg"
@@ -239,12 +251,16 @@ export default {
     return {
       getDoctorId: localStorage.getItem("user_id"),
       gridNumber: 3,
+      realTimeMessage: "offline",
     };
   },
   computed: {
     ...mapGetters("doctors", ["getPatients", "loadingStatus"]),
     showGrid() {
       return `lg${this.gridNumber}`;
+    },
+    mobile() {
+      return this.$vuetify.breakpoint.lg;
     },
   },
   methods: {

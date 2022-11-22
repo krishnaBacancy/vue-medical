@@ -1,12 +1,12 @@
 <template>
   <div style="width: 100%" class="main__div">
-    <div
+    <!-- <div
       style="overflow: hidden"
       :style="{
         width: [...Array(80).keys()].length * 10 + 'px',
       }"
-    >
-      <!-- <div style="overflow: hidden"> -->
+    > -->
+    <div style="overflow: hidden">
       <canvas
         ref="myChart"
         :width="width"
@@ -67,16 +67,11 @@ export default {
     maxValue: Number,
     options: Object,
   },
-  data() {
-    return {
-      minEcgValue: null,
-    };
-  },
   watch: {
     getEcgChartData: {
       deep: true,
       handler(val) {
-        console.log("ecgchartData--", val);
+        console.log("ecgchartData--", val.length);
       },
     },
   },
@@ -99,20 +94,12 @@ export default {
     setInterval(function () {
       adddata();
     }, 1000);
-    const data = [];
-    let prev = 100;
-    for (let i = 0; i < 1000; i++) {
-      prev += 5 - Math.random() * 10;
-      data.push({ x: i, y: prev });
-    }
-
-    // let sumEcgData = 0;
-    // for (let i = 0; i < this.getEcgChartData?.length; i++) {
-    //   sumEcgData += parseInt(this.getEcgChartData[i], 10);
+    // const data = [];
+    // let prev = 100;
+    // for (let i = 0; i < 1000; i++) {
+    //   prev += 5 - Math.random() * 10;
+    //   data.push({ x: i, y: prev });
     // }
-    // let ecgAvgMin = sumEcgData / this.getEcgChartData?.length;
-    // this.minEcgValue = ecgAvgMin;
-    // var index = 0;
 
     myChart = new Chart(this.$refs.myChart, {
       type: "line",
@@ -145,6 +132,9 @@ export default {
           intersect: false,
         },
         plugins: {
+          legend: {
+            display: false,
+          },
           streaming: {
             refresh: 100,
             duration: 20000,
@@ -160,10 +150,10 @@ export default {
             suggestedMin: 0,
             // min: this.minValue,
             // max: this.maxValue,
-            // min: this.minEcgValue - 30000,
-            // max: this.minEcgValue + 30000,
-            min: this.getMinEcgData - 30000,
-            max: this.getMinEcgData + 30000,
+            // min: this.getMinEcgData - 30000,
+            // max: this.getMinEcgData + 30000,
+            min: Math.min(...this.getEcgChartData) + 110000,
+            max: Math.max(...this.getEcgChartData) - 220000,
             // min: Math.min(...this.getEcgChartData),
             // max: Math.max(...this.getEcgChartData),
             stacked: true,

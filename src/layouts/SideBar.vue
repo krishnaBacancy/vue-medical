@@ -17,6 +17,7 @@
       permanent
       width="10%"
       dark
+      v-if="!getRoute"
     >
       <v-list-item>
         <v-list-item-content>
@@ -36,8 +37,8 @@
       <v-divider></v-divider>
 
       <v-list dense nav>
-        <!-- <v-list-item-group> -->
-        <!-- <v-list-item
+        <v-list-item-group active-class="bg-active">
+          <!-- <v-list-item
             class="list__item"
             link
             v-for="item in items"
@@ -54,69 +55,85 @@
             </div>
           </v-list-item> -->
 
-        <v-list-item class="list__item" link>
-          <div class="item__container" @click="goToLink('/')">
-            <v-list-item-icon style="margin-left: 40px">
-              <v-icon>mdi-view-dashboard</v-icon>
-            </v-list-item-icon>
+          <v-list-item class="list__item">
+            <div class="item__container" @click="goToLink('/')">
+              <v-list-item-icon style="margin-left: 40px">
+                <v-icon>mdi-view-dashboard</v-icon>
+              </v-list-item-icon>
 
-            <v-list-item-content>
-              <v-list-item-title>Dashboard</v-list-item-title>
-            </v-list-item-content>
-          </div>
-        </v-list-item>
+              <v-list-item-content>
+                <v-list-item-title>Dashboard</v-list-item-title>
+              </v-list-item-content>
+            </div>
+          </v-list-item>
 
-        <v-list-item class="list__item" link>
-          <div class="item__container" @click="goToLink('/patients')">
-            <v-list-item-icon style="margin-left: 40px">
-              <v-icon>mdi-account-injury</v-icon>
-            </v-list-item-icon>
+          <v-list-item class="list__item" link>
+            <div class="item__container" @click="goToLink('/patients')">
+              <v-list-item-icon style="margin-left: 40px">
+                <v-icon>mdi-account-injury</v-icon>
+              </v-list-item-icon>
 
-            <v-list-item-content>
-              <v-list-item-title>Patients</v-list-item-title>
-            </v-list-item-content>
-          </div>
-        </v-list-item>
+              <v-list-item-content>
+                <v-list-item-title>Patients</v-list-item-title>
+              </v-list-item-content>
+            </div>
+          </v-list-item>
 
-        <v-list-item class="list__item" link v-if="getRole !== 'Customer'">
-          <div
-            class="item__container"
-            @click="$router.push('/user-management')"
+          <v-list-item class="list__item" link v-if="getRole !== 'Customer'">
+            <div
+              class="item__container"
+              @click="$router.push('/user-management')"
+            >
+              <v-list-item-icon style="margin-left: 40px">
+                <v-icon>mdi-devices</v-icon>
+              </v-list-item-icon>
+
+              <v-list-item-content>
+                <v-list-item-title>Device List</v-list-item-title>
+              </v-list-item-content>
+            </div>
+          </v-list-item>
+
+          <v-list-item
+            class="list__item"
+            link
+            v-if="getRole !== 'Customer' || getRole !== 'Admin'"
           >
-            <v-list-item-icon style="margin-left: 40px">
-              <v-icon>mdi-devices</v-icon>
-            </v-list-item-icon>
+            <div class="item__container" @click="$router.push('/live-device')">
+              <v-list-item-icon style="margin-left: 40px">
+                <v-icon>mdi-account-supervisor-circle</v-icon>
+              </v-list-item-icon>
 
-            <v-list-item-content>
-              <v-list-item-title>Device List</v-list-item-title>
-            </v-list-item-content>
-          </div>
-        </v-list-item>
+              <v-list-item-content>
+                <v-list-item-title>Live</v-list-item-title>
+              </v-list-item-content>
+            </div>
+          </v-list-item>
 
-        <v-list-item class="list__item" link>
-          <div class="item__container" @click="goToLink('/settings')">
-            <v-list-item-icon style="margin-left: 40px">
-              <v-icon>mdi-cog-outline</v-icon>
-            </v-list-item-icon>
+          <v-list-item class="list__item" link>
+            <div class="item__container" @click="goToLink('/settings')">
+              <v-list-item-icon style="margin-left: 40px">
+                <v-icon>mdi-cog-outline</v-icon>
+              </v-list-item-icon>
 
-            <v-list-item-content>
-              <v-list-item-title>Settings</v-list-item-title>
-            </v-list-item-content>
-          </div>
-        </v-list-item>
+              <v-list-item-content>
+                <v-list-item-title>Settings</v-list-item-title>
+              </v-list-item-content>
+            </div>
+          </v-list-item>
 
-        <v-list-item class="list__item" link>
-          <div class="item__container" @click="logOut">
-            <v-list-item-icon style="margin-left: 40px">
-              <v-icon>mdi-logout</v-icon>
-            </v-list-item-icon>
+          <v-list-item class="list__item" link>
+            <div class="item__container" @click="logOut">
+              <v-list-item-icon style="margin-left: 40px">
+                <v-icon>mdi-logout</v-icon>
+              </v-list-item-icon>
 
-            <v-list-item-content>
-              <v-list-item-title>Logout</v-list-item-title>
-            </v-list-item-content>
-          </div>
-        </v-list-item>
-        <!-- </v-list-item-group> -->
+              <v-list-item-content>
+                <v-list-item-title>Logout</v-list-item-title>
+              </v-list-item-content>
+            </div>
+          </v-list-item>
+        </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
 
@@ -143,6 +160,12 @@ export default {
   computed: {
     ...mapState("users", ["user"]),
     ...mapGetters("users", ["isLoggedIn", "getRole"]),
+    getRoute() {
+      if (this.$route.path === "/live-device") {
+        return `expand-on-hover`;
+      }
+      return null;
+    },
     // getBreakPoint() {
     //   console.log("name--", this.$vuetify.breakpoint.xs);
     //   return this.$vuetify.breakpoint.xs;
@@ -172,5 +195,9 @@ export default {
 }
 .list__item:hover {
   background-color: green;
+}
+.bg-active {
+  background-color: green;
+  color: white !important;
 }
 </style>

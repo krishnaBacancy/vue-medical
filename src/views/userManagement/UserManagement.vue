@@ -3,7 +3,11 @@
     <PageHeader title="Device List" pageIcon="mdi-devices" />
     <br />
     <v-container style="background-color: rgba(0, 0, 0, 0.3)" fluid>
-      <v-btn @click="addDevice" color="warning" class="text-start mr-auto"
+      <v-btn
+        @click="addDevice"
+        color="warning"
+        class="text-start mr-auto"
+        v-if="getRole === 'Admin'"
         >Add Device</v-btn
       >
       <div class="mt-3 mb-3">
@@ -115,6 +119,7 @@ export default {
   },
   computed: {
     ...mapGetters("doctors", ["getPatients"]),
+    ...mapGetters("users", ["getRole"]),
     formTitle() {
       return this.editedIndex === -1 ? "New Item" : "Edit Item";
     },
