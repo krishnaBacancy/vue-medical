@@ -9,7 +9,7 @@ const state = {
 };
 
 const getters = {
-  loadingStatus(state) {
+  loadingStatusPatient(state) {
     return state.loading;
   },
   getPatientData(state) {

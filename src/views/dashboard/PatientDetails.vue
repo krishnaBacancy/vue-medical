@@ -37,7 +37,7 @@
               height="50"
               width="50"
               contain
-              v-if="liveMessage === 'online'"
+              v-if="liveMessage === 'Online'"
             ></v-img>
             <v-img
               class="mt-1"
@@ -63,14 +63,7 @@
                 </div>
                 <div class="d-flex align-start mt-2">
                   <div class="grid-container">
-                    <!-- <HighChartTest /> -->
-                    <LineChart
-                      :chart-data="ecgChartData"
-                      :key="showEcgChart"
-                      :width="600"
-                      :height="250"
-                    />
-                    <!-- <RealTimeChart :height="100" :datasets="ecgChartData" /> -->
+                    <LineChart :key="showEcgChart" :width="600" :height="250" />
                   </div>
                 </div>
               </v-card>
@@ -87,9 +80,8 @@
                 <div class="d-flex align-start mt-2">
                   <div class="grid-container">
                     <RealTimeChart
-                      :ppgDatasets="ppgChartData"
-                      :minValue="Math.min(...ppgChartData) - 1000"
-                      :maxValue="Math.max(...ppgChartData) + 1000"
+                      :width="600"
+                      :height="250"
                       :key="showPpgChart"
                     />
                   </div>
@@ -565,13 +557,6 @@
                   </div>
                 </div>
                 <div class="grid-container">
-                  <!-- <AreaChart
-                    :height="200"
-                    :data-of-chart="[72, 115, 95, 130, 60, 116, 88]"
-                    :label="['12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm']"
-                    :chart-border-color="'#774af1'"
-                    :chart-bg-color="'rgba(255, 99, 132, 1)'"
-                  /> -->
                   <ApexAreaChart
                     :height="350"
                     :data-of-chart="[72, 115, 95, 130, 60, 116, 88]"
@@ -674,12 +659,6 @@
                   </div>
                 </div>
                 <div class="grid-container">
-                  <!-- <AreaChart
-                    :chart-border-color="'cyan'"
-                    :height="200"
-                    :data-of-chart="[72, 115, 95, 130, 60, 116, 88]"
-                    :label="['12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm']"
-                  /> -->
                   <ApexAreaChart
                     :height="350"
                     :data-of-chart="[72, 115, 95, 130, 60, 116, 88]"
@@ -711,9 +690,7 @@ import mqtt from "mqtt/dist/mqtt";
 import LineChart from "../../components/LineChart.vue";
 import RealTimeChart from "@/components/RealTimeChart.vue";
 import PageHeader from "@/layouts/PageHeader.vue";
-// import ChartComponent from "@/components/ChartComponent.vue";
 import TestChart from "@/components/TestChart.vue";
-// import AreaChart from "@/components/AreaChart.vue";
 import ApexAreaChart from "@/components/ApexAreaChart.vue";
 export default {
   name: "PatientDetails",
@@ -722,21 +699,15 @@ export default {
     RealTimeChart,
     PageHeader,
     TestChart,
-    // AreaChart,
     ApexAreaChart,
   },
   data() {
     return {
-      tempTitle: ["12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm"],
       getDoctorId: localStorage.getItem("user_id"),
       ecgChartData: [],
       ppgChartData: [],
-      tempData: [],
       showEcgChart: true,
       showPpgChart: true,
-      ppgTempData: [],
-      minEcgValue: null,
-      minPpgValue: null,
       connection: {
         host: "194.233.69.96",
         port: 15675,
@@ -747,7 +718,6 @@ export default {
           username: "MYsmO5Oc7O6DKkS8",
           password: "ufUPnVWbLoMwwFaL",
         },
-        // endpoint: "/BMSFSEV/+/sTOf",
         clean: true, // Reserved session
         connectTimeout: 4000, // Time out
         reconnectPeriod: 4000, // Reconnection interval
@@ -794,14 +764,16 @@ export default {
   },
   mounted() {
     this.createConnection();
-    this.getAlgoData();
-    this.getBodyTempGraph();
-    this.getBloodO2Grpah();
-    this.getStepsGraph();
+    setTimeout(() => {
+      this.getAlgoData();
+      this.getBodyTempGraph();
+      this.getBloodO2Grpah();
+      this.getStepsGraph();
+    }, 1000);
   },
   methods: {
     ...mapActions("doctors", ["getSingleDevice"]),
-    ...mapActions("chartData", ["setEcgData"]),
+    ...mapActions("chartData", ["setEcgData", "setPpgData"]),
     ...mapActions("patientData", [
       "getPatientAlgoData",
       "getPatientBodyTempData",
@@ -819,7 +791,7 @@ export default {
     },
     getAlgoData() {
       const payload = {
-        speedometerId: this.getMacAddress.toString(),
+        speedometerId: this.getMacAddress.toString().toUpperCase(),
         startDate: 1667301683000,
         endDate: 1669288883000,
       };
@@ -827,8 +799,7 @@ export default {
     },
     getBodyTempGraph() {
       const payload = {
-        speedometerId:
-          this.getSingleDeviceData[0]?.macAddressFramed.toUpperCase(),
+        speedometerId: this.getMacAddress.toString().toUpperCase(),
         agrFunction: "average",
         timePeriod: "1day",
         startDate: 1667301683000,
@@ -838,8 +809,7 @@ export default {
     },
     getBloodO2Grpah() {
       const payload = {
-        speedometerId:
-          this.getSingleDeviceData[0]?.macAddressFramed.toUpperCase(),
+        speedometerId: this.getMacAddress.toString().toUpperCase(),
         agrFunction: "average",
         timePeriod: "1day",
         startDate: 1667301683000,
@@ -849,8 +819,7 @@ export default {
     },
     getStepsGraph() {
       const payload = {
-        speedometerId:
-          this.getSingleDeviceData[0]?.macAddressFramed.toUpperCase(),
+        speedometerId: this.getMacAddress.toString().toUpperCase(),
         agrFunction: "average",
         timePeriod: "1day",
         startDate: 1667301683000,
@@ -879,19 +848,16 @@ export default {
         let data = JSON.parse(message);
         console.log("data--", JSON.parse(message));
         this.liveMessage = data?.message;
-        //setTimeout implementation here...
-        this.setEcgData(data?.ecg_vals);
-        // this.ecgChartData = data?.ecg_vals;
+        this.ecgChartData = data?.ecg_vals;
         this.ppgChartData = data?.ppg_vals;
+        this.setEcgData(this.ecgChartData);
+        this.setPpgData(this.ppgChartData);
         this.showEcgChart = false;
         this.showPpgChart = false;
         this.$nextTick(() => {
           this.showEcgChart = true;
           this.showPpgChart = true;
         });
-        // console.log("ppg--", this.ppgChartData);
-        // console.log("ecg--", this.ecgChartData);
-        // this.client.end();
       });
     },
   },
