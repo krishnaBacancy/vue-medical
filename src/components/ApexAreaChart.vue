@@ -71,8 +71,23 @@ export default {
         },
         // colors: ["#00897b"],
         colors: this.chartBgColor,
-        tooltip: {
-          theme: false,
+        // tooltip: {
+        //   theme: false,
+        // },
+        responsive: [
+          {
+            breakpoint: 800,
+          },
+        ],
+        theme: {
+          mode: "dark",
+          palette: "palette1",
+          monochrome: {
+            enabled: false,
+            color: "#7741f1",
+            shadeTo: "dark",
+            shadeIntensity: 0.65,
+          },
         },
       },
       series: [

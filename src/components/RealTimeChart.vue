@@ -135,6 +135,11 @@ export default {
             tension: 0.5,
           },
         },
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
         responsive: true,
         aspectRatio: 1.2,
         maintainAspectRatio: false,
