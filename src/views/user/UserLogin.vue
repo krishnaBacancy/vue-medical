@@ -23,13 +23,6 @@
                       >
                         Sneak Peek Into Health
                       </h1>
-                      <!-- <v-img
-                        src="https://accu.live/images/app-logo.svg"
-                        height="50"
-                        contain
-                      >
-                      </v-img> -->
-                      <!-- <h1 class="display-2 teal--text text--accent-3">IVE</h1> -->
                     </v-flex>
                     <h5 class="text-center mt-3 teal--text">
                       Login into your account
@@ -96,7 +89,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions } from "vuex";
 export default {
   name: "UserLogin",
   data() {
@@ -116,9 +109,6 @@ export default {
         },
       },
     };
-  },
-  computed: {
-    ...mapGetters("users", ["isLoggedIn"]),
   },
   methods: {
     ...mapActions("users", ["loginUser"]),

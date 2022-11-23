@@ -13,14 +13,6 @@
         color="purple"
         v-if="loadingStatus"
       ></v-progress-circular>
-      <!-- <v-toolbar color="indigo" dark>
-            <v-toolbar-title>Profile Details</v-toolbar-title>
-            <v-spacer></v-spacer>
-            <v-btn color="warning" outlined>Edit Profile</v-btn>
-            <v-btn icon @click="$router.go(-1)" class="ml-3">
-              <v-icon>mdi-arrow-left </v-icon>
-            </v-btn>
-          </v-toolbar> -->
       <v-layout row wrap v-else>
         <v-flex d-flex xs12 md12 sm12 lg12>
           <div class="d-flex align-center" style="width: 100%">
@@ -239,7 +231,6 @@
                 <small>Thyroid</small>
                 <h3 class="font-weight-bold">NULL</h3>
               </div>
-              <!-- <v-spacer></v-spacer> -->
               <div class="d-flex flex-column align-start" style="width: 33%">
                 <small class="">Obesity</small>
                 <h3 class="font-weight-bold">NULL</h3>

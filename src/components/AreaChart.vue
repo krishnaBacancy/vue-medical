@@ -1,11 +1,5 @@
 <template>
   <div style="width: 100%; overflow-x: auto">
-    <!-- <div
-        :style="{
-          width: [...Array(80).keys()].length * 10 + 'px',
-        }"
-        style="overflow: hidden"
-      > -->
     <LineChart
       :chart-options="chartOptions"
       :chart-data="chartData"
@@ -18,7 +12,6 @@
       :height="height"
       style="background-color: #282934"
     />
-    <!-- </div> -->
   </div>
 </template>
 
@@ -36,7 +29,6 @@ import {
   PointElement,
   Filler,
 } from "chart.js";
-// import { fileData } from "@/views/testData";
 
 ChartJS.register(
   Title,
@@ -94,22 +86,15 @@ export default {
   data() {
     return {
       chartData: {
-        // labels: [...Array(60).keys()],
-        // labels: ["12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm"],
         labels: this.label,
         datasets: [
           {
-            // data: fileData.ecg_vals,
-            // data: ["72", "115", "95", "130", "60", "116", "88"],
             data: this.dataOfChart,
-            // borderColor: "blue",
             borderColor: this.chartBorderColor,
-            // hoverBorderColor: "pink",
             tension: 0.4,
             borderWidth: 1,
             fill: true,
             backgroundColor: this.chartBgColor,
-            // pointRadius: 0.1,
           },
         ],
       },

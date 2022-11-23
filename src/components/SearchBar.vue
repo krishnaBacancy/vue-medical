@@ -21,11 +21,6 @@
             </div>
           </v-card>
           <v-spacer></v-spacer>
-          <!-- <div>
-            <span>Filter</span>
-            <v-icon>mdi-apps-box</v-icon>
-            <v-icon>mdi-format-list-bulleted</v-icon>
-          </div> -->
         </div>
       </v-flex>
     </v-layout>

@@ -20,7 +20,6 @@ const mutations = {
     state.isLoading = loadingStatus;
   },
   SET_USER(state, usersData) {
-    // state.userData = data.data.data;
     state.users = usersData.map((user) => {
       return {
         id: user.userId,
@@ -48,7 +47,6 @@ const actions = {
   async getAllUsers({ commit }) {
     commit("SET_LOADING_STATUS", true);
     const res = await users.getAllUsers();
-    console.log("res--", res.data.data);
     commit("SET_USER", res.data.data);
     commit("SET_LOADING_STATUS", false);
   },

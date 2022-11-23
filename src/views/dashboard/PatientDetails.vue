@@ -877,16 +877,6 @@ export default {
   justify-content: start;
   max-width: 100%;
 }
-.grid-item {
-  background-color: lightgrey;
-  margin: auto;
-  border: 1px solid rgba(0, 0, 0, 0.8);
-  width: 700px;
-  /* padding: 10px; */
-  /* font-size: 30px; */
-  /* text-align: center; */
-  /* min-width: 600px; */
-}
 .export__btn:hover {
   background-color: orange;
   color: white !important;

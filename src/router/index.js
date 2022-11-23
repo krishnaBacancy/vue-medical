@@ -1,7 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/dashboard/HomeView.vue";
-// import store from "../store/index";
 
 Vue.use(VueRouter);
 
@@ -81,43 +80,5 @@ router.beforeEach((to, from, next) => {
 
   next();
 });
-
-// router.beforeEach((to, from, next) => {
-//   console.log("To--", to);
-//   console.log("Store--", store);
-//   if (to.name !== "userlogin" && store.getters["users/isLoggedIn"]) {
-//     next({
-//       path: "login",
-//       replace: true,
-//     });
-//   } else {
-//     next();
-//   }
-// });
-
-// router.beforeEach((to, from, next) => {
-//   console.log("To--", to);
-//   if (to.matched.some((record) => record.meta.requiresAuth)) {
-//     if (store.getters["users/isLoggedIn"]) {
-//       next();
-//       return;
-//     }
-//     next("/login");
-//   } else {
-//     next();
-//   }
-// });
-
-// router.beforeEach((to, from, next) => {
-//   if (to.matched.some((record) => record.meta.guest)) {
-//     if (store.getters["users/isLoggedIn"]) {
-//       next("/");
-//       return;
-//     }
-//     next();
-//   } else {
-//     next();
-//   }
-// });
 
 export default router;

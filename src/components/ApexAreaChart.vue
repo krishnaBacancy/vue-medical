@@ -69,11 +69,7 @@ export default {
         xaxis: {
           categories: this.chartLabel,
         },
-        // colors: ["#00897b"],
         colors: this.chartBgColor,
-        // tooltip: {
-        //   theme: false,
-        // },
         responsive: [
           {
             breakpoint: 800,

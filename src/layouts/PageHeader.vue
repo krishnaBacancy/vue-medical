@@ -10,7 +10,6 @@
         <v-icon class="white--text ml-4">{{ pageIcon }}</v-icon>
         <div class="d-flex" style="width: 100%">
           <v-card-title class="white--text bold">{{ title }}</v-card-title>
-          <!-- <v-spacer></v-spacer> -->
           <v-btn
             class="align-self-center ml-auto mr-10"
             :color="colorName"

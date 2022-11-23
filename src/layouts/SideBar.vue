@@ -1,15 +1,5 @@
 <template>
   <v-app>
-    <!-- <v-app-bar app color="grey" class="white--text">
-      <v-toolbar-title @click="$router.push('/')" style="cursor: pointer">
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn class="success" @click="$router.push('/login')" v-if="!getUserId">
-        Login
-      </v-btn>
-      <v-btn class="warning" @click="logOut" v-else> Logout </v-btn>
-    </v-app-bar> -->
-
     <v-navigation-drawer
       app
       v-model="drawer"
@@ -38,23 +28,6 @@
 
       <v-list dense nav>
         <v-list-item-group active-class="bg-active">
-          <!-- <v-list-item
-            class="list__item"
-            link
-            v-for="item in items"
-            :key="item.title"
-          >
-            <div class="item__container" @click="$router.push(item.link)">
-              <v-list-item-icon style="margin-left: 40px">
-                <v-icon>{{ item.icon }}</v-icon>
-              </v-list-item-icon>
-
-              <v-list-item-content>
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
-              </v-list-item-content>
-            </div>
-          </v-list-item> -->
-
           <v-list-item class="list__item">
             <div class="item__container" @click="goToLink('/')">
               <v-list-item-icon style="margin-left: 40px">
@@ -150,26 +123,17 @@ export default {
     return {
       drawer: false,
       getUserId: localStorage.getItem("user_id"),
-      items: [
-        { title: "Dashboard", icon: "mdi-view-dashboard", link: "/" },
-        { title: "Patients", icon: "mdi-account-injury", link: "/patients" },
-        { title: "Settings", icon: "mdi-cog-outline", link: "/settings" },
-      ],
     };
   },
   computed: {
     ...mapState("users", ["user"]),
-    ...mapGetters("users", ["isLoggedIn", "getRole"]),
+    ...mapGetters("users", ["getRole"]),
     getRoute() {
       if (this.$route.path === "/live-device") {
         return `expand-on-hover`;
       }
       return null;
     },
-    // getBreakPoint() {
-    //   console.log("name--", this.$vuetify.breakpoint.xs);
-    //   return this.$vuetify.breakpoint.xs;
-    // },
   },
   methods: {
     ...mapActions("users", ["logoutUser"]),

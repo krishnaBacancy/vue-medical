@@ -19,9 +19,6 @@ export default {
 
 <style>
 #app {
-  /*font-family: "Roboto Condensed", sans-serif;*/
-  /*font-family: "Poppins", sans-serif;*/
-  /*font-family: "Gilroy";*/
   font-family: "Quicksand", sans-serif;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;

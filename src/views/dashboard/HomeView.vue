@@ -14,7 +14,6 @@
       ></v-progress-circular>
 
       <div v-else>
-        <!-- <SearchBar /> -->
         <div class="d-flex align-center">
           <SearchBar />
           <div class="white--text d-flex mr-5" v-if="mobile">
@@ -260,7 +259,7 @@ export default {
       return `lg${this.gridNumber}`;
     },
     mobile() {
-      return this.$vuetify.breakpoint.lg;
+      return this.$vuetify.breakpoint.lgAndUp;
     },
   },
   methods: {
@@ -284,47 +283,5 @@ export default {
 <style scoped>
 small {
   font-size: 10px;
-}
-.grid-container {
-  /* display: grid; */
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  /* height: 300px; */
-  /* column-gap: 50px; */
-  /* grid-gap: 2rem; */
-  /* grid-template-columns: auto auto auto; */
-  /* padding: 10px; */
-  /* margin-left: auto; */
-  /* margin-right: auto; */
-  /* max-width: 600px; */
-}
-.grid-item {
-  cursor: pointer;
-  background-color: lightgrey;
-  border: 1px solid rgba(0, 0, 0, 0.8);
-  width: 50%;
-  /* padding: 10px; */
-  /* font-size: 30px; */
-  /* text-align: center; */
-  /* min-width: 600px; */
-}
-.grid-item:hover {
-  scale: 1.05;
-}
-
-@media all and (max-width: 800px) {
-  .grid-container {
-    /* When on medium sized screens, we center it by evenly distributing empty space around items */
-    justify-content: flex-start;
-  }
-}
-@media all and (max-width: 500px) {
-  .grid-container {
-    /* On small screens, we are no longer using row direction but column */
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
-  }
 }
 </style>

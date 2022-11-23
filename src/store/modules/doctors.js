@@ -24,7 +24,6 @@ const getters = {
     return state?.singlePatientData;
   },
   getSingleDeviceData(state) {
-    console.log("state--", state);
     return state?.singleDeviceData;
   },
   getMacAddress(state) {
