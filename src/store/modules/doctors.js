@@ -6,6 +6,7 @@ const state = {
   singlePatientData: [],
   singleDeviceData: [],
   loading: false,
+  searchTerm: "",
 };
 
 const getters = {
@@ -30,6 +31,12 @@ const getters = {
     return state?.singleDeviceData?.map((data) => {
       return data?.macAddressFramed;
     });
+  },
+  filteredPatients: (state) => {
+    if (!state.searchTerm) return state.doctorsData;
+    return state.doctorsData.filter((data) =>
+      data.macAddressFramed.includes(state.searchTerm.trim().toUpperCase())
+    );
   },
 };
 

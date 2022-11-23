@@ -36,7 +36,7 @@
             sm6
             md4
             :class="showGrid"
-            v-for="patient in getPatients"
+            v-for="patient in filteredPatients"
             :key="patient.id"
           >
             <v-card
@@ -233,7 +233,10 @@
         </v-layout>
       </div>
 
-      <div v-if="!getPatients" class="white--text display-1">
+      <div
+        v-if="!$store.state.doctors.doctorsData"
+        class="white--text display-1"
+      >
         No Patients to display...
       </div>
     </v-container>
@@ -254,7 +257,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("doctors", ["getPatients", "loadingStatus"]),
+    ...mapGetters("doctors", ["loadingStatus", "filteredPatients"]),
     showGrid() {
       return `lg${this.gridNumber}`;
     },

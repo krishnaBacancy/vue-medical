@@ -13,7 +13,7 @@
               <input
                 type="search"
                 placeholder="Search"
-                v-model="searchText"
+                v-model="$store.state.doctors.searchTerm"
                 class="ml-2"
                 style="color: white"
               />
@@ -28,11 +28,16 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   data() {
     return {
-      searchText: "",
+      searchText: this.searchTerm,
     };
+  },
+  computed: {
+    ...mapState("doctors", ["searchTerm"]),
   },
 };
 </script>
