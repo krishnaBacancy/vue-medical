@@ -68,7 +68,7 @@ export default {
       myLineChart?.data.labels.push(zero);
       myLineChart?.data.labels.splice(0, 10);
       myLineChart?.data.datasets[0].data.splice(0, 30);
-      myLineChart.update();
+      myLineChart?.update();
       zero++;
     }
     setInterval(function () {
@@ -115,7 +115,7 @@ export default {
             stacked: true,
             offset: true,
             min: Math.min(...this.getPpgChartData) + 110000,
-            max: Math.max(...this.getEcgChartData) - 220000,
+            max: Math.max(...this.getPpgChartData) - 220000,
           },
           x: {
             display: false,
