@@ -17,7 +17,9 @@
                 class="ml-2"
                 style="color: white"
               />
-              <v-icon class="ml-2">mdi-close-circle</v-icon>
+              <v-icon class="ml-2" @click="$store.state.doctors.searchTerm = ''"
+                >mdi-close-circle</v-icon
+              >
             </div>
           </v-card>
           <v-spacer></v-spacer>
@@ -28,18 +30,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-
-export default {
-  data() {
-    return {
-      searchText: this.searchTerm,
-    };
-  },
-  computed: {
-    ...mapState("doctors", ["searchTerm"]),
-  },
-};
+export default {};
 </script>
 
 <style scoped>
