@@ -72,9 +72,19 @@ const mutations = {
     state.patientsData = patients.map((patient) => {
       return {
         id: patient.userId,
-        firstName: patient.first_Name,
+        firstName:
+          patient.first_Name?.charAt(0).toUpperCase() +
+          patient.first_Name?.slice(1),
         licenseNo: patient.licenseno,
-        lastName: patient.last_Name,
+        lastName:
+          patient.last_Name?.charAt(0).toUpperCase() +
+          patient.last_Name?.slice(1),
+        fullName:
+          patient?.first_Name?.charAt(0).toUpperCase() +
+          patient?.first_Name?.slice(1) +
+          " " +
+          patient?.last_Name?.charAt(0).toUpperCase() +
+          patient?.last_Name?.slice(1),
         email: patient.email,
         address: patient.Address,
         aadharcard: patient.adharcard,

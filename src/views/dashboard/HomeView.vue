@@ -56,7 +56,7 @@
                 <v-icon
                   color="warning"
                   size="50"
-                  v-if="realTimeMessage === 'offline'"
+                  v-if="realTimeMessage === 'Offline'"
                   >mdi-circle-small</v-icon
                 >
                 <v-img
@@ -64,7 +64,7 @@
                   height="50"
                   width="50"
                   contain
-                  v-if="realTimeMessage === 'online'"
+                  v-if="realTimeMessage === 'Online'"
                 ></v-img>
               </div>
 
@@ -253,7 +253,7 @@ export default {
     return {
       getDoctorId: localStorage.getItem("user_id"),
       gridNumber: 3,
-      realTimeMessage: "offline",
+      realTimeMessage: "Offline",
     };
   },
   computed: {

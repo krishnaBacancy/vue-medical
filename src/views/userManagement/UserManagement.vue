@@ -12,6 +12,17 @@
       >
       <div class="mt-3 mb-3">
         <v-data-table
+          item-key="name"
+          class="elevation-1"
+          loading
+          loading-text="Loading... Please wait"
+          height="350"
+          :items-per-page="5"
+          dark
+          v-if="loadingStatus"
+        ></v-data-table>
+        <v-data-table
+          v-else
           :headers="headers"
           :items="getPatients"
           :items-per-page="5"
@@ -19,68 +30,55 @@
           height="350"
           dark
         >
-          <v-dialog v-model="dialog" max-width="500px">
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
-                New Item
-              </v-btn>
-            </template>
-            <v-card>
-              <v-card-title>
-                <span class="text-h5">{{ formTitle }}</span>
-              </v-card-title>
-
-              <v-card-text>
-                <v-container>
-                  <v-row>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.name"
-                        label="Dessert name"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.fullName"
-                        label="Calories"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.macAddressFramed"
-                        label="Fat (g)"
-                      ></v-text-field>
-                    </v-col>
-                  </v-row>
-                </v-container>
-              </v-card-text>
-
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="close">
-                  Cancel
-                </v-btn>
-                <v-btn color="blue darken-1" text @click="save"> Save </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text> Cancel </v-btn>
-            <v-btn color="blue darken-1" text> Save </v-btn>
-          </v-card-actions>
           <template v-slot:[`item.actions`]="{ item }">
             <v-icon color="info" @click="editDevice(item)"> mdi-pencil </v-icon>
           </template>
         </v-data-table>
+
+        <v-dialog v-model="dialog" max-width="600px" dark overlay-color="white">
+          <v-card>
+            <v-card-title>
+              <span class="text-h5 ml-3">Edit</span>
+            </v-card-title>
+
+            <v-card-text>
+              <v-container>
+                <v-row>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field
+                      v-model="editedItem.name"
+                      label="Device Name"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field
+                      v-model="editedItem.fullName"
+                      label="Patient Name"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field
+                      v-model="editedItem.macAddressFramed"
+                      label="Mac Address"
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-card-text>
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" text @click="close"> Cancel </v-btn>
+              <v-btn color="blue darken-1" text @click="save"> Save </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </div>
     </v-container>
   </div>
 </template>
 
 <script>
-// import roles from "@/api/roles";
 import PageHeader from "@/layouts/PageHeader.vue";
 import { mapActions, mapGetters } from "vuex";
 
@@ -118,21 +116,11 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("doctors", ["getPatients"]),
+    ...mapGetters("doctors", ["getPatients", "loadingStatus"]),
     ...mapGetters("users", ["getRole"]),
-    formTitle() {
-      return this.editedIndex === -1 ? "New Item" : "Edit Item";
-    },
-    // getRole() {
-    //   return this.getUsersData.map()
-    // }
   },
   methods: {
     ...mapActions("doctors", ["getPatientsForDoctor"]),
-    // async getRoles() {
-    //   const { data } = await roles.getAllRolesApi();
-    //   console.log("data", data);
-    // },
     addDevice() {
       this.$router.push({ path: "/add-user" });
     },
@@ -164,7 +152,6 @@ export default {
   },
 
   mounted() {
-    // this.getRoles();
     this.getPatientsForDoctor(this.getDoctorId);
   },
   components: { PageHeader },
