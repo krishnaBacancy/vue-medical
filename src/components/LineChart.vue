@@ -64,7 +64,7 @@ export default {
     function adddata() {
       myChart?.data.labels.push(zero);
       myChart?.data.labels.splice(0, 10);
-      myChart?.data.datasets[0].data.splice(0, 30);
+      myChart?.data.datasets[0].data.splice(0, 10);
       myChart?.update();
       zero++;
     }
@@ -75,18 +75,18 @@ export default {
     myChart = new Chart(this.$refs.myChart, {
       type: "line",
       data: {
-        labels: [...Array(2000).keys()],
+        labels: [...Array(1000).keys()],
         datasets: [
           {
             label: "ECG",
             data: this.getEcgChartData,
             borderColor: "red",
             hoverBorderColor: "red",
-            tension: 0.4,
-            borderWidth: 3,
+            // tension: 0.4,
+            borderWidth: 1,
             fill: false,
             pointRadius: 0.1,
-            categoryPercentage: 1.5,
+            // categoryPercentage: 0.3,
           },
         ],
       },
@@ -117,8 +117,8 @@ export default {
             suggestedMin: 0,
             // min: this.getMinEcgData - 30000,
             // max: this.getMinEcgData + 30000,
-            min: Math.min(...this.getEcgChartData) + 110000,
-            max: Math.max(...this.getEcgChartData) - 220000,
+            min: Math.min(...this.getEcgChartData) - 50000,
+            max: Math.max(...this.getEcgChartData) + 50000,
             stacked: true,
             offset: true,
             ticks: {

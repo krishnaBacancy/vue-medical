@@ -67,7 +67,7 @@ export default {
     function adddata() {
       myLineChart?.data.labels.push(zero);
       myLineChart?.data.labels.splice(0, 10);
-      myLineChart?.data.datasets[0].data.splice(0, 30);
+      myLineChart?.data.datasets[0].data.splice(0, 10);
       myLineChart?.update();
       zero++;
     }
@@ -78,18 +78,18 @@ export default {
     var myLineChart = new Chart(this.$refs.myLineChart, {
       type: "line",
       data: {
-        labels: [...Array(2000).keys()],
+        labels: [...Array(1000).keys()],
         datasets: [
           {
             label: "PPG",
             data: this.getPpgChartData,
             borderColor: "green",
             hoverBorderColor: "red",
-            tension: 0.4,
-            borderWidth: 3,
+            // tension: 0.4,
+            borderWidth: 1,
             fill: false,
             pointRadius: 0.1,
-            categoryPercentage: 1.5,
+            // categoryPercentage: 1.5,
           },
         ],
       },
@@ -114,8 +114,8 @@ export default {
             suggestedMin: 0,
             stacked: true,
             offset: true,
-            min: Math.min(...this.getPpgChartData) + 110000,
-            max: Math.max(...this.getPpgChartData) - 220000,
+            min: Math.min(...this.getPpgChartData) - 100,
+            max: Math.max(...this.getPpgChartData) + 100,
           },
           x: {
             display: false,
