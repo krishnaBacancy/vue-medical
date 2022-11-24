@@ -9,7 +9,43 @@
       @addNewPatient="addPatient"
     />
     <br />
-    <v-container
+    <v-container style="background-color: rgba(0, 0, 0, 0.5)" fluid>
+      <div class="mt-3 mb-3">
+        <v-data-table
+          item-key="name"
+          class="elevation-1"
+          loading
+          loading-text="Loading... Please wait"
+          height="350"
+          :items-per-page="5"
+          dark
+          v-if="loadingStatus"
+        ></v-data-table>
+        <v-data-table
+          v-else
+          :headers="headers"
+          :items="getAllPatientsOnly"
+          :items-per-page="5"
+          class="elevation-1"
+          height="500"
+          dark
+        >
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-icon
+              color="warning"
+              class="mr-3"
+              size="20"
+              @click="$router.push(`/patients/patient/${item.id}`)"
+            >
+              mdi-eye
+            </v-icon>
+            <v-icon size="20" color="info" class="mr-3">mdi-pencil</v-icon>
+            <v-icon size="20" color="red">mdi-delete</v-icon>
+          </template>
+        </v-data-table>
+      </div>
+    </v-container>
+    <!-- <v-container
       fluid
       grid-list-md
       style="background-color: rgba(0, 0, 0, 0.5)"
@@ -83,7 +119,7 @@
           </v-card>
         </v-flex>
       </v-layout>
-    </v-container>
+    </v-container> -->
   </div>
 </template>
 
@@ -95,6 +131,22 @@ export default {
   data() {
     return {
       getDoctorId: localStorage.getItem("user_id"),
+      headers: [
+        {
+          text: "PatientName",
+          align: "start",
+          sortable: false,
+          value: "fullName",
+        },
+        {
+          text: "Room Number",
+          value: "room",
+        },
+        { text: "Floor Number", value: "floor" },
+        { text: "Phone Number", value: "mobileNo" },
+        { text: "Patient Status", value: "status" },
+        { text: "Actions", value: "actions", sortable: false },
+      ],
     };
   },
   computed: {
