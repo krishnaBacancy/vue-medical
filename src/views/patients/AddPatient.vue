@@ -1,6 +1,13 @@
 <template>
   <div>
-    <PageHeader title="Add New Patient" pageIcon="mdi-account" />
+    <PageHeader
+      title="Add New Patient"
+      pageIcon="mdi-account"
+      btnName="Back"
+      color-name="warning"
+      btnIconName="mdi-arrow-left"
+      @addNewPatient="goToPreviousPage"
+    />
     <br />
     <v-container
       fluid
@@ -385,6 +392,9 @@ export default {
     };
   },
   methods: {
+    goToPreviousPage() {
+      this.$router.go(-1);
+    },
     addPatient() {
       this.$refs.form.validate();
       if (this.valid) {

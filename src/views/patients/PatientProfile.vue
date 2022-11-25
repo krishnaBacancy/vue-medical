@@ -1,6 +1,13 @@
 <template>
   <div>
-    <PageHeader title="Profile Details" pageIcon="mdi-card-account-details" />
+    <PageHeader
+      title="Profile Details"
+      pageIcon="mdi-card-account-details"
+      btnName="Back"
+      color-name="warning"
+      btnIconName="mdi-arrow-left"
+      @addNewPatient="goToPreviousPage"
+    />
     <br />
     <v-container
       fluid
@@ -254,6 +261,9 @@ export default {
   },
   methods: {
     ...mapActions("doctors", ["getSinglePatient"]),
+    goToPreviousPage() {
+      this.$router.go(-1);
+    },
   },
   mounted() {
     this.getSinglePatient(this.$route.params.id);

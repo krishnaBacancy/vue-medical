@@ -6,7 +6,7 @@
       btnName="Back"
       color-name="success"
       btnIconName="mdi-arrow-left"
-      @addNewPatient="goToLink"
+      @addNewPatient="goToPreviousPage"
     />
     <br />
     <v-container
@@ -314,7 +314,7 @@ export default {
     },
   },
   methods: {
-    goToLink() {
+    goToPreviousPage() {
       this.$router.go(-1);
     },
     closeDialog(id) {
