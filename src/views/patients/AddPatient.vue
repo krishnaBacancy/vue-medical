@@ -86,6 +86,7 @@
                           :value="dateValue"
                           @focus="focusDate"
                           filled
+                          dense
                           v-on="on"
                         ></v-text-field>
                       </template>
@@ -98,7 +99,7 @@
                     </v-menu>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
-                    <v-radio-group v-model="user.gender" row class="ml-2">
+                    <v-radio-group v-model="user.gender" row class="ml-4">
                       <template v-slot:label>
                         <div><strong>Gender</strong></div>
                       </template>
@@ -174,6 +175,7 @@
                     <v-select
                       :items="relations"
                       filled
+                      dense
                       label="Select Relation"
                       :rules="selectRules"
                       v-model="user.selected1Relation"
@@ -207,6 +209,7 @@
                       label="Select Relation"
                       :rules="selectRules"
                       v-model="user.selected2Relation"
+                      dense
                     ></v-select>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
@@ -237,6 +240,7 @@
                     <v-select
                       :items="designations"
                       filled
+                      dense
                       label="Designation"
                       :rules="selectRules"
                       v-model="user.selectedDesignation"
@@ -291,6 +295,7 @@
                     <v-select
                       :items="heartCondition"
                       filled
+                      dense
                       label="Heart Condition"
                       :rules="selectRules"
                       v-model="user.heartCondition"

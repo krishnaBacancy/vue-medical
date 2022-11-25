@@ -103,6 +103,12 @@ const mutations = {
         id: patient.userId,
         firstName: patient.first_Name,
         licenseNo: patient.licenseno,
+        fullName:
+          patient?.first_Name?.charAt(0).toUpperCase() +
+          patient?.first_Name?.slice(1) +
+          " " +
+          patient?.last_Name?.charAt(0).toUpperCase() +
+          patient?.last_Name?.slice(1),
         lastName: patient.last_Name,
         email: patient.email,
         address: patient.Address,

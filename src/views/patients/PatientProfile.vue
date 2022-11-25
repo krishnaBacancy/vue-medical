@@ -33,13 +33,7 @@
               </div>
               <div class="white--text ml-5">
                 <h3>
-                  {{
-                    getSinglePatientData[0]?.firstName.charAt(0).toUpperCase() +
-                    getSinglePatientData[0]?.firstName.slice(1) +
-                    " " +
-                    getSinglePatientData[0]?.lastName.charAt(0).toUpperCase() +
-                    getSinglePatientData[0]?.lastName.slice(1)
-                  }}
+                  {{ getSinglePatientData[0]?.fullName }}
                 </h3>
                 <h4 class="text-start">
                   + {{ getSinglePatientData[0]?.mobileNo }}
