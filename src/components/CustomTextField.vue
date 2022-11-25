@@ -9,6 +9,7 @@
       :rules="fieldRules"
       :placeholder="placeholder"
       required
+      @input="handleInput"
     ></v-text-field>
   </div>
 </template>
@@ -23,6 +24,16 @@ export default {
     placeholder: String,
     name: String,
     type: String,
+    hidden: String,
+  },
+  model: {
+    prop: "hidden",
+    event: "blur",
+  },
+  methods: {
+    handleInput(value) {
+      this.$emit("blur", value);
+    },
   },
   computed: {
     hasErrors() {
