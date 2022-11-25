@@ -1,11 +1,25 @@
 <template>
   <v-app>
+    <v-app-bar
+      app
+      dark
+      class="white--text"
+      v-if="$vuetify.breakpoint.smAndDown"
+    >
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+    </v-app-bar>
     <v-navigation-drawer
       app
       v-model="drawer"
       color="rgba(0,0,0,0.3)"
       width="10%"
       dark
+      :style="{
+        width: $vuetify.breakpoint.smAndDown ? '40%' : '10%',
+        backgroundColor: $vuetify.breakpoint.smAndDown
+          ? 'rgba(0,0,0,0.8)'
+          : 'rgba(0,0,0,0.3)',
+      }"
       :permanent="$vuetify.breakpoint.mdAndUp"
       v-if="!getRoute"
     >
