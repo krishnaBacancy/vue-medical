@@ -59,7 +59,7 @@ const actions = {
           if (res.status === 201) {
             commit("SET_USER_INFO", res);
             resolve(true);
-            commit("SET_LOADING_STATUS", true);
+            commit("SET_LOADING_STATUS", false);
           }
         })
         .catch((err) => reject(err));

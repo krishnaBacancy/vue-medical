@@ -17,9 +17,9 @@ const getters = {
     return state.doctorsData;
   },
   getAllPatientsOnly(state) {
-    return state?.patientsData?.filter(
-      (patient) => patient.role === "Customer"
-    );
+    return state?.patientsData
+      ?.filter((patient) => patient.role === "Customer")
+      .reverse();
   },
   getSinglePatientData(state) {
     return state?.singlePatientData;
@@ -119,8 +119,30 @@ const mutations = {
         gstNo: patient.GSTNO,
         roleId: patient.roleId,
         role: patient.role,
+        emergencyPhone: patient.emergencyPhone,
+        height: patient.height,
+        weight: patient.weight,
+        bloodPressure: patient?.medical_history[0]?.bloodPressure,
+        diabetics: patient?.medical_history[0]?.diabetics,
+        heartCondition: patient?.medical_history[0]?.heartCondition,
+        obesity: patient?.medical_history[0]?.obesity,
+        thyroid: patient?.medical_history[0]?.thyroid,
+        familyMember1Name: patient?.family_members[0]?.familyMember1Name,
+        familyMember2Name: patient?.family_members[1]?.familyMember2Name,
+        familyMember1Contact: patient?.family_members[0]?.familyMember1Contact,
+        familyMember2Contact: patient?.family_members[1]?.familyMember2Contact,
+        familyMember1Relation:
+          patient?.family_members[0]?.familyMember1Relation,
+        familyMember2Relation:
+          patient?.family_members[1]?.familyMember2Relation,
       };
     });
+  },
+  DELETE_PATIENT(state, patientId) {
+    let newData = state.singlePatientData.filter(
+      (data) => data.id !== patientId
+    );
+    state.singlePatientData = newData;
   },
   SET_SINGLE_DEVICE(state, deviceData) {
     state.singleDeviceData = deviceData.map((device) => {
@@ -165,6 +187,13 @@ const actions = {
     commit("SET_LOADING_STATUS", true);
     const res = await doctors.getSingleDeviceData(id);
     commit("SET_SINGLE_DEVICE", res.data.data);
+    commit("SET_LOADING_STATUS", false);
+  },
+  async deletePatient({ commit }, id) {
+    commit("SET_LOADING_STATUS", true);
+    const res = await doctors.deletePatient(id);
+    console.log("deleted--", res.data);
+    commit("DELETE_PATIENT", id);
     commit("SET_LOADING_STATUS", false);
   },
 };
