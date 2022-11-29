@@ -32,28 +32,25 @@
                   <v-col cols="12" sm="6" md="4">
                     <CustomTextField
                       :type="'text'"
-                      :placeholder="'Patient Name'"
-                      :label="'Patient Name'"
+                      :label="'Patient First Name'"
                       :fieldRules="nameRules"
-                      v-model="user.name"
+                      v-model="user.fname"
+                    />
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
+                    <CustomTextField
+                      :type="'text'"
+                      :label="'Patient Last Name'"
+                      :fieldRules="nameRules"
+                      v-model="user.lname"
                     />
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
                     <CustomTextField
                       :type="'email'"
-                      :placeholder="'Email'"
                       :label="'Email Address'"
                       :fieldRules="emailRules"
                       v-model="user.email"
-                    />
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <CustomTextField
-                      :type="'number'"
-                      :placeholder="'Phone Number'"
-                      :label="'Phone Number'"
-                      :fieldRules="phoneRules"
-                      v-model="user.phone"
                     />
                   </v-col>
                 </v-row>
@@ -62,7 +59,14 @@
                   <v-col cols="12" sm="6" md="4">
                     <CustomTextField
                       :type="'number'"
-                      :placeholder="'Emergency Number'"
+                      :label="'Phone Number'"
+                      :fieldRules="phoneRules"
+                      v-model="user.phone"
+                    />
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
+                    <CustomTextField
+                      :type="'number'"
                       :label="'Emergency Number'"
                       :fieldRules="phoneRules"
                       v-model="user.emergencyPhone"
@@ -98,6 +102,9 @@
                       ></v-date-picker>
                     </v-menu>
                   </v-col>
+                </v-row>
+
+                <v-row>
                   <v-col cols="12" sm="6" md="4">
                     <v-radio-group v-model="user.gender" row class="ml-4">
                       <template v-slot:label>
@@ -115,13 +122,9 @@
                       </v-radio>
                     </v-radio-group>
                   </v-col>
-                </v-row>
-
-                <v-row>
                   <v-col cols="12" sm="6" md="4">
                     <CustomTextField
                       :type="'number'"
-                      :placeholder="'Weight'"
                       :label="'Weight (kg)'"
                       :fieldRules="weightRules"
                       v-model="user.weight"
@@ -130,27 +133,40 @@
                   <v-col cols="12" sm="6" md="4">
                     <CustomTextField
                       :type="'number'"
-                      :placeholder="'Height'"
                       :label="'Height (cm)'"
                       :fieldRules="heightRules"
                       v-model="user.height"
                     />
                   </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-file-input
-                      dense
-                      filled
-                      accept="image/*"
-                      label="Upload Profile Image"
-                    ></v-file-input>
-                  </v-col>
                 </v-row>
 
                 <v-row>
                   <v-col cols="12" sm="6" md="4">
+                    <v-text-field
+                      :append-icon="showPassIcon ? 'mdi-eye' : 'mdi-eye-off'"
+                      :type="showPassIcon ? 'text' : 'password'"
+                      v-model="user.password"
+                      name="password"
+                      label="Password"
+                      hint="At least 6 characters"
+                      required
+                      filled
+                      dense
+                      :rules="passwordRules"
+                      @click:append="showPassIcon = !showPassIcon"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
+                    <CustomTextField
+                      :type="'number'"
+                      :label="'Aadhar Number'"
+                      :fieldRules="aadharRules"
+                      v-model="user.aadhar"
+                    />
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
                     <CustomTextField
                       :type="'text'"
-                      :placeholder="'Address'"
                       :label="'Address'"
                       :fieldRules="addressRules"
                       v-model="user.address"
@@ -165,10 +181,9 @@
                   <v-col cols="12" sm="6" md="4">
                     <CustomTextField
                       :type="'text'"
-                      :placeholder="'Member Name'"
                       :label="'Member Name'"
                       :fieldRules="memberNameRules"
-                      v-model="user.member1Name"
+                      v-model="familyMemberInfo.name1"
                     />
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
@@ -178,16 +193,15 @@
                       dense
                       label="Select Relation"
                       :rules="selectRules"
-                      v-model="user.selected1Relation"
+                      v-model="familyMemberInfo.selected1Relation"
                     ></v-select>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
                     <CustomTextField
                       :type="'number'"
-                      :placeholder="'Contact Number'"
                       :label="'Contact Number'"
-                      :fieldRules="contactNumberRules"
-                      v-model="user.contactNumber1"
+                      :fieldRules="phoneRules"
+                      v-model="familyMemberInfo.contactNo1"
                     />
                   </v-col>
                 </v-row>
@@ -196,10 +210,8 @@
                   <v-col cols="12" sm="6" md="4">
                     <CustomTextField
                       :type="'text'"
-                      :placeholder="'Member Name'"
                       :label="'Member Name'"
-                      :fieldRules="memberNameRules"
-                      v-model="user.member2Name"
+                      v-model="familyMemberInfo.name2"
                     />
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
@@ -207,64 +219,15 @@
                       :items="relations"
                       filled
                       label="Select Relation"
-                      :rules="selectRules"
-                      v-model="user.selected2Relation"
+                      v-model="familyMemberInfo.selected2Relation"
                       dense
                     ></v-select>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
                     <CustomTextField
                       :type="'number'"
-                      :placeholder="'Contact Number'"
                       :label="'Contact Number'"
-                      :fieldRules="contactNumberRules"
-                      v-model="user.contactNumber2"
-                    />
-                  </v-col>
-                </v-row>
-
-                <v-card-title class="warning--text text-h5 mb-2 ml-n2"
-                  >Doctor Info</v-card-title
-                >
-                <v-row>
-                  <v-col cols="12" sm="6" md="4">
-                    <CustomTextField
-                      :type="'text'"
-                      :placeholder="'Doctor Name'"
-                      :label="'Doctor Name'"
-                      :fieldRules="doctorNameRules"
-                      v-model="user.doctorName"
-                    />
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-select
-                      :items="designations"
-                      filled
-                      dense
-                      label="Designation"
-                      :rules="selectRules"
-                      v-model="user.selectedDesignation"
-                    ></v-select>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <CustomTextField
-                      :type="'number'"
-                      :placeholder="'Contact Number'"
-                      :label="'Contact Number'"
-                      :fieldRules="contactNumberRules"
-                      v-model="user.contactNumber1"
-                    />
-                  </v-col>
-                </v-row>
-
-                <v-row>
-                  <v-col cols="12" sm="6" md="4">
-                    <CustomTextField
-                      :type="'text'"
-                      :placeholder="'Address'"
-                      :label="'Address'"
-                      :fieldRules="doctorAddressRules"
-                      v-model="user.doctorAddress"
+                      v-model="familyMemberInfo.contactNo2"
                     />
                   </v-col>
                 </v-row>
@@ -276,19 +239,17 @@
                   <v-col cols="12" sm="6" md="4">
                     <CustomTextField
                       :type="'number'"
-                      :placeholder="'High Blood Pressure'"
-                      :label="'High Blood Pressure'"
+                      :label="'Blood Pressure'"
                       :fieldRules="bloodPressureRules"
-                      v-model="user.bloodPressure"
+                      v-model="medicalInfo.bloodPressure"
                     />
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
                     <CustomTextField
                       :type="'number'"
-                      :placeholder="'Diabetics'"
                       :label="'Diabetics'"
                       :fieldRules="diabeticsRules"
-                      v-model="user.diabetics"
+                      v-model="medicalInfo.diabetics"
                     />
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
@@ -298,7 +259,7 @@
                       dense
                       label="Heart Condition"
                       :rules="selectRules"
-                      v-model="user.heartCondition"
+                      v-model="medicalInfo.heartCondition"
                     ></v-select>
                   </v-col>
                 </v-row>
@@ -307,25 +268,32 @@
                   <v-col cols="12" sm="6" md="4">
                     <CustomTextField
                       :type="'number'"
-                      :placeholder="'Thyroid'"
                       :label="'Thyroid'"
-                      v-model="user.thyroid"
+                      :field-rules="thyroidRules"
+                      v-model="medicalInfo.thyroid"
                     />
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
                     <CustomTextField
                       :type="'number'"
-                      :placeholder="'Obesity'"
                       :label="'Obesity'"
-                      v-model="user.obesity"
+                      :field-rules="obesityRules"
+                      v-model="medicalInfo.obesity"
                     />
                   </v-col>
                 </v-row>
 
-                <v-row class="ml-1">
-                  <v-btn color="warning" :disabled="!valid" @click="addPatient"
+                <v-row class="mt-2 mb-2 ml-1">
+                  <v-btn
+                    color="warning"
+                    :disabled="!valid"
+                    width="48%"
+                    @click="addPatient"
                     >Add Patient</v-btn
                   >
+                  <v-btn color="error" class="ml-8" width="48%" @click="reset">
+                    Reset Form
+                  </v-btn>
                 </v-row>
               </v-form>
             </div>
@@ -339,6 +307,7 @@
 <script>
 import PageHeader from "@/layouts/PageHeader.vue";
 import CustomTextField from "@/components/CustomTextField.vue";
+import { mapActions } from "vuex";
 
 export default {
   name: "AddPatient",
@@ -346,6 +315,7 @@ export default {
   data() {
     return {
       valid: true,
+      showPassIcon: false,
       nameRules: [(v) => !!v || "Name is required"],
       emailRules: [
         (v) => !!v || "E-mail is required",
@@ -358,26 +328,33 @@ export default {
       weightRules: [(v) => !!v || "Weight is required"],
       heightRules: [(v) => !!v || "Height is required"],
       addressRules: [(v) => !!v || "Address is required"],
+      passwordRules: [
+        (v) => !!v || "Password is required",
+        (v) => (v && v.length >= 6) || "password must be at least 6 characters",
+      ],
+      aadharRules: [(v) => !!v || "Aadhar Number is required"],
       memberNameRules: [(v) => !!v || "Member name is required"],
       contactNumberRules: [(v) => !!v || "Contact Number is required"],
-      doctorNameRules: [(v) => !!v || "Doctor Number is required"],
       selectRules: [(v) => !!v || "Must select this field."],
       relations: ["Son", "Daughter", "Mother", "Father"],
-      designations: ["MBBS"],
       heartCondition: ["Normal"],
-      doctorAddressRules: [(v) => !!v || "Address is required"],
       bloodPressureRules: [(v) => !!v || "Blood Pressure is required"],
       diabeticsRules: [(v) => !!v || "diabetics is required"],
+      thyroidRules: [(v) => !!v || "thyroid is required"],
+      obesityRules: [(v) => !!v || "obesity is required"],
       dateMenu: false,
       dateValue: null,
       user: {
-        name: "",
+        fname: "",
+        lname: "",
         email: "",
         phone: null,
         emergencyPhone: null,
         gender: "male",
         height: null,
         weight: null,
+        password: "",
+        aadhar: null,
         address: "",
         member1Name: "",
         member2Name: "",
@@ -385,9 +362,21 @@ export default {
         contactNumber2: null,
         selected1Relation: "",
         selected2Relation: "",
-        doctorName: "",
-        selectedDesignation: "",
-        doctorAddress: "",
+        bloodPressure: null,
+        diabetics: null,
+        heartCondition: "",
+        thyroid: null,
+        obesity: null,
+      },
+      familyMemberInfo: {
+        name1: "",
+        name2: "",
+        selected1Relation: "",
+        selected2Relation: "",
+        contactNo1: null,
+        contactNo2: null,
+      },
+      medicalInfo: {
         bloodPressure: null,
         diabetics: null,
         heartCondition: "",
@@ -397,15 +386,70 @@ export default {
     };
   },
   methods: {
+    ...mapActions("userManagement", ["addUser"]),
     goToPreviousPage() {
       this.$router.go(-1);
     },
     addPatient() {
+      let data = {
+        first_Name: this.user.fname,
+        last_Name: this.user.lname,
+        email: this.user.email,
+        mobile_no: this.user.phone,
+        emergencyPhone: this.user.emergencyPhone,
+        gender: this.user.gender,
+        height: this.user.height,
+        weight: this.user.weight,
+        Address: this.user.address,
+        password: this.user.password,
+        aadharcard: this.user.aadhar,
+        DOB: this.dateValue,
+        family_members: [
+          {
+            familyMember1Name: this.familyMemberInfo.name1,
+            familyMember1Relation: this.familyMemberInfo.selected1Relation,
+            familyMember1Contact: this.familyMemberInfo.contactNo1,
+          },
+          {
+            familyMember2Name: this.familyMemberInfo.name2,
+            familyMember2Relation: this.familyMemberInfo.selected2Relation,
+            familyMember2Contact: this.familyMemberInfo.contactNo2,
+          },
+        ],
+        medical_history: [
+          {
+            bloodPressure: this.medicalInfo.bloodPressure,
+            diabetics: this.medicalInfo.diabetics,
+            heartCondition: this.medicalInfo.heartCondition,
+            thyroid: this.medicalInfo.thyroid,
+            obesity: this.medicalInfo.obesity,
+          },
+        ],
+      };
       this.$refs.form.validate();
       if (this.valid) {
-        console.log("user--", this.user);
-        // this.$toast.success("Patient added successfully.", { timeout: 3000 });
+        if (!this.dateValue) {
+          this.$toast.error("Must select date of birth.", {
+            timeout: 3000,
+          });
+        } else {
+          this.addUser(data)
+            .then((success) => {
+              console.log(success);
+              this.$router.push({ path: "/patients" });
+              this.$toast.success("Patient Added successfully.", {
+                timeout: 3000,
+              });
+            })
+            .catch((err) => {
+              console.log(err);
+              this.$toast.error("some error occured.", { timeout: 3000 });
+            });
+        }
       }
+    },
+    reset() {
+      this.$refs.form.reset();
     },
     focusDate() {
       setTimeout(() => {

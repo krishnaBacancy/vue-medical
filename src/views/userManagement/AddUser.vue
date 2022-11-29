@@ -275,7 +275,7 @@ export default {
         this.addUser(data)
           .then((success) => {
             console.log(success);
-            this.$router.push({ path: "/user-management" });
+            this.$router.push({ path: "/patients" });
             this.$toast.success("User Added successfully.", { timeout: 3000 });
           })
           .catch((err) => {
