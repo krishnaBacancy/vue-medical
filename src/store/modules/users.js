@@ -1,20 +1,12 @@
 import user from "../../api/login";
 
 const state = {
-  user: {
-    id: null,
-    email: null,
-    password: null,
-  },
+  user: [],
   roleId: null,
   loggedIn: false,
 };
 
 const getters = {
-  isLoggedIn(state) {
-    const loggedOut = state.user.id == null;
-    return !loggedOut;
-  },
   getRole(state) {
     return state?.user[0]?.role;
   },
@@ -27,7 +19,7 @@ const mutations = {
     localStorage.setItem("user_id", data.data?.data[0]?.userId);
   },
   removeUserInfo(state) {
-    state.user = {};
+    state.user = [];
     state.loggedIn = false;
     localStorage.removeItem("user_id");
   },

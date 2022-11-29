@@ -8,4 +8,13 @@ export default {
     client.get(`/users/useroperation/${params}`),
   getSingleDeviceData: (params) =>
     client.get(`/devices/viewsingledevicedetails/${params}`),
+
+  //update single device details
+  updateSingleDevice: () => client.put(`/devices/updatesingledevicedetails`),
+
+  //delete patient
+  deletePatient: (params) => client.delete(`/users/useroperation/${params}`),
+  //edit patient
+  updatePatient: (params) =>
+    client.patch(`/users/updateuser/${params.id}`, params),
 };

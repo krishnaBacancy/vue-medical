@@ -59,6 +59,7 @@ export default {
       options: {
         chart: {
           id: "vuechart-example",
+          redrawOnParentResize: true,
         },
         dataLabels: {
           enabled: false,
@@ -72,7 +73,17 @@ export default {
         colors: this.chartBgColor,
         responsive: [
           {
-            breakpoint: 800,
+            breakpoint: 1000,
+            options: {
+              plotOptions: {
+                area: {
+                  horizontal: false,
+                },
+              },
+              legend: {
+                position: "bottom",
+              },
+            },
           },
         ],
         theme: {

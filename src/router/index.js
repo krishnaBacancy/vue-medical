@@ -47,6 +47,11 @@ const routes = [
     component: () => import("../views/patients/PatientProfile.vue"),
   },
   {
+    path: "/edit-patient/:id",
+    name: "edit-patient",
+    component: () => import("../views/patients/EditPatient.vue"),
+  },
+  {
     path: "/live-device",
     name: "live-device",
     component: () => import("../views/live/LivePage.vue"),
