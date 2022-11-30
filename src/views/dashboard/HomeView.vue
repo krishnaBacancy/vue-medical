@@ -234,7 +234,7 @@
       </div>
 
       <div
-        v-if="!$store.state.doctors.doctorsData"
+        v-if="!$store.state.doctors.deviceData"
         class="white--text display-1"
       >
         No Patients to display...

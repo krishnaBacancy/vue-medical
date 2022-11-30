@@ -1,7 +1,7 @@
 import doctors from "../../api/doctor";
 
 const state = {
-  doctorsData: [],
+  deviceData: [],
   patientsData: [],
   singlePatientData: [],
   singleDeviceData: [],
@@ -14,7 +14,7 @@ const getters = {
     return state.loading;
   },
   getPatients(state) {
-    return state.doctorsData;
+    return state.deviceData;
   },
   getAllPatientsOnly(state) {
     return state?.patientsData
@@ -33,8 +33,8 @@ const getters = {
     });
   },
   filteredPatients: (state) => {
-    if (!state.searchTerm) return state.doctorsData;
-    return state.doctorsData.filter((data) =>
+    if (!state.searchTerm) return state.deviceData;
+    return state.deviceData.filter((data) =>
       data.macAddressFramed.includes(state.searchTerm.trim().toUpperCase())
     );
   },
@@ -44,8 +44,8 @@ const mutations = {
   SET_LOADING_STATUS(state, loadingStatus) {
     state.loading = loadingStatus;
   },
-  SET_PATIENTS_FOR_DOCTOR(state, doctorsData) {
-    state.doctorsData = doctorsData.map((data) => {
+  SET_PATIENTS_FOR_DOCTOR(state, deviceData) {
+    state.deviceData = deviceData.map((data) => {
       return {
         id: data._id,
         firstName:
@@ -195,6 +195,19 @@ const actions = {
     console.log("deleted--", res.data);
     commit("DELETE_PATIENT", id);
     commit("SET_LOADING_STATUS", false);
+  },
+  addDeviceData({ commit }, payload) {
+    return new Promise((resolve, reject) => {
+      doctors
+        .addDeviceData(payload)
+        .then((res) => {
+          if (res.status === 200) {
+            commit("SET_PATIENTS_FOR_DOCTOR", res.data.data);
+            resolve(true);
+          }
+        })
+        .catch((err) => reject(err));
+    });
   },
 };
 

@@ -52,6 +52,7 @@
           </template>
         </v-data-table>
       </div>
+      <ConfirmDialog ref="confirm" />
     </v-container>
   </div>
 </template>
@@ -59,6 +60,7 @@
 <script>
 import PageHeader from "@/layouts/PageHeader.vue";
 import { mapActions, mapGetters } from "vuex";
+import ConfirmDialog from "../../components/ConfirmDialog.vue";
 export default {
   name: "PatientsData",
   data() {
@@ -101,11 +103,15 @@ export default {
         s2.slice(1)
       );
     },
-    deleteSinglePatient(item) {
-      if (confirm("Are you sure you want to delete this patient?")) {
+    async deleteSinglePatient(item) {
+      if (
+        await this.$refs.confirm.open(
+          "Are you sure you want to delete this patient?"
+        )
+      ) {
         this.deletePatient(item);
-        this.$toast.success("Patient deleted successfully.");
         this.$router.push("/");
+        this.$toast.success("Patient deleted successfully.");
       }
       this.dialogDelete = true;
     },
@@ -117,6 +123,7 @@ export default {
   },
   components: {
     PageHeader,
+    ConfirmDialog,
   },
 };
 </script>

@@ -9,8 +9,11 @@ export default {
   getSingleDeviceData: (params) =>
     client.get(`/devices/viewsingledevicedetails/${params}`),
 
+  //add device(Admin)
+  addDeviceData: (params) => client.post("/devices/", params),
   //update single device details
-  updateSingleDevice: () => client.put(`/devices/updatesingledevicedetails`),
+  updateSingleDevice: (params, id) =>
+    client.put(`/devices/updatesingledevicedetails?deviceId=${id}`, params),
 
   //delete patient
   deletePatient: (params) => client.delete(`/users/useroperation/${params}`),
