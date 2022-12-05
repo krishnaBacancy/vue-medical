@@ -1,6 +1,13 @@
 <template>
   <div style="background-color: #282934">
-    <PageHeader title="Patient Details" pageIcon="mdi-account-box" />
+    <PageHeader
+      title="Patient Details"
+      pageIcon="mdi-account-box"
+      btnName="Back"
+      color-name="warning"
+      btnIconName="mdi-arrow-left"
+      @addNewPatient="$router.go(-1)"
+    />
     <br />
     <div class="white--text" style="background-color: rgba(0, 0, 0, 0.5)">
       <v-progress-circular
@@ -45,17 +52,40 @@
               height="50"
               width="50"
               contain
-              v-if="liveMessage === 'offline'"
+              v-if="liveMessage === 'Offline'"
             ></v-img>
           </div>
+        </div>
+
+        <div class="d-flex mt-3 align-center justify-md-space-around">
+          <div class="ml-3">
+            <v-select
+              :items="aggregateValues"
+              filled
+              dark
+              label="Aggregate"
+              v-model="selectedAggregate"
+            ></v-select>
+          </div>
+          <div class="ml-3">
+            <v-select
+              :items="timePeriodValues"
+              v-model="selectedTimePeriod"
+              filled
+              label="Time Period"
+              dark
+            ></v-select>
+          </div>
+          <div></div>
         </div>
 
         <v-container fluid grid-list-md>
           <v-layout row wrap>
             <v-flex d-flex xs12 sm6 md6>
               <v-card dark class="ml-2 mb-2 pa-2" style="width: 100%">
-                <div class="d-flex">
+                <div class="d-flex align-center">
                   <h3>ECG</h3>
+                  <!-- <v-spacer></v-spacer> -->
                   <v-spacer></v-spacer>
                   <v-btn class="mr-3 export__btn" color="warning" outlined
                     >Export</v-btn
@@ -92,7 +122,7 @@
 
           <br />
           <v-layout row wrap>
-            <v-flex d-flex xs12 sm12 md3>
+            <v-flex d-flex xs12 sm6 md3>
               <v-card
                 color="#282934"
                 class="ml-2 mb-2 pa-2"
@@ -104,11 +134,11 @@
                 >
                   <v-img
                     class="ml-10"
-                    src="https://accu.live/images/doctor_dashboard/heartbeat.svg"
-                    height="40"
+                    src="@/assets/heartbeat.svg"
+                    height="70"
                     contain
                   ></v-img>
-                  <div class="mr-16">
+                  <div class="mr-16 text-start">
                     <h1 class="success--text">74</h1>
                     <div class="d-flex" style="flex-direction: column">
                       <small>>120-30</small>
@@ -118,21 +148,21 @@
                 </div>
               </v-card>
             </v-flex>
-            <v-flex d-flex xs12 sm12 md3>
+            <v-flex d-flex xs12 sm6 md3>
               <v-card
                 dark
                 color="#282934"
                 class="ml-2 mb-2 pa-2"
                 style="width: 100%"
               >
-                <div class="d-flex align-center ml-3 mt-2">
+                <div class="d-flex align-center ml-3 mt-4">
                   <v-img
                     class=""
-                    src="https://accu.live/images/doctor_dashboard/doc-lunghs.svg"
-                    height="45"
+                    src="@/assets/lungs.svg"
+                    height="70"
                     contain
                   ></v-img>
-                  <div class="mr-16">
+                  <div class="mr-16 text-start">
                     <h1 class="info--text">16</h1>
                     <div class="d-flex" style="flex-direction: column">
                       <small>C1</small>
@@ -141,7 +171,7 @@
                 </div>
               </v-card>
             </v-flex>
-            <v-flex d-flex xs12 sm12 md3>
+            <v-flex d-flex xs12 sm6 md3>
               <v-card
                 color="#282934"
                 dark
@@ -152,12 +182,12 @@
                   class="d-flex justify-xs-start justify-sm-center align-center ml-3 mt-2"
                 >
                   <v-img
-                    class="mr-5"
-                    src="https://accu.live/images/doctor_dashboard/temprature.svg"
-                    height="50"
+                    class="ml-7 ml-md-0"
+                    src="@/assets/temprature.svg"
+                    height="70"
                     contain
                   ></v-img>
-                  <div class="mr-16">
+                  <div class="mr-16 text-start">
                     <h1 class="red--text">98.7</h1>
                     <div class="d-flex text-start flex-column">
                       <small>6 hours</small>
@@ -167,7 +197,7 @@
                 </div>
               </v-card>
             </v-flex>
-            <v-flex d-flex xs12 sm12 md3>
+            <v-flex d-flex xs12 sm6 md3>
               <v-card
                 color="#282934"
                 dark
@@ -175,15 +205,15 @@
                 style="width: 100%"
               >
                 <div
-                  class="d-flex justify-xs-start justify-sm-center align-center ml-3 mt-2"
+                  class="d-flex justify-xs-start justify-sm-center align-center ml-3 mt-3"
                 >
                   <v-img
-                    class="ml-2"
-                    src="https://accu.live/images/doctor_dashboard/doc-step.svg"
-                    height="50"
+                    class="ml-9 ml-md-0"
+                    src="@/assets/steps.svg"
+                    height="70"
                     contain
                   ></v-img>
-                  <div class="mr-16">
+                  <div class="mr-16 text-start">
                     <h1 class="purple--text">3000</h1>
                     <div class="d-flex" style="flex-direction: column">
                       <small>Steps</small>
@@ -195,7 +225,7 @@
           </v-layout>
 
           <v-layout row wrap>
-            <v-flex d-flex xs12 sm4 md4>
+            <v-flex d-flex xs12 sm6 md4>
               <v-card
                 color="#282934"
                 dark
@@ -216,8 +246,8 @@
                 <div class="d-flex justify-center ml-5 align-center mt-5">
                   <v-img
                     class="mr-3"
-                    src="https://accu.live/images/doctor_dashboard/doc-oxi.svg"
-                    height="50"
+                    src="@/assets/oxygen.svg"
+                    height="70"
                     contain
                   ></v-img>
                   <div class="mr-16 text-start">
@@ -230,7 +260,7 @@
                 </div>
               </v-card>
             </v-flex>
-            <v-flex d-flex xs12 sm4 md4>
+            <v-flex d-flex xs12 sm6 md4>
               <v-card
                 color="#282934"
                 dark
@@ -250,9 +280,10 @@
                 </div>
                 <div class="d-flex justify-center align-center ml-5 mt-5">
                   <v-img
-                    src="https://accu.live/images/doctor_dashboard/oxi-meter.svg"
-                    height="50"
+                    src="@/assets/bloodPressure.svg"
+                    height="70"
                     contain
+                    class="ml-n5"
                   ></v-img>
                   <div class="mr-16 text-start">
                     <h1 class="cyan--text">118/77</h1>
@@ -264,7 +295,7 @@
                 </div>
               </v-card>
             </v-flex>
-            <v-flex d-flex xs12 sm4 md4>
+            <v-flex d-flex xs12 sm12 md4>
               <v-card
                 color="#282934"
                 dark
@@ -284,7 +315,7 @@
                 </div>
                 <div class="d-flex justify-center mt-5">
                   <v-img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyqpbFKW78u7-eVk9xSUprI5H-Q2Y33gMQ3A&usqp=CAU"
+                    src="../../assets/Group 509.svg"
                     width="70"
                     height="70"
                     contain
@@ -304,28 +335,37 @@
 
           <v-layout row wrap>
             <!--rr interval-->
-            <v-flex d-flex xs12 sm12 md3>
+            <v-flex d-flex xs12 sm6 md4>
               <v-card
                 color="#282934"
                 dark
                 class="ml-2 mb-2 pa-2"
                 style="width: 100%"
               >
-                <div
-                  class="d-flex justify-xs-start justify-sm-center align-center ml-3 mt-2"
-                >
+                <div class="d-flex text-start">
+                  <div>
+                    <h3>RR Interval</h3>
+                    <small class="warning--text">00:0B:57:AC:66:DA</small>
+                  </div>
+                  <v-spacer></v-spacer>
+                  <div>
+                    <h3>Last Reading</h3>
+                    <small class="grey--text">2 hour ago</small>
+                  </div>
+                </div>
+                <div class="d-flex justify-center ml-5 align-center mt-5">
                   <v-img
-                    class="mr-5"
-                    src="https://www.shutterstock.com/image-illustration/frequency-ectopic-junctional-impulse-higher-600w-1888283284.jpg"
-                    height="50"
+                    class="mr-4"
+                    src="../../assets/Group 508.svg"
+                    height="70"
                     width="50"
                     contain
                   ></v-img>
-                  <div class="mr-10">
-                    <h1 class="red--text">R.R.</h1>
-                    <div class="d-flex text-start flex-column">
-                      <small>6 hours</small>
-                      <small>ago</small>
+                  <div class="mr-16 text-start">
+                    <h1 class="warning--text">98</h1>
+                    <div class="d-flex" style="flex-direction: column">
+                      <small>Streaming Mode</small>
+                      <small>%SPO2</small>
                     </div>
                   </div>
                 </div>
@@ -333,28 +373,37 @@
             </v-flex>
 
             <!--pulse pressure-->
-            <v-flex d-flex xs12 sm12 md3>
+            <v-flex d-flex xs12 sm6 md4>
               <v-card
                 color="#282934"
                 dark
                 class="ml-2 mb-2 pa-2"
                 style="width: 100%"
               >
-                <div
-                  class="d-flex justify-xs-start justify-sm-center align-center mt-2"
-                >
+                <div class="d-flex text-start">
+                  <div>
+                    <h3>Pulse Pressure</h3>
+                    <small class="warning--text">00:0B:57:AC:66:DA</small>
+                  </div>
+                  <v-spacer></v-spacer>
+                  <div>
+                    <h3>Last Reading</h3>
+                    <small class="grey--text">2 hour ago</small>
+                  </div>
+                </div>
+                <div class="d-flex justify-center ml-5 align-center mt-5">
                   <v-img
-                    class="mr-5"
-                    src="https://www.shutterstock.com/shutterstock/photos/1390281845/display_1500/stock-vector-pulse-icon-graphic-design-template-vector-isolated-1390281845.jpg"
-                    height="50"
+                    class="ml-n4"
+                    src="../../assets/Group 507.svg"
+                    height="70"
                     width="50"
                     contain
                   ></v-img>
-                  <div class="mr-10">
-                    <h1 class="red--text text-start">P.P.</h1>
-                    <div class="d-flex text-start flex-column">
-                      <small>6 hours</small>
-                      <small>ago</small>
+                  <div class="mr-16 text-start">
+                    <h1 class="warning--text">98</h1>
+                    <div class="d-flex" style="flex-direction: column">
+                      <small>Streaming Mode</small>
+                      <small>%SPO2</small>
                     </div>
                   </div>
                 </div>
@@ -362,57 +411,37 @@
             </v-flex>
 
             <!--arrthymia-->
-            <v-flex d-flex xs12 sm12 md3>
+            <v-flex d-flex xs12 sm12 md4>
               <v-card
                 color="#282934"
                 dark
                 class="ml-2 mb-2 pa-2"
                 style="width: 100%"
               >
-                <div
-                  class="d-flex justify-xs-start justify-sm-center align-center ml-3 mt-2"
-                >
-                  <v-img
-                    class="mr-5"
-                    src="https://www.shutterstock.com/image-photo/cardiology-diagnosis-treatment-prevention-myocardial-600w-1236688648.jpg"
-                    height="50"
-                    width="50"
-                    contain
-                  ></v-img>
-                  <div class="mr-10">
-                    <h1 class="red--text">Arrthymia</h1>
-                    <div class="d-flex text-start flex-column">
-                      <small>6 hours</small>
-                      <small>ago</small>
-                    </div>
+                <div class="d-flex text-start">
+                  <div>
+                    <h3>Arrthymia</h3>
+                    <small class="warning--text">00:0B:57:AC:66:DA</small>
+                  </div>
+                  <v-spacer></v-spacer>
+                  <div>
+                    <h3>Last Reading</h3>
+                    <small class="grey--text">2 hour ago</small>
                   </div>
                 </div>
-              </v-card>
-            </v-flex>
-
-            <!--Stroke Volume-->
-            <v-flex d-flex xs12 sm12 md3>
-              <v-card
-                color="#282934"
-                dark
-                class="ml-2 mb-2 pa-2"
-                style="width: 100%"
-              >
-                <div
-                  class="d-flex justify-xs-start justify-sm-center align-center ml-3 mt-2"
-                >
+                <div class="d-flex justify-center ml-5 align-center mt-5">
                   <v-img
-                    class="mr-5"
-                    src="https://www.shutterstock.com/image-illustration/human-heart-anatomy-healthy-body-600w-91378037.jpg"
-                    height="50"
+                    class="mr-6"
+                    src="../../assets/Group 506.svg"
+                    height="70"
                     width="50"
                     contain
                   ></v-img>
-                  <div class="mr-10">
-                    <h1 class="red--text">S.V.</h1>
-                    <div class="d-flex text-start flex-column">
-                      <small>6 hours</small>
-                      <small>ago</small>
+                  <div class="mr-16 text-start">
+                    <h1 class="warning--text">98</h1>
+                    <div class="d-flex" style="flex-direction: column">
+                      <small>Streaming Mode</small>
+                      <small>%SPO2</small>
                     </div>
                   </div>
                 </div>
@@ -421,29 +450,75 @@
           </v-layout>
 
           <v-layout row wrap>
-            <!--Cardiac Output-->
-            <v-flex d-flex xs12 sm12 md3>
+            <!--Stroke Volume-->
+            <v-flex d-flex xs12 sm6 md4>
               <v-card
                 color="#282934"
                 dark
                 class="ml-2 mb-2 pa-2"
                 style="width: 100%"
               >
-                <div
-                  class="d-flex justify-xs-start justify-sm-center align-center ml-3 mt-2"
-                >
+                <div class="d-flex text-start">
+                  <div>
+                    <h3>Stroke Volume</h3>
+                    <small class="warning--text">00:0B:57:AC:66:DA</small>
+                  </div>
+                  <v-spacer></v-spacer>
+                  <div>
+                    <h3>Last Reading</h3>
+                    <small class="grey--text">2 hour ago</small>
+                  </div>
+                </div>
+                <div class="d-flex justify-center ml-5 align-center mt-5">
                   <v-img
                     class="mr-5"
-                    src="https://www.shutterstock.com/image-illustration/3d-illustration-cardiac-output-title-600w-1441779827.jpg"
-                    height="50"
+                    src="../../assets/Group 505.svg"
+                    height="70"
                     width="50"
                     contain
                   ></v-img>
-                  <div class="mr-5">
-                    <h1 class="red--text">C.O.</h1>
-                    <div class="d-flex text-start flex-column">
-                      <small>6 hours</small>
-                      <small>ago</small>
+                  <div class="mr-16 text-start">
+                    <h1 class="warning--text">98</h1>
+                    <div class="d-flex" style="flex-direction: column">
+                      <small>Streaming Mode</small>
+                      <small>%SPO2</small>
+                    </div>
+                  </div>
+                </div>
+              </v-card>
+            </v-flex>
+            <!--Cardiac Output-->
+            <v-flex d-flex xs12 sm6 md4>
+              <v-card
+                color="#282934"
+                dark
+                class="ml-2 mb-2 pa-2"
+                style="width: 100%"
+              >
+                <div class="d-flex text-start">
+                  <div>
+                    <h3>Cardiac Output</h3>
+                    <small class="warning--text">00:0B:57:AC:66:DA</small>
+                  </div>
+                  <v-spacer></v-spacer>
+                  <div>
+                    <h3>Last Reading</h3>
+                    <small class="grey--text">2 hour ago</small>
+                  </div>
+                </div>
+                <div class="d-flex justify-center ml-5 align-center mt-5">
+                  <v-img
+                    class="ml-n5"
+                    src="../../assets/Group 504.svg"
+                    height="70"
+                    width="50"
+                    contain
+                  ></v-img>
+                  <div class="mr-16 text-start">
+                    <h1 class="warning--text">98</h1>
+                    <div class="d-flex" style="flex-direction: column">
+                      <small>Streaming Mode</small>
+                      <small>%SPO2</small>
                     </div>
                   </div>
                 </div>
@@ -451,28 +526,37 @@
             </v-flex>
 
             <!--Pulse transit time-->
-            <v-flex d-flex xs12 sm12 md3>
+            <v-flex d-flex xs12 sm12 md4>
               <v-card
                 color="#282934"
                 dark
                 class="ml-2 mb-2 pa-2"
                 style="width: 100%"
               >
-                <div
-                  class="d-flex justify-xs-start justify-sm-center align-center ml-3 mt-2"
-                >
+                <div class="d-flex text-start">
+                  <div>
+                    <h3>Pulse Transit Time</h3>
+                    <small class="warning--text">00:0B:57:AC:66:DA</small>
+                  </div>
+                  <v-spacer></v-spacer>
+                  <div>
+                    <h3>Last Reading</h3>
+                    <small class="grey--text">2 hour ago</small>
+                  </div>
+                </div>
+                <div class="d-flex justify-center ml-5 align-center mt-5">
                   <v-img
-                    class="mr-5"
-                    src="https://www.shutterstock.com/image-vector/emergency-ekg-monitoring-blue-glowing-600w-2172529989.jpg"
-                    height="50"
-                    width="100"
+                    class="mr-7"
+                    src="../../assets/Group 503.svg"
+                    height="70"
+                    width="50"
                     contain
                   ></v-img>
-                  <div class="mr-10">
-                    <h1 class="red--text text-start">Ptt</h1>
-                    <div class="d-flex text-start flex-column">
-                      <small>6 hours</small>
-                      <small>ago</small>
+                  <div class="mr-16 text-start">
+                    <h1 class="warning--text">98</h1>
+                    <div class="d-flex" style="flex-direction: column">
+                      <small>Streaming Mode</small>
+                      <small>%SPO2</small>
                     </div>
                   </div>
                 </div>
@@ -490,13 +574,13 @@
               >
                 <div>
                   <div class="d-flex justify-center align-center">
-                    <h3 class="d-flex align-center mt-2">
+                    <h3 class="d-flex align-center mt-2 mb-2">
                       <span>
                         <v-img
                           class="ml-2"
-                          src="https://accu.live/images/doctor_dashboard/temprature.svg"
-                          height="40"
-                          width="40"
+                          src="@/assets/temprature.svg"
+                          height="50"
+                          width="50"
                           contain
                         ></v-img>
                       </span>
@@ -534,12 +618,12 @@
               >
                 <div>
                   <div class="d-flex justify-center align-center">
-                    <h3 class="d-flex align-center mt-2">
+                    <h3 class="d-flex align-center mt-2 mb-2">
                       <v-img
                         class="ml-2"
-                        src="https://accu.live/images/doctor_dashboard/doc-lunghs.svg"
-                        height="40"
-                        width="40"
+                        src="@/assets/lungs.svg"
+                        height="50"
+                        width="50"
                         contain
                       ></v-img>
                       <div
@@ -559,6 +643,9 @@
                 <div class="grid-container">
                   <ApexAreaChart
                     :height="350"
+                    :style="{
+                      width: $vuetify.breakpoint.smAndDown ? '300px' : '600px',
+                    }"
                     :data-of-chart="[72, 115, 95, 130, 60, 116, 88]"
                     :chart-label="[
                       '12pm',
@@ -587,12 +674,12 @@
               >
                 <div>
                   <div class="d-flex justify-center align-center">
-                    <h3 class="d-flex align-center mt-2">
+                    <h3 class="d-flex align-center mt-2 mb-2">
                       <v-img
                         class="ml-2"
-                        src="https://accu.live/images/doctor_dashboard/heartbeat.svg"
-                        height="40"
-                        width="40"
+                        src="@/assets/heartbeat.svg"
+                        height="50"
+                        width="50"
                         contain
                       ></v-img>
                       <div
@@ -629,17 +716,24 @@
               >
                 <div>
                   <div class="d-flex justify-center align-center">
-                    <h3 class="d-flex align-center mt-2">
+                    <h3 class="d-flex align-center mt-2 mb-2">
                       <span>
-                        <div style="background-color: grey" class="mr-3 ml-2">
-                          <v-icon dark size="40"> mdi-power-sleep </v-icon>
+                        <div style="" class="mr-3 ml-2">
+                          <!-- <v-icon dark size="40"> mdi-power-sleep </v-icon> -->
+                          <v-img
+                            class="ml-2"
+                            src="@/assets/steps.svg"
+                            height="50"
+                            width="50"
+                            contain
+                          ></v-img>
                         </div>
                       </span>
                       <div
                         class="d-flex ml-5 text-start"
                         style="flex-direction: column"
                       >
-                        <span>Sleep</span>
+                        <span>Steps</span>
                         <span class="warning--text">Hrs/Day</span>
                       </div>
                     </h3>
@@ -704,27 +798,40 @@ export default {
   data() {
     return {
       getDoctorId: localStorage.getItem("user_id"),
+      aggregateValues: ["average", "minimum", "maximum"],
+      selectedAggregate: null,
+      timePeriodValues: ["1hour", "1day", "7days", "30days"],
+      selectedTimePeriod: null,
       ecgChartData: [],
       ppgChartData: [],
+      tempStartTime: null,
+      startTime: null,
       showEcgChart: true,
       showPpgChart: true,
       connection: {
+        protocol: "mqtt",
         host: "194.233.69.96",
         port: 15675,
-        options: {
-          clean: true,
-          connectTimeout: 4000,
-          clientId: "lens_WR4qeFgdTx5dZOLyNTFKZrVauCv",
-          username: "MYsmO5Oc7O6DKkS8",
-          password: "ufUPnVWbLoMwwFaL",
-        },
-        clean: true, // Reserved session
-        connectTimeout: 4000, // Time out
-        reconnectPeriod: 4000, // Reconnection interval
-        // Certification Information
-        clientId: "lens_WR4qeFgdTx5dZOLyNTFKZrVauCv",
+        endpoint: "ws",
+        clean: true,
+        connectTimeout: 30 * 1000,
+        reconnectTimeout: 4000,
+        keepAlive: 120,
+        clientId: "lens_3DtlcZfxvR0idKzXQ90Vzm69vAM",
         username: "MYsmO5Oc7O6DKkS8",
         password: "ufUPnVWbLoMwwFaL",
+        // options: {
+        //   // clean: true,
+        //   connectTimeout: 4000,
+        //   // reconnectPeriod: 2000,
+        //   // keepAlive: 120,
+        //   clientId: "lens_3DtlcZfxvR0idKzXQ90Vzm69vAM",
+        //   username: "MYsmO5Oc7O6DKkS8",
+        //   password: "ufUPnVWbLoMwwFaL",
+        // },
+        // clean: true, // Reserved session
+        // connectTimeout: 4000, // Time out
+        // reconnectPeriod: 4000, // Reconnection interval
       },
       subscription: {
         topic: "BMSFSEV/C9F7BF309DC9/sTOf",
@@ -735,17 +842,14 @@ export default {
         qos: 0,
         payload: '{ "msg": "Hello, I am browser." }',
       },
-      receiveNews: "",
-      qosList: [
-        { label: 0, value: 0 },
-        { label: 1, value: 1 },
-        { label: 2, value: 2 },
-      ],
+      qosList: [0, 1, 2],
       client: {
         connected: false,
       },
       subscribeSuccess: false,
-      liveMessage: "offline",
+      connecting: false,
+      retryTimes: 0,
+      liveMessage: "Offline",
     };
   },
   computed: {
@@ -755,9 +859,17 @@ export default {
       "getMacAddress",
     ]),
   },
-  unmounted() {
-    this.client.close();
-    console.log("Connection Closed");
+  destroyed() {
+    if (this.client.connected) {
+      try {
+        this.client.end(false, () => {
+          this.initData();
+          console.log("Successfully disconnected!");
+        });
+      } catch (error) {
+        console.log("Disconnect failed", error.toString());
+      }
+    }
   },
   created() {
     this.getSingleDevice(this.$route?.params?.id);
@@ -766,10 +878,14 @@ export default {
     this.createConnection();
     setTimeout(() => {
       this.getAlgoData();
+    }, 1000);
+  },
+  updated() {
+    if (this.selectedAggregate && this.selectedTimePeriod) {
       this.getBodyTempGraph();
       this.getBloodO2Grpah();
       this.getStepsGraph();
-    }, 1000);
+    }
   },
   methods: {
     ...mapActions("doctors", ["getSingleDevice"]),
@@ -780,6 +896,14 @@ export default {
       "getPatientBloodOxygenData",
       "getPatientStepsData",
     ]),
+    initData() {
+      this.client = {
+        connected: false,
+      };
+      this.retryTimes = 0;
+      this.connecting = false;
+      this.subscribeSuccess = false;
+    },
     getFullName(s1, s2) {
       return (
         s1?.charAt(0).toUpperCase() +
@@ -800,8 +924,8 @@ export default {
     getBodyTempGraph() {
       const payload = {
         speedometerId: this.getMacAddress.toString().toUpperCase(),
-        agrFunction: "average",
-        timePeriod: "1day",
+        agrFunction: this.selectedAggregate,
+        timePeriod: this.selectedTimePeriod,
         startDate: 1667301683000,
         endDate: 1669288883000,
       };
@@ -810,8 +934,8 @@ export default {
     getBloodO2Grpah() {
       const payload = {
         speedometerId: this.getMacAddress.toString().toUpperCase(),
-        agrFunction: "average",
-        timePeriod: "1day",
+        agrFunction: this.selectedAggregate,
+        timePeriod: this.selectedTimePeriod,
         startDate: 1667301683000,
         endDate: 1669288883000,
       };
@@ -820,18 +944,79 @@ export default {
     getStepsGraph() {
       const payload = {
         speedometerId: this.getMacAddress.toString().toUpperCase(),
-        agrFunction: "average",
-        timePeriod: "1day",
+        agrFunction: this.selectedAggregate,
+        timePeriod: this.selectedTimePeriod,
         startDate: 1667301683000,
         endDate: 1669288883000,
       };
       this.getPatientStepsData(payload);
     },
+    handleOnReConnect() {
+      this.retryTimes += 1;
+      if (this.retryTimes > 5) {
+        try {
+          this.client.end();
+          this.initData();
+          console.log("Connection maxReconnectTimes limit, stop retry");
+        } catch (error) {
+          console.log("error---", error.toString());
+        }
+      }
+    },
     createConnection() {
+      try {
+        this.connecting = true;
+        const { protocol, host, port, endpoint, ...options } = this.connection;
+        const connectUrl = `${protocol}://${host}:${port}/${endpoint}`;
+        this.client = mqtt.connect(connectUrl, options);
+        if (this.client.on) {
+          this.client.on("connect", () => {
+            this.connecting = false;
+            console.log("Connection succeeded!");
+            this.subscribeSuccess = true;
+            this.client.subscribe(
+              `BMSFSEV/${this.getSingleDeviceData[0]?.macAddressFramed.toUpperCase()}/sTOf`
+            );
+          });
+          this.client.on("reconnect", this.handleOnReConnect);
+          this.client.on("error", (error) => {
+            console.log("Connection failed", error);
+          });
+          this.client.on("message", (_, message) => {
+            let data = JSON.parse(message);
+            console.log("data--", JSON.parse(message));
+            this.liveMessage = data?.message;
+            // if (this.liveMessage == "Online") {
+            this.tempStartTime = data?.start_time;
+            this.startTime = new Date(this.tempStartTime).toLocaleString(
+              undefined,
+              { timeZone: "Asia/Kolkata" }
+            );
+            console.log("time---", this.startTime);
+            this.ecgChartData = data?.ecg_vals;
+            this.ppgChartData = data?.ppg_vals;
+            this.setEcgData(this.ecgChartData);
+            this.setPpgData(this.ppgChartData);
+            this.showEcgChart = false;
+            this.showPpgChart = false;
+            this.$nextTick(() => {
+              this.showEcgChart = true;
+              this.showPpgChart = true;
+            });
+            // }
+          });
+        }
+      } catch (error) {
+        this.connecting = false;
+        console.log("mqtt.connect error", error);
+      }
+    },
+    createConnection2() {
       const { host, port, options } = this.connection;
       const connectUrl = `mqtt://${host}:${port}/ws`;
       try {
         this.client = mqtt.connect(connectUrl, options);
+        console.log("client---", this.client);
       } catch (error) {
         console.log("mqtt.connect error", error);
       }
@@ -848,6 +1033,13 @@ export default {
         let data = JSON.parse(message);
         console.log("data--", JSON.parse(message));
         this.liveMessage = data?.message;
+        // if (this.liveMessage == "Online") {
+        this.tempStartTime = data?.start_time;
+        this.startTime = new Date(this.tempStartTime).toLocaleString(
+          undefined,
+          { timeZone: "Asia/Kolkata" }
+        );
+        console.log("time---", this.startTime);
         this.ecgChartData = data?.ecg_vals;
         this.ppgChartData = data?.ppg_vals;
         this.setEcgData(this.ecgChartData);
@@ -858,6 +1050,7 @@ export default {
           this.showEcgChart = true;
           this.showPpgChart = true;
         });
+        // }
       });
     },
   },
