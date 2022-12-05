@@ -17,13 +17,14 @@
             class="text-start mr-auto"
             v-bind="attrs"
             v-on="on"
+            v-if="role === 'Admin  '"
             >Add Device</v-btn
           >
         </template>
         <template v-slot:default="dialog">
           <v-card dark>
             <v-card-title>
-              <span class="text-h5 ml-3">Edit</span>
+              <span class="text-h5 ml-3">Add Device</span>
             </v-card-title>
 
             <v-card-text>
@@ -160,6 +161,7 @@ export default {
     return {
       icon: "justify",
       getDoctorId: localStorage.getItem("user_id"),
+      role: localStorage.getItem("role"),
       dialog: false,
       headers: [
         {
@@ -196,14 +198,13 @@ export default {
   },
   computed: {
     ...mapGetters("doctors", ["getPatients", "loadingStatus"]),
-    ...mapGetters("users", ["getRole"]),
   },
   methods: {
     ...mapActions("doctors", ["getPatientsForDoctor", "addDeviceData"]),
     addDevice() {
       const data = {
         name: this.device.name,
-        macAddress: this.device.macAddress,
+        mac_address: this.device.macAddress,
         manufacture_month_year: this.device.dateValue,
       };
       this.addDeviceData(data)

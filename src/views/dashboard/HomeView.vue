@@ -97,15 +97,16 @@
               <div class="mt-5 d-flex">
                 <v-card
                   class="elevation-1"
-                  height="50"
+                  height="60"
                   color="black"
                   style="width: 50%"
                 >
                   <div class="d-flex align-center ml-2">
                     <v-img
                       class="mr-3 mt-2"
-                      src="https://accu.live/images/doctor_dashboard/heartbeat.svg"
-                      height="17"
+                      src="@/assets/heartbeat.svg"
+                      height="40"
+                      width="40"
                       contain
                     ></v-img>
                     <div
@@ -122,17 +123,18 @@
                   class="elevation-1 ml-3"
                   color="black"
                   style="width: 50%"
-                  height="50"
+                  height="60"
                 >
-                  <div class="d-flex align-center ml-2">
+                  <div class="d-flex align-center ml-2 mt-1">
                     <v-img
-                      class="mr-3 mt-2"
-                      src="https://accu.live/images/doctor_dashboard/doc-oxi.svg"
-                      height="25"
+                      class="ml-n5 mt-2"
+                      src="@/assets/oxygen.svg"
+                      height="40"
+                      width="40"
                       contain
                     ></v-img>
                     <div
-                      class="d-flex ml-2 mr-13 mt-2"
+                      class="d-flex ml-2 mr-9 mt-2"
                       style="flex-direction: column"
                     >
                       <h5 class="yellow--text">98</h5>
@@ -145,18 +147,22 @@
               <div class="mt-5 d-flex">
                 <v-card
                   class="elevation-1"
-                  height="50"
+                  height="60"
                   color="black"
-                  style="width: 50%"
+                  style="width: 48%"
                 >
-                  <div class="d-flex align-center ml-3 mt-2">
+                  <div class="d-flex align-center ml-3 mt-3">
                     <v-img
-                      class="mr-8"
-                      src="https://accu.live/images/doctor_dashboard/doc-lunghs.svg"
-                      height="25"
+                      class="ml-n5"
+                      src="@/assets/lungs.svg"
+                      height="40"
+                      width="40"
                       contain
                     ></v-img>
-                    <div class="d-flex mr-16" style="flex-direction: column">
+                    <div
+                      class="d-flex ml-2 mr-13"
+                      style="flex-direction: column"
+                    >
                       <h5 class="purple--text">16</h5>
                       <small class="white--text">C1</small>
                     </div>
@@ -167,16 +173,17 @@
                   class="elevation-1 ml-3"
                   color="black"
                   style="width: 50%"
-                  height="50"
+                  height="60"
                 >
-                  <div class="d-flex align-center mt-2 ml-n1">
+                  <div class="d-flex align-center mt-3 ml-n1">
                     <v-img
-                      class=""
-                      src="https://accu.live/images/doctor_dashboard/oxi-meter.svg"
-                      height="25"
+                      class="ml-n2"
+                      src="@/assets/bloodPressure.svg"
+                      height="40"
+                      width="40"
                       contain
                     ></v-img>
-                    <div class="d-flex mr-10" style="flex-direction: column">
+                    <div class="d-flex mr-7" style="flex-direction: column">
                       <h5 class="cyan--text">120/85</h5>
                       <small class="white--text">6 hrs ago</small>
                     </div>
@@ -187,15 +194,16 @@
               <div class="mt-5 d-flex">
                 <v-card
                   class="elevation-1"
-                  height="50"
+                  height="60"
                   color="black"
                   style="width: 50%"
                 >
-                  <div class="d-flex align-center ml-3 mt-2">
+                  <div class="d-flex align-center ml-3 mt-1">
                     <v-img
                       class="mr-5 ml-n1"
-                      src="https://accu.live/images/doctor_dashboard/temprature.svg"
-                      height="25"
+                      src="@/assets/temprature.svg"
+                      height="40"
+                      width="40"
                       contain
                     ></v-img>
                     <div class="d-flex mr-10" style="flex-direction: column">
@@ -209,13 +217,14 @@
                   class="elevation-1 ml-3"
                   color="black"
                   style="width: 50%"
-                  height="50"
+                  height="60"
                 >
-                  <div class="d-flex align-center ml-3 mt-1">
+                  <div class="d-flex align-center ml-3 mt-2">
                     <v-img
                       class="mt-1"
-                      src="https://accu.live/images/doctor_dashboard/doc-step.svg"
-                      height="30"
+                      src="@/assets/steps.svg"
+                      height="40"
+                      width="40"
                       contain
                     ></v-img>
                     <div

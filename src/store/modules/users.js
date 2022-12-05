@@ -6,22 +6,18 @@ const state = {
   loggedIn: false,
 };
 
-const getters = {
-  getRole(state) {
-    return state?.user[0]?.role;
-  },
-};
-
 const mutations = {
   setUserInfo(state, data) {
     state.user = data.data.data;
     state.loggedIn = true;
     localStorage.setItem("user_id", data.data?.data[0]?.userId);
+    localStorage.setItem("role", data.data?.data[0]?.role);
   },
   removeUserInfo(state) {
     state.user = [];
     state.loggedIn = false;
     localStorage.removeItem("user_id");
+    localStorage.removeItem("role");
   },
 };
 
@@ -47,7 +43,6 @@ const actions = {
 export default {
   namespaced: true,
   state,
-  getters,
   mutations,
   actions,
 };

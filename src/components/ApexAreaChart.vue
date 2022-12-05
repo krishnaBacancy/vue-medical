@@ -15,7 +15,7 @@
 
 <script>
 export default {
-  name: "HelloWorld",
+  name: "ApexStepsChart",
   props: {
     chartId: {
       type: String,

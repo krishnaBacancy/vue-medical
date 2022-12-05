@@ -158,7 +158,7 @@ const mutations = {
         customerLastName: device.customerlastName,
         adminId: device.adminId,
         doctorId: device.doctorId,
-        customeId: device.customerId,
+        customerId: device.customerId,
       };
     });
   },

@@ -27,6 +27,11 @@ const routes = [
     component: () => import("../views/userManagement/UserManagement.vue"),
   },
   {
+    path: "/devices",
+    name: "devices",
+    component: () => import("../views/admin/DeviceList.vue"),
+  },
+  {
     path: "/add-user",
     name: "adduser",
     component: () => import("../views/userManagement/AddUser.vue"),

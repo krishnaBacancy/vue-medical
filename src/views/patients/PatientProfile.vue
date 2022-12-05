@@ -26,7 +26,7 @@
             <div class="d-flex align-center">
               <div>
                 <v-img
-                  src="https://accu.live/images/author-image.png"
+                  src="@/assets/Ellipse 10.png"
                   class="ml-4"
                   contain
                 ></v-img>

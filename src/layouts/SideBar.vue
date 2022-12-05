@@ -27,7 +27,7 @@
         <v-list-item-content>
           <v-list-item-title class="text-h6 mb-4 mt-4">
             <v-img
-              src="https://accu.live/images/logo.svg"
+              src="@/assets/accuLive.svg"
               @click="$router.push('/')"
               height="30"
               style="cursor: pointer"
@@ -66,7 +66,11 @@
             </div>
           </v-list-item>
 
-          <v-list-item class="list__item" link v-if="getRole !== 'Customer'">
+          <v-list-item
+            class="list__item"
+            link
+            v-if="role !== 'Customer' && role !== 'Admin'"
+          >
             <div
               class="item__container"
               @click="$router.push('/user-management')"
@@ -81,11 +85,19 @@
             </div>
           </v-list-item>
 
-          <v-list-item
-            class="list__item"
-            link
-            v-if="getRole !== 'Customer' || getRole !== 'Admin'"
-          >
+          <v-list-item class="list__item" link v-if="role === 'Admin'">
+            <div class="item__container" @click="$router.push('/devices')">
+              <v-list-item-icon style="margin-left: 40px">
+                <v-icon>mdi-devices</v-icon>
+              </v-list-item-icon>
+
+              <v-list-item-content>
+                <v-list-item-title>Device List</v-list-item-title>
+              </v-list-item-content>
+            </div>
+          </v-list-item>
+
+          <v-list-item class="list__item" link v-if="role !== 'Customer'">
             <div class="item__container" @click="$router.push('/live-device')">
               <v-list-item-icon style="margin-left: 40px">
                 <v-icon>mdi-account-supervisor-circle</v-icon>
@@ -131,17 +143,17 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 export default {
   data() {
     return {
       drawer: false,
       getUserId: localStorage.getItem("user_id"),
+      role: localStorage.getItem("role"),
     };
   },
   computed: {
     ...mapState("users", ["user"]),
-    ...mapGetters("users", ["getRole"]),
     getRoute() {
       if (this.$route.path === "/live-device") {
         return `expand-on-hover`;
