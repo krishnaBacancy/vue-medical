@@ -9,16 +9,12 @@
       @addNewPatient="goToPreviousPage"
     />
     <br />
-    <v-container
-      fluid
-      grid-list-md
-      style="background-color: rgba(0, 0, 0, 0.5)"
-    >
+    <div class="pa-3">
       <v-layout row wrap>
         <v-flex d-flex xs12 sm12 md12>
           <v-card
             dark
-            color="rgba(0, 0, 0, 0.3)"
+            color="rgba(0, 0, 0, 0.5)"
             class="mt-2 mb-2 pa-5 white--text"
             style="width: 100%"
           >
@@ -300,7 +296,7 @@
           </v-card>
         </v-flex>
       </v-layout>
-    </v-container>
+    </div>
   </div>
 </template>
 

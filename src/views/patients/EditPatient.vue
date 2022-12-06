@@ -9,11 +9,7 @@
       @addNewPatient="$router.go(-1)"
     />
     <br />
-    <v-container
-      fluid
-      grid-list-md
-      style="background-color: rgba(0, 0, 0, 0.3)"
-    >
+    <div class="pa-3">
       <v-progress-circular
         indeterminate
         color="blue"
@@ -24,7 +20,7 @@
           <v-card
             style="width: 100%"
             dark
-            color="rgba(0, 0, 0, 0.3)"
+            color="rgba(0, 0, 0, 0.5)"
             class="mt-2 mb-2 pa-5 white--text"
           >
             <v-card-title class="warning--text text-h5 ml-n2 mb-2"
@@ -329,7 +325,7 @@
           </v-card>
         </v-flex>
       </v-layout>
-    </v-container>
+    </div>
   </div>
 </template>
 

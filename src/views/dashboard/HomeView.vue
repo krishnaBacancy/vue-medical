@@ -70,27 +70,27 @@
 
               <div class="d-flex mt-1" style="font-size: 12px">
                 <div class="d-flex ml-2 justify-center align-center">
-                  <v-icon class="white--text">mdi-floor-plan</v-icon>
-                  <span style="color: orange" class="ml-1">Floor - 1 </span>
+                  <v-img src="@/assets/floor.svg"></v-img>
+                  <span style="color: orange" class="ml-2">Floor - 1 </span>
                 </div>
                 <v-spacer></v-spacer>
-                <div class="d-flex mr-8 justify-center align-center">
-                  <v-icon class="white--text">mdi-bed</v-icon>
-                  <span style="color: orange" class="ml-1">Room - 1 </span>
+                <div class="d-flex mr-9 justify-center align-center">
+                  <v-img src="@/assets/rooms.svg"></v-img>
+                  <span style="color: orange" class="ml-2">Room - 1 </span>
                 </div>
               </div>
 
-              <div class="d-flex mt-1" style="font-size: 12px">
+              <div class="d-flex mt-2" style="font-size: 12px">
                 <div class="d-flex ml-2 justify-center align-center">
-                  <v-icon class="white--text">mdi-slot-machine</v-icon>
-                  <span class="ml-1">{{
+                  <v-img src="@/assets/macAddress.svg"></v-img>
+                  <span class="ml-2">{{
                     patient?.macAddressFramed.toUpperCase()
                   }}</span>
                 </div>
                 <v-spacer></v-spacer>
                 <div class="d-flex mr-3 justify-center align-center">
-                  <v-icon class="white--text">mdi-battery</v-icon>
-                  <span class="ml-1">114Hrs 45 Min</span>
+                  <v-img src="@/assets/battery.svg"></v-img>
+                  <span class="ml-2">114Hrs 45 Min</span>
                 </div>
               </div>
 

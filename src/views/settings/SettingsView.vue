@@ -2,13 +2,13 @@
   <div>
     <PageHeader title="Settings" pageIcon="mdi-cog-outline" />
     <br />
-    <v-container style="background-color: rgba(0, 0, 0, 0.3)" fluid>
-      <v-layout row wrap class="pa-3">
+    <div>
+      <v-layout row wrap class="pa-2">
         <v-flex d-flex xs12 sm12 md6 class="mt-sm-2 mt-2">
           <v-card
-            color="#282934"
+            color="rgba(0, 0, 0, 0.3)"
             class="ml-2 mb-2 pa-2 white--text"
-            style="width: 100%"
+            style="width: 100%; border-radius: 20px"
           >
             <div class="d-flex ml-4">
               <h6 class="lighten-5">Notification</h6>
@@ -35,9 +35,9 @@
 
         <v-flex d-flex xs12 sm12 md6 class="mt-sm-2">
           <v-card
-            color="#282934"
+            color="rgba(0, 0, 0, 0.3)"
             class="ml-2 mb-2 pa-2 white--text"
-            style="width: 100%"
+            style="width: 100%; border-radius: 20px"
           >
             <div class="d-flex ml-4">
               <h6 class="lighten-5">Data Setting</h6>
@@ -74,9 +74,9 @@
 
         <v-flex d-flex xs12 sm12 md6 class="mt-sm-2">
           <v-card
-            color="#282934"
+            color="rgba(0, 0, 0, 0.3)"
             class="ml-2 mb-2 pa-2 white--text"
-            style="width: 100%"
+            style="width: 100%; border-radius: 20px"
           >
             <div class="d-flex ml-4">
               <h6 class="lighten-5">Units</h6>
@@ -129,9 +129,9 @@
 
         <v-flex d-flex xs12 sm12 md6 class="mt-sm-2">
           <v-card
-            color="#282934"
+            color="rgba(0, 0, 0, 0.3)"
             class="ml-2 mb-2 pa-2 white--text"
-            style="width: 100%"
+            style="width: 100%; border-radius: 20px"
           >
             <div class="d-flex ml-4">
               <h6 class="lighten-5">Notification</h6>
@@ -173,7 +173,7 @@
           </v-card>
         </v-flex>
       </v-layout>
-    </v-container>
+    </div>
   </div>
 </template>
 

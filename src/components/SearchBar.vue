@@ -9,7 +9,7 @@
             style="width: 100%; border-radius: 50px"
           >
             <div>
-              <v-icon>mdi-magnify</v-icon>
+              <v-icon color="warning">mdi-magnify</v-icon>
               <input
                 type="search"
                 placeholder="Search"
@@ -17,7 +17,10 @@
                 class="ml-2"
                 style="color: white"
               />
-              <v-icon class="ml-2" @click="$store.state.doctors.searchTerm = ''"
+              <v-icon
+                class="ml-2"
+                color="warning"
+                @click="$store.state.doctors.searchTerm = ''"
                 >mdi-close-circle</v-icon
               >
             </div>

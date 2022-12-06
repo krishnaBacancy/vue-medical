@@ -30,11 +30,14 @@
                 getSingleDeviceData[0]?.customerLastName
               )
             }}
-            - {{ getSingleDeviceData[0]?.macAddressFramed.toUpperCase() }}
           </h3>
           <v-spacer></v-spacer>
-          <h3 class="mr-3">0073fa</h3>
-          <h3 class="mr-3">114Hrs 45Min</h3>
+          <v-img src="@/assets/macAddress.svg" height="30" contain></v-img>
+          <h3 class="mr-3 ml-n15">
+            {{ getSingleDeviceData[0]?.macAddressFramed.toUpperCase() }}
+          </h3>
+          <v-img src="@/assets/battery.svg" height="30" contain></v-img>
+          <h3 class="mr-3 ml-n15">114Hrs 45Min</h3>
           <v-spacer></v-spacer>
           <div class="d-flex align-center justify-center mr-7">
             <h3 class="mr-5">Device Status</h3>

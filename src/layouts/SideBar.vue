@@ -15,7 +15,7 @@
       width="10%"
       dark
       :style="{
-        width: $vuetify.breakpoint.smAndDown ? '40%' : '10%',
+        width: $vuetify.breakpoint.smAndDown ? '40%' : '8%',
         backgroundColor: $vuetify.breakpoint.smAndDown
           ? 'rgba(0,0,0,0.8)'
           : 'rgba(0,0,0,0.3)',
@@ -44,7 +44,7 @@
         <v-list-item-group active-class="bg-active">
           <v-list-item class="list__item">
             <div class="item__container" @click="goToLink('/')">
-              <v-list-item-icon style="margin-left: 40px">
+              <v-list-item-icon style="margin-left: auto; margin-right: auto">
                 <v-icon>mdi-view-dashboard</v-icon>
               </v-list-item-icon>
 
@@ -56,8 +56,8 @@
 
           <v-list-item class="list__item" link>
             <div class="item__container" @click="goToLink('/patients')">
-              <v-list-item-icon style="margin-left: 40px">
-                <v-icon>mdi-account-injury</v-icon>
+              <v-list-item-icon style="margin-left: auto; margin-right: auto">
+                <v-img src="@/assets/patients.svg"></v-img>
               </v-list-item-icon>
 
               <v-list-item-content>
@@ -75,7 +75,7 @@
               class="item__container"
               @click="$router.push('/user-management')"
             >
-              <v-list-item-icon style="margin-left: 40px">
+              <v-list-item-icon style="margin-left: auto; margin-right: auto">
                 <v-icon>mdi-devices</v-icon>
               </v-list-item-icon>
 
@@ -87,7 +87,7 @@
 
           <v-list-item class="list__item" link v-if="role === 'Admin'">
             <div class="item__container" @click="$router.push('/devices')">
-              <v-list-item-icon style="margin-left: 40px">
+              <v-list-item-icon style="margin-left: auto; margin-right: auto">
                 <v-icon>mdi-devices</v-icon>
               </v-list-item-icon>
 
@@ -99,7 +99,7 @@
 
           <v-list-item class="list__item" link v-if="role !== 'Customer'">
             <div class="item__container" @click="$router.push('/live-device')">
-              <v-list-item-icon style="margin-left: 40px">
+              <v-list-item-icon style="margin-left: auto; margin-right: auto">
                 <v-icon>mdi-account-supervisor-circle</v-icon>
               </v-list-item-icon>
 
@@ -111,7 +111,7 @@
 
           <v-list-item class="list__item" link>
             <div class="item__container" @click="goToLink('/settings')">
-              <v-list-item-icon style="margin-left: 40px">
+              <v-list-item-icon style="margin-left: auto; margin-right: auto">
                 <v-icon>mdi-cog-outline</v-icon>
               </v-list-item-icon>
 
@@ -123,7 +123,7 @@
 
           <v-list-item class="list__item" link>
             <div class="item__container" @click="logOut">
-              <v-list-item-icon style="margin-left: 40px">
+              <v-list-item-icon style="margin-left: auto; margin-right: auto">
                 <v-icon>mdi-logout</v-icon>
               </v-list-item-icon>
 
@@ -136,7 +136,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-main style="width: 95%; margin-left: auto; margin-right: auto">
+    <v-main style="width: 97%; margin-left: auto; margin-right: auto">
       <router-view />
     </v-main>
   </v-app>
