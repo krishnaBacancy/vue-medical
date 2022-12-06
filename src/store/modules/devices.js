@@ -10,7 +10,7 @@ const getters = {
     return state.isLoading;
   },
   getDevices(state) {
-    return state?.devices.reverse();
+    return state?.devices;
   },
 };
 
@@ -19,22 +19,28 @@ const mutations = {
     state.isLoading = loadingStatus;
   },
   SET_ALL_DEVICES(state, deviceData) {
-    state.devices = deviceData.map((device) => {
-      return {
-        id: device._id,
-        name: device.name,
-        macAddress: device.mac_address,
-        manufactureMonth: device.manufacture_month_year,
-        macAddressFramed: device.mac_address_framed.toUpperCase(),
-        doctorFirstName: device.doctorfirstName,
-        doctorLastName: device.doctorlastName,
-        customerFirstName: device.customerfirstName,
-        customerLastName: device.customerlastName,
-        adminId: device.adminId,
-        doctorId: device.doctorId,
-        customerId: device.customerId,
-      };
-    });
+    state.devices = deviceData
+      .map((device) => {
+        return {
+          id: device._id,
+          name: device.name,
+          macAddress: device.mac_address,
+          manufactureMonth: device.manufacture_month_year,
+          macAddressFramed: device.mac_address_framed.toUpperCase(),
+          doctorFirstName: device.doctorfirstName,
+          doctorLastName: device.doctorlastName,
+          customerFirstName: device.customerfirstName,
+          customerLastName: device.customerlastName,
+          adminId: device.adminId,
+          doctorId: device.doctorId,
+          customerId: device.customerId,
+        };
+      })
+      .reverse();
+  },
+  DELETE_DEVICE(state, deviceId) {
+    let newData = state.devices.filter((data) => data.id !== deviceId);
+    state.devices = newData;
   },
 };
 
@@ -44,6 +50,26 @@ const actions = {
     const res = await devices.getAllDevices();
     commit("SET_ALL_DEVICES", res.data.data);
     commit("SET_LOADING_STATUS", false);
+  },
+  async deleteDevice({ commit }, id) {
+    commit("SET_LOADING_STATUS", true);
+    const res = await devices.deleteSingleDevice(id);
+    console.log("deleted--", res.data);
+    commit("DELETE_DEVICE", id);
+    commit("SET_LOADING_STATUS", false);
+  },
+  addDeviceData({ commit }, payload) {
+    return new Promise((resolve, reject) => {
+      devices
+        .addDeviceData(payload)
+        .then((res) => {
+          if (res.status === 200) {
+            commit("SET_ALL_DEVICES", res.data.data);
+            resolve(true);
+          }
+        })
+        .catch((err) => reject(err));
+    });
   },
 };
 

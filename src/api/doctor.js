@@ -9,8 +9,6 @@ export default {
   getSingleDeviceData: (params) =>
     client.get(`/devices/viewsingledevicedetails/${params}`),
 
-  //add device(Admin)
-  addDeviceData: (params) => client.post("/devices/", params),
   //update single device details
   updateSingleDevice: (params, id) =>
     client.put(`/devices/updatesingledevicedetails?deviceId=${id}`, params),

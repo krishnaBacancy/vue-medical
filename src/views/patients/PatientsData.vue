@@ -110,16 +110,16 @@ export default {
         )
       ) {
         this.deletePatient(item);
-        this.$router.push("/");
         this.$toast.success("Patient deleted successfully.");
+        setTimeout(() => {
+          this.getAllPatientsData(this.getDoctorId);
+        }, 500);
       }
       this.dialogDelete = true;
     },
   },
   mounted() {
-    if (this.getDoctorId) {
-      this.getAllPatientsData(this.getDoctorId);
-    }
+    this.getAllPatientsData(this.getDoctorId);
   },
   components: {
     PageHeader,

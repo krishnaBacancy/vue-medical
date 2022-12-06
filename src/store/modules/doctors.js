@@ -196,19 +196,6 @@ const actions = {
     commit("DELETE_PATIENT", id);
     commit("SET_LOADING_STATUS", false);
   },
-  addDeviceData({ commit }, payload) {
-    return new Promise((resolve, reject) => {
-      doctors
-        .addDeviceData(payload)
-        .then((res) => {
-          if (res.status === 200) {
-            commit("SET_PATIENTS_FOR_DOCTOR", res.data.data);
-            resolve(true);
-          }
-        })
-        .catch((err) => reject(err));
-    });
-  },
 };
 
 export default {
