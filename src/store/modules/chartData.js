@@ -3,9 +3,13 @@ const state = {
   ecgTempChartData: [],
   ppgChartData: [],
   ppgTempChartData: [],
+  schedulerData: {},
 };
 
 const getters = {
+  getSchedulerData(state) {
+    return state?.schedulerData;
+  },
   getEcgChartData(state) {
     return state?.ecgChartData;
   },
@@ -41,6 +45,9 @@ const mutations = {
     Array.prototype.push.apply(state.ppgTempChartData, ppgData);
     state.ppgChartData = state.ppgTempChartData;
   },
+  SET_PATIENT_SCHEDULER_DATA(state, schedulerData) {
+    state.schedulerData = schedulerData;
+  },
 };
 
 const actions = {
@@ -49,6 +56,9 @@ const actions = {
   },
   setPpgData({ commit }, payload) {
     commit("SET_PPG_CHART_DATA", payload);
+  },
+  setSchedulerData({ commit }, payload) {
+    commit("SET_PATIENT_SCHEDULER_DATA", payload);
   },
 };
 

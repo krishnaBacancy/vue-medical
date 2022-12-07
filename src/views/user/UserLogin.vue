@@ -104,7 +104,7 @@
                     type="email"
                     v-model="email"
                     name="email"
-                    label="Email"
+                    placeholder="Email"
                     required
                     filled
                     dense
@@ -118,11 +118,11 @@
                     :type="showPassIcon ? 'text' : 'password'"
                     v-model="password"
                     name="password"
-                    label="Password"
+                    placeholder="Password"
                     hint="At least 6 characters"
+                    dense
                     required
                     filled
-                    dense
                     @click:append="showPassIcon = !showPassIcon"
                     :rules="passwordRules"
                     background-color="white"

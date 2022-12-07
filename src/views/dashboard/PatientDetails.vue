@@ -16,7 +16,7 @@
         v-if="loadingStatus"
       ></v-progress-circular>
       <div v-else>
-        <div class="d-flex align-center">
+        <div class="d-flex align-center justify-md-space-around">
           <v-img
             class="rounded-circle ml-4"
             src="https://picsum.photos/id/11/50/50"
@@ -32,12 +32,28 @@
             }}
           </h3>
           <v-spacer></v-spacer>
-          <v-img src="@/assets/macAddress.svg" height="30" contain></v-img>
-          <h3 class="mr-3 ml-n15">
-            {{ getSingleDeviceData[0]?.macAddressFramed.toUpperCase() }}
-          </h3>
-          <v-img src="@/assets/battery.svg" height="30" contain></v-img>
-          <h3 class="mr-3 ml-n15">114Hrs 45Min</h3>
+          <div class="d-flex align-center justify-md-space-between">
+            <v-img src="@/assets/floor1.svg" height="30" contain></v-img>
+            <h3 class="ml-3">Floor - 1</h3>
+            <v-img
+              src="@/assets/room.svg"
+              class="ml-5"
+              height="30"
+              contain
+            ></v-img>
+            <h3 class="ml-3">Room - 1</h3>
+            <v-img
+              src="@/assets/mac.svg"
+              class="ml-5"
+              height="30"
+              contain
+            ></v-img>
+            <h3 class="ml-3">
+              {{ getSingleDeviceData[0]?.macAddressFramed.toUpperCase() }}
+            </h3>
+            <v-icon color="warning" class="ml-5">mdi-battery</v-icon>
+            <h3 class="ml-3">114Hrs 45Min</h3>
+          </div>
           <v-spacer></v-spacer>
           <div class="d-flex align-center justify-center mr-7">
             <h3 class="mr-5">Device Status</h3>
@@ -60,23 +76,26 @@
           </div>
         </div>
 
-        <div class="d-flex mt-3 align-center justify-md-space-around">
-          <div class="ml-3">
+        <div class="d-flex mt-6">
+          <div class="ml-6">
             <v-select
               :items="aggregateValues"
               filled
               dark
+              dense
               label="Aggregate"
+              style="height: 60px"
               v-model="selectedAggregate"
             ></v-select>
           </div>
-          <div class="ml-3">
+          <div class="ml-6">
             <v-select
               :items="timePeriodValues"
               v-model="selectedTimePeriod"
               filled
               label="Time Period"
               dark
+              dense
             ></v-select>
           </div>
           <div></div>
@@ -124,111 +143,56 @@
           </v-layout>
 
           <br />
+
           <v-layout row wrap>
-            <v-flex d-flex xs12 sm6 md3>
+            <v-flex d-flex xs12 sm6 md6>
               <v-card
                 color="#282934"
-                class="ml-2 mb-2 pa-2"
                 dark
+                class="ml-2 mb-2 pa-2"
                 style="width: 100%"
               >
-                <div
-                  class="d-flex justify-xs-start justify-sm-center align-center mt-2"
-                >
+                <div class="d-flex text-start">
+                  <div>
+                    <h3>Heart Rate</h3>
+                    <small class="warning--text">No Device Paired</small>
+                  </div>
+                  <v-spacer></v-spacer>
+                  <div>
+                    <h3>Last Reading</h3>
+                    <small class="grey--text">2 hour ago</small>
+                  </div>
+                </div>
+                <div class="d-flex justify-center ml-5 align-center mt-5">
                   <v-img
-                    class="ml-10"
+                    class="mr-3"
                     src="@/assets/heartbeat.svg"
                     height="70"
                     contain
                   ></v-img>
                   <div class="mr-16 text-start">
-                    <h1 class="success--text">74</h1>
+                    <h1 class="success--text">
+                      {{
+                        getSchedulerData?.hr
+                          ? getSchedulerData.hr
+                          : "Loading..."
+                      }}
+                    </h1>
                     <div class="d-flex" style="flex-direction: column">
-                      <small>>120-30</small>
+                      <small>{{
+                        getSchedulerData?.hrv
+                          ? Math.round(
+                              (getSchedulerData?.hrv + Number.EPSILON) * 100
+                            ) / 100
+                          : "Loading..."
+                      }}</small>
                       <small>C1</small>
                     </div>
                   </div>
                 </div>
               </v-card>
             </v-flex>
-            <v-flex d-flex xs12 sm6 md3>
-              <v-card
-                dark
-                color="#282934"
-                class="ml-2 mb-2 pa-2"
-                style="width: 100%"
-              >
-                <div class="d-flex align-center ml-3 mt-4">
-                  <v-img
-                    class=""
-                    src="@/assets/lungs.svg"
-                    height="70"
-                    contain
-                  ></v-img>
-                  <div class="mr-16 text-start">
-                    <h1 class="info--text">16</h1>
-                    <div class="d-flex" style="flex-direction: column">
-                      <small>C1</small>
-                    </div>
-                  </div>
-                </div>
-              </v-card>
-            </v-flex>
-            <v-flex d-flex xs12 sm6 md3>
-              <v-card
-                color="#282934"
-                dark
-                class="ml-2 mb-2 pa-2"
-                style="width: 100%"
-              >
-                <div
-                  class="d-flex justify-xs-start justify-sm-center align-center ml-3 mt-2"
-                >
-                  <v-img
-                    class="ml-7 ml-md-0"
-                    src="@/assets/temprature.svg"
-                    height="70"
-                    contain
-                  ></v-img>
-                  <div class="mr-16 text-start">
-                    <h1 class="red--text">98.7</h1>
-                    <div class="d-flex text-start flex-column">
-                      <small>6 hours</small>
-                      <small>ago</small>
-                    </div>
-                  </div>
-                </div>
-              </v-card>
-            </v-flex>
-            <v-flex d-flex xs12 sm6 md3>
-              <v-card
-                color="#282934"
-                dark
-                class="ml-2 mb-2 pa-2"
-                style="width: 100%"
-              >
-                <div
-                  class="d-flex justify-xs-start justify-sm-center align-center ml-3 mt-3"
-                >
-                  <v-img
-                    class="ml-9 ml-md-0"
-                    src="@/assets/steps.svg"
-                    height="70"
-                    contain
-                  ></v-img>
-                  <div class="mr-16 text-start">
-                    <h1 class="purple--text">3000</h1>
-                    <div class="d-flex" style="flex-direction: column">
-                      <small>Steps</small>
-                    </div>
-                  </div>
-                </div>
-              </v-card>
-            </v-flex>
-          </v-layout>
-
-          <v-layout row wrap>
-            <v-flex d-flex xs12 sm6 md4>
+            <v-flex d-flex xs12 sm6 md6>
               <v-card
                 color="#282934"
                 dark
@@ -263,6 +227,47 @@
                 </div>
               </v-card>
             </v-flex>
+          </v-layout>
+
+          <v-layout row wrap>
+            <v-flex d-flex xs12 sm6 md4>
+              <v-card
+                color="#282934"
+                dark
+                class="ml-2 mb-2 pa-2"
+                style="width: 100%"
+              >
+                <div class="d-flex text-start">
+                  <div>
+                    <h3>Movement</h3>
+                    <small class="warning--text">No Device Paired</small>
+                  </div>
+                  <v-spacer></v-spacer>
+                  <div>
+                    <h3>Last Reading</h3>
+                    <small class="grey--text">2 hour ago</small>
+                  </div>
+                </div>
+                <div class="d-flex justify-center ml-5 align-center mt-5">
+                  <v-img
+                    class="mr-3"
+                    src="@/assets/steps.svg"
+                    height="70"
+                    contain
+                  ></v-img>
+                  <div class="mr-16 text-start">
+                    <h1 class="pink--text">
+                      {{
+                        getSchedulerData?.steps ? getSchedulerData?.steps : "0"
+                      }}
+                    </h1>
+                    <div class="d-flex" style="flex-direction: column">
+                      <small>Steps</small>
+                    </div>
+                  </div>
+                </div>
+              </v-card>
+            </v-flex>
             <v-flex d-flex xs12 sm6 md4>
               <v-card
                 color="#282934"
@@ -289,7 +294,15 @@
                     class="ml-n5"
                   ></v-img>
                   <div class="mr-16 text-start">
-                    <h1 class="cyan--text">118/77</h1>
+                    <h1 class="cyan--text">
+                      {{
+                        getSchedulerData?.bp
+                          ? Math.round(
+                              (getSchedulerData?.bp + Number.EPSILON) * 100
+                            ) / 100
+                          : "Loading..."
+                      }}
+                    </h1>
                     <div class="d-flex" style="flex-direction: column">
                       <small>Manual Entry</small>
                       <small>mmHg</small>
@@ -325,7 +338,15 @@
                     class="mt-3"
                   ></v-img>
                   <div class="text-start mr-16">
-                    <h1 class="red--text">61.3 kg</h1>
+                    <h1 class="red--text">
+                      {{
+                        getSchedulerData?.map
+                          ? Math.round(
+                              (getSchedulerData?.map + Number.EPSILON) * 100
+                            ) / 100
+                          : "Loading..."
+                      }}
+                    </h1>
                     <div class="d-flex" style="flex-direction: column">
                       <small>Manual Entry</small>
                       <small>mmHg</small>
@@ -365,7 +386,15 @@
                     contain
                   ></v-img>
                   <div class="mr-16 text-start">
-                    <h1 class="warning--text">98</h1>
+                    <h1 class="warning--text">
+                      {{
+                        getSchedulerData?.rr
+                          ? Math.round(
+                              (getSchedulerData?.rr + Number.EPSILON) * 100
+                            ) / 100
+                          : "Loading..."
+                      }}
+                    </h1>
                     <div class="d-flex" style="flex-direction: column">
                       <small>Streaming Mode</small>
                       <small>%SPO2</small>
@@ -403,9 +432,23 @@
                     contain
                   ></v-img>
                   <div class="mr-16 text-start">
-                    <h1 class="warning--text">98</h1>
+                    <h1 class="warning--text">
+                      {{
+                        getSchedulerData?.pp
+                          ? Math.round(
+                              (getSchedulerData?.pp + Number.EPSILON) * 100
+                            ) / 100
+                          : "Loading..."
+                      }}
+                    </h1>
                     <div class="d-flex" style="flex-direction: column">
-                      <small>Streaming Mode</small>
+                      <small>{{
+                        getSchedulerData?.prv
+                          ? Math.round(
+                              (getSchedulerData?.prv + Number.EPSILON) * 100
+                            ) / 100
+                          : "Loading..."
+                      }}</small>
                       <small>%SPO2</small>
                     </div>
                   </div>
@@ -441,7 +484,13 @@
                     contain
                   ></v-img>
                   <div class="mr-16 text-start">
-                    <h1 class="warning--text">98</h1>
+                    <h1 class="warning--text">
+                      {{
+                        getSchedulerData?.arrhythmia
+                          ? getSchedulerData.arrhythmia
+                          : "Loading..."
+                      }}
+                    </h1>
                     <div class="d-flex" style="flex-direction: column">
                       <small>Streaming Mode</small>
                       <small>%SPO2</small>
@@ -481,7 +530,15 @@
                     contain
                   ></v-img>
                   <div class="mr-16 text-start">
-                    <h1 class="warning--text">98</h1>
+                    <h1 class="warning--text">
+                      {{
+                        getSchedulerData?.sv
+                          ? Math.round(
+                              (getSchedulerData?.sv + Number.EPSILON) * 100
+                            ) / 100
+                          : "Loading..."
+                      }}
+                    </h1>
                     <div class="d-flex" style="flex-direction: column">
                       <small>Streaming Mode</small>
                       <small>%SPO2</small>
@@ -518,7 +575,15 @@
                     contain
                   ></v-img>
                   <div class="mr-16 text-start">
-                    <h1 class="warning--text">98</h1>
+                    <h1 class="warning--text">
+                      {{
+                        getSchedulerData?.co
+                          ? Math.round(
+                              (getSchedulerData?.co + Number.EPSILON) * 100
+                            ) / 100
+                          : "Loading..."
+                      }}
+                    </h1>
                     <div class="d-flex" style="flex-direction: column">
                       <small>Streaming Mode</small>
                       <small>%SPO2</small>
@@ -556,7 +621,15 @@
                     contain
                   ></v-img>
                   <div class="mr-16 text-start">
-                    <h1 class="warning--text">98</h1>
+                    <h1 class="warning--text">
+                      {{
+                        getSchedulerData?.ptt
+                          ? Math.round(
+                              (getSchedulerData?.ptt + Number.EPSILON) * 100
+                            ) / 100
+                          : "Loading..."
+                      }}
+                    </h1>
                     <div class="d-flex" style="flex-direction: column">
                       <small>Streaming Mode</small>
                       <small>%SPO2</small>
@@ -861,6 +934,7 @@ export default {
       "getSingleDeviceData",
       "getMacAddress",
     ]),
+    ...mapGetters("chartData", ["getSchedulerData"]),
   },
   destroyed() {
     if (this.client.connected) {
@@ -892,7 +966,11 @@ export default {
   },
   methods: {
     ...mapActions("doctors", ["getSingleDevice"]),
-    ...mapActions("chartData", ["setEcgData", "setPpgData"]),
+    ...mapActions("chartData", [
+      "setEcgData",
+      "setPpgData",
+      "setSchedulerData",
+    ]),
     ...mapActions("patientData", [
       "getPatientAlgoData",
       "getPatientBodyTempData",
@@ -989,6 +1067,7 @@ export default {
             let data = JSON.parse(message);
             console.log("data--", JSON.parse(message));
             this.liveMessage = data?.message;
+            this.setSchedulerData(data);
             // if (this.liveMessage == "Online") {
             this.tempStartTime = data?.start_time;
             this.startTime = new Date(this.tempStartTime).toLocaleString(

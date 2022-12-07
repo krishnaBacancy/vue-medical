@@ -30,6 +30,15 @@
           height="500"
           dark
         >
+          <template v-slot:[`item.image`]>
+            <v-img
+              src="@/assets/Ellipse 10.png"
+              height="60"
+              width="80"
+              contain
+              class="mt-2 mb-2"
+            ></v-img>
+          </template>
           <template v-slot:[`item.actions`]="{ item }">
             <v-icon
               color="warning"
@@ -68,8 +77,13 @@ export default {
       getDoctorId: localStorage.getItem("user_id"),
       headers: [
         {
-          text: "PatientName",
+          text: "Patient Image",
           align: "start",
+          sortable: false,
+          value: "image",
+        },
+        {
+          text: "Patient Name",
           sortable: false,
           value: "fullName",
         },
