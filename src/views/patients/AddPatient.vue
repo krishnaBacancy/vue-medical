@@ -41,7 +41,7 @@
                       v-model="user.lname"
                     />
                   </v-col>
-                  <v-col cols="12" sm="6" md="4">
+                  <v-col cols="12" sm="12" md="4">
                     <CustomTextField
                       :type="'email'"
                       :label="'Email Address'"
@@ -68,7 +68,7 @@
                       v-model="user.emergencyPhone"
                     />
                   </v-col>
-                  <v-col cols="12" sm="6" md="4">
+                  <v-col cols="12" sm="12" md="4">
                     <v-menu
                       v-model="dateMenu"
                       :close-on-content-click="false"
@@ -126,7 +126,7 @@
                       v-model="user.weight"
                     />
                   </v-col>
-                  <v-col cols="12" sm="6" md="4">
+                  <v-col cols="12" sm="12" md="4">
                     <CustomTextField
                       :type="'number'"
                       :label="'Height (cm)'"
@@ -160,7 +160,7 @@
                       v-model="user.aadhar"
                     />
                   </v-col>
-                  <v-col cols="12" sm="6" md="4">
+                  <v-col cols="12" sm="12" md="4">
                     <CustomTextField
                       :type="'text'"
                       :label="'Address'"
@@ -192,7 +192,7 @@
                       v-model="familyMemberInfo.selected1Relation"
                     ></v-select>
                   </v-col>
-                  <v-col cols="12" sm="6" md="4">
+                  <v-col cols="12" sm="12" md="4">
                     <CustomTextField
                       :type="'number'"
                       :label="'Contact Number'"
@@ -219,7 +219,7 @@
                       dense
                     ></v-select>
                   </v-col>
-                  <v-col cols="12" sm="6" md="4">
+                  <v-col cols="12" sm="12" md="4">
                     <CustomTextField
                       :type="'number'"
                       :label="'Contact Number'"
@@ -248,7 +248,7 @@
                       v-model="medicalInfo.diabetics"
                     />
                   </v-col>
-                  <v-col cols="12" sm="6" md="4">
+                  <v-col cols="12" sm="12" md="4">
                     <v-select
                       :items="heartCondition"
                       filled
@@ -279,17 +279,26 @@
                   </v-col>
                 </v-row>
 
-                <v-row class="mt-2 mb-2 ml-1">
-                  <v-btn
-                    color="warning"
-                    :disabled="!valid"
-                    width="48%"
-                    @click="addPatient"
-                    >Add Patient</v-btn
-                  >
-                  <v-btn color="error" class="ml-8" width="48%" @click="reset">
-                    Reset Form
-                  </v-btn>
+                <v-row class="mt-2 mb-2">
+                  <v-flex xs12 sm6>
+                    <v-btn
+                      color="warning"
+                      :disabled="!valid"
+                      width="95%"
+                      @click="addPatient"
+                      >Add Patient</v-btn
+                    >
+                  </v-flex>
+                  <v-flex xs12 sm6>
+                    <v-btn
+                      color="error"
+                      class="mt-4 mt-sm-0 mt-md-0"
+                      width="95%"
+                      @click="reset"
+                    >
+                      Reset Form
+                    </v-btn>
+                  </v-flex>
                 </v-row>
               </v-form>
             </div>

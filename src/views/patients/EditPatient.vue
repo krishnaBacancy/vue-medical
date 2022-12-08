@@ -198,7 +198,7 @@
               </v-row>
 
               <v-row>
-                <v-col cols="12" sm="6">
+                <v-col cols="12" sm="12">
                   <v-text-field
                     type="number"
                     v-model="user.GSTNO"
@@ -236,7 +236,7 @@
                     v-model="user.family_members[0].familyMember1Relation"
                   ></v-select>
                 </v-col>
-                <v-col cols="12" sm="6" md="4">
+                <v-col cols="12" sm="12" md="4">
                   <v-text-field
                     type="number"
                     label="Contact Number"
@@ -272,7 +272,7 @@
                     v-model="user.medical_history[0].diabetics"
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" sm="6" md="4">
+                <v-col cols="12" sm="12" md="4">
                   <v-select
                     label="Heart Condition"
                     filled
@@ -307,19 +307,26 @@
               </v-row>
 
               <v-row class="mt-2 mb-2">
-                <v-btn
-                  :disabled="!valid"
-                  color="success"
-                  class="ml-3"
-                  @click="updateUser"
-                  width="48%"
-                >
-                  Update User
-                </v-btn>
-
-                <v-btn color="error" class="ml-5" width="48%" @click="reset">
-                  Reset Form
-                </v-btn>
+                <v-flex xs12 sm6>
+                  <v-btn
+                    :disabled="!valid"
+                    color="success"
+                    @click="updateUser"
+                    width="95%"
+                  >
+                    Update Patient
+                  </v-btn>
+                </v-flex>
+                <v-flex xs12 sm6>
+                  <v-btn
+                    color="error"
+                    class="mt-4 mt-sm-0 mt-md-0"
+                    width="95%"
+                    @click="reset"
+                  >
+                    Reset Form
+                  </v-btn>
+                </v-flex>
               </v-row>
             </v-form>
           </v-card>

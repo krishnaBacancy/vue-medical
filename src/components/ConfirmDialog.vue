@@ -2,6 +2,8 @@
   <div>
     <v-dialog
       v-model="dialog"
+      :width="$vuetify.breakpoint.smAndUp ? '500px' : '400px'"
+      height="500px"
       :max-width="options.width"
       :style="{ zIndex: options.zIndex }"
       @keydown.esc="cancel"

@@ -3,8 +3,9 @@
     <v-main>
       <v-container class="fill-height mt-3" fluid>
         <v-row class="white--text">
-          <v-col cols="12" sm="6" md="4" class="ml-10">
+          <v-col cols="12" sm="6" md="4" class="ml-0 ml-md-10">
             <v-img
+              v-if="$vuetify.breakpoint.mdAndUp"
               class="ml-auto"
               src="@/assets/arrow1.svg"
               height="100"
@@ -16,14 +17,14 @@
               <v-flex d-flex md12>
                 <h1>Sneak Peek Into Health</h1>
               </v-flex>
-              <v-flex d-flex md8>
-                <p class="mt-5">
+              <v-flex md8>
+                <p class="mt-5 ml-2 ml-sm-0">
                   Get access to essential health data that aids in taking
                   crucial decisions for life. Track vital information in a
                   graphical view and hasten the next step.
                 </p>
               </v-flex>
-              <v-row class="mt-5">
+              <v-row class="mt-5 ml-2 ml-sm-0 ml-md-0">
                 <v-col>
                   <v-img
                     src="@/assets/Rectangle 112.svg"
@@ -84,7 +85,7 @@
             </v-img>
           </v-col>
 
-          <v-col cols="12" sm="6" md="4" class="ml-10">
+          <v-col cols="12" sm="6" md="4" class="ml-0 ml-md-10 mb-5 mb-md-2">
             <v-img src="@/assets/mobile-screen.svg" height="700" width="600">
               <v-img
                 class="ml-auto mr-auto"
@@ -208,7 +209,7 @@ h2 {
   font-size: 36px;
 }
 .v-text-field {
-  width: 400px;
+  width: 83%;
   margin-left: auto;
   margin-right: auto;
 }

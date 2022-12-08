@@ -26,6 +26,7 @@
             <div class="d-flex align-center">
               <div>
                 <v-img
+                  v-if="$vuetify.breakpoint.smAndUp"
                   src="@/assets/Ellipse 10.png"
                   class="ml-4"
                   contain
@@ -41,8 +42,9 @@
               </div>
             </div>
             <v-spacer></v-spacer>
-            <div class="d-flex mr-10">
+            <div class="d-flex mr-1 mr-sm-5">
               <v-btn
+                v-if="role === 'Doctor' || role === 'Admin'"
                 color="warning"
                 outlined
                 @click="
@@ -73,7 +75,10 @@
                 </div>
               </v-col>
               <v-col cols="12" sm="6" md="6">
-                <div class="d-flex flex-column align-start" style="width: 50%">
+                <div
+                  class="d-flex flex-column align-start ml-4 ml-sm-0"
+                  style="width: 50%"
+                >
                   <small class="">Date of Birth</small>
                   <h3 class="font-weight-bold">
                     {{ formatDate }}
@@ -92,8 +97,11 @@
                 </div>
               </v-col>
               <v-col cols="12" sm="6" md="6">
-                <div class="d-flex flex-column align-start" style="width: 50%">
-                  <small class="font-weight-thin">Emergency Number</small>
+                <div
+                  class="d-flex flex-column align-start text-start ml-4 ml-sm-0"
+                  style="width: 50%"
+                >
+                  <small class="font-weight-thin">Emergency No</small>
                   <h3 class="font-weight-bold">
                     +{{
                       getSinglePatientData[0]?.emergencyPhone
@@ -119,7 +127,10 @@
                 </div>
               </v-col>
               <v-col cols="12" sm="6" md="6">
-                <div class="d-flex flex-column align-start" style="width: 50%">
+                <div
+                  class="d-flex flex-column align-start ml-4 ml-sm-0"
+                  style="width: 50%"
+                >
                   <small class="font-weight-thin">Height</small>
                   <h3 class="font-weight-bold">
                     {{
@@ -146,7 +157,7 @@
                 </div>
               </v-col>
               <v-col cols="12" sm="6" md="6">
-                <div class="d-flex flex-column align-start">
+                <div class="d-flex flex-column align-start ml-4 ml-sm-0">
                   <small class="font-weight-thin">Aadhar Number</small>
                   <h3 class="font-weight-bold">
                     {{
@@ -184,7 +195,7 @@
             <v-row>
               <v-col cols="12" sm="6" md="6">
                 <div class="d-flex align-center">
-                  <div class="d-flex flex-column ml-3">
+                  <div class="d-flex flex-column ml-4">
                     <h3 class="font-weight-bold text-start">
                       {{
                         getSinglePatientData[0]?.familyMember1Name
@@ -211,7 +222,7 @@
               </v-col>
               <v-col cols="12" sm="6" md="6">
                 <div class="d-flex align-center">
-                  <div class="d-flex flex-column mr-16">
+                  <div class="d-flex flex-column mr-16 ml-4 ml-sm-0">
                     <h3 class="font-weight-bold text-start">
                       {{
                         getSinglePatientData[0]?.familyMember2Name
@@ -263,7 +274,7 @@
                 </div>
               </v-col>
               <v-col cols="12" sm="6" md="4">
-                <div class="d-flex flex-column align-start">
+                <div class="d-flex flex-column align-start ml-4 ml-sm-0">
                   <small class="">Diabetics</small>
                   <h3 class="font-weight-bold">
                     {{
@@ -275,7 +286,7 @@
                 </div>
               </v-col>
               <v-col cols="12" sm="6" md="4">
-                <div class="d-flex flex-column align-start">
+                <div class="d-flex flex-column align-start ml-4 ml-md-0">
                   <small class="">Heart Condition</small>
                   <h3 class="font-weight-bold">
                     {{
@@ -302,7 +313,7 @@
                 </div>
               </v-col>
               <v-col cols="12" sm="6" md="4">
-                <div class="d-flex flex-column align-start">
+                <div class="d-flex flex-column align-start ml-4 ml-sm-0">
                   <small class="">Obesity</small>
                   <h3 class="font-weight-bold">
                     {{
@@ -328,6 +339,11 @@ import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "PatientProfile",
+  data() {
+    return {
+      role: localStorage.getItem("role"),
+    };
+  },
   computed: {
     ...mapGetters("doctors", ["getSinglePatientData", "loadingStatus"]),
     formatDate() {
