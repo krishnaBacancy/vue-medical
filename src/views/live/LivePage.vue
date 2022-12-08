@@ -38,10 +38,10 @@
           >
             <div class="d-flex align-center">
               <div class="d-flex flex-column text-start">
-                <h3 class="ml-10">John Doe</h3>
-                <h3 class="ml-10 mt-2">Floor No.</h3>
-                <h3 class="ml-10 mt-2">Room No.</h3>
-                <h3 class="ml-10 mt-2">Mac Address</h3>
+                <h3 class="ml-5">John Doe</h3>
+                <h5 class="ml-5 mt-2 grey--text">Floor No.</h5>
+                <h5 class="ml-5 mt-2 grey--text">Room No.</h5>
+                <h5 class="ml-5 mt-2 grey--text">Mac Address</h5>
               </div>
               <v-spacer></v-spacer>
               <div style="width: 70%" class="mr-3">
@@ -50,33 +50,43 @@
             </div>
 
             <div class="d-flex mt-3">
-              <v-card color="black" width="50%" height="50">
-                <div class="d-flex align-center ml-2 mt-1">
-                  <v-img
-                    class=""
-                    src="@/assets/heartbeat.svg"
-                    height="40"
-                    contain
-                  ></v-img>
-                  <div class="d-flex mr-10 mb-2" style="flex-direction: column">
-                    <h5 class="green--text">74</h5>
-                    <small class="white--text">>120-30 C1</small>
-                  </div>
+              <v-card color="black" width="50%" height="60">
+                <div class="d-flex align-center">
+                  <v-flex>
+                    <v-img
+                      class="mt-2 ml-2"
+                      src="@/assets/heartbeat.svg"
+                      height="40"
+                      width="40"
+                      contain
+                    ></v-img>
+                  </v-flex>
+                  <v-flex xs12>
+                    <div class="d-flex flex-column text-start mt-2 ml-2">
+                      <h5 class="green--text">74</h5>
+                      <small class="white--text">>120-30 C1</small>
+                    </div>
+                  </v-flex>
                 </div>
               </v-card>
 
-              <v-card color="black" width="50%" height="50" class="ml-2">
-                <div class="d-flex align-center ml-2 mt-1">
-                  <v-img
-                    class=""
-                    src="@/assets/oxygen.svg"
-                    height="40"
-                    contain
-                  ></v-img>
-                  <div class="d-flex mr-15" style="flex-direction: column">
-                    <h5 class="yellow--text">98</h5>
-                    <small class="white--text">Good</small>
-                  </div>
+              <v-card color="black" width="50%" height="60" class="ml-2">
+                <div class="d-flex align-center">
+                  <v-flex>
+                    <v-img
+                      class="mt-2 ml-2"
+                      src="@/assets/oxygen.svg"
+                      height="40"
+                      width="40"
+                      contain
+                    ></v-img>
+                  </v-flex>
+                  <v-flex xs12>
+                    <div class="d-flex flex-column text-start ml-2 mt-2">
+                      <h5 class="yellow--text">98</h5>
+                      <small class="white--text">Good</small>
+                    </div>
+                  </v-flex>
                 </div>
               </v-card>
             </div>
@@ -94,145 +104,163 @@
               </v-card-title>
 
               <v-container>
-                <div class="d-flex mt-3">
-                  <v-card color="black" width="50%" height="50">
-                    <div class="d-flex align-center ml-2 mt-1">
-                      <v-img
-                        class=""
-                        src="@/assets/heartbeat.svg"
-                        height="40"
-                        contain
-                      ></v-img>
-                      <div
-                        class="d-flex mr-10 mb-2"
-                        style="flex-direction: column"
-                      >
-                        <h5 class="green--text">74</h5>
-                        <small class="white--text">>120-30 C1</small>
+                <v-row>
+                  <v-col cols="12" sm="4" md="4">
+                    <v-card color="black" width="100%" height="60">
+                      <div class="d-flex align-center mt-1">
+                        <v-flex>
+                          <v-img
+                            class="mt-2 ml-3"
+                            src="@/assets/heartbeat.svg"
+                            height="40"
+                            width="40"
+                            contain
+                          ></v-img>
+                        </v-flex>
+                        <v-flex xs12>
+                          <div class="d-flex flex-column text-start mt-2 ml-4">
+                            <h5 class="green--text">74</h5>
+                            <small class="white--text">>120-30 C1</small>
+                          </div>
+                        </v-flex>
                       </div>
-                    </div>
-                  </v-card>
+                    </v-card>
+                  </v-col>
 
-                  <v-card color="black" width="50%" class="ml-2" height="50">
-                    <div class="d-flex align-center ml-2 mt-1">
-                      <v-img
-                        class=""
-                        src="@/assets/oxygen.svg"
-                        height="40"
-                        contain
-                      ></v-img>
-                      <div class="d-flex mr-10" style="flex-direction: column">
-                        <h5 class="yellow--text">98</h5>
-                        <small class="white--text">Good</small>
+                  <v-col cols="12" sm="4" md="4">
+                    <v-card color="black" width="100%" height="60">
+                      <div class="d-flex align-center mt-1">
+                        <v-flex>
+                          <v-img
+                            class="mt-2 ml-3"
+                            src="@/assets/oxygen.svg"
+                            height="40"
+                            width="40"
+                            contain
+                          ></v-img>
+                        </v-flex>
+                        <v-flex xs12>
+                          <div class="d-flex flex-column text-start ml-4 mt-2">
+                            <h5 class="yellow--text">98</h5>
+                            <small class="white--text">Good</small>
+                          </div>
+                        </v-flex>
                       </div>
-                    </div>
-                  </v-card>
-                </div>
+                    </v-card>
+                  </v-col>
 
-                <div class="d-flex mt-3">
-                  <v-card color="black" width="50%" height="50">
-                    <div class="d-flex align-center ml-n5 mt-1">
-                      <v-img
-                        class=""
-                        src="@/assets/lungs.svg"
-                        height="40"
-                        contain
-                      ></v-img>
-                      <div class="d-flex mr-16" style="flex-direction: column">
-                        <h5 class="purple--text">16</h5>
-                        <small class="white--text">C1</small>
+                  <v-col cols="12" sm="4" md="4">
+                    <v-card color="black" width="100%" height="60">
+                      <div class="d-flex align-center mt-1">
+                        <v-flex>
+                          <v-img
+                            class="mt-2 ml-3"
+                            src="@/assets/bloodPressure.svg"
+                            height="40"
+                            width="40"
+                            contain
+                          ></v-img>
+                        </v-flex>
+                        <v-flex xs12>
+                          <div class="d-flex flex-column text-start ml-4 mt-2">
+                            <h5 class="cyan--text">120/85</h5>
+                            <small class="white--text">6 hrs ago</small>
+                          </div>
+                        </v-flex>
                       </div>
-                    </div>
-                  </v-card>
+                    </v-card>
+                  </v-col>
+                </v-row>
 
-                  <v-card color="black" width="50%" class="ml-2" height="50">
-                    <div class="d-flex align-center ml-8 mt-1">
-                      <v-img
-                        class="mr-3"
-                        src="@/assets/bloodPressure.svg"
-                        height="40"
-                        contain
-                      ></v-img>
-                      <div class="d-flex mr-8" style="flex-direction: column">
-                        <h5 class="cyan--text">120/85</h5>
-                        <small class="white--text">6 hrs ago</small>
+                <v-row class="mt-0 mt-sm-0 mt-md-3">
+                  <v-col cols="12" sm="6" md="3" class="mt-2 mt-sm-3 mt-md-0">
+                    <v-card color="black" width="100%" height="60">
+                      <div class="d-flex align-center mt-1">
+                        <v-flex>
+                          <v-img
+                            class="mt-2 ml-3"
+                            src="@/assets/temprature.svg"
+                            height="40"
+                            width="40"
+                            contain
+                          ></v-img>
+                        </v-flex>
+                        <v-flex xs12>
+                          <div class="d-flex flex-column text-start ml-4 mt-2">
+                            <h5 class="red--text">98.7<sup>F</sup></h5>
+                            <small class="white--text">>120-30 C1</small>
+                          </div>
+                        </v-flex>
                       </div>
-                    </div>
-                  </v-card>
-                </div>
-                <div class="d-flex mt-3">
-                  <v-card color="black" width="25%">
-                    <div class="d-flex align-center ml-2">
-                      <v-img
-                        class="mr-4"
-                        src="@/assets/temprature.svg"
-                        height="40"
-                        contain
-                      ></v-img>
-                      <div
-                        class="d-flex mr-10 mt-1 mb-2"
-                        style="flex-direction: column"
-                      >
-                        <h5 class="red--text">98.7<sup>F</sup></h5>
-                        <small class="white--text">>120-30 C1</small>
-                      </div>
-                    </div>
-                  </v-card>
+                    </v-card>
+                  </v-col>
 
-                  <v-card color="black" width="25%" class="ml-2">
-                    <div class="d-flex align-center ml-2 mt-2">
-                      <v-img
-                        class="mr-2 mt-1"
-                        src="@/assets/steps.svg"
-                        height="40"
-                        contain
-                      ></v-img>
-                      <div
-                        class="d-flex mr-10 mt-1"
-                        style="flex-direction: column"
-                      >
-                        <h5 class="pink--text">10000</h5>
-                        <small class="white--text">steps</small>
+                  <v-col cols="12" sm="6" md="3" class="mt-sm-3 mt-md-0">
+                    <v-card color="black" width="100%" height="60">
+                      <div class="d-flex align-center mt-1">
+                        <v-flex>
+                          <v-img
+                            class="ml-3 mt-2"
+                            src="@/assets/steps.svg"
+                            height="40"
+                            width="40"
+                            contain
+                          ></v-img>
+                        </v-flex>
+                        <v-flex xs12>
+                          <div class="d-flex flex-column text-start ml-4 mt-2">
+                            <h5 class="pink--text">10000</h5>
+                            <small class="white--text">steps</small>
+                          </div>
+                        </v-flex>
                       </div>
-                    </div>
-                  </v-card>
+                    </v-card>
+                  </v-col>
 
-                  <v-card color="black" width="25%" class="ml-2">
-                    <div class="d-flex align-center mt-2">
-                      <v-img
-                        class="mt-1"
-                        src="@/assets/heartbeat.svg"
-                        height="40"
-                        contain
-                      ></v-img>
-                      <div
-                        class="d-flex mr-5 mt-1"
-                        style="flex-direction: column"
-                      >
-                        <h5 class="green--text">74</h5>
-                        <small class="white--text">>120-30 C1</small>
+                  <v-col cols="12" sm="6" md="3" class="mt-sm-n1 mt-0 mt-md-0">
+                    <v-card color="black" width="100%" height="60">
+                      <div class="d-flex align-center mt-1">
+                        <v-flex>
+                          <v-img
+                            class="mt-2 ml-3"
+                            src="@/assets/heartbeat.svg"
+                            height="40"
+                            width="40"
+                            contain
+                          ></v-img>
+                        </v-flex>
+                        <v-flex xs12>
+                          <div class="d-flex flex-column text-start ml-4 mt-2">
+                            <h5 class="green--text">74</h5>
+                            <small class="white--text">>120-30 C1</small>
+                          </div>
+                        </v-flex>
                       </div>
-                    </div>
-                  </v-card>
+                    </v-card>
+                  </v-col>
 
-                  <v-card color="black" width="25%" class="ml-2">
-                    <div class="d-flex align-center mt-2">
-                      <v-img
-                        class="mt-1"
-                        src="@/assets/heartbeat.svg"
-                        height="40"
-                        contain
-                      ></v-img>
-                      <div
-                        class="d-flex mr-5 mt-1"
-                        style="flex-direction: column"
-                      >
-                        <h5 class="green--text">74</h5>
-                        <small class="white--text">>120-30 C1</small>
+                  <v-col cols="12" sm="6" md="3" class="mt-sm-n1 mt-0 mt-md-0">
+                    <v-card color="black" width="100%" height="60">
+                      <div class="d-flex align-center mt-1">
+                        <v-flex>
+                          <v-img
+                            class="mt-2 ml-3"
+                            src="@/assets/heartbeat.svg"
+                            height="40"
+                            width="40"
+                            contain
+                          ></v-img>
+                        </v-flex>
+                        <v-flex xs12>
+                          <div class="d-flex flex-column text-start ml-4 mt-2">
+                            <h5 class="green--text">74</h5>
+                            <small class="white--text">>120-30 C1</small>
+                          </div>
+                        </v-flex>
                       </div>
-                    </div>
-                  </v-card>
-                </div>
+                    </v-card>
+                  </v-col>
+                </v-row>
               </v-container>
               <v-card-actions>
                 <v-spacer></v-spacer>

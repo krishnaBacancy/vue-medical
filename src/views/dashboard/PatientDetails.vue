@@ -145,7 +145,7 @@
           <br />
 
           <v-layout row wrap>
-            <v-flex d-flex xs12 sm6 md6>
+            <v-flex d-flex xs12 sm6 md3>
               <v-card
                 color="#282934"
                 dark
@@ -163,36 +163,76 @@
                     <small class="grey--text">2 hour ago</small>
                   </div>
                 </div>
-                <div class="d-flex justify-center ml-5 align-center mt-5">
-                  <v-img
-                    class="mr-3"
-                    src="@/assets/heartbeat.svg"
-                    height="70"
-                    contain
-                  ></v-img>
-                  <div class="mr-16 text-start">
-                    <h1 class="success--text">
-                      {{
-                        getSchedulerData?.hr
-                          ? getSchedulerData.hr
-                          : "Loading..."
-                      }}
-                    </h1>
-                    <div class="d-flex" style="flex-direction: column">
-                      <small>{{
-                        getSchedulerData?.hrv
-                          ? Math.round(
-                              (getSchedulerData?.hrv + Number.EPSILON) * 100
-                            ) / 100
-                          : "Loading..."
-                      }}</small>
-                      <small>C1</small>
+                <div class="d-flex justify-center align-center mt-5">
+                  <v-flex>
+                    <v-img
+                      class="ml-2 mt-2"
+                      src="@/assets/heartbeat.svg"
+                      height="70"
+                      width="70"
+                      contain
+                    ></v-img>
+                  </v-flex>
+                  <v-flex xs12>
+                    <div class="ml-4 text-start">
+                      <h1 class="success--text">
+                        {{
+                          getSchedulerData?.hr
+                            ? getSchedulerData.hr
+                            : "Loading..."
+                        }}
+                      </h1>
+                      <div class="d-flex flex-column">
+                        <small>Manual Entry</small>
+                        <small>C1</small>
+                      </div>
                     </div>
-                  </div>
+                  </v-flex>
                 </div>
               </v-card>
             </v-flex>
-            <v-flex d-flex xs12 sm6 md6>
+            <v-flex d-flex xs12 sm6 md3>
+              <v-card
+                color="#282934"
+                dark
+                class="ml-2 mb-2 pa-2"
+                style="width: 100%"
+              >
+                <div class="d-flex text-start">
+                  <div>
+                    <h3>Heart Rate Variability</h3>
+                    <small class="warning--text">No Device Paired</small>
+                  </div>
+                </div>
+                <div class="d-flex justify-center align-center mt-5">
+                  <v-flex>
+                    <v-img
+                      class="ml-2 mt-2"
+                      src="@/assets/heartbeat.svg"
+                      height="70"
+                      width="70"
+                      contain
+                    ></v-img>
+                  </v-flex>
+                  <v-flex xs12>
+                    <div class="ml-4 text-start">
+                      <h1 class="success--text">
+                        {{
+                          getSchedulerData?.hrv
+                            ? Math.round(getSchedulerData.hrv)
+                            : "Loading..."
+                        }}
+                      </h1>
+                      <div class="d-flex flex-column">
+                        <small>Manual Entry</small>
+                        <small>C1</small>
+                      </div>
+                    </div>
+                  </v-flex>
+                </div>
+              </v-card>
+            </v-flex>
+            <v-flex d-flex xs12 sm6 md3>
               <v-card
                 color="#282934"
                 dark
@@ -210,20 +250,66 @@
                     <small class="grey--text">2 hour ago</small>
                   </div>
                 </div>
-                <div class="d-flex justify-center ml-5 align-center mt-5">
-                  <v-img
-                    class="mr-3"
-                    src="@/assets/oxygen.svg"
-                    height="70"
-                    contain
-                  ></v-img>
-                  <div class="mr-16 text-start">
-                    <h1 class="warning--text">98</h1>
-                    <div class="d-flex" style="flex-direction: column">
-                      <small>Streaming Mode</small>
-                      <small>%SPO2</small>
+                <div class="d-flex justify-center align-center mt-5">
+                  <v-flex>
+                    <v-img
+                      class="ml-2 mt-2"
+                      src="@/assets/oxygen.svg"
+                      height="70"
+                      width="70"
+                      contain
+                    ></v-img>
+                  </v-flex>
+                  <v-flex xs12>
+                    <div class="ml-4 text-start">
+                      <h1 class="warning--text">98</h1>
+                      <div class="d-flex flex-column">
+                        <small>Streaming Mode</small>
+                        <small>%SPO2</small>
+                      </div>
                     </div>
+                  </v-flex>
+                </div>
+              </v-card>
+            </v-flex>
+            <v-flex d-flex xs12 sm6 md3>
+              <v-card
+                color="#282934"
+                dark
+                class="ml-2 mb-2 pa-2"
+                style="width: 100%"
+              >
+                <div class="d-flex text-start">
+                  <div>
+                    <h3>Pulse Pressure Variability</h3>
+                    <small class="warning--text">No Device Paired</small>
                   </div>
+                </div>
+                <div class="d-flex justify-center align-center mt-5">
+                  <v-flex>
+                    <v-img
+                      class="ml-2 mt-2"
+                      src="@/assets/Group 507.svg"
+                      height="70"
+                      width="70"
+                      contain
+                    ></v-img>
+                  </v-flex>
+                  <v-flex xs12>
+                    <div class="ml-4 text-start">
+                      <h1 class="success--text">
+                        {{
+                          getSchedulerData?.prv
+                            ? Math.round(getSchedulerData.prv)
+                            : "Loading..."
+                        }}
+                      </h1>
+                      <div class="d-flex flex-column">
+                        <small>Manual Entry</small>
+                        <small>%SPO2</small>
+                      </div>
+                    </div>
+                  </v-flex>
                 </div>
               </v-card>
             </v-flex>
@@ -248,23 +334,28 @@
                     <small class="grey--text">2 hour ago</small>
                   </div>
                 </div>
-                <div class="d-flex justify-center ml-5 align-center mt-5">
-                  <v-img
-                    class="mr-3"
-                    src="@/assets/steps.svg"
-                    height="70"
-                    contain
-                  ></v-img>
-                  <div class="mr-16 text-start">
-                    <h1 class="pink--text">
-                      {{
-                        getSchedulerData?.steps ? getSchedulerData?.steps : "0"
-                      }}
-                    </h1>
-                    <div class="d-flex" style="flex-direction: column">
+                <div class="d-flex justify-center align-center mt-5">
+                  <v-flex>
+                    <v-img
+                      src="@/assets/steps.svg"
+                      height="70"
+                      width="70"
+                      contain
+                      class="mt-2 ml-2"
+                    ></v-img>
+                  </v-flex>
+                  <v-flex xs12>
+                    <div class="text-start ml-4">
+                      <h1 class="pink--text">
+                        {{
+                          getSchedulerData?.steps
+                            ? getSchedulerData?.steps
+                            : "0"
+                        }}
+                      </h1>
                       <small>Steps</small>
                     </div>
-                  </div>
+                  </v-flex>
                 </div>
               </v-card>
             </v-flex>
@@ -286,28 +377,31 @@
                     <small class="grey--text">2 hour ago</small>
                   </div>
                 </div>
-                <div class="d-flex justify-center align-center ml-5 mt-5">
-                  <v-img
-                    src="@/assets/bloodPressure.svg"
-                    height="70"
-                    contain
-                    class="ml-n5"
-                  ></v-img>
-                  <div class="mr-16 text-start">
-                    <h1 class="cyan--text">
-                      {{
-                        getSchedulerData?.bp
-                          ? Math.round(
-                              (getSchedulerData?.bp + Number.EPSILON) * 100
-                            ) / 100
-                          : "Loading..."
-                      }}
-                    </h1>
-                    <div class="d-flex" style="flex-direction: column">
-                      <small>Manual Entry</small>
-                      <small>mmHg</small>
+                <div class="d-flex justify-center align-center mt-5">
+                  <v-flex>
+                    <v-img
+                      class="mt-2 ml-2"
+                      src="@/assets/bloodPressure.svg"
+                      height="70"
+                      contain
+                      width="70"
+                    ></v-img>
+                  </v-flex>
+                  <v-flex xs12>
+                    <div class="text-start ml-4">
+                      <h1 class="cyan--text">
+                        {{
+                          getSchedulerData?.bp
+                            ? Math.round(getSchedulerData?.bp)
+                            : "Loading..."
+                        }}
+                      </h1>
+                      <div class="d-flex flex-column">
+                        <small>Manual Entry</small>
+                        <small>mmHg</small>
+                      </div>
                     </div>
-                  </div>
+                  </v-flex>
                 </div>
               </v-card>
             </v-flex>
@@ -320,7 +414,7 @@
               >
                 <div class="d-flex text-start">
                   <div>
-                    <h3>Map</h3>
+                    <h3>MAP</h3>
                     <small class="red--text">Mean arterial pressure</small>
                   </div>
                   <v-spacer></v-spacer>
@@ -330,28 +424,32 @@
                   </div>
                 </div>
                 <div class="d-flex justify-center mt-5">
-                  <v-img
-                    src="../../assets/Group 509.svg"
-                    width="70"
-                    height="70"
-                    contain
-                    class="mt-3"
-                  ></v-img>
-                  <div class="text-start mr-16">
-                    <h1 class="red--text">
-                      {{
-                        getSchedulerData?.map
-                          ? Math.round(
-                              (getSchedulerData?.map + Number.EPSILON) * 100
-                            ) / 100
-                          : "Loading..."
-                      }}
-                    </h1>
-                    <div class="d-flex" style="flex-direction: column">
-                      <small>Manual Entry</small>
-                      <small>mmHg</small>
+                  <v-flex>
+                    <v-img
+                      src="../../assets/Group 509.svg"
+                      width="70"
+                      height="70"
+                      contain
+                      class="mt-2 ml-2"
+                    ></v-img>
+                  </v-flex>
+                  <v-flex xs12>
+                    <div class="text-start ml-4">
+                      <h1 class="red--text">
+                        {{
+                          getSchedulerData?.map
+                            ? Math.round(
+                                (getSchedulerData?.map + Number.EPSILON) * 100
+                              ) / 100
+                            : "Loading..."
+                        }}
+                      </h1>
+                      <div class="d-flex flex-column">
+                        <small>Manual Entry</small>
+                        <small>mmHg</small>
+                      </div>
                     </div>
-                  </div>
+                  </v-flex>
                 </div>
               </v-card>
             </v-flex>
@@ -377,29 +475,33 @@
                     <small class="grey--text">2 hour ago</small>
                   </div>
                 </div>
-                <div class="d-flex justify-center ml-5 align-center mt-5">
-                  <v-img
-                    class="mr-4"
-                    src="../../assets/Group 508.svg"
-                    height="70"
-                    width="50"
-                    contain
-                  ></v-img>
-                  <div class="mr-16 text-start">
-                    <h1 class="warning--text">
-                      {{
-                        getSchedulerData?.rr
-                          ? Math.round(
-                              (getSchedulerData?.rr + Number.EPSILON) * 100
-                            ) / 100
-                          : "Loading..."
-                      }}
-                    </h1>
-                    <div class="d-flex" style="flex-direction: column">
-                      <small>Streaming Mode</small>
-                      <small>%SPO2</small>
+                <div class="d-flex justify-center align-center mt-5">
+                  <v-flex>
+                    <v-img
+                      class="mt-2 ml-2"
+                      src="../../assets/Group 508.svg"
+                      height="70"
+                      width="70"
+                      contain
+                    ></v-img>
+                  </v-flex>
+                  <v-flex xs12>
+                    <div class="text-start ml-4">
+                      <h1 class="warning--text">
+                        {{
+                          getSchedulerData?.rr
+                            ? Math.round(
+                                (getSchedulerData?.rr + Number.EPSILON) * 100
+                              ) / 100
+                            : "Loading..."
+                        }}
+                      </h1>
+                      <div class="d-flex flex-column">
+                        <small>Streaming Mode</small>
+                        <small>%SPO2</small>
+                      </div>
                     </div>
-                  </div>
+                  </v-flex>
                 </div>
               </v-card>
             </v-flex>
@@ -423,35 +525,39 @@
                     <small class="grey--text">2 hour ago</small>
                   </div>
                 </div>
-                <div class="d-flex justify-center ml-5 align-center mt-5">
-                  <v-img
-                    class="ml-n4"
-                    src="../../assets/Group 507.svg"
-                    height="70"
-                    width="50"
-                    contain
-                  ></v-img>
-                  <div class="mr-16 text-start">
-                    <h1 class="warning--text">
-                      {{
-                        getSchedulerData?.pp
-                          ? Math.round(
-                              (getSchedulerData?.pp + Number.EPSILON) * 100
-                            ) / 100
-                          : "Loading..."
-                      }}
-                    </h1>
-                    <div class="d-flex" style="flex-direction: column">
-                      <small>{{
-                        getSchedulerData?.prv
-                          ? Math.round(
-                              (getSchedulerData?.prv + Number.EPSILON) * 100
-                            ) / 100
-                          : "Loading..."
-                      }}</small>
-                      <small>%SPO2</small>
+                <div class="d-flex justify-center align-center mt-5">
+                  <v-flex>
+                    <v-img
+                      class="ml-2 mt-2"
+                      src="../../assets/Group 507.svg"
+                      height="70"
+                      width="70"
+                      contain
+                    ></v-img>
+                  </v-flex>
+                  <v-flex xs12>
+                    <div class="ml-4 text-start">
+                      <h1 class="warning--text">
+                        {{
+                          getSchedulerData?.pp
+                            ? Math.round(
+                                (getSchedulerData?.pp + Number.EPSILON) * 100
+                              ) / 100
+                            : "Loading..."
+                        }}
+                      </h1>
+                      <div class="d-flex flex-column">
+                        <small>{{
+                          getSchedulerData?.prv
+                            ? Math.round(
+                                (getSchedulerData?.prv + Number.EPSILON) * 100
+                              ) / 100
+                            : "Loading..."
+                        }}</small>
+                        <small>%SPO2</small>
+                      </div>
                     </div>
-                  </div>
+                  </v-flex>
                 </div>
               </v-card>
             </v-flex>
@@ -475,27 +581,31 @@
                     <small class="grey--text">2 hour ago</small>
                   </div>
                 </div>
-                <div class="d-flex justify-center ml-5 align-center mt-5">
-                  <v-img
-                    class="mr-6"
-                    src="../../assets/Group 506.svg"
-                    height="70"
-                    width="50"
-                    contain
-                  ></v-img>
-                  <div class="mr-16 text-start">
-                    <h1 class="warning--text">
-                      {{
-                        getSchedulerData?.arrhythmia
-                          ? getSchedulerData.arrhythmia
-                          : "Loading..."
-                      }}
-                    </h1>
-                    <div class="d-flex" style="flex-direction: column">
-                      <small>Streaming Mode</small>
-                      <small>%SPO2</small>
+                <div class="d-flex justify-center align-center mt-5">
+                  <v-flex>
+                    <v-img
+                      class="ml-2 mt-2"
+                      src="../../assets/Group 506.svg"
+                      height="70"
+                      width="70"
+                      contain
+                    ></v-img>
+                  </v-flex>
+                  <v-flex xs12>
+                    <div class="ml-4 text-start">
+                      <h1 class="warning--text">
+                        {{
+                          getSchedulerData?.arrhythmia
+                            ? getSchedulerData.arrhythmia
+                            : "Loading..."
+                        }}
+                      </h1>
+                      <div class="d-flex flex-column">
+                        <small>Streaming Mode</small>
+                        <small>%SPO2</small>
+                      </div>
                     </div>
-                  </div>
+                  </v-flex>
                 </div>
               </v-card>
             </v-flex>
@@ -521,29 +631,33 @@
                     <small class="grey--text">2 hour ago</small>
                   </div>
                 </div>
-                <div class="d-flex justify-center ml-5 align-center mt-5">
-                  <v-img
-                    class="mr-5"
-                    src="../../assets/Group 505.svg"
-                    height="70"
-                    width="50"
-                    contain
-                  ></v-img>
-                  <div class="mr-16 text-start">
-                    <h1 class="warning--text">
-                      {{
-                        getSchedulerData?.sv
-                          ? Math.round(
-                              (getSchedulerData?.sv + Number.EPSILON) * 100
-                            ) / 100
-                          : "Loading..."
-                      }}
-                    </h1>
-                    <div class="d-flex" style="flex-direction: column">
-                      <small>Streaming Mode</small>
-                      <small>%SPO2</small>
+                <div class="d-flex justify-center align-center mt-5">
+                  <v-flex>
+                    <v-img
+                      class="ml-2 mt-2"
+                      src="../../assets/Group 505.svg"
+                      height="70"
+                      width="70"
+                      contain
+                    ></v-img>
+                  </v-flex>
+                  <v-flex xs12>
+                    <div class="ml-4 text-start">
+                      <h1 class="warning--text">
+                        {{
+                          getSchedulerData?.sv
+                            ? Math.round(
+                                (getSchedulerData?.sv + Number.EPSILON) * 100
+                              ) / 100
+                            : "Loading..."
+                        }}
+                      </h1>
+                      <div class="d-flex flex-column">
+                        <small>Streaming Mode</small>
+                        <small>%SPO2</small>
+                      </div>
                     </div>
-                  </div>
+                  </v-flex>
                 </div>
               </v-card>
             </v-flex>
@@ -566,29 +680,33 @@
                     <small class="grey--text">2 hour ago</small>
                   </div>
                 </div>
-                <div class="d-flex justify-center ml-5 align-center mt-5">
-                  <v-img
-                    class="ml-n5"
-                    src="../../assets/Group 504.svg"
-                    height="70"
-                    width="50"
-                    contain
-                  ></v-img>
-                  <div class="mr-16 text-start">
-                    <h1 class="warning--text">
-                      {{
-                        getSchedulerData?.co
-                          ? Math.round(
-                              (getSchedulerData?.co + Number.EPSILON) * 100
-                            ) / 100
-                          : "Loading..."
-                      }}
-                    </h1>
-                    <div class="d-flex" style="flex-direction: column">
-                      <small>Streaming Mode</small>
-                      <small>%SPO2</small>
+                <div class="d-flex justify-center align-center mt-5">
+                  <v-flex>
+                    <v-img
+                      class="ml-2 mt-2"
+                      src="../../assets/Group 504.svg"
+                      height="70"
+                      width="70"
+                      contain
+                    ></v-img>
+                  </v-flex>
+                  <v-flex xs12>
+                    <div class="ml-4 text-start">
+                      <h1 class="warning--text">
+                        {{
+                          getSchedulerData?.co
+                            ? Math.round(
+                                (getSchedulerData?.co + Number.EPSILON) * 100
+                              ) / 100
+                            : "Loading..."
+                        }}
+                      </h1>
+                      <div class="d-flex flex-column">
+                        <small>Streaming Mode</small>
+                        <small>%SPO2</small>
+                      </div>
                     </div>
-                  </div>
+                  </v-flex>
                 </div>
               </v-card>
             </v-flex>
@@ -612,29 +730,33 @@
                     <small class="grey--text">2 hour ago</small>
                   </div>
                 </div>
-                <div class="d-flex justify-center ml-5 align-center mt-5">
-                  <v-img
-                    class="mr-7"
-                    src="../../assets/Group 503.svg"
-                    height="70"
-                    width="50"
-                    contain
-                  ></v-img>
-                  <div class="mr-16 text-start">
-                    <h1 class="warning--text">
-                      {{
-                        getSchedulerData?.ptt
-                          ? Math.round(
-                              (getSchedulerData?.ptt + Number.EPSILON) * 100
-                            ) / 100
-                          : "Loading..."
-                      }}
-                    </h1>
-                    <div class="d-flex" style="flex-direction: column">
-                      <small>Streaming Mode</small>
-                      <small>%SPO2</small>
+                <div class="d-flex justify-center align-center mt-5">
+                  <v-flex>
+                    <v-img
+                      class="ml-2 mt-2"
+                      src="../../assets/Group 503.svg"
+                      height="70"
+                      width="70"
+                      contain
+                    ></v-img>
+                  </v-flex>
+                  <v-flex xs12>
+                    <div class="ml-4 text-start">
+                      <h1 class="warning--text">
+                        {{
+                          getSchedulerData?.ptt
+                            ? Math.round(
+                                (getSchedulerData?.ptt + Number.EPSILON) * 100
+                              ) / 100
+                            : "Loading..."
+                        }}
+                      </h1>
+                      <div class="d-flex flex-column">
+                        <small>Streaming Mode</small>
+                        <small>%SPO2</small>
+                      </div>
                     </div>
-                  </div>
+                  </v-flex>
                 </div>
               </v-card>
             </v-flex>
@@ -660,10 +782,7 @@
                           contain
                         ></v-img>
                       </span>
-                      <div
-                        class="d-flex ml-5 text-start"
-                        style="flex-direction: column"
-                      >
+                      <div class="d-flex ml-5 text-start flex-column">
                         <span>Body Temperature</span>
                         <span class="warning--text">00:0B:57:AC:66:DA</span>
                       </div>
@@ -702,10 +821,7 @@
                         width="50"
                         contain
                       ></v-img>
-                      <div
-                        class="d-flex ml-5 text-start"
-                        style="flex-direction: column"
-                      >
+                      <div class="d-flex ml-5 text-start flex-column">
                         <span>Blood Oxygen</span>
                         <span class="warning--text">mmHg</span>
                       </div>
@@ -758,10 +874,7 @@
                         width="50"
                         contain
                       ></v-img>
-                      <div
-                        class="d-flex ml-5 text-start"
-                        style="flex-direction: column"
-                      >
+                      <div class="d-flex ml-5 text-start flex-column">
                         <span>Heart Rate</span>
                         <span class="warning--text">mmHg</span>
                       </div>
@@ -805,10 +918,7 @@
                           ></v-img>
                         </div>
                       </span>
-                      <div
-                        class="d-flex ml-5 text-start"
-                        style="flex-direction: column"
-                      >
+                      <div class="d-flex ml-5 text-start flex-column">
                         <span>Steps</span>
                         <span class="warning--text">Hrs/Day</span>
                       </div>
