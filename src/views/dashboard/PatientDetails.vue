@@ -43,9 +43,10 @@
             ></v-img>
             <h3 class="ml-3">Room - 1</h3>
             <v-img
-              src="@/assets/mac.svg"
+              src="@/assets/Mac Address.png"
               class="ml-5"
               height="30"
+              width="30"
               contain
             ></v-img>
             <h3 class="ml-3">
@@ -57,22 +58,36 @@
           <v-spacer></v-spacer>
           <div class="d-flex align-center justify-center mr-7">
             <h3 class="mr-5">Device Status</h3>
-            <v-img
-              class="mt-1"
-              src="@/assets/live.png"
-              height="50"
-              width="50"
-              contain
-              v-if="liveMessage === 'Online'"
-            ></v-img>
-            <v-img
-              class="mt-1"
-              src="@/assets/Oracle-Scheduler.jpg"
-              height="50"
-              width="50"
-              contain
-              v-if="liveMessage === 'Offline'"
-            ></v-img>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <v-img
+                  v-on="on"
+                  v-bind="attrs"
+                  class="mt-2"
+                  src="@/assets/Live1.png"
+                  height="50"
+                  width="50"
+                  contain
+                  v-if="liveMessage === 'Online'"
+                ></v-img>
+              </template>
+              <span>Live Mode</span>
+            </v-tooltip>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <v-img
+                  v-bind="attrs"
+                  v-on="on"
+                  class="mt-2"
+                  src="@/assets/Scheduler.png"
+                  height="50"
+                  width="50"
+                  contain
+                  v-if="liveMessage === 'Offline'"
+                ></v-img>
+              </template>
+              <span>Scheduler Mode</span>
+            </v-tooltip>
           </div>
         </div>
 
@@ -84,7 +99,6 @@
               dark
               dense
               label="Aggregate"
-              style="height: 60px"
               v-model="selectedAggregate"
             ></v-select>
           </div>
@@ -98,7 +112,68 @@
               dense
             ></v-select>
           </div>
-          <div></div>
+          <div class="ml-6">
+            <v-menu
+              v-model="startDateMenu"
+              :close-on-content-click="false"
+              :nudge-right="40"
+              transition="scale-transition"
+              offset-y
+              min-width="290px"
+              max-width="290px"
+            >
+              <template v-slot:activator="{ on }">
+                <v-text-field
+                  label="Start Date"
+                  readonly
+                  hide-details
+                  :value="startDateValue"
+                  @focus="focusStartDate"
+                  filled
+                  dark
+                  dense
+                  v-on="on"
+                ></v-text-field>
+              </template>
+              <v-date-picker
+                locale="en-in"
+                v-model="startDateValue"
+                no-title
+                @input="startDateMenu = false"
+              ></v-date-picker>
+            </v-menu>
+          </div>
+          <div class="ml-6">
+            <v-menu
+              v-model="endDateMenu"
+              :close-on-content-click="false"
+              :nudge-right="40"
+              transition="scale-transition"
+              offset-y
+              min-width="290px"
+              max-width="290px"
+            >
+              <template v-slot:activator="{ on }">
+                <v-text-field
+                  label="End Date"
+                  readonly
+                  hide-details
+                  :value="endDateValue"
+                  @focus="focusEndDate"
+                  filled
+                  dark
+                  dense
+                  v-on="on"
+                ></v-text-field>
+              </template>
+              <v-date-picker
+                locale="en-in"
+                v-model="endDateValue"
+                no-title
+                @input="endDateMenu = false"
+              ></v-date-picker>
+            </v-menu>
+          </div>
         </div>
 
         <v-container fluid grid-list-md>
@@ -176,14 +251,9 @@
                   <v-flex xs12>
                     <div class="ml-4 text-start">
                       <h1 class="success--text">
-                        {{
-                          getSchedulerData?.hr
-                            ? getSchedulerData.hr
-                            : "Loading..."
-                        }}
+                        {{ getAlgoData?.hr ? getAlgoData.hr : "Loading..." }}
                       </h1>
                       <div class="d-flex flex-column">
-                        <small>Manual Entry</small>
                         <small>C1</small>
                       </div>
                     </div>
@@ -218,13 +288,12 @@
                     <div class="ml-4 text-start">
                       <h1 class="success--text">
                         {{
-                          getSchedulerData?.hrv
-                            ? Math.round(getSchedulerData.hrv)
+                          getAlgoData?.hrv
+                            ? Math.round(getAlgoData.hrv)
                             : "Loading..."
                         }}
                       </h1>
                       <div class="d-flex flex-column">
-                        <small>Manual Entry</small>
                         <small>C1</small>
                       </div>
                     </div>
@@ -265,7 +334,6 @@
                       <h1 class="warning--text">98</h1>
                       <div class="d-flex flex-column">
                         <small>Streaming Mode</small>
-                        <small>%SPO2</small>
                       </div>
                     </div>
                   </v-flex>
@@ -281,7 +349,7 @@
               >
                 <div class="d-flex text-start">
                   <div>
-                    <h3>Pulse Pressure Variability</h3>
+                    <h3>Pulse Rate Variability</h3>
                     <small class="warning--text">No Device Paired</small>
                   </div>
                 </div>
@@ -299,14 +367,13 @@
                     <div class="ml-4 text-start">
                       <h1 class="success--text">
                         {{
-                          getSchedulerData?.prv
-                            ? Math.round(getSchedulerData.prv)
+                          getAlgoData?.prv
+                            ? Math.round(getAlgoData.prv)
                             : "Loading..."
                         }}
                       </h1>
                       <div class="d-flex flex-column">
-                        <small>Manual Entry</small>
-                        <small>%SPO2</small>
+                        <small>Streaming Mode</small>
                       </div>
                     </div>
                   </v-flex>
@@ -347,11 +414,7 @@
                   <v-flex xs12>
                     <div class="text-start ml-4">
                       <h1 class="pink--text">
-                        {{
-                          getSchedulerData?.steps
-                            ? getSchedulerData?.steps
-                            : "0"
-                        }}
+                        {{ getAlgoData?.steps ? getAlgoData?.steps : "0" }}
                       </h1>
                       <small>Steps</small>
                     </div>
@@ -391,13 +454,18 @@
                     <div class="text-start ml-4">
                       <h1 class="cyan--text">
                         {{
-                          getSchedulerData?.bp
-                            ? Math.round(getSchedulerData?.bp)
+                          getAlgoData?.bp
+                            ? Math.round(getAlgoData?.bp)
                             : "Loading..."
+                        }}
+                        /
+                        {{
+                          getAlgoData?.dbp
+                            ? Math.round(getAlgoData?.dbp)
+                            : "..."
                         }}
                       </h1>
                       <div class="d-flex flex-column">
-                        <small>Manual Entry</small>
                         <small>mmHg</small>
                       </div>
                     </div>
@@ -437,15 +505,12 @@
                     <div class="text-start ml-4">
                       <h1 class="red--text">
                         {{
-                          getSchedulerData?.map
-                            ? Math.round(
-                                (getSchedulerData?.map + Number.EPSILON) * 100
-                              ) / 100
+                          getAlgoData?.map
+                            ? Math.round(getAlgoData?.map * 100) / 100
                             : "Loading..."
                         }}
                       </h1>
                       <div class="d-flex flex-column">
-                        <small>Manual Entry</small>
                         <small>mmHg</small>
                       </div>
                     </div>
@@ -489,16 +554,13 @@
                     <div class="text-start ml-4">
                       <h1 class="warning--text">
                         {{
-                          getSchedulerData?.rr
-                            ? Math.round(
-                                (getSchedulerData?.rr + Number.EPSILON) * 100
-                              ) / 100
+                          getAlgoData?.rr
+                            ? Math.round(getAlgoData?.rr * 100) / 100
                             : "Loading..."
                         }}
                       </h1>
                       <div class="d-flex flex-column">
                         <small>Streaming Mode</small>
-                        <small>%SPO2</small>
                       </div>
                     </div>
                   </v-flex>
@@ -539,22 +601,13 @@
                     <div class="ml-4 text-start">
                       <h1 class="warning--text">
                         {{
-                          getSchedulerData?.pp
-                            ? Math.round(
-                                (getSchedulerData?.pp + Number.EPSILON) * 100
-                              ) / 100
+                          getAlgoData?.pp
+                            ? Math.round(getAlgoData?.pp * 100) / 100
                             : "Loading..."
                         }}
                       </h1>
                       <div class="d-flex flex-column">
-                        <small>{{
-                          getSchedulerData?.prv
-                            ? Math.round(
-                                (getSchedulerData?.prv + Number.EPSILON) * 100
-                              ) / 100
-                            : "Loading..."
-                        }}</small>
-                        <small>%SPO2</small>
+                        <small>Streaming Mode</small>
                       </div>
                     </div>
                   </v-flex>
@@ -595,14 +648,13 @@
                     <div class="ml-4 text-start">
                       <h1 class="warning--text">
                         {{
-                          getSchedulerData?.arrhythmia
-                            ? getSchedulerData.arrhythmia
+                          getAlgoData?.arrhythmia
+                            ? getAlgoData.arrhythmia
                             : "Loading..."
                         }}
                       </h1>
                       <div class="d-flex flex-column">
                         <small>Streaming Mode</small>
-                        <small>%SPO2</small>
                       </div>
                     </div>
                   </v-flex>
@@ -645,16 +697,13 @@
                     <div class="ml-4 text-start">
                       <h1 class="warning--text">
                         {{
-                          getSchedulerData?.sv
-                            ? Math.round(
-                                (getSchedulerData?.sv + Number.EPSILON) * 100
-                              ) / 100
+                          getAlgoData?.sv
+                            ? Math.round(getAlgoData?.sv * 100) / 100
                             : "Loading..."
                         }}
                       </h1>
                       <div class="d-flex flex-column">
                         <small>Streaming Mode</small>
-                        <small>%SPO2</small>
                       </div>
                     </div>
                   </v-flex>
@@ -694,16 +743,13 @@
                     <div class="ml-4 text-start">
                       <h1 class="warning--text">
                         {{
-                          getSchedulerData?.co
-                            ? Math.round(
-                                (getSchedulerData?.co + Number.EPSILON) * 100
-                              ) / 100
+                          getAlgoData?.co
+                            ? Math.round(getAlgoData?.co * 100) / 100
                             : "Loading..."
                         }}
                       </h1>
                       <div class="d-flex flex-column">
                         <small>Streaming Mode</small>
-                        <small>%SPO2</small>
                       </div>
                     </div>
                   </v-flex>
@@ -744,16 +790,13 @@
                     <div class="ml-4 text-start">
                       <h1 class="warning--text">
                         {{
-                          getSchedulerData?.ptt
-                            ? Math.round(
-                                (getSchedulerData?.ptt + Number.EPSILON) * 100
-                              ) / 100
+                          getAlgoData?.ptt
+                            ? Math.round(getAlgoData?.ptt * 100) / 100
                             : "Loading..."
                         }}
                       </h1>
                       <div class="d-flex flex-column">
                         <small>Streaming Mode</small>
-                        <small>%SPO2</small>
                       </div>
                     </div>
                   </v-flex>
@@ -990,6 +1033,10 @@ export default {
       selectedTimePeriod: null,
       ecgChartData: [],
       ppgChartData: [],
+      startDateMenu: false,
+      endDateMenu: false,
+      startDateValue: null,
+      endDateValue: null,
       tempStartTime: null,
       startTime: null,
       showEcgChart: true,
@@ -1044,7 +1091,7 @@ export default {
       "getSingleDeviceData",
       "getMacAddress",
     ]),
-    ...mapGetters("chartData", ["getSchedulerData"]),
+    ...mapGetters("patientData", ["getAlgoData"]),
   },
   destroyed() {
     if (this.client.connected) {
@@ -1064,11 +1111,16 @@ export default {
   mounted() {
     this.createConnection();
     setTimeout(() => {
-      this.getAlgoData();
+      this.displayAlgoData();
     }, 1000);
   },
   updated() {
-    if (this.selectedAggregate && this.selectedTimePeriod) {
+    if (
+      this.selectedAggregate &&
+      this.selectedTimePeriod &&
+      this.startDateValue &&
+      this.endDateValue
+    ) {
       this.getBodyTempGraph();
       this.getBloodO2Grpah();
       this.getStepsGraph();
@@ -1087,6 +1139,20 @@ export default {
       "getPatientBloodOxygenData",
       "getPatientStepsData",
     ]),
+    focusStartDate() {
+      setTimeout(() => {
+        if (!this.startDateMenu) {
+          this.startDateMenu = true;
+        }
+      }, 200);
+    },
+    focusEndDate() {
+      setTimeout(() => {
+        if (!this.endDateMenu) {
+          this.endDateMenu = true;
+        }
+      }, 200);
+    },
     initData() {
       this.client = {
         connected: false,
@@ -1104,11 +1170,11 @@ export default {
         s2?.slice(1)
       );
     },
-    getAlgoData() {
+    displayAlgoData() {
       const payload = {
-        speedometerId: this.getMacAddress.toString().toUpperCase(),
-        startDate: 1667301683000,
-        endDate: 1669288883000,
+        mac_address_framed: this.getMacAddress.toString().toUpperCase(),
+        startDate: Date.parse(this.startDateValue),
+        endDate: Date.parse(this.endDateValue),
       };
       this.getPatientAlgoData(payload);
     },
@@ -1117,8 +1183,8 @@ export default {
         speedometerId: this.getMacAddress.toString().toUpperCase(),
         agrFunction: this.selectedAggregate,
         timePeriod: this.selectedTimePeriod,
-        startDate: 1667301683000,
-        endDate: 1669288883000,
+        startDate: Date.parse(this.startDateValue),
+        endDate: Date.parse(this.endDateValue),
       };
       this.getPatientBodyTempData(payload);
     },
@@ -1127,8 +1193,8 @@ export default {
         speedometerId: this.getMacAddress.toString().toUpperCase(),
         agrFunction: this.selectedAggregate,
         timePeriod: this.selectedTimePeriod,
-        startDate: 1667301683000,
-        endDate: 1669288883000,
+        startDate: Date.parse(this.startDateValue),
+        endDate: Date.parse(this.endDateValue),
       };
       this.getPatientBloodOxygenData(payload);
     },
@@ -1137,8 +1203,8 @@ export default {
         speedometerId: this.getMacAddress.toString().toUpperCase(),
         agrFunction: this.selectedAggregate,
         timePeriod: this.selectedTimePeriod,
-        startDate: 1667301683000,
-        endDate: 1669288883000,
+        startDate: Date.parse(this.startDateValue),
+        endDate: Date.parse(this.endDateValue),
       };
       this.getPatientStepsData(payload);
     },
@@ -1177,7 +1243,6 @@ export default {
             let data = JSON.parse(message);
             console.log("data--", JSON.parse(message));
             this.liveMessage = data?.message;
-            this.setSchedulerData(data);
             // if (this.liveMessage == "Online") {
             this.tempStartTime = data?.start_time;
             this.startTime = new Date(this.tempStartTime).toLocaleString(

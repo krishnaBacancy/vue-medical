@@ -76,11 +76,17 @@
               @click="$router.push('/user-management')"
             >
               <v-list-item-icon style="margin-left: auto; margin-right: auto">
-                <v-icon>mdi-devices</v-icon>
+                <!-- <v-icon>mdi-devices</v-icon> -->
+                <v-img
+                  src="@/assets/Device List.png"
+                  contain
+                  height="40"
+                  width="50"
+                ></v-img>
               </v-list-item-icon>
 
               <v-list-item-content>
-                <v-list-item-title>Device List</v-list-item-title>
+                <v-list-item-title class="mt-4">Device List</v-list-item-title>
               </v-list-item-content>
             </div>
           </v-list-item>
@@ -88,11 +94,17 @@
           <v-list-item class="list__item" link v-if="role === 'Admin'">
             <div class="item__container" @click="$router.push('/devices')">
               <v-list-item-icon style="margin-left: auto; margin-right: auto">
-                <v-icon>mdi-devices</v-icon>
+                <!-- <v-icon>mdi-devices</v-icon> -->
+                <v-img
+                  src="@/assets/Device List.png"
+                  contain
+                  height="40"
+                  width="50"
+                ></v-img>
               </v-list-item-icon>
 
               <v-list-item-content>
-                <v-list-item-title>Device List</v-list-item-title>
+                <v-list-item-title class="mt-4">Device List</v-list-item-title>
               </v-list-item-content>
             </div>
           </v-list-item>
@@ -100,11 +112,17 @@
           <v-list-item class="list__item" link v-if="role !== 'Customer'">
             <div class="item__container" @click="$router.push('/live-device')">
               <v-list-item-icon style="margin-left: auto; margin-right: auto">
-                <v-icon>mdi-account-supervisor-circle</v-icon>
+                <!-- <v-icon>mdi-account-supervisor-circle</v-icon> -->
+                <v-img
+                  src="@/assets/Live Device.png"
+                  contain
+                  height="40"
+                  width="50"
+                ></v-img>
               </v-list-item-icon>
 
               <v-list-item-content>
-                <v-list-item-title>Live</v-list-item-title>
+                <v-list-item-title class="mt-4">Live</v-list-item-title>
               </v-list-item-content>
             </div>
           </v-list-item>

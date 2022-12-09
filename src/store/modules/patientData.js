@@ -1,7 +1,7 @@
 import patient from "@/api/patient";
 
 const state = {
-  patientAlgoData: null,
+  patientAlgoData: [],
   loading: false,
   bodyTemp: null,
   bloodOxygen: null,
@@ -23,6 +23,9 @@ const getters = {
   },
   getPatientSteps(state) {
     return state.patientSteps;
+  },
+  getAlgoData(state) {
+    return state?.patientAlgoData;
   },
 };
 
@@ -48,7 +51,7 @@ const actions = {
   async getPatientAlgoData({ commit }, payload) {
     commit("SET_LOADING_STATUS", true);
     const res = await patient.getPatientAlgoData(payload);
-    console.log("res---", res.data);
+    commit("SET_PATIENT_ALGO_DATA", res.data.data);
     commit("SET_LOADING_STATUS", false);
   },
   async getPatientBodyTempData({ commit }, payload) {

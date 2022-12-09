@@ -3,7 +3,7 @@ import client from "./index";
 export default {
   getPatientAlgoData: (params) =>
     client.post(
-      `devices/getalgodata?speedometerId=${params.speedometerId}&startDate=${params.startDate}&endDate=${params.endDate}`
+      `devices/getalgodata?mac_address_framed=${params.mac_address_framed}`
     ),
   getStepGraph: (params) =>
     client.post(
