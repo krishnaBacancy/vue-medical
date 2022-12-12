@@ -140,6 +140,7 @@
                 v-model="startDateValue"
                 no-title
                 @input="startDateMenu = false"
+                :max="new Date().toISOString().slice(0, 10)"
               ></v-date-picker>
             </v-menu>
           </div>
@@ -170,6 +171,8 @@
                 locale="en-in"
                 v-model="endDateValue"
                 no-title
+                :min="startDateValue"
+                :max="new Date().toISOString().slice(0, 10)"
                 @input="endDateMenu = false"
               ></v-date-picker>
             </v-menu>
@@ -190,7 +193,8 @@
                 </div>
                 <div class="d-flex align-start mt-2">
                   <div class="grid-container">
-                    <LineChart :key="showEcgChart" :width="600" :height="250" />
+                    <!-- <LineChart :key="showEcgChart" :width="600" :height="250" /> -->
+                    <ApexLineChart />
                   </div>
                 </div>
               </v-card>
@@ -1010,19 +1014,21 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import mqtt from "mqtt/dist/mqtt";
-import LineChart from "../../components/LineChart.vue";
+// import LineChart from "../../components/LineChart.vue";
 import RealTimeChart from "@/components/RealTimeChart.vue";
 import PageHeader from "@/layouts/PageHeader.vue";
 import TestChart from "@/components/TestChart.vue";
 import ApexAreaChart from "@/components/ApexAreaChart.vue";
+import ApexLineChart from "@/components/ApexLineChart.vue";
 export default {
   name: "PatientDetails",
   components: {
-    LineChart,
+    // LineChart,
     RealTimeChart,
     PageHeader,
     TestChart,
     ApexAreaChart,
+    ApexLineChart,
   },
   data() {
     return {
