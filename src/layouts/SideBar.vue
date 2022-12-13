@@ -54,7 +54,7 @@
             </div>
           </v-list-item>
 
-          <v-list-item class="list__item" link>
+          <v-list-item class="list__item" link v-if="role !== 'Admin'">
             <div class="item__container" @click="goToLink('/patients')">
               <v-list-item-icon style="margin-left: auto; margin-right: auto">
                 <v-img src="@/assets/patients.svg"></v-img>
@@ -109,7 +109,11 @@
             </div>
           </v-list-item>
 
-          <v-list-item class="list__item" link v-if="role !== 'Customer'">
+          <v-list-item
+            class="list__item"
+            link
+            v-if="role !== 'Customer' && role !== 'Admin'"
+          >
             <div class="item__container" @click="$router.push('/live-device')">
               <v-list-item-icon style="margin-left: auto; margin-right: auto">
                 <!-- <v-icon>mdi-account-supervisor-circle</v-icon> -->
