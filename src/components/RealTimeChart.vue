@@ -71,6 +71,7 @@ export default {
       myLineChart?.update();
       zero++;
     }
+    adddata();
     setInterval(function () {
       adddata();
     }, 1000);

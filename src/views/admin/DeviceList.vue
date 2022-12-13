@@ -10,6 +10,7 @@
         transition="dialog-top-transition"
         max-width="600"
         overlay-color="white"
+        ref="dialogRef"
       >
         <template v-slot:activator="{ on, attrs }">
           <v-btn
@@ -212,6 +213,7 @@ export default {
       "addDeviceData",
     ]),
     addDevice() {
+      console.log("ref--", this.$refs.dialogRef);
       const data = {
         name: this.device.name,
         mac_address: this.device.macAddress,

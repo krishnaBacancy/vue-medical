@@ -194,7 +194,7 @@
                 <div class="d-flex align-start mt-2">
                   <div class="grid-container">
                     <!-- <LineChart :key="showEcgChart" :width="600" :height="250" /> -->
-                    <ApexLineChart />
+                    <ApexLineChart :key="showEcgChart" />
                   </div>
                 </div>
               </v-card>

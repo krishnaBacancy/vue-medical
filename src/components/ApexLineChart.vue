@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import { fileData } from "@/views/testData";
 import { mapGetters } from "vuex";
 
 let lastDate = 0;
@@ -71,7 +72,9 @@ export default {
     return {
       series: [
         {
-          data: data.slice(),
+          // data: data.slice(),
+          // data: [],
+          data: fileData.ecg_vals.slice(0, 2000),
           //   data: this.getEcgChartData?.slice(),
         },
       ],
@@ -110,9 +113,16 @@ export default {
         xaxis: {
           type: "datetime",
           range: XAXISRANGE,
+          // categories: [],
+          // labels: {
+          //   show: false,
+          // },
         },
         yaxis: {
-          max: 100,
+          // max: 100,
+          max: Math.max(...fileData.ecg_vals),
+          // min: Math.min(...this.getEcgChartData) - 50000,
+          // max: Math.max(...this.getEcgChartData) + 50000,
         },
         legend: {
           show: false,
@@ -131,7 +141,7 @@ export default {
           min: 10,
           max: 90,
         });
-        console.log("chart--", this.getEcgChartData);
+        // console.log("chart--", this.getEcgChartData);
         me.$refs.realtimeChart1?.updateSeries([
           {
             data: data,
