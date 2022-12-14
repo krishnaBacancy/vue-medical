@@ -58,18 +58,13 @@ const actions = {
     commit("DELETE_DEVICE", id);
     commit("SET_LOADING_STATUS", false);
   },
-  addDeviceData({ commit }, payload) {
-    return new Promise((resolve, reject) => {
-      devices
-        .addDeviceData(payload)
-        .then((res) => {
-          if (res.status === 200) {
-            commit("SET_ALL_DEVICES", res.data.data);
-            resolve(true);
-          }
-        })
-        .catch((err) => reject(err));
-    });
+  async addDeviceData({ commit }, payload) {
+    commit("SET_LOADING_STATUS", true);
+    const res = await devices.addDeviceData(payload);
+    if (res.status === 200) {
+      commit("SET_ALL_DEVICES", res.data.data);
+    }
+    commit("SET_LOADING_STATUS", false);
   },
 };
 

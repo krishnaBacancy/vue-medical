@@ -3,31 +3,26 @@
     <PageHeader title="Device List" pageIcon="mdi-devices" />
     <br />
     <v-container style="background-color: rgba(0, 0, 0, 0.3)" fluid>
-      <!-- <v-btn @click="addDevice" color="warning" class="text-start mr-auto"
-          >Add Device</v-btn
-        > -->
+      <v-btn
+        color="warning"
+        class="text-start mr-auto"
+        v-if="role === 'Admin'"
+        @click.stop="addDialog = true"
+        >Add Device</v-btn
+      >
       <v-dialog
         transition="dialog-top-transition"
         max-width="600"
         overlay-color="white"
-        ref="dialogRef"
+        persistent
+        v-model="addDialog"
       >
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            color="warning"
-            class="text-start mr-auto"
-            v-bind="attrs"
-            v-on="on"
-            v-if="role === 'Admin'"
-            >Add Device</v-btn
-          >
-        </template>
-        <template v-slot:default="dialog">
-          <v-card dark>
-            <v-card-title>
-              <span class="text-h5 ml-3">Add Device</span>
-            </v-card-title>
+        <v-card dark>
+          <v-card-title>
+            <span class="text-h5 ml-3">Add Device</span>
+          </v-card-title>
 
+          <v-form ref="form" v-model="valid" lazy-validation>
             <v-card-text>
               <v-container>
                 <v-row>
@@ -35,12 +30,14 @@
                     <v-text-field
                       label="Device Name"
                       v-model="device.name"
+                      :rules="nameRules"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="6">
                     <v-text-field
                       label="Mac Address"
                       v-model="device.macAddress"
+                      :rules="macAddressRules"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -71,6 +68,7 @@
                         v-model="device.dateValue"
                         no-title
                         @input="dateMenu = false"
+                        :max="new Date().toISOString().slice(0, 10)"
                       ></v-date-picker>
                     </v-menu>
                   </v-col>
@@ -80,15 +78,20 @@
 
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="dialog.value = false">
+              <v-btn color="blue darken-1" text @click="addDialog = false">
                 Cancel
               </v-btn>
-              <v-btn color="blue darken-1" text @click="addDevice">
+              <v-btn
+                color="blue darken-1"
+                text
+                :disabled="!valid"
+                @click="addDevice"
+              >
                 Add Device
               </v-btn>
             </v-card-actions>
-          </v-card>
-        </template>
+          </v-form>
+        </v-card>
       </v-dialog>
       <div class="mt-3 mb-3">
         <v-data-table
@@ -122,7 +125,13 @@
           </template>
         </v-data-table>
 
-        <v-dialog v-model="dialog" max-width="600px" dark overlay-color="white">
+        <v-dialog
+          v-model="dialog"
+          max-width="600px"
+          persistent
+          dark
+          overlay-color="white"
+        >
           <v-card>
             <v-card-title>
               <span class="text-h5 ml-3">Edit</span>
@@ -170,6 +179,7 @@ export default {
   data() {
     return {
       icon: "justify",
+      valid: true,
       getDoctorId: localStorage.getItem("user_id"),
       role: localStorage.getItem("role"),
       dialog: false,
@@ -200,6 +210,8 @@ export default {
         macAddress: "",
         dateValue: null,
       },
+      nameRules: [(v) => !!v || "Device name is required"],
+      macAddressRules: [(v) => !!v || "Macaddress is required"],
       dialogDelete: false,
     };
   },
@@ -213,23 +225,26 @@ export default {
       "addDeviceData",
     ]),
     addDevice() {
-      console.log("ref--", this.$refs.dialogRef);
       const data = {
         name: this.device.name,
         mac_address: this.device.macAddress,
         manufacture_month_year: this.device.dateValue,
       };
-      this.addDeviceData(data)
-        .then((success) => {
-          console.log(success);
-          this.dialog = false;
-          this.$router.push({ path: "/" });
-          this.$toast.success("Device added successfully.", { timeout: 3000 });
-        })
-        .catch((err) => {
-          this.$toast.error("Some error occurred.", { timeout: 3000 });
-          console.log(err);
+      this.$refs.form.validate();
+      if (!this.device.dateValue) {
+        this.$toast.error("Must select device Manufacture Date.", {
+          timeout: 3000,
         });
+      } else {
+        this.addDeviceData(data);
+        setTimeout(() => {
+          this.getAllDevices();
+        }, 500);
+        this.addDialog = false;
+        this.$toast.success("Device added successfully.", { timeout: 3000 });
+        this.device = {};
+        this.$refs.form.reset();
+      }
     },
     async deleteSingleDevice(item) {
       if (
