@@ -2,11 +2,8 @@
   <div>
     <PageHeader
       title="Profile Details"
-      pageIcon="mdi-card-account-details"
-      btnName="Back"
-      color-name="warning"
-      btnIconName="mdi-arrow-left"
-      @addNewPatient="$router.go(-1)"
+      pageIcon="mdi-arrow-left"
+      @goBack="$router.go(-1)"
     />
     <br />
     <v-container

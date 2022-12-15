@@ -1,6 +1,10 @@
 <template>
   <div>
-    <PageHeader title="Device List" pageIcon="mdi-devices" />
+    <PageHeader
+      title="Device List"
+      pageIcon="mdi-arrow-left"
+      @goBack="$router.go(-1)"
+    />
     <br />
     <v-container style="background-color: rgba(0, 0, 0, 0.3)" fluid>
       <v-btn

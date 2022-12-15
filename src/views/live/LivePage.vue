@@ -2,11 +2,8 @@
   <div style="width: 100%">
     <PageHeader
       title="Live"
-      pageIcon="mdi-account-supervisor-circle"
-      btnName="Back"
-      color-name="success"
-      btnIconName="mdi-arrow-left"
-      @addNewPatient="goToPreviousPage"
+      pageIcon="mdi-arrow-left"
+      @goBack="$router.go(-1)"
     />
     <br />
     <v-container

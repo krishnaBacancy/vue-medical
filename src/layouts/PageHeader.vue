@@ -7,7 +7,9 @@
     <v-layout row wrap>
       <v-flex d-flex xs12 sm12 md12>
         <v-card></v-card>
-        <v-icon class="white--text ml-4">{{ pageIcon }}</v-icon>
+        <v-icon class="white--text ml-4" @click="$emit('goBack')">{{
+          pageIcon
+        }}</v-icon>
         <div class="d-flex" style="width: 100%">
           <v-card-title class="white--text bold">{{ title }}</v-card-title>
           <v-btn
@@ -32,6 +34,9 @@ export default {
   methods: {
     addPatient() {
       this.$emit("addNewPatient");
+    },
+    goToPreviousPage() {
+      this.$emit("goBack");
     },
   },
 };

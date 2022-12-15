@@ -40,14 +40,22 @@
             :key="patient.id"
           >
             <v-card
-              color="#282934"
+              color="#2B2934"
               class="ml-2 mb-2 pa-2 white--text"
               style="width: 100%"
               @click="$router.push(`/patient-details/${patient?.id}`)"
             >
               <div class="d-flex">
                 <div class="d-flex justify-center align-center">
-                  <v-icon class="ml-2 white--text">mdi-account</v-icon>
+                  <v-flex>
+                    <v-img
+                      src="@/assets/User.svg"
+                      width="35"
+                      height="35"
+                      contain
+                      class="ml-1"
+                    ></v-img>
+                  </v-flex>
                   <h3 class="ml-2">
                     {{ patient?.firstName + " " + patient?.lastName }}
                   </h3>
@@ -70,33 +78,50 @@
 
               <div class="d-flex mt-1" style="font-size: 12px">
                 <div class="d-flex ml-2 justify-center align-center">
-                  <v-img src="@/assets/floor.svg"></v-img>
+                  <v-img
+                    src="@/assets/floor.svg"
+                    width="29"
+                    height="29"
+                    contain
+                  ></v-img>
                   <span style="color: orange" class="ml-2">Floor - 1 </span>
                 </div>
                 <v-spacer></v-spacer>
-                <div class="d-flex mr-9 justify-center align-center">
-                  <v-img src="@/assets/rooms.svg"></v-img>
+                <div class="d-flex mr-16 justify-center align-center">
+                  <v-img
+                    src="@/assets/rooms.svg"
+                    width="29"
+                    height="29"
+                  ></v-img>
                   <span style="color: orange" class="ml-2">Room - 1 </span>
                 </div>
               </div>
 
               <div class="d-flex mt-2" style="font-size: 12px">
                 <div class="d-flex ml-2 justify-center align-center">
-                  <v-img src="@/assets/macAddress.svg"></v-img>
+                  <v-img
+                    src="@/assets/macAddress.svg"
+                    width="29"
+                    height="29"
+                  ></v-img>
                   <span class="ml-2">{{
                     patient?.macAddressFramed.toUpperCase()
                   }}</span>
                 </div>
                 <v-spacer></v-spacer>
-                <div class="d-flex mr-3 justify-center align-center">
-                  <v-img src="@/assets/battery.svg"></v-img>
+                <div class="d-flex mr-8 justify-center align-center">
+                  <v-img
+                    src="@/assets/battery.svg"
+                    width="29"
+                    height="29"
+                  ></v-img>
                   <span class="ml-2">114Hrs 45 Min</span>
                 </div>
               </div>
 
               <div class="mt-5 d-flex">
                 <v-card
-                  class="elevation-1"
+                  class="elevation-1 card__div"
                   height="60"
                   color="black"
                   style="width: 50%"
@@ -106,8 +131,8 @@
                       <v-img
                         class="ml-2 mt-2"
                         src="@/assets/heartbeat.svg"
-                        height="40"
-                        width="40"
+                        height="39"
+                        width="39"
                         contain
                       ></v-img>
                     </v-flex>
@@ -121,7 +146,7 @@
                 </v-card>
 
                 <v-card
-                  class="elevation-1 ml-3"
+                  class="elevation-1 ml-3 card__div"
                   color="black"
                   style="width: 50%"
                   height="60"
@@ -131,8 +156,8 @@
                       <v-img
                         class="ml-2 mt-2"
                         src="@/assets/oxygen.svg"
-                        height="40"
-                        width="40"
+                        height="39"
+                        width="39"
                         contain
                       ></v-img>
                     </v-flex>
@@ -158,8 +183,8 @@
                       <v-img
                         class="ml-2 mt-2"
                         src="@/assets/lungs.svg"
-                        height="40"
-                        width="40"
+                        height="39"
+                        width="39"
                         contain
                       ></v-img>
                     </v-flex>
@@ -183,8 +208,8 @@
                       <v-img
                         class="ml-2 mt-2"
                         src="@/assets/bloodPressure.svg"
-                        height="40"
-                        width="40"
+                        height="39"
+                        width="39"
                         contain
                       ></v-img>
                     </v-flex>
@@ -210,8 +235,8 @@
                       <v-img
                         class="ml-2 mt-2"
                         src="@/assets/temprature.svg"
-                        height="40"
-                        width="40"
+                        height="39"
+                        width="39"
                         contain
                       ></v-img>
                     </v-flex>
@@ -237,8 +262,8 @@
                       <v-img
                         class="ml-2 mt-2"
                         src="@/assets/steps.svg"
-                        height="40"
-                        width="40"
+                        height="39"
+                        width="39"
                         contain
                       ></v-img>
                     </v-flex>
@@ -315,5 +340,8 @@ h5 {
 }
 small {
   font-size: 10px;
+}
+span {
+  font-size: 16px;
 }
 </style>

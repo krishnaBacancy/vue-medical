@@ -2,7 +2,8 @@
   <div>
     <PageHeader
       title="Patients"
-      pageIcon="mdi-account-injury"
+      pageIcon="mdi-arrow-left"
+      @goBack="$router.go(-1)"
       btnName="Add"
       color-name="warning"
       btnIconName="mdi-account-plus"

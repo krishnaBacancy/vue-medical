@@ -1,6 +1,10 @@
 <template>
   <div>
-    <PageHeader title="Settings" pageIcon="mdi-cog-outline" />
+    <PageHeader
+      title="Settings"
+      pageIcon="mdi-arrow-left"
+      @goBack="$router.go(-1)"
+    />
     <br />
     <div>
       <v-layout row wrap class="pa-2">

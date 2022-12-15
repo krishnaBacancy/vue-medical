@@ -2,11 +2,8 @@
   <div>
     <PageHeader
       title="Edit User"
-      pageIcon="mdi-account-edit"
-      btnName="Back"
-      color-name="warning"
-      btnIconName="mdi-arrow-left"
-      @addNewPatient="$router.go(-1)"
+      pageIcon="mdi-arrow-left"
+      @goBack="$router.go(-1)"
     />
     <br />
     <div class="pa-3">
