@@ -91,13 +91,7 @@ export default {
           sortable: false,
           value: "fullName",
         },
-        {
-          text: "Room Number",
-          value: "room",
-        },
-        { text: "Floor Number", value: "floor" },
-        { text: "Phone Number", value: "mobileNo" },
-        { text: "Patient Status", value: "status" },
+        { text: "Phone No.", value: "mobileNo" },
         { text: "Actions", value: "actions", sortable: false },
       ],
       dialog: false,
@@ -164,5 +158,18 @@ small {
 .table >>> .v-select__selection,
 .table >>> .v-data-footer__pagination {
   font-size: 1rem;
+}
+@media only screen and (max-width: 960px) {
+  .table >>> th {
+    font-size: 12px !important;
+  }
+  .table >>> tr > td {
+    font-size: 16px !important;
+  }
+  .table >>> .v-data-footer__select,
+  .table >>> .v-select__selection,
+  .table >>> .v-data-footer__pagination {
+    font-size: 0.8rem;
+  }
 }
 </style>

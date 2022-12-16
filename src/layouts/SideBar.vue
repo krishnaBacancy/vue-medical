@@ -15,7 +15,7 @@
       width="10%"
       dark
       :style="{
-        width: $vuetify.breakpoint.smAndDown ? '40%' : '7%',
+        width: $vuetify.breakpoint.smAndDown ? '30%' : '7%',
         backgroundColor: $vuetify.breakpoint.smAndDown
           ? 'rgba(0,0,0,0.8)'
           : 'rgba(0,0,0,0.3)',
@@ -49,7 +49,7 @@
                 to="/"
                 class="d-flex flex-column text-center justify-center align-center"
               >
-                <v-icon>mdi-view-dashboard</v-icon>
+                <v-icon class="icon__color">mdi-view-dashboard</v-icon>
                 <span>Dashboard</span>
               </router-link>
             </li>
@@ -59,7 +59,7 @@
                 to="/patients"
                 class="d-flex flex-column text-center justify-center align-center"
               >
-                <v-img src="@/assets/patients.svg"></v-img>
+                <v-img src="@/assets/patients.svg" class="icon__color"></v-img>
                 <span>Patients</span>
               </router-link>
             </li>
@@ -74,6 +74,7 @@
                   height="40"
                   width="40"
                   contain
+                  class="icon__color"
                 ></v-img>
                 <span>Device List</span>
               </router-link>
@@ -89,6 +90,7 @@
                   height="40"
                   width="40"
                   contain
+                  class="icon__color"
                 ></v-img>
                 <span>Device List</span>
               </router-link>
@@ -104,6 +106,7 @@
                   height="40"
                   width="40"
                   contain
+                  class="icon__color"
                 ></v-img>
                 <span>Live</span>
               </router-link>
@@ -114,7 +117,7 @@
                 to="/settings"
                 class="d-flex flex-column text-center justify-center align-center"
               >
-                <v-icon>mdi-cog-outline</v-icon>
+                <v-icon class="icon__color">mdi-cog-outline</v-icon>
                 <span>Settings</span>
               </router-link>
             </li>
@@ -123,7 +126,7 @@
               @click="logOut"
               class="d-flex white--text flex-column text-center justify-center align-center"
             >
-              <v-icon>mdi-logout</v-icon>
+              <v-icon class="icon__color">mdi-logout</v-icon>
               <span>Logout</span>
             </li>
           </ul>
@@ -325,10 +328,15 @@ export default {
   font-size: 14px;
   margin-top: 5px;
 }
-
-.sidebar a.router-link-exact-active {
+.sidebar a.exactActiveLink {
+  color: #ffb23e;
   background: transparent url("@/assets/Rectangle\ 37.svg") 0% 0% no-repeat
     padding-box;
+  background-size: 120px 100px;
+  height: 60px;
+}
+.sidebar a.exactActiveLink > .icon__color {
+  color: #ffb23e;
 }
 
 span {

@@ -41,7 +41,7 @@
           >
             <v-card
               color="#2B2934"
-              class="ml-2 mb-2 pa-2 white--text main__card"
+              class="ml-2 mr-2 mb-2 pa-2 white--text main__card"
               style="width: 100%"
               @click="$router.push(`/patient-details/${patient?.id}`)"
             >

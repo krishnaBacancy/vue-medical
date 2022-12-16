@@ -27,7 +27,7 @@
           :items="getPatients"
           :items-per-page="5"
           class="elevation-1 table"
-          height="350"
+          :height="$vuetify.breakpoint.smAndDown ? '600' : '350'"
           dark
         >
         </v-data-table>
@@ -91,5 +91,18 @@ export default {
 .table >>> .v-select__selection,
 .table >>> .v-data-footer__pagination {
   font-size: 1rem;
+}
+@media only screen and (max-width: 960px) {
+  .table >>> th {
+    font-size: 12px !important;
+  }
+  .table >>> tr > td {
+    font-size: 16px !important;
+  }
+  .table >>> .v-data-footer__select,
+  .table >>> .v-select__selection,
+  .table >>> .v-data-footer__pagination {
+    font-size: 0.8rem;
+  }
 }
 </style>

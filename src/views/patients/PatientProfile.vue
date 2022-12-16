@@ -34,7 +34,7 @@
                   width="120"
                 ></v-img>
               </div>
-              <div class="white--text ml-5">
+              <div class="white--text ml-5 text-start">
                 <h3 style="font-size: 32px">
                   {{ getSinglePatientData[0]?.fullName }}
                 </h3>
@@ -49,8 +49,8 @@
                 v-if="role === 'Doctor' || role === 'Admin'"
                 color="warning"
                 outlined
-                width="248"
-                height="53"
+                :width="$vuetify.breakpoint.smAndDown ? '148' : '248'"
+                :height="53"
                 @click="
                   $router.push(`/edit-patient/${getSinglePatientData[0]?.id}`)
                 "
@@ -60,10 +60,10 @@
           </div>
         </v-flex>
 
-        <v-flex d-flex xs12 sm12 md12 class="mt-6 mb-2 pa-2">
+        <v-flex d-flex xs12 sm12 md12 class="mt-6 mb-2">
           <v-card
             color="#282934"
-            class="ml-2 mb-2 pa-2 white--text"
+            class="ml-2 mr-2 mb-2 pa-2 white--text"
             style="width: 100%"
           >
             <v-card-title
@@ -189,10 +189,10 @@
           </v-card>
         </v-flex>
 
-        <v-flex d-flex xs12 sm12 md6 class="mb-2 pa-2">
+        <v-flex d-flex xs12 sm12 md6 class="mb-2">
           <v-card
             color="#282934"
-            class="ml-2 mb-2 pa-2 white--text"
+            class="ml-2 mr-2 mb-2 pa-2 white--text"
             style="width: 100%"
           >
             <v-card-title
@@ -259,10 +259,10 @@
           </v-card>
         </v-flex>
 
-        <v-flex d-flex xs12 sm12 md6 class="mb-2 pa-2">
+        <v-flex d-flex xs12 sm12 md6 class="mb-2">
           <v-card
             color="#282934"
-            class="ml-2 mb-2 pa-2 white--text"
+            class="ml-2 mr-2 mb-2 pa-2 white--text"
             style="width: 100%"
           >
             <v-card-title
