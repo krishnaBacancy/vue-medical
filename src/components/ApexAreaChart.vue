@@ -3,7 +3,7 @@
     <div class="chart-wrapper">
       <apexChart
         type="area"
-        width="600"
+        :width="width"
         :height="height"
         :options="options"
         :series="series"

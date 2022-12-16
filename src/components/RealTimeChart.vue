@@ -71,7 +71,7 @@ export default {
       myLineChart?.update();
       zero++;
     }
-    adddata();
+    // adddata();
     setInterval(function () {
       adddata();
     }, 1000);
@@ -140,7 +140,7 @@ export default {
         },
       },
     });
-    myLineChart.update();
+    // myLineChart.update();
   },
 };
 </script>

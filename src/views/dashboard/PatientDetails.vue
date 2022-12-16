@@ -2,14 +2,14 @@
   <div style="background-color: #282934">
     <PageHeader
       title="Patient Details"
-      pageIcon="mdi-account-box"
-      btnName="Back"
-      color-name="warning"
-      btnIconName="mdi-arrow-left"
-      @addNewPatient="$router.go(-1)"
+      pageIcon="mdi-arrow-left"
+      @goBack="$router.go(-1)"
     />
     <br />
-    <div class="white--text" style="background-color: rgba(0, 0, 0, 0.5)">
+    <div
+      class="white--text mb-5"
+      style="background-color: rgba(0, 0, 0, 0.5); border-radius: 20px"
+    >
       <v-progress-circular
         indeterminate
         color="amber"
@@ -18,12 +18,17 @@
       <div v-else>
         <div class="d-flex align-center justify-md-space-around">
           <v-img
-            class="rounded-circle ml-4"
+            class="rounded-circle ml-4 mt-2"
             src="https://picsum.photos/id/11/50/50"
-            max-width="50"
-            max-height="50"
+            max-width="80"
+            max-height="80"
           />
-          <h3 class="mr-2 ml-4">
+          <h3
+            class="mr-2 ml-4"
+            :style="{
+              fontSize: $vuetify.breakpoint.smAndDown ? '20px' : '28px',
+            }"
+          >
             {{
               getFullName(
                 getSingleDeviceData[0]?.customerFirstName,
@@ -33,31 +38,63 @@
           </h3>
           <v-spacer></v-spacer>
           <div class="d-flex align-center justify-md-space-between">
-            <v-img src="@/assets/floor1.svg" height="30" contain></v-img>
-            <h3 class="ml-3">Floor - 1</h3>
+            <v-img
+              src="@/assets/floor1.svg"
+              height="40"
+              width="40"
+              contain
+            ></v-img>
+            <h3
+              class="ml-3"
+              :style="{
+                fontSize: $vuetify.breakpoint.smAndDown ? '16px' : '20px',
+              }"
+            >
+              Floor - 1
+            </h3>
             <v-img
               src="@/assets/room.svg"
               class="ml-5"
-              height="30"
+              height="40"
+              width="40"
               contain
             ></v-img>
-            <h3 class="ml-3">Room - 1</h3>
+            <h3
+              class="ml-3"
+              :style="{
+                fontSize: $vuetify.breakpoint.smAndDown ? '16px' : '20px',
+              }"
+            >
+              Room - 1
+            </h3>
             <v-img
               src="@/assets/Mac Address.png"
               class="ml-5"
-              height="30"
-              width="30"
+              height="40"
+              width="40"
               contain
             ></v-img>
-            <h3 class="ml-3">
+            <h3
+              class="ml-3"
+              :style="{
+                fontSize: $vuetify.breakpoint.smAndDown ? '16px' : '20px',
+              }"
+            >
               {{ getSingleDeviceData[0]?.macAddressFramed.toUpperCase() }}
             </h3>
-            <v-icon color="warning" class="ml-5">mdi-battery</v-icon>
-            <h3 class="ml-3">114Hrs 45Min</h3>
+            <v-icon color="warning" size="30" class="ml-5">mdi-battery</v-icon>
+            <h3
+              class="ml-3"
+              :style="{
+                fontSize: $vuetify.breakpoint.smAndDown ? '16px' : '20px',
+              }"
+            >
+              114Hrs 45Min
+            </h3>
           </div>
           <v-spacer></v-spacer>
           <div class="d-flex align-center justify-center mr-7">
-            <h3 class="mr-5">Device Status</h3>
+            <h3 class="mr-5" style="font-size: 20px">Device Status</h3>
             <v-tooltip bottom>
               <template v-slot:activator="{ on, attrs }">
                 <v-img
@@ -91,7 +128,7 @@
           </div>
         </div>
 
-        <div class="d-flex mt-6">
+        <div class="d-flex mt-6 justify-md-space-around">
           <div class="ml-6">
             <v-select
               :items="aggregateValues"
@@ -181,8 +218,13 @@
 
         <v-container fluid grid-list-md>
           <v-layout row wrap>
-            <v-flex d-flex xs12 sm6 md6>
-              <v-card dark class="ml-2 mb-2 pa-2" style="width: 100%">
+            <v-flex d-flex xs12 sm12 md6>
+              <v-card
+                color="#282934"
+                dark
+                class="ml-2 mb-2 pa-2"
+                style="width: 100%"
+              >
                 <div class="d-flex align-center">
                   <h3>ECG</h3>
                   <!-- <v-spacer></v-spacer> -->
@@ -193,14 +235,23 @@
                 </div>
                 <div class="d-flex align-start mt-2">
                   <div class="grid-container">
-                    <!-- <LineChart :key="showEcgChart" :width="600" :height="250" /> -->
-                    <ApexLineChart :key="showEcgChart" />
+                    <!-- <LineChart :key="showEcgChart" :width="834.24" :height="199.53" /> -->
+                    <ApexLineChart
+                      :ecgChartData="ecgChartData"
+                      :width="834.24"
+                      :height="299.53"
+                    />
                   </div>
                 </div>
               </v-card>
             </v-flex>
-            <v-flex d-flex xs12 sm6 md6>
-              <v-card dark class="ml-2 mb-2 pa-2" style="width: 100%">
+            <v-flex d-flex xs12 sm12 md6>
+              <v-card
+                dark
+                color="#282934"
+                class="ml-2 mr-2 mb-2 pa-2"
+                style="width: 100%"
+              >
                 <div class="d-flex">
                   <h3>PPG</h3>
                   <v-spacer></v-spacer>
@@ -211,8 +262,8 @@
                 <div class="d-flex align-start mt-2">
                   <div class="grid-container">
                     <RealTimeChart
-                      :width="600"
-                      :height="250"
+                      :width="834.24"
+                      :height="299.53"
                       :key="showPpgChart"
                     />
                   </div>
@@ -228,7 +279,7 @@
               <v-card
                 color="#282934"
                 dark
-                class="ml-2 mb-2 pa-2"
+                class="ml-2 mr-2 mr-sm-0 mb-2 pa-2"
                 style="width: 100%"
               >
                 <div class="d-flex text-start">
@@ -237,7 +288,7 @@
                     <small class="warning--text">No Device Paired</small>
                   </div>
                   <v-spacer></v-spacer>
-                  <div>
+                  <div v-if="!$vuetify.breakpoint.smOnly">
                     <h3>Last Reading</h3>
                     <small class="grey--text">2 hour ago</small>
                   </div>
@@ -269,13 +320,18 @@
               <v-card
                 color="#282934"
                 dark
-                class="ml-2 mb-2 pa-2"
+                class="ml-2 mr-2 mr-md-0 mb-2 pa-2"
                 style="width: 100%"
               >
                 <div class="d-flex text-start">
                   <div>
                     <h3>Heart Rate Variability</h3>
                     <small class="warning--text">No Device Paired</small>
+                  </div>
+                  <v-spacer></v-spacer>
+                  <div v-if="!$vuetify.breakpoint.smOnly">
+                    <h3>Last Reading</h3>
+                    <small class="grey--text">2 hour ago</small>
                   </div>
                 </div>
                 <div class="d-flex justify-center align-center mt-5">
@@ -309,7 +365,7 @@
               <v-card
                 color="#282934"
                 dark
-                class="ml-2 mb-2 pa-2"
+                class="ml-2 mr-2 mr-sm-0 mb-2 pa-2"
                 style="width: 100%"
               >
                 <div class="d-flex text-start">
@@ -318,7 +374,7 @@
                     <small class="warning--text">00:0B:57:AC:66:DA</small>
                   </div>
                   <v-spacer></v-spacer>
-                  <div>
+                  <div v-if="!$vuetify.breakpoint.smOnly">
                     <h3>Last Reading</h3>
                     <small class="grey--text">2 hour ago</small>
                   </div>
@@ -348,13 +404,18 @@
               <v-card
                 color="#282934"
                 dark
-                class="ml-2 mb-2 pa-2"
+                class="ml-2 mr-2 mb-2 pa-2"
                 style="width: 100%"
               >
                 <div class="d-flex text-start">
                   <div>
                     <h3>Pulse Rate Variability</h3>
                     <small class="warning--text">No Device Paired</small>
+                  </div>
+                  <v-spacer></v-spacer>
+                  <div v-if="!$vuetify.breakpoint.smOnly">
+                    <h3>Last Reading</h3>
+                    <small class="grey--text">2 hour ago</small>
                   </div>
                 </div>
                 <div class="d-flex justify-center align-center mt-5">
@@ -387,11 +448,11 @@
           </v-layout>
 
           <v-layout row wrap>
-            <v-flex d-flex xs12 sm6 md4>
+            <v-flex d-flex xs12 sm12 md4>
               <v-card
                 color="#282934"
                 dark
-                class="ml-2 mb-2 pa-2"
+                class="ml-2 mr-2 mr-md-0 mb-2 pa-2"
                 style="width: 100%"
               >
                 <div class="d-flex text-start">
@@ -426,11 +487,11 @@
                 </div>
               </v-card>
             </v-flex>
-            <v-flex d-flex xs12 sm6 md4>
+            <v-flex d-flex xs12 sm12 md4>
               <v-card
                 color="#282934"
                 dark
-                class="ml-2 mb-2 pa-2"
+                class="ml-2 mr-2 mr-md-0 mb-2 pa-2"
                 style="width: 100%"
               >
                 <div class="d-flex text-start">
@@ -481,7 +542,7 @@
               <v-card
                 color="#282934"
                 dark
-                class="ml-2 mb-2 pa-2"
+                class="ml-2 mr-2 mb-2 pa-2"
                 style="width: 100%"
               >
                 <div class="d-flex text-start">
@@ -530,7 +591,7 @@
               <v-card
                 color="#282934"
                 dark
-                class="ml-2 mb-2 pa-2"
+                class="ml-2 mr-2 mr-sm-0 mb-2 pa-2"
                 style="width: 100%"
               >
                 <div class="d-flex text-start">
@@ -539,7 +600,7 @@
                     <small class="warning--text">00:0B:57:AC:66:DA</small>
                   </div>
                   <v-spacer></v-spacer>
-                  <div>
+                  <div v-if="!$vuetify.breakpoint.smOnly">
                     <h3>Last Reading</h3>
                     <small class="grey--text">2 hour ago</small>
                   </div>
@@ -577,7 +638,7 @@
               <v-card
                 color="#282934"
                 dark
-                class="ml-2 mb-2 pa-2"
+                class="ml-2 mr-2 mr-md-0 mb-2 pa-2"
                 style="width: 100%"
               >
                 <div class="d-flex text-start">
@@ -586,7 +647,7 @@
                     <small class="warning--text">00:0B:57:AC:66:DA</small>
                   </div>
                   <v-spacer></v-spacer>
-                  <div>
+                  <div v-if="!$vuetify.breakpoint.smOnly">
                     <h3>Last Reading</h3>
                     <small class="grey--text">2 hour ago</small>
                   </div>
@@ -624,7 +685,7 @@
               <v-card
                 color="#282934"
                 dark
-                class="ml-2 mb-2 pa-2"
+                class="ml-2 mr-2 mb-2 pa-2"
                 style="width: 100%"
               >
                 <div class="d-flex text-start">
@@ -673,7 +734,7 @@
               <v-card
                 color="#282934"
                 dark
-                class="ml-2 mb-2 pa-2"
+                class="ml-2 mr-2 mr-sm-0 mb-2 pa-2"
                 style="width: 100%"
               >
                 <div class="d-flex text-start">
@@ -682,7 +743,7 @@
                     <small class="warning--text">00:0B:57:AC:66:DA</small>
                   </div>
                   <v-spacer></v-spacer>
-                  <div>
+                  <div v-if="!$vuetify.breakpoint.smOnly">
                     <h3>Last Reading</h3>
                     <small class="grey--text">2 hour ago</small>
                   </div>
@@ -719,7 +780,7 @@
               <v-card
                 color="#282934"
                 dark
-                class="ml-2 mb-2 pa-2"
+                class="ml-2 mr-2 mr-md-0 mb-2 pa-2"
                 style="width: 100%"
               >
                 <div class="d-flex text-start">
@@ -728,7 +789,7 @@
                     <small class="warning--text">00:0B:57:AC:66:DA</small>
                   </div>
                   <v-spacer></v-spacer>
-                  <div>
+                  <div v-if="!$vuetify.breakpoint.smOnly">
                     <h3>Last Reading</h3>
                     <small class="grey--text">2 hour ago</small>
                   </div>
@@ -766,7 +827,7 @@
               <v-card
                 color="#282934"
                 dark
-                class="ml-2 mb-2 pa-2"
+                class="ml-2 mr-2 mb-2 pa-2"
                 style="width: 100%"
               >
                 <div class="d-flex text-start">
@@ -831,7 +892,9 @@
                       </span>
                       <div class="d-flex ml-5 text-start flex-column">
                         <span>Body Temperature</span>
-                        <span class="warning--text">00:0B:57:AC:66:DA</span>
+                        <span class="warning--text" style="font-size: 16px"
+                          >00:0B:57:AC:66:DA</span
+                        >
                       </div>
                     </h3>
                     <v-spacer></v-spacer>
@@ -842,7 +905,8 @@
                 </div>
                 <div class="grid-container">
                   <TestChart
-                    :height="200"
+                    :height="286"
+                    :width="623"
                     :data-of-chart="[72, 115, 95, 130, 60, 116, 88]"
                     :label="['12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm']"
                     :chart-bg-color="'#fd5d5d'"
@@ -855,7 +919,7 @@
               <v-card
                 color="#282934"
                 dark
-                class="ml-2 mb-2 pa-2"
+                class="ml-2 mr-2 mb-2 pa-2"
                 style="width: 100%"
               >
                 <div>
@@ -870,7 +934,9 @@
                       ></v-img>
                       <div class="d-flex ml-5 text-start flex-column">
                         <span>Blood Oxygen</span>
-                        <span class="warning--text">mmHg</span>
+                        <span class="warning--text" style="font-size: 16px"
+                          >mmHg</span
+                        >
                       </div>
                     </h3>
                     <v-spacer></v-spacer>
@@ -881,10 +947,8 @@
                 </div>
                 <div class="grid-container">
                   <ApexAreaChart
-                    :height="350"
-                    :style="{
-                      width: $vuetify.breakpoint.smAndDown ? '300px' : '600px',
-                    }"
+                    :height="366"
+                    :width="600"
                     :data-of-chart="[72, 115, 95, 130, 60, 116, 88]"
                     :chart-label="[
                       '12pm',
@@ -923,7 +987,9 @@
                       ></v-img>
                       <div class="d-flex ml-5 text-start flex-column">
                         <span>Heart Rate</span>
-                        <span class="warning--text">mmHg</span>
+                        <span class="warning--text" style="font-size: 16px"
+                          >mmHg</span
+                        >
                       </div>
                     </h3>
                     <v-spacer></v-spacer>
@@ -934,7 +1000,8 @@
                 </div>
                 <div class="grid-container">
                   <TestChart
-                    :height="200"
+                    :height="286"
+                    :width="623"
                     :data-of-chart="[72, 115, 95, 130, 60, 116, 88]"
                     :label="['12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm']"
                     :chart-bg-color="'cyan'"
@@ -947,7 +1014,7 @@
               <v-card
                 color="#282934"
                 dark
-                class="ml-2 mb-2 pa-2"
+                class="ml-2 mr-2 mb-2 pa-2"
                 style="width: 100%"
               >
                 <div>
@@ -967,7 +1034,9 @@
                       </span>
                       <div class="d-flex ml-5 text-start flex-column">
                         <span>Steps</span>
-                        <span class="warning--text">Hrs/Day</span>
+                        <span class="warning--text" style="font-size: 16px"
+                          >Hrs/Day</span
+                        >
                       </div>
                     </h3>
                     <v-spacer></v-spacer>
@@ -987,7 +1056,8 @@
                 </div>
                 <div class="grid-container">
                   <ApexAreaChart
-                    :height="350"
+                    :height="366"
+                    :width="770"
                     :data-of-chart="[72, 115, 95, 130, 60, 116, 88]"
                     :chart-label="[
                       '12pm',
@@ -1113,9 +1183,9 @@ export default {
   },
   created() {
     this.getSingleDevice(this.$route?.params?.id);
+    this.createConnection();
   },
   mounted() {
-    this.createConnection();
     setTimeout(() => {
       this.displayAlgoData();
     }, 1000);
@@ -1339,6 +1409,24 @@ export default {
 }
 
 h1 {
-  font-size: 2rem;
+  font-size: 40px;
+}
+
+.v-card {
+  border-radius: 10px;
+}
+small {
+  font-size: 16px;
+}
+h3 {
+  font-size: 22px;
+}
+@media only screen and (max-width: 780px) {
+  small {
+    font-size: 14px;
+  }
+  h3 {
+    font-size: 20px;
+  }
 }
 </style>
