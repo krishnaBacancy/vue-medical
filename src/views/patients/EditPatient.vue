@@ -15,12 +15,13 @@
       <v-layout row wrap v-else>
         <v-flex d-flex xs12 sm12 md12>
           <v-card
-            style="width: 100%"
+            style="width: 100%; border-radius: 20px"
             dark
             color="rgba(0, 0, 0, 0.5)"
-            class="mt-2 mb-2 pa-5 white--text"
+            class="mt-2 mb-5 pa-5 white--text"
           >
-            <v-card-title class="warning--text text-h5 ml-n2 mb-2"
+            <v-card-title
+              class="warning--text text-h5 ml-n2 mb-2 font-weight-bold"
               >User Info</v-card-title
             >
             <v-form ref="form" v-model="valid" lazy-validation>
@@ -208,7 +209,8 @@
                 </v-col>
               </v-row>
 
-              <v-card-title class="warning--text text-h5 mb-2 ml-n2"
+              <v-card-title
+                class="warning--text text-h5 mb-2 ml-n2 font-weight-bold"
                 >Family Member Info</v-card-title
               >
               <v-row>
@@ -245,7 +247,8 @@
                 </v-col>
               </v-row>
 
-              <v-card-title class="warning--text text-h5 mb-2 ml-n2"
+              <v-card-title
+                class="warning--text text-h5 mb-2 ml-n2 font-weight-bold"
                 >Medical History</v-card-title
               >
               <v-row>

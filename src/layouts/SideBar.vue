@@ -15,7 +15,7 @@
       width="10%"
       dark
       :style="{
-        width: $vuetify.breakpoint.smAndDown ? '40%' : '8%',
+        width: $vuetify.breakpoint.smAndDown ? '40%' : '7%',
         backgroundColor: $vuetify.breakpoint.smAndDown
           ? 'rgba(0,0,0,0.8)'
           : 'rgba(0,0,0,0.3)',
@@ -40,7 +40,97 @@
 
       <v-divider></v-divider>
 
-      <v-list dense nav>
+      <div class="sidebar">
+        <nav>
+          <!-- Move event here -->
+          <ul class="ml-n5">
+            <li>
+              <router-link
+                to="/"
+                class="d-flex flex-column text-center justify-center align-center"
+              >
+                <v-icon>mdi-view-dashboard</v-icon>
+                <span>Dashboard</span>
+              </router-link>
+            </li>
+
+            <li v-if="role !== 'Admin'">
+              <router-link
+                to="/patients"
+                class="d-flex flex-column text-center justify-center align-center"
+              >
+                <v-img src="@/assets/patients.svg"></v-img>
+                <span>Patients</span>
+              </router-link>
+            </li>
+
+            <li v-if="role === 'Doctor'">
+              <router-link
+                to="/user-management"
+                class="d-flex flex-column text-center justify-center align-center"
+              >
+                <v-img
+                  src="@/assets/Device List.png"
+                  height="40"
+                  width="40"
+                  contain
+                ></v-img>
+                <span>Device List</span>
+              </router-link>
+            </li>
+
+            <li v-if="role === 'Admin'">
+              <router-link
+                to="/devices"
+                class="d-flex flex-column text-center justify-center align-center"
+              >
+                <v-img
+                  src="@/assets/Device List.png"
+                  height="40"
+                  width="40"
+                  contain
+                ></v-img>
+                <span>Device List</span>
+              </router-link>
+            </li>
+
+            <li v-if="role !== 'Admin'">
+              <router-link
+                to="/live-device"
+                class="d-flex flex-column text-center justify-center align-center"
+              >
+                <v-img
+                  src="@/assets/Live Device.png"
+                  height="40"
+                  width="40"
+                  contain
+                ></v-img>
+                <span>Live</span>
+              </router-link>
+            </li>
+
+            <li>
+              <router-link
+                to="/settings"
+                class="d-flex flex-column text-center justify-center align-center"
+              >
+                <v-icon>mdi-cog-outline</v-icon>
+                <span>Settings</span>
+              </router-link>
+            </li>
+
+            <li
+              @click="logOut"
+              class="d-flex white--text flex-column text-center justify-center align-center"
+            >
+              <v-icon>mdi-logout</v-icon>
+              <span>Logout</span>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- <v-list dense nav>
         <v-list-item-group active-class="bg-active">
           <v-list-item class="list__item">
             <div class="item__container" @click="goToLink('/')">
@@ -76,7 +166,6 @@
               @click="$router.push('/user-management')"
             >
               <v-list-item-icon style="margin-left: auto; margin-right: auto">
-                <!-- <v-icon>mdi-devices</v-icon> -->
                 <v-img
                   src="@/assets/Device List.png"
                   contain
@@ -94,7 +183,6 @@
           <v-list-item class="list__item" link v-if="role === 'Admin'">
             <div class="item__container" @click="$router.push('/devices')">
               <v-list-item-icon style="margin-left: auto; margin-right: auto">
-                <!-- <v-icon>mdi-devices</v-icon> -->
                 <v-img
                   src="@/assets/Device List.png"
                   contain
@@ -116,7 +204,6 @@
           >
             <div class="item__container" @click="$router.push('/live-device')">
               <v-list-item-icon style="margin-left: auto; margin-right: auto">
-                <!-- <v-icon>mdi-account-supervisor-circle</v-icon> -->
                 <v-img
                   src="@/assets/Live Device.png"
                   contain
@@ -155,7 +242,7 @@
             </div>
           </v-list-item>
         </v-list-item-group>
-      </v-list>
+      </v-list> -->
     </v-navigation-drawer>
 
     <v-main style="width: 97%; margin-left: auto; margin-right: auto">
@@ -211,5 +298,41 @@ export default {
 .bg-active {
   background-color: green;
   color: white !important;
+}
+.sidebar {
+  margin-top: 20px;
+  position: fixed;
+  height: 100vh;
+  width: 120px;
+  border-radius: 15px;
+  margin-right: auto;
+}
+
+.sidebar ul {
+  list-style: none;
+}
+
+.sidebar li {
+  text-align: left;
+  width: 100%;
+  margin-bottom: 2rem;
+  cursor: pointer;
+}
+
+.sidebar a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.sidebar a.router-link-exact-active {
+  background: transparent url("@/assets/Rectangle\ 37.svg") 0% 0% no-repeat
+    padding-box;
+}
+
+span {
+  font-size: 14px;
+  margin-top: 5px;
 }
 </style>

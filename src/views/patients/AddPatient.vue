@@ -2,11 +2,8 @@
   <div>
     <PageHeader
       title="Add New Patient"
-      pageIcon="mdi-account"
-      btnName="Back"
-      color-name="warning"
-      btnIconName="mdi-arrow-left"
-      @addNewPatient="goToPreviousPage"
+      pageIcon="mdi-arrow-left"
+      @goBack="$router.go(-1)"
     />
     <br />
     <div class="pa-3">
@@ -15,10 +12,11 @@
           <v-card
             dark
             color="rgba(0, 0, 0, 0.5)"
-            class="mt-2 mb-2 pa-5 white--text"
-            style="width: 100%"
+            class="mt-2 mb-5 pa-5 white--text"
+            style="width: 100%; border-radius: 20px"
           >
-            <v-card-title class="warning--text text-h5 ml-n2 mb-2"
+            <v-card-title
+              class="warning--text text-h5 ml-n2 mb-2 font-weight-bold"
               >Patient Info</v-card-title
             >
 
@@ -170,7 +168,8 @@
                   </v-col>
                 </v-row>
 
-                <v-card-title class="warning--text text-h5 mb-2 ml-n2"
+                <v-card-title
+                  class="warning--text text-h5 mb-2 ml-n2 font-weight-bold"
                   >Family Member Info</v-card-title
                 >
                 <v-row>
@@ -228,7 +227,8 @@
                   </v-col>
                 </v-row>
 
-                <v-card-title class="warning--text text-h5 mb-2 ml-n2"
+                <v-card-title
+                  class="warning--text text-h5 mb-2 ml-n2 font-weight-bold"
                   >Medical History</v-card-title
                 >
                 <v-row>

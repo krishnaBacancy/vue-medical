@@ -10,8 +10,11 @@
       @addNewPatient="addPatient"
     />
     <br />
-    <v-container style="background-color: rgba(0, 0, 0, 0.5)" fluid>
-      <div class="mt-3 mb-3">
+    <v-container
+      style="background-color: rgba(0, 0, 0, 0.5); border-radius: 20px"
+      fluid
+    >
+      <div class="mt-3 mb-3 pa-2">
         <v-data-table
           item-key="name"
           class="elevation-1"
@@ -27,14 +30,14 @@
           :headers="headers"
           :items="getAllPatientsOnly"
           :items-per-page="5"
-          class="elevation-1"
-          height="500"
+          class="elevation-1 table"
+          height="600"
           dark
         >
           <template v-slot:[`item.image`]>
             <v-img
               src="@/assets/Ellipse 10.png"
-              height="60"
+              height="80"
               width="80"
               contain
               class="mt-2 mb-2"
@@ -43,20 +46,20 @@
           <template v-slot:[`item.actions`]="{ item }">
             <v-icon
               color="warning"
-              class="mr-3"
-              size="20"
+              class="mr-4"
+              size="22"
               @click="$router.push(`/patients/patient/${item.id}`)"
             >
               mdi-eye
             </v-icon>
             <v-icon
-              size="20"
+              size="22"
               color="info"
-              class="mr-3"
+              class="mr-4"
               @click="$router.push(`/edit-patient/${item.id}`)"
               >mdi-pencil</v-icon
             >
-            <v-icon size="20" color="red" @click="deleteSinglePatient(item.id)"
+            <v-icon size="22" color="red" @click="deleteSinglePatient(item.id)"
               >mdi-delete</v-icon
             >
           </template>
@@ -150,5 +153,16 @@ h2 {
 small {
   font-size: 0.9rem;
   color: grey;
+}
+.table >>> th {
+  font-size: 16px !important;
+}
+.table >>> tr > td {
+  font-size: 24px !important;
+}
+.table >>> .v-data-footer__select,
+.table >>> .v-select__selection,
+.table >>> .v-data-footer__pagination {
+  font-size: 1rem;
 }
 </style>

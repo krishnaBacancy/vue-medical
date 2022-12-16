@@ -1,5 +1,12 @@
 <template>
-  <v-app class="overflow-hidden">
+  <v-app
+    class="overflow-hidden"
+    style="
+      background: #171617
+        radial-gradient(closest-side at 34% 48%, #313131 0%, #171617 100%) 0% 0%
+        no-repeat padding-box;
+    "
+  >
     <v-main>
       <v-container class="fill-height mt-3" fluid>
         <v-row class="white--text">
@@ -14,7 +21,7 @@
             ></v-img>
 
             <div class="text-start mt-n5">
-              <v-flex d-flex md12>
+              <v-flex d-flex md10>
                 <h1>Sneak Peek Into Health</h1>
               </v-flex>
               <v-flex md8>
@@ -25,47 +32,47 @@
                 </p>
               </v-flex>
               <v-row class="mt-5 ml-2 ml-sm-0 ml-md-0">
-                <v-col>
+                <v-col class="ml-n5">
                   <v-img
                     src="@/assets/Rectangle 112.svg"
                     contain
-                    height="80"
-                    width="80"
+                    height="100"
+                    width="100"
                   >
                     <v-img
                       src="@/assets/Heart hand.png"
-                      height="80"
-                      width="80"
+                      height="100"
+                      width="100"
                       contain
                     ></v-img>
                   </v-img>
                 </v-col>
-                <v-col class="ml-n10">
+                <v-col class="ml-n15">
                   <v-img
                     src="@/assets/Rectangle 112.svg"
                     contain
-                    height="80"
-                    width="80"
+                    height="100"
+                    width="100"
                   >
                     <v-img
                       src="@/assets/Heart hand1.png"
-                      height="80"
-                      width="80"
+                      height="100"
+                      width="100"
                       contain
                     ></v-img>
                   </v-img>
                 </v-col>
-                <v-col class="ml-n10">
+                <v-col class="ml-n15">
                   <v-img
                     src="@/assets/Rectangle 112.svg"
                     contain
-                    height="80"
-                    width="80"
+                    height="100"
+                    width="100"
                   >
                     <v-img
                       src="@/assets/watch.png"
-                      height="80"
-                      width="80"
+                      height="100"
+                      width="100"
                       contain
                     ></v-img>
                   </v-img>
@@ -74,19 +81,28 @@
             </div>
           </v-col>
 
-          <v-col cols="12" sm="6" md="3" v-if="!$vuetify.breakpoint.smAndDown">
-            <v-img src="@/assets/login-bg.svg" height="700" width="700" contain>
+          <v-col cols="12" sm="6" md="4" v-if="!$vuetify.breakpoint.smAndDown">
+            <v-img src="@/assets/login-bg.svg" height="800" width="700" contain>
               <v-img
                 src="@/assets/Mask Group 7.png"
-                height="700"
-                width="700"
+                height="900"
+                width="900"
                 contain
+                class="ml-8"
               ></v-img>
             </v-img>
           </v-col>
 
-          <v-col cols="12" sm="6" md="4" class="ml-0 ml-md-10 mb-5 mb-md-2">
-            <v-img src="@/assets/mobile-screen.svg" height="700" width="600">
+          <v-col cols="12" sm="6" md="3" class="ml-0 ml-md-15 mb-5 mb-md-2">
+            <v-img
+              src="@/assets/mobile-screen.svg"
+              style="
+                border-radius: 50px;
+                box-shadow: inset 0px 3px 99px #020203;
+              "
+              height="900"
+              width="600"
+            >
               <v-img
                 class="ml-auto mr-auto"
                 src="@/assets/acculive-main.svg"
@@ -97,36 +113,38 @@
 
               <div class="white--text">
                 <h2>Welcome Back!</h2>
-                <p class="mt-5">Login into your account</p>
+                <p class="mt-5" style="font-size: 20px">
+                  Login into your account
+                </p>
 
                 <form class="mt-4" ref="form" @submit.prevent="login">
                   <v-text-field
                     class="mt-15"
+                    dark
                     type="email"
                     v-model="email"
                     name="email"
                     placeholder="Email"
                     required
                     filled
-                    dense
                     :rules="emailRules"
-                    background-color="white"
+                    background-color="#2b2934"
                   ></v-text-field>
 
                   <v-text-field
                     class="mt-5"
+                    dark
                     :append-icon="showPassIcon ? 'mdi-eye' : 'mdi-eye-off'"
                     :type="showPassIcon ? 'text' : 'password'"
                     v-model="password"
                     name="password"
                     placeholder="Password"
                     hint="At least 6 characters"
-                    dense
                     required
                     filled
                     @click:append="showPassIcon = !showPassIcon"
                     :rules="passwordRules"
-                    background-color="white"
+                    background-color="#2b2934"
                   ></v-text-field>
 
                   <v-btn
@@ -138,7 +156,7 @@
                     >Login</v-btn
                   >
                 </form>
-                <h5 class="mt-10">
+                <h5 class="mt-16">
                   © Copyright 2022 Bacancy. All Right Reserved.
                 </h5>
               </div>
@@ -204,22 +222,19 @@ p {
 }
 h1 {
   font-size: 69px;
+  font: normal normal 900 69px/88px Gilroy;
+  text-align: left;
 }
 h2 {
   font-size: 36px;
+}
+h5 {
+  font: normal normal medium 16px/19px Gilroy;
 }
 .v-text-field {
   width: 83%;
   margin-left: auto;
   margin-right: auto;
-}
-@media all and (max-width: 600px) {
-  .second__div {
-    width: 30%;
-    align-items: flex-start;
-  }
-  .h1__div {
-    font-size: 7px;
-  }
+  font-size: 20px;
 }
 </style>

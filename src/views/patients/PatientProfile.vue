@@ -9,7 +9,10 @@
     <v-container
       fluid
       grid-list-md
-      style="background-color: rgba(0, 0, 0, 0.5)"
+      style="
+        background: rgba(0, 0, 0, 0.5) 0% 0% no-repeat padding-box;
+        border-radius: 20px;
+      "
       class="mb-4"
     >
       <v-progress-circular
@@ -27,13 +30,15 @@
                   src="@/assets/Ellipse 10.png"
                   class="ml-4"
                   contain
+                  height="120"
+                  width="120"
                 ></v-img>
               </div>
               <div class="white--text ml-5">
-                <h3>
+                <h3 style="font-size: 32px">
                   {{ getSinglePatientData[0]?.fullName }}
                 </h3>
-                <h4 class="text-start">
+                <h4 class="text-start" style="font-size: 22px">
                   + {{ getSinglePatientData[0]?.mobileNo }}
                 </h4>
               </div>
@@ -44,6 +49,8 @@
                 v-if="role === 'Doctor' || role === 'Admin'"
                 color="warning"
                 outlined
+                width="248"
+                height="53"
                 @click="
                   $router.push(`/edit-patient/${getSinglePatientData[0]?.id}`)
                 "
@@ -53,13 +60,15 @@
           </div>
         </v-flex>
 
-        <v-flex d-flex xs12 sm12 md12 class="mt-3">
+        <v-flex d-flex xs12 sm12 md12 class="mt-6 mb-2 pa-2">
           <v-card
             color="#282934"
             class="ml-2 mb-2 pa-2 white--text"
             style="width: 100%"
           >
-            <v-card-title class="warning--text text-h5"
+            <v-card-title
+              class="text-h5 font-weight-bold"
+              style="color: #f58220"
               >Patient Info</v-card-title
             >
             <v-row>
@@ -180,13 +189,15 @@
           </v-card>
         </v-flex>
 
-        <v-flex d-flex xs12 sm12 md6>
+        <v-flex d-flex xs12 sm12 md6 class="mb-2 pa-2">
           <v-card
             color="#282934"
             class="ml-2 mb-2 pa-2 white--text"
             style="width: 100%"
           >
-            <v-card-title class="warning--text text-h5"
+            <v-card-title
+              class="text-h5 font-weight-bold"
+              style="color: #f58220"
               >Emergency Contacts</v-card-title
             >
             <v-row>
@@ -207,13 +218,13 @@
                           : "NULL"
                       }}
                     </h3>
-                    <h4 class="text-start">
+                    <small class="text-start">
                       {{
                         getSinglePatientData[0]?.familyMember1Contact
                           ? getSinglePatientData[0]?.familyMember1Contact
                           : "NULL"
                       }}
-                    </h4>
+                    </small>
                   </div>
                 </div>
               </v-col>
@@ -234,13 +245,13 @@
                           : "NULL"
                       }}
                     </h3>
-                    <h4 class="text-start">
+                    <small class="text-start">
                       {{
                         getSinglePatientData[0]?.familyMember2Contact
                           ? getSinglePatientData[0]?.familyMember2Contact
                           : "NULL"
                       }}
-                    </h4>
+                    </small>
                   </div>
                 </div>
               </v-col>
@@ -248,13 +259,15 @@
           </v-card>
         </v-flex>
 
-        <v-flex d-flex xs12 sm12 md6>
+        <v-flex d-flex xs12 sm12 md6 class="mb-2 pa-2">
           <v-card
             color="#282934"
             class="ml-2 mb-2 pa-2 white--text"
             style="width: 100%"
           >
-            <v-card-title class="warning--text text-h5"
+            <v-card-title
+              class="text-h5 font-weight-bold"
+              style="color: #f58220"
               >Medical Info</v-card-title
             >
             <v-row>
@@ -367,6 +380,9 @@ export default {
 }
 small {
   color: #ababab;
-  font-size: 1rem;
+  font-size: 16px;
+}
+h3 {
+  font-size: 20px;
 }
 </style>

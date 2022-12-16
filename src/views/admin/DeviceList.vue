@@ -6,10 +6,15 @@
       @goBack="$router.go(-1)"
     />
     <br />
-    <v-container style="background-color: rgba(0, 0, 0, 0.3)" fluid>
+    <v-container
+      style="background-color: rgba(0, 0, 0, 0.5); border-radius: 20px"
+      fluid
+    >
       <v-btn
         color="warning"
-        class="text-start mr-auto"
+        height="53"
+        width="248"
+        class="text-start mr-auto mt-2 mb-2"
         v-if="role === 'Admin'"
         @click.stop="addDialog = true"
         >Add Device</v-btn
@@ -97,7 +102,7 @@
           </v-form>
         </v-card>
       </v-dialog>
-      <div class="mt-3 mb-3">
+      <div class="mt-3 mb-3 pa-2">
         <v-data-table
           item-key="name"
           class="elevation-1"
@@ -113,16 +118,18 @@
           :headers="headers"
           :items="getDevices"
           :items-per-page="5"
-          class="elevation-1"
-          height="350"
+          class="elevation-1 table"
+          height="500"
           dark
         >
           <template v-slot:[`item.actions`]="{ item }">
-            <v-icon color="info" @click="editDevice(item)"> mdi-pencil </v-icon>
+            <v-icon color="info" @click="editDevice(item)" size="28">
+              mdi-pencil
+            </v-icon>
             <v-icon
-              size="20"
+              size="26"
               color="red"
-              class="ml-3"
+              class="ml-4"
               @click="deleteSingleDevice(item.id)"
               >mdi-delete</v-icon
             >
@@ -315,5 +322,16 @@ export default {
 .v-item-group {
   display: flex;
   justify-content: space-evenly;
+}
+.table >>> th {
+  font-size: 16px !important;
+}
+.table >>> tr > td {
+  font-size: 24px !important;
+}
+.table >>> .v-data-footer__select,
+.table >>> .v-select__selection,
+.table >>> .v-data-footer__pagination {
+  font-size: 1rem;
 }
 </style>

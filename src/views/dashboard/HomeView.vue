@@ -5,7 +5,7 @@
     <v-container
       fluid
       grid-list-md
-      style="background-color: rgba(0, 0, 0, 0.5)"
+      style="background-color: rgba(0, 0, 0, 0.5); border-radius: 20px"
     >
       <v-progress-circular
         indeterminate
@@ -41,7 +41,7 @@
           >
             <v-card
               color="#2B2934"
-              class="ml-2 mb-2 pa-2 white--text"
+              class="ml-2 mb-2 pa-2 white--text main__card"
               style="width: 100%"
               @click="$router.push(`/patient-details/${patient?.id}`)"
             >
@@ -173,7 +173,7 @@
 
               <div class="mt-5 d-flex">
                 <v-card
-                  class="elevation-1"
+                  class="elevation-1 card__div"
                   height="60"
                   color="black"
                   style="width: 50%"
@@ -198,7 +198,7 @@
                 </v-card>
 
                 <v-card
-                  class="elevation-1 ml-3"
+                  class="elevation-1 ml-3 card__div"
                   color="black"
                   style="width: 50%"
                   height="60"
@@ -223,9 +223,9 @@
                 </v-card>
               </div>
 
-              <div class="mt-5 d-flex">
+              <div class="mt-5 d-flex mb-2">
                 <v-card
-                  class="elevation-1"
+                  class="elevation-1 card__div"
                   height="60"
                   color="black"
                   style="width: 50%"
@@ -252,7 +252,7 @@
                 </v-card>
 
                 <v-card
-                  class="elevation-1 ml-3"
+                  class="elevation-1 ml-3 card__div"
                   color="black"
                   style="width: 50%"
                   height="60"
@@ -343,5 +343,16 @@ small {
 }
 span {
   font-size: 16px;
+}
+.card__div {
+  /* UI Properties */
+  background-color: #2b2934;
+  box-shadow: 0px 5px 7px #00000033;
+  border: 1px solid #ffffff0d;
+  border-radius: 10px;
+  opacity: 1;
+}
+.main__card {
+  border-radius: 20px;
 }
 </style>

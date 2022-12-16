@@ -6,8 +6,11 @@
       @goBack="$router.go(-1)"
     />
     <br />
-    <v-container style="background-color: rgba(0, 0, 0, 0.3)" fluid>
-      <div class="mt-3 mb-3">
+    <v-container
+      style="background-color: rgba(0, 0, 0, 0.5); border-radius: 20px"
+      fluid
+    >
+      <div class="mt-3 mb-3 pa-2">
         <v-data-table
           item-key="name"
           class="elevation-1"
@@ -23,7 +26,7 @@
           :headers="headers"
           :items="getPatients"
           :items-per-page="5"
-          class="elevation-1"
+          class="elevation-1 table"
           height="350"
           dark
         >
@@ -74,5 +77,19 @@ export default {
 .v-item-group {
   display: flex;
   justify-content: space-evenly;
+}
+.table >>> th {
+  font-size: 16px !important;
+}
+.table >>> tr > td {
+  font-size: 20px !important;
+}
+.table >>> tr {
+  margin-top: 30px !important;
+}
+.table >>> .v-data-footer__select,
+.table >>> .v-select__selection,
+.table >>> .v-data-footer__pagination {
+  font-size: 1rem;
 }
 </style>

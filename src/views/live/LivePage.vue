@@ -9,7 +9,7 @@
     <v-container
       fluid
       grid-list-md
-      style="background-color: rgba(0, 0, 0, 0.5)"
+      style="background-color: rgba(0, 0, 0, 0.5); border-radius: 20px"
       class="mb-4"
     >
       <div class="white--text d-flex ml-5" v-if="mobile">
@@ -25,20 +25,26 @@
         >
       </div>
 
-      <v-layout row wrap>
+      <v-layout row wrap class="mt-4">
         <v-flex d-flex xs12 sm12 md6 v-for="i in 4" :key="i" :class="showGrid">
           <v-card
             color="#282934"
             class="ml-2 mt-2 mb-2 pa-2 white--text"
-            style="width: 100%"
+            style="width: 100%; border-radius: 20px"
             @click.stop="openDialog(i)"
           >
             <div class="d-flex align-center">
               <div class="d-flex flex-column text-start">
-                <h3 class="ml-5">John Doe</h3>
-                <h5 class="ml-5 mt-2 grey--text">Floor No.</h5>
-                <h5 class="ml-5 mt-2 grey--text">Room No.</h5>
-                <h5 class="ml-5 mt-2 grey--text">Mac Address</h5>
+                <h3 class="ml-5" style="font-size: 20px">John Doe</h3>
+                <h5 class="ml-5 mt-2 grey--text" style="font-size: 16px">
+                  Floor No.
+                </h5>
+                <h5 class="ml-5 mt-2 grey--text" style="font-size: 16px">
+                  Room No.
+                </h5>
+                <h5 class="ml-5 mt-2 grey--text" style="font-size: 16px">
+                  Mac Address
+                </h5>
               </div>
               <v-spacer></v-spacer>
               <div style="width: 70%" class="mr-3">
@@ -47,7 +53,7 @@
             </div>
 
             <div class="d-flex mt-3">
-              <v-card color="black" width="50%" height="60">
+              <v-card color="black" width="50%" height="70">
                 <div class="d-flex align-center">
                   <v-flex>
                     <v-img
@@ -67,7 +73,7 @@
                 </div>
               </v-card>
 
-              <v-card color="black" width="50%" height="60" class="ml-2">
+              <v-card color="black" width="50%" height="70" class="ml-2">
                 <div class="d-flex align-center">
                   <v-flex>
                     <v-img
@@ -97,13 +103,15 @@
           >
             <v-card>
               <v-card-title>
-                <span class="text-h5 ml-3">Patient Name - {{ i }}</span>
+                <span class="text-h5 ml-3 font-weight-bold"
+                  >Patient Name - {{ i }}</span
+                >
               </v-card-title>
 
               <v-container>
                 <v-row>
                   <v-col cols="12" sm="4" md="4">
-                    <v-card color="black" width="100%" height="60">
+                    <v-card color="black" width="100%" height="65">
                       <div class="d-flex align-center mt-1">
                         <v-flex>
                           <v-img
@@ -125,7 +133,7 @@
                   </v-col>
 
                   <v-col cols="12" sm="4" md="4">
-                    <v-card color="black" width="100%" height="60">
+                    <v-card color="black" width="100%" height="65">
                       <div class="d-flex align-center mt-1">
                         <v-flex>
                           <v-img
@@ -147,7 +155,7 @@
                   </v-col>
 
                   <v-col cols="12" sm="4" md="4">
-                    <v-card color="black" width="100%" height="60">
+                    <v-card color="black" width="100%" height="65">
                       <div class="d-flex align-center mt-1">
                         <v-flex>
                           <v-img
@@ -171,7 +179,7 @@
 
                 <v-row class="mt-0 mt-sm-0 mt-md-3">
                   <v-col cols="12" sm="6" md="3" class="mt-2 mt-sm-3 mt-md-0">
-                    <v-card color="black" width="100%" height="60">
+                    <v-card color="black" width="100%" height="65">
                       <div class="d-flex align-center mt-1">
                         <v-flex>
                           <v-img
@@ -193,7 +201,7 @@
                   </v-col>
 
                   <v-col cols="12" sm="6" md="3" class="mt-sm-3 mt-md-0">
-                    <v-card color="black" width="100%" height="60">
+                    <v-card color="black" width="100%" height="65">
                       <div class="d-flex align-center mt-1">
                         <v-flex>
                           <v-img
@@ -215,7 +223,7 @@
                   </v-col>
 
                   <v-col cols="12" sm="6" md="3" class="mt-sm-n1 mt-0 mt-md-0">
-                    <v-card color="black" width="100%" height="60">
+                    <v-card color="black" width="100%" height="65">
                       <div class="d-flex align-center mt-1">
                         <v-flex>
                           <v-img
@@ -237,7 +245,7 @@
                   </v-col>
 
                   <v-col cols="12" sm="6" md="3" class="mt-sm-n1 mt-0 mt-md-0">
-                    <v-card color="black" width="100%" height="60">
+                    <v-card color="black" width="100%" height="65">
                       <div class="d-flex align-center mt-1">
                         <v-flex>
                           <v-img
@@ -311,4 +319,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+h5 {
+  font-size: 20px;
+}
+</style>

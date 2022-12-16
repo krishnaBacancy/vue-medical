@@ -6,7 +6,6 @@
   >
     <v-layout row wrap>
       <v-flex d-flex xs12 sm12 md12>
-        <v-card></v-card>
         <v-icon class="white--text ml-4" @click="$emit('goBack')">{{
           pageIcon
         }}</v-icon>
@@ -45,5 +44,6 @@ export default {
 <style scoped>
 .main__container {
   font-family: "Gilroy";
+  border-radius: 20px;
 }
 </style>
