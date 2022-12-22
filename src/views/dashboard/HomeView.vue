@@ -83,6 +83,7 @@
                     width="29"
                     height="29"
                     contain
+                    class="icon__image"
                   ></v-img>
                   <span style="color: orange" class="ml-2">Floor - 1 </span>
                 </div>
@@ -92,6 +93,7 @@
                     src="@/assets/rooms.svg"
                     width="29"
                     height="29"
+                    class="icon__image"
                   ></v-img>
                   <span style="color: orange" class="ml-2">Room - 1 </span>
                 </div>
@@ -103,6 +105,7 @@
                     src="@/assets/macAddress.svg"
                     width="29"
                     height="29"
+                    class="icon__image"
                   ></v-img>
                   <span class="ml-2">{{
                     patient?.macAddressFramed.toUpperCase()
@@ -114,6 +117,7 @@
                     src="@/assets/battery.svg"
                     width="29"
                     height="29"
+                    class="icon__image"
                   ></v-img>
                   <span class="ml-2">114Hrs 45 Min</span>
                 </div>
@@ -354,5 +358,20 @@ span {
 }
 .main__card {
   border-radius: 20px;
+}
+@media only screen and (max-width: 420px) {
+  span {
+    font-size: 13px;
+  }
+  .icon__image {
+    height: 20px;
+    width: 20px;
+  }
+}
+
+@media only screen and (max-width: 790px) and (min-width: 600px) {
+  span {
+    font-size: 13px;
+  }
 }
 </style>

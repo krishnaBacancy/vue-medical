@@ -15,7 +15,7 @@
       width="10%"
       dark
       :style="{
-        width: $vuetify.breakpoint.smAndDown ? '30%' : '7%',
+        width: $vuetify.breakpoint.smAndDown ? '30%' : '8%',
         backgroundColor: $vuetify.breakpoint.smAndDown
           ? 'rgba(0,0,0,0.8)'
           : 'rgba(0,0,0,0.3)',

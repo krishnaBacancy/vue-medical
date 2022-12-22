@@ -84,7 +84,7 @@
           </v-card>
         </v-flex>
 
-        <v-flex d-flex xs12 sm12 md6 class="mt-2">
+        <v-flex d-flex xs12 sm12 md6 class="mt-2 mb-4">
           <v-card
             color="rgba(0, 0, 0, 0.5)"
             class="ml-2 mr-2 mb-2 pa-2 white--text"
@@ -147,7 +147,7 @@
           </v-card>
         </v-flex>
 
-        <v-flex d-flex xs12 sm12 md6 class="mt-2">
+        <v-flex d-flex xs12 sm12 md6 class="mt-2 mb-4">
           <v-card
             color="rgba(0, 0, 0, 0.5)"
             class="ml-2 mr-2 mb-5 mb-md-0 pa-2 white--text"

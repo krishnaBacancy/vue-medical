@@ -223,7 +223,7 @@
                 color="#282934"
                 dark
                 class="ml-2 mb-2 pa-2"
-                style="width: 100%"
+                style="width: 98%"
               >
                 <div class="d-flex align-center">
                   <h3>ECG</h3>
@@ -235,12 +235,17 @@
                 </div>
                 <div class="d-flex align-start mt-2">
                   <div class="grid-container">
-                    <!-- <LineChart :key="showEcgChart" :width="834.24" :height="199.53" /> -->
-                    <ApexLineChart
-                      :ecgChartData="ecgChartData"
+                    <LineChart
+                      :key="showEcgChart"
                       :width="834.24"
                       :height="299.53"
                     />
+                    <!-- <ApexLineChart
+                      :ecgChartData="ecgChartData"
+                      :width="834.24"
+                      :height="299.53"
+                    /> -->
+                    <!-- <TestHighChart /> -->
                   </div>
                 </div>
               </v-card>
@@ -250,7 +255,7 @@
                 dark
                 color="#282934"
                 class="ml-2 mr-2 mb-2 pa-2"
-                style="width: 100%"
+                style="width: 98%"
               >
                 <div class="d-flex">
                   <h3>PPG</h3>
@@ -1084,21 +1089,23 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import mqtt from "mqtt/dist/mqtt";
-// import LineChart from "../../components/LineChart.vue";
+import LineChart from "../../components/LineChart.vue";
 import RealTimeChart from "@/components/RealTimeChart.vue";
 import PageHeader from "@/layouts/PageHeader.vue";
 import TestChart from "@/components/TestChart.vue";
 import ApexAreaChart from "@/components/ApexAreaChart.vue";
-import ApexLineChart from "@/components/ApexLineChart.vue";
+// import ApexLineChart from "@/components/ApexLineChart.vue";
+// import TestHighChart from "@/components/TestHighChart.vue";
 export default {
   name: "PatientDetails",
   components: {
-    // LineChart,
+    LineChart,
     RealTimeChart,
     PageHeader,
     TestChart,
     ApexAreaChart,
-    ApexLineChart,
+    // ApexLineChart,
+    // TestHighChart,
   },
   data() {
     return {

@@ -35,14 +35,10 @@
           >
             <div class="d-flex align-center">
               <div class="d-flex flex-column text-start">
-                <h3 class="ml-5" style="font-size: 20px">John Doe</h3>
-                <h5 class="ml-5 mt-2 grey--text" style="font-size: 16px">
-                  Floor No.
-                </h5>
-                <h5 class="ml-5 mt-2 grey--text" style="font-size: 16px">
-                  Room No.
-                </h5>
-                <h5 class="ml-5 mt-2 grey--text" style="font-size: 16px">
+                <h3 class="ml-5">John Doe</h3>
+                <h5 class="ml-5 mt-2 grey--text second__heading">Floor No.</h5>
+                <h5 class="ml-5 mt-2 grey--text second__heading">Room No.</h5>
+                <h5 class="ml-5 mt-2 grey--text second__heading">
                   Mac Address
                 </h5>
               </div>
@@ -480,5 +476,19 @@ export default {
 <style scoped>
 h5 {
   font-size: 20px;
+}
+h3 {
+  font-size: 20px;
+}
+.second__heading {
+  font-size: 18px;
+}
+@media only screen and (max-width: 530px) {
+  h3 {
+    font-size: 18px;
+  }
+  .second__heading {
+    font-size: 16px;
+  }
 }
 </style>
