@@ -19,6 +19,22 @@
         @click.stop="addDialog = true"
         >Add Device</v-btn
       >
+      <v-btn
+        color="warning"
+        height="53"
+        width="248"
+        class="text-start mr-auto ml-10 mt-2 mb-2"
+        v-if="role === 'Admin'"
+        @click="toggleSelect = !toggleSelect"
+        >Assign to Doctor</v-btn
+      >
+      <v-select
+        :items="allHeaders"
+        multiple
+        v-if="toggleSelect"
+        v-model="selectedHeaders"
+        :menu-props="{ value: toggleSelect }"
+      ></v-select>
       <v-dialog
         transition="dialog-top-transition"
         max-width="600"
@@ -121,6 +137,8 @@
           class="elevation-1 table"
           height="500"
           dark
+          show-select
+          v-model="selected"
         >
           <template v-slot:[`item.actions`]="{ item }">
             <v-icon color="info" @click="editDevice(item)" size="28">
@@ -224,6 +242,19 @@ export default {
       nameRules: [(v) => !!v || "Device name is required"],
       macAddressRules: [(v) => !!v || "Macaddress is required"],
       dialogDelete: false,
+      allHeaders: [
+        {
+          text: "Dessert (100g serving)",
+          align: "start",
+          sortable: false,
+          value: "name",
+        },
+        { text: "Calories", value: "calories" },
+        { text: "Fat (g)", value: "fat" },
+      ],
+      toggleSelect: false,
+      selectedHeaders: [],
+      selected: [],
     };
   },
   computed: {
@@ -291,7 +322,7 @@ export default {
     async save() {
       if (this.editedIndex > -1) {
         const res = await axios.put(
-          `http://194.233.69.96:8989/api/v1/devices/updatesingledevicedetails?deviceId=${this.itemId}`,
+          `https://api.accu.live/api/v1/devices/updatesingledevicedetails?deviceId=${this.itemId}`,
           this.editedItem
         );
         if (res.status === 200) {
@@ -309,6 +340,12 @@ export default {
     },
     editedItem() {
       this.getAllDevices();
+    },
+    selectedHeaders(val) {
+      console.log("val--", val);
+    },
+    selected(val) {
+      console.log("value--", val);
     },
   },
   mounted() {

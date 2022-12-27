@@ -388,7 +388,7 @@ export default {
       this.$refs.form.validate();
       if (this.valid) {
         const res = await axios.patch(
-          `http://194.233.69.96:8989/api/v1/users/updateuser/${this.user.userId}`,
+          `https://api.accu.live/api/v1/users/updateuser/${this.user.userId}`,
           this.user
         );
         if (res.status === 200) {
