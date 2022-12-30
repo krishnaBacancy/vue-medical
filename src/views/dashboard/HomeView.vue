@@ -88,7 +88,7 @@
                   <span style="color: orange" class="ml-2">Floor - 1 </span>
                 </div>
                 <v-spacer></v-spacer>
-                <div class="d-flex mr-16 justify-center align-center">
+                <div class="d-flex mr-11 justify-center align-center">
                   <v-img
                     src="@/assets/rooms.svg"
                     width="29"
@@ -112,7 +112,7 @@
                   }}</span>
                 </div>
                 <v-spacer></v-spacer>
-                <div class="d-flex mr-8 justify-center align-center">
+                <div class="d-flex mr-4 justify-center align-center">
                   <v-img
                     src="@/assets/battery.svg"
                     width="29"
@@ -346,7 +346,7 @@ small {
   font-size: 10px;
 }
 span {
-  font-size: 16px;
+  font-size: 14px;
 }
 .card__div {
   /* UI Properties */
