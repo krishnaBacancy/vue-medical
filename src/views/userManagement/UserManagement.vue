@@ -11,6 +11,23 @@
       fluid
     >
       <div class="mt-3 mb-3 pa-2">
+        <v-btn
+          color="warning"
+          height="53"
+          width="248"
+          class="text-start mr-auto mb-5"
+          v-if="role === 'Doctor'"
+          @click="assignDeviceToPatient"
+          >Assign to Patient</v-btn
+        >
+        <v-select
+          :items="getAllPatientsNameOnly"
+          v-if="toggleSelect"
+          v-model="selectedHeaders"
+          :menu-props="{ value: toggleSelect }"
+          @change="getSelectedValue"
+          return-object
+        ></v-select>
         <v-data-table
           item-key="name"
           class="elevation-1"
@@ -27,6 +44,8 @@
           :items="getPatients"
           :items-per-page="5"
           class="elevation-1 table"
+          show-select
+          v-model="selected"
           :height="$vuetify.breakpoint.smAndDown ? '600' : '350'"
           dark
         >
@@ -45,6 +64,10 @@ export default {
     return {
       icon: "justify",
       getDoctorId: localStorage.getItem("user_id"),
+      role: localStorage.getItem("role"),
+      toggleSelect: false,
+      selectedHeaders: [],
+      selected: [],
       headers: [
         {
           text: "DeviceName",
@@ -61,10 +84,31 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("doctors", ["getPatients", "loadingStatus"]),
+    ...mapGetters("doctors", [
+      "getPatients",
+      "getAllPatientsNameOnly",
+      "loadingStatus",
+    ]),
+    getSelectedValue() {
+      console.log("selected--", this.selectedHeaders);
+      return this.selectedHeaders;
+    },
   },
   methods: {
-    ...mapActions("doctors", ["getPatientsForDoctor"]),
+    ...mapActions("doctors", ["getPatientsForDoctor", "getAllPatientsData"]),
+    assignDeviceToPatient() {
+      this.toggleSelect = !this.toggleSelect;
+      this.getAllPatientsData(this.getDoctorId);
+      // if (this.selectedHeaders.length) {
+      //   this.toggleSelect = false;
+      // }
+      // console.log("header--", this.selectedHeaders);
+    },
+  },
+  watch: {
+    selected(val) {
+      console.log("val--", val);
+    },
   },
   mounted() {
     this.getPatientsForDoctor(this.getDoctorId);

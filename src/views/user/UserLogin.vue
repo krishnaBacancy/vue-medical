@@ -218,11 +218,11 @@ export default {
 
 <style scoped>
 p {
-  font-size: 18px;
+  font-size: 16px;
 }
 h1 {
   font-size: 69px;
-  font: normal normal 900 69px/88px Gilroy;
+  font: normal normal 900 60px/88px Gilroy;
   text-align: left;
 }
 h2 {

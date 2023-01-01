@@ -25,12 +25,11 @@
         width="248"
         class="text-start mr-auto ml-10 mt-2 mb-2"
         v-if="role === 'Admin'"
-        @click="toggleSelect = !toggleSelect"
+        @click="assignDeviceToDoctor"
         >Assign to Doctor</v-btn
       >
       <v-select
-        :items="allHeaders"
-        multiple
+        :items="getAllDoctorsNamesOnly"
         v-if="toggleSelect"
         v-model="selectedHeaders"
         :menu-props="{ value: toggleSelect }"
@@ -242,16 +241,6 @@ export default {
       nameRules: [(v) => !!v || "Device name is required"],
       macAddressRules: [(v) => !!v || "Macaddress is required"],
       dialogDelete: false,
-      allHeaders: [
-        {
-          text: "Dessert (100g serving)",
-          align: "start",
-          sortable: false,
-          value: "name",
-        },
-        { text: "Calories", value: "calories" },
-        { text: "Fat (g)", value: "fat" },
-      ],
       toggleSelect: false,
       selectedHeaders: [],
       selected: [],
@@ -259,13 +248,16 @@ export default {
   },
   computed: {
     ...mapGetters("devices", ["getDevices", "loadingStatus"]),
+    ...mapGetters("doctors", ["getAllDoctorsNamesOnly"]),
   },
   methods: {
     ...mapActions("devices", [
       "getAllDevices",
       "deleteDevice",
       "addDeviceData",
+      "assignDeviceData",
     ]),
+    ...mapActions("doctors", ["getAllPatientsData"]),
     addDevice() {
       const data = {
         name: this.device.name,
@@ -333,6 +325,20 @@ export default {
       }
       this.close();
     },
+    assignDeviceToDoctor() {
+      this.toggleSelect = !this.toggleSelect;
+      this.getAllPatientsData(this.getDoctorId);
+      console.log("value--", this.selectedHeaders);
+      let macAddress = this.selected.map((data) => data.macAddressFramed);
+      let data = {
+        devices: macAddress,
+        doctorId: this.getDoctorId,
+      };
+      if (this.selectedHeaders !== null) {
+        this.assignDeviceData(data);
+        // this.toggleSelect = false;
+      }
+    },
   },
   watch: {
     dialog(val) {
@@ -350,6 +356,7 @@ export default {
   },
   mounted() {
     this.getAllDevices();
+    this.getAllPatientsData(this.getDoctorId);
   },
   components: { PageHeader, ConfirmDialog },
 };

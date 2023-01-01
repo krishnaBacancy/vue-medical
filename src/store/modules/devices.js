@@ -3,6 +3,7 @@ import devices from "@/api/devices";
 const state = {
   devices: [],
   isLoading: false,
+  assignDevices: [],
 };
 
 const getters = {
@@ -11,6 +12,9 @@ const getters = {
   },
   getDevices(state) {
     return state?.devices;
+  },
+  getAssignDevices(state) {
+    return state?.assignDevices;
   },
 };
 
@@ -42,6 +46,10 @@ const mutations = {
     let newData = state.devices.filter((data) => data.id !== deviceId);
     state.devices = newData;
   },
+  SET_ASSIGN_DEVICES(state, devices) {
+    console.log("data--", devices);
+    state.assignDevices = devices;
+  },
 };
 
 const actions = {
@@ -65,6 +73,10 @@ const actions = {
       commit("SET_ALL_DEVICES", res.data.data);
     }
     commit("SET_LOADING_STATUS", false);
+  },
+  async assignDeviceData(_, payload) {
+    const res = await devices.checkDeviceAssignToDoctor(payload);
+    console.log("res--", res.data);
   },
 };
 
