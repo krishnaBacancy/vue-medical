@@ -280,7 +280,7 @@
           <br />
 
           <v-layout row wrap>
-            <v-flex d-flex xs12 sm6 md3>
+            <v-flex d-flex xs12 sm6 md6>
               <v-card
                 color="#282934"
                 dark
@@ -321,11 +321,11 @@
                 </div>
               </v-card>
             </v-flex>
-            <v-flex d-flex xs12 sm6 md3>
+            <v-flex d-flex xs12 sm6 md6>
               <v-card
                 color="#282934"
                 dark
-                class="ml-2 mr-2 mr-md-0 mb-2 pa-2"
+                class="ml-2 mr-2 mb-2 pa-2"
                 style="width: 100%"
               >
                 <div class="d-flex text-start">
@@ -366,7 +366,10 @@
                 </div>
               </v-card>
             </v-flex>
-            <v-flex d-flex xs12 sm6 md3>
+          </v-layout>
+
+          <v-layout row wrap>
+            <v-flex d-flex xs12 sm6 md6>
               <v-card
                 color="#282934"
                 dark
@@ -405,7 +408,7 @@
                 </div>
               </v-card>
             </v-flex>
-            <v-flex d-flex xs12 sm6 md3>
+            <v-flex d-flex xs12 sm6 md6>
               <v-card
                 color="#282934"
                 dark
@@ -1122,10 +1125,11 @@ export default {
       endDateValue: null,
       tempStartTime: null,
       startTime: null,
-      showEcgChart: true,
-      showPpgChart: true,
+      showEcgChart: false,
+      showPpgChart: false,
       connection: {
-        protocol: "mqtt",
+        // protocol: "mqtt",
+        protocol: "wss",
         host: "194.233.69.96",
         port: 15675,
         endpoint: "ws",
@@ -1309,6 +1313,7 @@ export default {
         const { protocol, host, port, endpoint, ...options } = this.connection;
         const connectUrl = `${protocol}://${host}:${port}/${endpoint}`;
         this.client = mqtt.connect(connectUrl, options);
+        console.log("url--", connectUrl);
         if (this.client.on) {
           this.client.on("connect", () => {
             this.connecting = false;
