@@ -25,14 +25,33 @@
         width="248"
         class="text-start mr-auto ml-10 mt-2 mb-2"
         v-if="role === 'Admin'"
-        @click="assignDeviceToDoctor"
+        @click="assignDevicesToDoctor"
         >Assign to Doctor</v-btn
+      >
+      <v-btn
+        color="warning"
+        height="53"
+        width="248"
+        class="text-start mr-auto ml-10 mt-2 mb-2"
+        v-if="role === 'Admin'"
+        @click="assignDevicesToPatient"
+        >Assign to Customer</v-btn
       >
       <v-select
         :items="getAllDoctorsNamesOnly"
         v-if="toggleSelect"
         v-model="selectedHeaders"
         :menu-props="{ value: toggleSelect }"
+        @change="getSelectedValue"
+        return-object
+      ></v-select>
+      <v-select
+        :items="getAllPatientsNameOnly"
+        v-if="toggleSelectPatient"
+        v-model="selectedHeadersPatient"
+        :menu-props="{ value: toggleSelectPatient }"
+        @change="getSelectedValuePatient"
+        return-object
       ></v-select>
       <v-dialog
         transition="dialog-top-transition"
@@ -193,6 +212,7 @@
         </v-dialog>
       </div>
       <ConfirmDialog ref="confirm" />
+      <device-assign-dialog ref="assign" />
     </v-container>
   </div>
 </template>
@@ -202,6 +222,7 @@ import ConfirmDialog from "@/components/ConfirmDialog.vue";
 import PageHeader from "@/layouts/PageHeader.vue";
 import axios from "axios";
 import { mapActions, mapGetters } from "vuex";
+import DeviceAssignDialog from "@/components/DeviceAssignDialog.vue";
 
 export default {
   data() {
@@ -242,20 +263,28 @@ export default {
       macAddressRules: [(v) => !!v || "Macaddress is required"],
       dialogDelete: false,
       toggleSelect: false,
-      selectedHeaders: [],
+      selectedHeaders: "",
       selected: [],
+      toggleSelectPatient: false,
+      selectedHeadersPatient: "",
     };
   },
   computed: {
     ...mapGetters("devices", ["getDevices", "loadingStatus"]),
-    ...mapGetters("doctors", ["getAllDoctorsNamesOnly"]),
+    ...mapGetters("doctors", [
+      "getAllDoctorsNamesOnly",
+      "getAllPatientsNameOnly",
+    ]),
   },
   methods: {
     ...mapActions("devices", [
       "getAllDevices",
       "deleteDevice",
       "addDeviceData",
-      "assignDeviceData",
+      "checkAssignDevicesToDoctor",
+      "assignDeviceToDoctor",
+      "checkAssignDevicesToPatient",
+      "assignDeviceToPatient",
     ]),
     ...mapActions("doctors", ["getAllPatientsData"]),
     addDevice() {
@@ -325,40 +354,76 @@ export default {
       }
       this.close();
     },
-    assignDeviceToDoctor() {
-      this.toggleSelect = !this.toggleSelect;
-      this.getAllPatientsData(this.getDoctorId);
-      console.log("value--", this.selectedHeaders);
+    assignDevicesToDoctor() {
+      if (this.selected.length > 0) {
+        this.getAllPatientsData(this.getDoctorId);
+        this.toggleSelect = true;
+      } else {
+        this.$toast.error(
+          "You must select atleast one device to assign.",
+          3000
+        );
+      }
+    },
+    assignDevicesToPatient() {
+      if (this.selected.length > 0) {
+        this.getAllPatientsData(this.getDoctorId);
+        this.toggleSelectPatient = true;
+      } else {
+        this.$toast.error(
+          "You must select atleast one device to assign.",
+          3000
+        );
+      }
+    },
+    async getSelectedValue() {
       let macAddress = this.selected.map((data) => data.macAddressFramed);
       let data = {
         devices: macAddress,
         doctorId: this.getDoctorId,
       };
       if (this.selectedHeaders !== null) {
-        this.assignDeviceData(data);
-        // this.toggleSelect = false;
+        this.checkAssignDevicesToDoctor(data);
+        if (
+          await this.$refs.assign.open(
+            "Some of device are already assigned to doctor. Do You wish to continue?"
+          )
+        ) {
+          this.assignDeviceToDoctor(data);
+          this.selected = [];
+          this.$toast.success("Devices assigned to Doctor successfully.");
+        }
       }
+      this.selectedHeaders = "";
+      this.toggleSelect = false;
     },
-  },
-  watch: {
-    dialog(val) {
-      val || this.close();
-    },
-    editedItem() {
-      this.getAllDevices();
-    },
-    selectedHeaders(val) {
-      console.log("val--", val);
-    },
-    selected(val) {
-      console.log("value--", val);
+    async getSelectedValuePatient() {
+      let macAddress = this.selected.map((data) => data.macAddressFramed);
+      let data = {
+        devices: macAddress,
+        doctorId: this.getDoctorId,
+      };
+      if (this.selectedHeadersPatient !== null) {
+        this.checkAssignDevicesToPatient(data);
+        if (
+          await this.$refs.assign.open(
+            "Some of device are already assigned to customer. Do You wish to continue?"
+          )
+        ) {
+          this.assignDeviceToPatient(data);
+          this.selected = [];
+          this.$toast.success("Devices assigned to Patient successfully.");
+        }
+      }
+      this.selectedHeadersPatient = "";
+      this.toggleSelectPatient = false;
     },
   },
   mounted() {
     this.getAllDevices();
     this.getAllPatientsData(this.getDoctorId);
   },
-  components: { PageHeader, ConfirmDialog },
+  components: { PageHeader, ConfirmDialog, DeviceAssignDialog },
 };
 </script>
 

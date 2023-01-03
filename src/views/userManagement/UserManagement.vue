@@ -17,9 +17,9 @@
           width="248"
           class="text-start mr-auto mb-5"
           v-if="role === 'Doctor'"
-          @click="assignDeviceToPatient"
-          >Assign to Patient</v-btn
-        >
+          @click="assignDevicesToPatient"
+          >Assign to Patient
+        </v-btn>
         <v-select
           :items="getAllPatientsNameOnly"
           v-if="toggleSelect"
@@ -51,11 +51,14 @@
         >
         </v-data-table>
       </div>
+
+      <DeviceAssignDialog ref="assign" />
     </v-container>
   </div>
 </template>
 
 <script>
+import DeviceAssignDialog from "@/components/DeviceAssignDialog.vue";
 import PageHeader from "@/layouts/PageHeader.vue";
 import { mapActions, mapGetters } from "vuex";
 
@@ -66,7 +69,7 @@ export default {
       getDoctorId: localStorage.getItem("user_id"),
       role: localStorage.getItem("role"),
       toggleSelect: false,
-      selectedHeaders: [],
+      selectedHeaders: "",
       selected: [],
       headers: [
         {
@@ -89,31 +92,50 @@ export default {
       "getAllPatientsNameOnly",
       "loadingStatus",
     ]),
-    getSelectedValue() {
-      console.log("selected--", this.selectedHeaders);
-      return this.selectedHeaders;
-    },
   },
   methods: {
     ...mapActions("doctors", ["getPatientsForDoctor", "getAllPatientsData"]),
-    assignDeviceToPatient() {
-      this.toggleSelect = !this.toggleSelect;
-      this.getAllPatientsData(this.getDoctorId);
-      // if (this.selectedHeaders.length) {
-      //   this.toggleSelect = false;
-      // }
-      // console.log("header--", this.selectedHeaders);
+    ...mapActions("devices", [
+      "checkAssignDevicesToPatient",
+      "assignDeviceToPatient",
+    ]),
+    assignDevicesToPatient() {
+      if (this.selected.length > 0) {
+        this.getAllPatientsData(this.getDoctorId);
+        this.toggleSelect = true;
+      } else {
+        this.$toast.error(
+          "You must select atleast one device to assign.",
+          3000
+        );
+      }
     },
-  },
-  watch: {
-    selected(val) {
-      console.log("val--", val);
+    async getSelectedValue() {
+      let macAddress = this.selected.map((data) => data.macAddressFramed);
+      let data = {
+        devices: macAddress,
+        doctorId: this.getDoctorId,
+      };
+      if (this.selectedHeaders !== null) {
+        this.checkAssignDevicesToPatient(data);
+        if (
+          await this.$refs.assign.open(
+            "Some of device are already assigned to customer. Do You wish to continue?"
+          )
+        ) {
+          this.assignDeviceToPatient(data);
+          this.selected = [];
+          this.$toast.success("Devices assigned to customer successfully.");
+        }
+      }
+      this.selectedHeaders = "";
+      this.toggleSelect = false;
     },
   },
   mounted() {
     this.getPatientsForDoctor(this.getDoctorId);
   },
-  components: { PageHeader },
+  components: { PageHeader, DeviceAssignDialog },
 };
 </script>
 

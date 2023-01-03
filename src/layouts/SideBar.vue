@@ -15,7 +15,7 @@
       width="10%"
       dark
       :style="{
-        width: $vuetify.breakpoint.smAndDown ? '30%' : '8%',
+        width: $vuetify.breakpoint.smAndDown ? '30%' : '7%',
         backgroundColor: $vuetify.breakpoint.smAndDown
           ? 'rgba(0,0,0,0.8)'
           : 'rgba(0,0,0,0.3)',
@@ -59,7 +59,8 @@
                 to="/patients"
                 class="d-flex flex-column text-center justify-center align-center"
               >
-                <v-img src="@/assets/patients.svg" class="icon__color"></v-img>
+                <!-- <v-img src="@/assets/patients.svg" class="icon__color"></v-img> -->
+                <v-icon class="icon__color">mdi-account</v-icon>
                 <span>Patients</span>
               </router-link>
             </li>

@@ -3,7 +3,8 @@ import devices from "@/api/devices";
 const state = {
   devices: [],
   isLoading: false,
-  assignDevices: [],
+  assignDevicesOfDoctor: [],
+  assignDevicesOfPatient: [],
 };
 
 const getters = {
@@ -13,8 +14,11 @@ const getters = {
   getDevices(state) {
     return state?.devices;
   },
-  getAssignDevices(state) {
-    return state?.assignDevices;
+  getAssignDevicesOfDoctor(state) {
+    return state?.assignDevicesOfDoctor;
+  },
+  getAssignDevicesOfPatient(state) {
+    return state?.assignDevicesOfPatient;
   },
 };
 
@@ -46,9 +50,13 @@ const mutations = {
     let newData = state.devices.filter((data) => data.id !== deviceId);
     state.devices = newData;
   },
-  SET_ASSIGN_DEVICES(state, devices) {
-    console.log("data--", devices);
-    state.assignDevices = devices;
+  SET_ASSIGN_DEVICES_DOCTOR(state, devices) {
+    console.log("data doctor--", devices);
+    state.assignDevicesOfDoctor = devices;
+  },
+  SET_ASSIGN_DEVICES_PATIENT(state, devices) {
+    console.log("data patient", devices);
+    state.assignDevicesOfPatient = devices;
   },
 };
 
@@ -74,9 +82,23 @@ const actions = {
     }
     commit("SET_LOADING_STATUS", false);
   },
-  async assignDeviceData(_, payload) {
+  async checkAssignDevicesToDoctor({ commit }, payload) {
     const res = await devices.checkDeviceAssignToDoctor(payload);
     console.log("res--", res.data);
+    commit("SET_ASSIGN_DEVICES_DOCTOR", res.data.data);
+  },
+  async assignDeviceToDoctor(_, payload) {
+    const res = await devices.deviceAssignToDoctor(payload);
+    console.log("doctor--", res.data);
+  },
+  async checkAssignDevicesToPatient({ commit }, payload) {
+    const res = await devices.checkDeviceAssignToCustomer(payload);
+    console.log("res--", res.data.data);
+    commit("SET_ASSIGN_DEVICES_PATIENT", res.data.data);
+  },
+  async assignDeviceToPatient(_, payload) {
+    const res = await devices.deviceAssignToCustomer(payload);
+    console.log("assign--", res.data);
   },
 };
 

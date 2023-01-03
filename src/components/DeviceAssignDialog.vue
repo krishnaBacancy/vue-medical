@@ -2,8 +2,7 @@
   <div>
     <v-dialog
       v-model="dialog"
-      :width="$vuetify.breakpoint.smAndUp ? '500px' : '400px'"
-      height="500px"
+      :width="$vuetify.breakpoint.smAndUp ? '750px' : '400px'"
       :max-width="options.width"
       :style="{ zIndex: options.zIndex }"
       @keydown.esc="cancel"
@@ -27,7 +26,7 @@
             Cancel
           </v-btn>
           <v-btn color="blue darken-1" text @click.native="agree">
-            Delete
+            Assign
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -37,7 +36,7 @@
 
 <script>
 export default {
-  name: "ConfirmDialog",
+  name: "DeviceAssignDialog",
   data() {
     return {
       dialog: false,
