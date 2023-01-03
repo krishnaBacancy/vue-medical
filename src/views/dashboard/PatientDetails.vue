@@ -1128,11 +1128,13 @@ export default {
       showEcgChart: false,
       showPpgChart: false,
       connection: {
-        // protocol: "mqtt",
-        protocol: "wss",
+        protocol: "mqtts",
+        // protocol: "wss",
         host: "194.233.69.96",
         port: 15675,
+        // port: 8084,
         endpoint: "ws",
+        // endpoint: "mqtt",
         clean: true,
         connectTimeout: 30 * 1000,
         reconnectTimeout: 4000,
@@ -1140,6 +1142,7 @@ export default {
         clientId: "lens_3DtlcZfxvR0idKzXQ90Vzm69vAM",
         username: "MYsmO5Oc7O6DKkS8",
         password: "ufUPnVWbLoMwwFaL",
+        useSSL: true,
         // options: {
         //   // clean: true,
         //   connectTimeout: 4000,
