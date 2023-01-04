@@ -1132,8 +1132,8 @@ export default {
         // protocol: "mqtt",
         host: "194.233.69.96",
         // host: "accu.live",
-        // port: 15675,
-        port: 443,
+        port: 15675,
+        // port: 443,
         endpoint: "ws",
         clean: true,
         connectTimeout: 30 * 1000,
@@ -1320,8 +1320,8 @@ export default {
       try {
         this.connecting = true;
         const { protocol, host, port, endpoint, ...options } = this.connection;
-        // const connectUrl = `${protocol}://${host}:${port}/${endpoint}`;
-        const connectUrl = `wss://${host}:${port}/${endpoint}/${protocol}`;
+        const connectUrl = `${protocol}://${host}:${port}/${endpoint}`;
+        // const connectUrl = `wss://${host}:${port}/${endpoint}/${protocol}`;
         // const connectUrl = `${protocol}://${host}/${endpoint}`;
         this.client = mqtt.connect(connectUrl, options);
         // this.client = mqtt.connect(`mqtts://socket.accu.live:5672/ws`);
