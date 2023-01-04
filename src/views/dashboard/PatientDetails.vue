@@ -1130,8 +1130,8 @@ export default {
       connection: {
         protocol: "mqtt",
         // protocol: "mqtt",
-        // host: "194.233.69.96",
-        host: "accu.live",
+        host: "194.233.69.96",
+        // host: "accu.live",
         port: 15675,
         endpoint: "ws",
         clean: true,
