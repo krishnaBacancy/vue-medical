@@ -1318,11 +1318,11 @@ export default {
       try {
         this.connecting = true;
         const { protocol, host, port, endpoint, ...options } = this.connection;
-        // const connectUrl = `${protocol}://${host}:${port}/${endpoint}`;
-        const connectUrl = `${protocol}://${host}/${endpoint}`;
-        this.client = mqtt.connect(connectUrl, options);
-        // this.client = mqtt.connect(`https://socket.accu.live`);
-        console.log("url--", connectUrl, port);
+        const connectUrl = `${protocol}://${host}:${port}/${endpoint}`;
+        // const connectUrl = `${protocol}://${host}/${endpoint}`;
+        // this.client = mqtt.connect(connectUrl, options);
+        this.client = mqtt.connect(`https://socket.accu.live/ws`, options);
+        console.log("url--", connectUrl);
         if (this.client.on) {
           this.client.on("connect", () => {
             this.connecting = false;
