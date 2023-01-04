@@ -1322,7 +1322,7 @@ export default {
         const { protocol, host, port, endpoint, ...options } = this.connection;
         // const connectUrl = `${protocol}://${host}:${port}/${endpoint}`;
         // const connectUrl = `wss://${host}:${port}/${endpoint}/${protocol}`;
-        const connectUrl = `wss://accu.live/ws`;
+        const connectUrl = `wss://accu.live/ws/`;
         this.client = mqtt.connect(connectUrl, options);
         // this.client = mqtt.connect(`mqtts://socket.accu.live:5672/ws`);
         console.log(
