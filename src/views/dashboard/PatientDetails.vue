@@ -222,7 +222,7 @@
               <v-card
                 color="#282934"
                 dark
-                class="ml-2 mb-2 pa-2"
+                class="ml-2 mr-2 mr-md-0 mb-2 pa-2"
                 style="width: 98%"
               >
                 <div class="d-flex align-center">
@@ -1128,7 +1128,8 @@ export default {
       showEcgChart: false,
       showPpgChart: false,
       connection: {
-        protocol: "mqtt",
+        protocol: "mqtts",
+        // protocol: "mqtt",
         host: "194.233.69.96",
         port: 15675,
         endpoint: "ws",
@@ -1317,9 +1318,11 @@ export default {
       try {
         this.connecting = true;
         const { protocol, host, port, endpoint, ...options } = this.connection;
-        const connectUrl = `${protocol}://${host}:${port}/${endpoint}`;
+        // const connectUrl = `${protocol}://${host}:${port}/${endpoint}`;
+        const connectUrl = `${protocol}://${host}/${endpoint}`;
         this.client = mqtt.connect(connectUrl, options);
-        console.log("url--", connectUrl);
+        // this.client = mqtt.connect(`https://socket.accu.live`);
+        console.log("url--", connectUrl, port);
         if (this.client.on) {
           this.client.on("connect", () => {
             this.connecting = false;
