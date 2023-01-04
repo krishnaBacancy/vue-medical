@@ -235,17 +235,17 @@
                 </div>
                 <div class="d-flex align-start mt-2">
                   <div class="grid-container">
-                    <LineChart
+                    <!-- <LineChart
                       :key="showEcgChart"
                       :width="834.24"
                       :height="299.53"
-                    />
-                    <!-- <ApexLineChart
-                      :ecgChartData="ecgChartData"
+                    /> -->
+                    <test-charts
+                      :key="showEcgChart"
+                      v-if="showEcgChart"
                       :width="834.24"
                       :height="299.53"
-                    /> -->
-                    <!-- <TestHighChart /> -->
+                    />
                   </div>
                 </div>
               </v-card>
@@ -270,6 +270,7 @@
                       :width="834.24"
                       :height="299.53"
                       :key="showPpgChart"
+                      v-if="showPpgChart"
                     />
                   </div>
                 </div>
@@ -1092,23 +1093,22 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import mqtt from "mqtt/dist/mqtt";
-import LineChart from "../../components/LineChart.vue";
+// import LineChart from "../../components/LineChart.vue";
+import TestCharts from "@/components/TestCharts.vue";
 import RealTimeChart from "@/components/RealTimeChart.vue";
 import PageHeader from "@/layouts/PageHeader.vue";
 import TestChart from "@/components/TestChart.vue";
 import ApexAreaChart from "@/components/ApexAreaChart.vue";
-// import ApexLineChart from "@/components/ApexLineChart.vue";
-// import TestHighChart from "@/components/TestHighChart.vue";
+
 export default {
   name: "PatientDetails",
   components: {
-    LineChart,
+    // LineChart,
+    TestCharts,
     RealTimeChart,
     PageHeader,
     TestChart,
     ApexAreaChart,
-    // ApexLineChart,
-    // TestHighChart,
   },
   data() {
     return {
@@ -1128,13 +1128,10 @@ export default {
       showEcgChart: false,
       showPpgChart: false,
       connection: {
-        protocol: "mqtts",
-        // protocol: "wss",
+        protocol: "mqtt",
         host: "194.233.69.96",
         port: 15675,
-        // port: 8084,
         endpoint: "ws",
-        // endpoint: "mqtt",
         clean: true,
         connectTimeout: 30 * 1000,
         reconnectTimeout: 4000,
@@ -1194,6 +1191,10 @@ export default {
         console.log("Disconnect failed", error.toString());
       }
     }
+    this.setEcgData([]);
+    this.setPpgData([]);
+    this.clearEcgData();
+    this.clearPpgData();
   },
   created() {
     this.getSingleDevice(this.$route?.params?.id);
@@ -1222,6 +1223,8 @@ export default {
       "setEcgData",
       "setPpgData",
       "setSchedulerData",
+      "clearEcgData",
+      "clearPpgData",
     ]),
     ...mapActions("patientData", [
       "getPatientAlgoData",
@@ -1345,8 +1348,8 @@ export default {
             this.ppgChartData = data?.ppg_vals;
             this.setEcgData(this.ecgChartData);
             this.setPpgData(this.ppgChartData);
-            this.showEcgChart = false;
-            this.showPpgChart = false;
+            // this.showEcgChart = false;
+            // this.showPpgChart = false;
             this.$nextTick(() => {
               this.showEcgChart = true;
               this.showPpgChart = true;

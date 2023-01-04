@@ -2,8 +2,8 @@
   <div style="width: 100%" class="main__div">
     <div style="overflow: hidden">
       <canvas
-        id="myLineChart"
-        ref="myLineChart"
+        id="myChart"
+        ref="myChart"
         :width="width"
         :height="height"
         style="background-color: black"
@@ -14,18 +14,19 @@
 
 <script>
 import {
-  CategoryScale,
   Chart,
-  LinearScale,
   LineController,
   LineElement,
   PointElement,
+  LinearScale,
   Title,
+  CategoryScale,
 } from "chart.js";
 import "chartjs-plugin-streaming";
 import "chartjs-adapter-moment";
 import { RealTimeScale, StreamingPlugin } from "chartjs-plugin-streaming";
 import { mapGetters, mapActions } from "vuex";
+
 Chart.register(
   LineController,
   LineElement,
@@ -38,13 +39,7 @@ Chart.register(
 );
 
 export default {
-  name: "ppg-chart",
-  data() {
-    return {
-      myLineChart: {},
-      displayedPpgData: 0,
-    };
-  },
+  name: "test-charts",
   props: {
     width: {
       type: Number,
@@ -56,49 +51,33 @@ export default {
     },
   },
   computed: {
-    ...mapGetters("chartData", ["getPpgChartData"]),
+    ...mapGetters("chartData", ["getEcgChartData"]),
+  },
+  data() {
+    return {
+      displayedECGdata: 0,
+      myRealtimeChart: {},
+    };
   },
   destroyed() {
     clearInterval(this.adddata({}));
-    this.clearPpgData();
-  },
-  methods: {
-    ...mapActions("chartData", ["clearPpgData"]),
-    adddata(myChart) {
-      if (this.getPpgChartData.length) {
-        let endIndex = this.displayedPpgData + 20;
-        for (let i = this.displayedPpgData; i < endIndex; i++) {
-          myChart?.data.labels.push(i + 1);
-          myChart?.data.datasets[0].data.push(this.getPpgChartData[i]);
-          this.displayedPpgData += 1;
-        }
-        myChart?.data?.labels.splice(0, 20);
-        myChart?.data.datasets[0].data.splice(0, 20);
-        // console.log("myChart?.data.labels.length", myChart?.data?.labels.length);
-      }
-      // myChart?.data.labels.push(myChart?.data.labels.length + 1);
-      // myChart?.data.labels.push(myChart?.data.labels.length + 2);
-      // myChart?.data.datasets[0].data.push(data1);
-      // myChart?.data.datasets[0].data.push(data2);
-      // console.log("myChart", myChart);
-      myChart?.update("none");
-    },
+    this.clearEcgData();
   },
   mounted() {
     // console.log(
-    //   'document.getElementById("myLineChart")',
-    //   document.getElementById("myLineChart")
+    //   'document.getElementById("myChart")',
+    //   document.getElementById("myChart")
     // );
-    const ctx = document.getElementById("myLineChart").getContext("2d");
-    this.myLineChart = new Chart(ctx, {
+    const ctx = document.getElementById("myChart").getContext("2d");
+    this.myRealtimeChart = new Chart(ctx, {
       type: "line",
       data: {
         labels: [...Array(1000).keys()],
         datasets: [
           {
-            label: "PPG",
-            data: this.getPpgChartData.slice(0, 1000),
-            borderColor: "green",
+            label: "ECG",
+            data: this.getEcgChartData.slice(0, 1000),
+            borderColor: "red",
             borderWidth: 1,
             hoverBorderColor: "red",
             fill: false,
@@ -131,8 +110,10 @@ export default {
         scales: {
           y: {
             suggestedMin: 0,
-            min: Math.min(...this.getPpgChartData) + 50000,
-            max: Math.max(...this.getPpgChartData) - 50000,
+            // min: this.getMinEcgData - 30000,
+            // max: this.getMinEcgData + 30000,
+            min: Math.min(...this.getEcgChartData) - 50000,
+            max: Math.max(...this.getEcgChartData) + 50000,
             stacked: true,
             offset: true,
             ticks: {
@@ -165,12 +146,34 @@ export default {
         },
       },
     });
-    this.displayedPpgData = 1000;
-    // console.log("---my chart from mounted", this.myLineChart);
-    this.myLineChart?.update("none");
+    this.displayedECGdata = 1000;
+    // console.log("---my chart from mounted", this.myRealtimeChart);
+    this.myRealtimeChart?.update("none");
     setInterval(() => {
-      this.adddata(this.myLineChart);
+      this.adddata(this.myRealtimeChart);
     }, 1000);
+  },
+  methods: {
+    ...mapActions("chartData", ["clearEcgData"]),
+    adddata(myChart) {
+      if (this.getEcgChartData.length) {
+        let endIndex = this.displayedECGdata + 20;
+        for (let i = this.displayedECGdata; i < endIndex; i++) {
+          myChart?.data.labels.push(i + 1);
+          myChart?.data.datasets[0].data.push(this.getEcgChartData[i]);
+          this.displayedECGdata += 1;
+        }
+        myChart?.data.labels.splice(0, 20);
+        myChart?.data.datasets[0].data.splice(0, 20);
+        // console.log("myChart?.data.labels.length", myChart?.data.labels.length);
+      }
+      // myChart?.data.labels.push(myChart?.data.labels.length + 1);
+      // myChart?.data.labels.push(myChart?.data.labels.length + 2);
+      // myChart?.data.datasets[0].data.push(data1);
+      // myChart?.data.datasets[0].data.push(data2);
+      // console.log("myChart", myChart);
+      myChart?.update("none");
+    },
   },
 };
 </script>

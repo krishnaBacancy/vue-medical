@@ -28,25 +28,33 @@ const getters = {
 
 const mutations = {
   SET_ECG_CHART_DATA(state, ecgData) {
-    if (state.ecgTempChartData.length >= 2000) {
-      state.ecgTempChartData = state.ecgTempChartData.slice(
-        Math.max(state.ecgTempChartData.length - 1000, 0)
-      );
-    }
-    Array.prototype.push.apply(state.ecgTempChartData, ecgData);
-    state.ecgChartData = state.ecgTempChartData;
+    // if (state.ecgChartData.length >= 2000) {
+    //   state.ecgChartData = state.ecgChartData.slice(
+    //     Math.max(state.ecgChartData.length - 1000, 0)
+    //   );
+    // }
+    Array.prototype.push.apply(state.ecgChartData, ecgData);
+    // state.ecgChartData = state.ecgTempChartData;
+    console.log("state.ecgChartData", state.ecgChartData);
   },
   SET_PPG_CHART_DATA(state, ppgData) {
-    if (state.ppgTempChartData.length >= 2000) {
-      state.ppgTempChartData = state.ppgTempChartData.slice(
-        Math.max(state.ppgTempChartData.length - 1000, 0)
-      );
-    }
-    Array.prototype.push.apply(state.ppgTempChartData, ppgData);
-    state.ppgChartData = state.ppgTempChartData;
+    // if (state.ppgTempChartData.length >= 2000) {
+    //   state.ppgTempChartData = state.ppgTempChartData.slice(
+    //     Math.max(state.ppgTempChartData.length - 1000, 0)
+    //   );
+    // }
+    Array.prototype.push.apply(state.ppgChartData, ppgData);
+    // state.ppgChartData = state.ppgTempChartData;
+    console.log("state.ppgChartData", state.ppgChartData);
   },
   SET_PATIENT_SCHEDULER_DATA(state, schedulerData) {
     state.schedulerData = schedulerData;
+  },
+  REMOVE_ECG_CHART_DATA(state) {
+    state.ecgChartData = [];
+  },
+  REMOVE_PPG_CHART_DATA(state) {
+    state.ppgChartData = [];
   },
 };
 
@@ -59,6 +67,12 @@ const actions = {
   },
   setSchedulerData({ commit }, payload) {
     commit("SET_PATIENT_SCHEDULER_DATA", payload);
+  },
+  clearEcgData({ commit }) {
+    commit("REMOVE_ECG_CHART_DATA");
+  },
+  clearPpgData({ commit }) {
+    commit("REMOVE_PPG_CHART_DATA");
   },
 };
 
