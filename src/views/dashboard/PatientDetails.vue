@@ -1321,8 +1321,8 @@ export default {
         const connectUrl = `${protocol}://${host}:${port}/${endpoint}`;
         // const connectUrl = `${protocol}://${host}/${endpoint}`;
         // this.client = mqtt.connect(connectUrl, options);
-        this.client = mqtt.connect(`wss://socket.accu.live/ws`, options);
-        console.log("url--", connectUrl);
+        this.client = mqtt.connect(`mqtts://socket.accu.live/ws`);
+        console.log("url--", connectUrl, options);
         if (this.client.on) {
           this.client.on("connect", () => {
             this.connecting = false;
