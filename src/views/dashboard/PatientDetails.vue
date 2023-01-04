@@ -1128,9 +1128,10 @@ export default {
       showEcgChart: false,
       showPpgChart: false,
       connection: {
-        protocol: "mqtts",
+        protocol: "mqtt",
         // protocol: "mqtt",
-        host: "194.233.69.96",
+        // host: "194.233.69.96",
+        host: "accu.live",
         port: 15675,
         endpoint: "ws",
         clean: true,
@@ -1320,8 +1321,8 @@ export default {
         const { protocol, host, port, endpoint, ...options } = this.connection;
         const connectUrl = `${protocol}://${host}:${port}/${endpoint}`;
         // const connectUrl = `${protocol}://${host}/${endpoint}`;
-        // this.client = mqtt.connect(connectUrl, options);
-        this.client = mqtt.connect(`mqtts://socket.accu.live:15675/ws`);
+        this.client = mqtt.connect(connectUrl, options);
+        // this.client = mqtt.connect(`mqtts://socket.accu.live:5672/ws`);
         console.log("url--", connectUrl, options);
         if (this.client.on) {
           this.client.on("connect", () => {
