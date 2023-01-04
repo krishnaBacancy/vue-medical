@@ -419,6 +419,11 @@ export default {
       this.toggleSelectPatient = false;
     },
   },
+  watch: {
+    editedItem() {
+      this.getAllDevices();
+    },
+  },
   mounted() {
     this.getAllDevices();
     this.getAllPatientsData(this.getDoctorId);
