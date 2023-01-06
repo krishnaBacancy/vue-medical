@@ -73,8 +73,8 @@ export default {
             this.setIntervalMethod = setInterval(async () => {
               await this.adddatafromprops(buffer, 200);
               buffer.splice(0, 200);
-              this.myChart.options.scales.y.min = Math.min(...buffer) - 500;
-              this.myChart.options.scales.y.max = Math.max(...buffer) + 500;
+              // this.myChart.options.scales.y.min = Math.min(...buffer) - 500;
+              // this.myChart.options.scales.y.max = Math.max(...buffer) + 500;
               if (!buffer.length) {
                 clearInterval(this.setIntervalMethod);
               }
@@ -132,6 +132,8 @@ export default {
                 scales: {
                   y: {
                     suggestedMin: 0,
+                    min: Math.min(...buffer.slice(0, 1000)) - 5000,
+                    max: Math.max(...buffer.slice(0, 1000)) + 5000,
                     stacked: true,
                     offset: true,
                     ticks: {
@@ -164,10 +166,8 @@ export default {
                 },
               },
             });
-            buffer.splice(0, 1000);
             clearInterval(this.setIntervalMethod);
-            this.myChart.options.scales.y.min = Math.min(...buffer) - 500;
-            this.myChart.options.scales.y.max = Math.max(...buffer) + 500;
+            buffer.splice(0, 1000);
             this.setIntervalMethod = setInterval(async () => {
               await this.adddatafromprops(buffer, 100);
               buffer.splice(0, 100);
@@ -189,11 +189,21 @@ export default {
     adddatafromprops(buffer, endIndex) {
       if (buffer.length) {
         for (let i = 0; i < endIndex; i++) {
-          this.myChart?.data.labels.push(this.myChart?.data.labels.length + i);
-          this.myChart?.data.datasets[0].data.push(buffer[i]);
+          if (buffer[i]) {
+            this.myChart?.data.labels.splice(0, 1);
+            this.myChart?.data.datasets[0].data.splice(0, 1);
+            this.myChart?.data.labels.push(
+              this.myChart?.data.labels.length + i
+            );
+            this.myChart?.data.datasets[0].data.push(buffer[i]);
+          }
         }
-        this.myChart?.data.labels.splice(0, endIndex);
-        this.myChart?.data.datasets[0].data.splice(0, endIndex);
+        this.myChart.options.scales.y.min =
+          Math.min(...this.myChart?.data.datasets[0].data) - 5000;
+        this.myChart.options.scales.y.max =
+          Math.max(...this.myChart?.data.datasets[0].data) + 5000;
+        // this.myChart?.data.labels.splice(0, endIndex);
+        // this.myChart?.data.datasets[0].data.splice(0, endIndex);
         this.myChart?.update("none");
       }
     },

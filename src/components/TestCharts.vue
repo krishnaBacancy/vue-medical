@@ -77,8 +77,8 @@ export default {
               console.log("inside set interval");
               await this.adddatafromprops(buffer, 200);
               buffer.splice(0, 200);
-              this.myChart.options.scales.y.min = Math.min(...buffer) - 5000;
-              this.myChart.options.scales.y.max = Math.max(...buffer) + 5000;
+              // this.myChart.options.scales.y.min = Math.min(...buffer) - 5000;
+              // this.myChart.options.scales.y.max = Math.max(...buffer) + 5000;
               if (!buffer.length) {
                 console.log("hii empty");
                 clearInterval(this.setIntervalMethod);
@@ -141,8 +141,8 @@ export default {
                     suggestedMin: 0,
                     // min: this.getMinEcgData - 30000,
                     // max: this.getMinEcgData + 30000,
-                    // min: Math.min(...buffer),
-                    // max: Math.max(...buffer),
+                    min: Math.min(...buffer.slice(0, 1000)) - 5000,
+                    max: Math.max(...buffer.slice(0, 1000)) + 5000,
                     stacked: true,
                     offset: true,
                     ticks: {
@@ -175,10 +175,8 @@ export default {
                 },
               },
             });
-            buffer.splice(0, 1000);
             clearInterval(this.setIntervalMethod);
-            this.myChart.options.scales.y.min = Math.min(...buffer) - 5000;
-            this.myChart.options.scales.y.max = Math.max(...buffer) + 5000;
+            buffer.splice(0, 1000);
             this.setIntervalMethod = setInterval(async () => {
               console.log("inside else set interval");
               console.log("buffer length", buffer.length);
@@ -214,12 +212,20 @@ export default {
       if (buffer.length) {
         // let endIndex = this.displayedECGdata + 20;
         for (let i = 0; i < endIndex; i++) {
-          this.myChart?.data.labels.push(this.myChart?.data.labels.length + i);
-          this.myChart?.data.datasets[0].data.push(buffer[i]);
+          if (buffer[i]) {
+            this.myChart?.data.labels.splice(0, 1);
+            this.myChart?.data.datasets[0].data.splice(0, 1);
+            this.myChart?.data.labels.push(
+              this.myChart?.data.labels.length + i
+            );
+            this.myChart?.data.datasets[0].data.push(buffer[i]);
+          }
           // this.displayedECGdata += 1;
         }
-        this.myChart?.data.labels.splice(0, endIndex);
-        this.myChart?.data.datasets[0].data.splice(0, endIndex);
+        this.myChart.options.scales.y.min =
+          Math.min(...this.myChart?.data.datasets[0].data) - 5000;
+        this.myChart.options.scales.y.max =
+          Math.max(...this.myChart?.data.datasets[0].data) + 5000;
         // this.removeDisplayedEcgData(20);
         // this.displayedECGdata =
         //   this.displayedECGdata - 20 < 0 ? 0 : this.displayedECGdata - 20;
