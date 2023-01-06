@@ -13,8 +13,14 @@ const getters = {
   getEcgChartData(state) {
     return state?.ecgChartData;
   },
+  getEcgTempChartData(state) {
+    return state.ecgTempChartData;
+  },
   getPpgChartData(state) {
     return state?.ppgChartData;
+  },
+  getPpgTempChartData(state) {
+    return state?.ppgTempChartData;
   },
   getMinEcgData(state) {
     let sumEcgData = 0;
@@ -28,14 +34,15 @@ const getters = {
 
 const mutations = {
   SET_ECG_CHART_DATA(state, ecgData) {
-    // if (state.ecgChartData.length >= 2000) {
-    //   state.ecgChartData = state.ecgChartData.slice(
-    //     Math.max(state.ecgChartData.length - 1000, 0)
+    // if (state.ecgTempChartData.length >= 2000) {
+    //   state.ecgTempChartData = state.ecgTempChartData.slice(
+    //     Math.max(state.ecgTempChartData.length - 1000, 0)
     //   );
     // }
     Array.prototype.push.apply(state.ecgChartData, ecgData);
+    state.ecgTempChartData = ecgData;
     // state.ecgChartData = state.ecgTempChartData;
-    console.log("state.ecgChartData", state.ecgChartData);
+    // console.log("state.ecgChartData", state.ecgChartData);
   },
   SET_PPG_CHART_DATA(state, ppgData) {
     // if (state.ppgTempChartData.length >= 2000) {
@@ -44,8 +51,7 @@ const mutations = {
     //   );
     // }
     Array.prototype.push.apply(state.ppgChartData, ppgData);
-    // state.ppgChartData = state.ppgTempChartData;
-    console.log("state.ppgChartData", state.ppgChartData);
+    state.ppgTempChartData = ppgData;
   },
   SET_PATIENT_SCHEDULER_DATA(state, schedulerData) {
     state.schedulerData = schedulerData;
@@ -55,6 +61,9 @@ const mutations = {
   },
   REMOVE_PPG_CHART_DATA(state) {
     state.ppgChartData = [];
+  },
+  REMOVE_DISPLAYED_ECG_DATA(state, count) {
+    state.ecgTempChartData.splice(0, count);
   },
 };
 
@@ -73,6 +82,9 @@ const actions = {
   },
   clearPpgData({ commit }) {
     commit("REMOVE_PPG_CHART_DATA");
+  },
+  removeDisplayedEcgData({ commit }, payload) {
+    commit("REMOVE_DISPLAYED_ECG_DATA", payload);
   },
 };
 

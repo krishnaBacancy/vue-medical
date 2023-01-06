@@ -241,6 +241,7 @@
                       :height="299.53"
                     /> -->
                     <test-charts
+                      :ecgDataFromProps="ecgChartData"
                       :key="showEcgChart"
                       v-if="showEcgChart"
                       :width="834.24"
@@ -271,6 +272,7 @@
                       :height="299.53"
                       :key="showPpgChart"
                       v-if="showPpgChart"
+                      :ppgDataFromProps="ppgChartData"
                     />
                   </div>
                 </div>
@@ -370,11 +372,11 @@
           </v-layout>
 
           <v-layout row wrap>
-            <v-flex d-flex xs12 sm6 md6>
+            <v-flex d-flex xs12 sm12 md4>
               <v-card
                 color="#282934"
                 dark
-                class="ml-2 mr-2 mr-sm-0 mb-2 pa-2"
+                class="ml-2 mr-2 mr-md-0 mb-2 pa-2"
                 style="width: 100%"
               >
                 <div class="d-flex text-start">
@@ -409,7 +411,46 @@
                 </div>
               </v-card>
             </v-flex>
-            <v-flex d-flex xs12 sm6 md6>
+            <v-flex d-flex xs12 sm12 md4>
+              <v-card
+                color="#282934"
+                dark
+                class="ml-2 mr-2 mr-md-0 mb-2 pa-2"
+                style="width: 100%"
+              >
+                <div class="d-flex text-start">
+                  <div>
+                    <h3>Temperature</h3>
+                    <small class="warning--text">00:0B:57:AC:66:DA</small>
+                  </div>
+                  <v-spacer></v-spacer>
+                  <div v-if="!$vuetify.breakpoint.smOnly">
+                    <h3>Last Reading</h3>
+                    <small class="grey--text">2 hour ago</small>
+                  </div>
+                </div>
+                <div class="d-flex justify-center align-center mt-5">
+                  <v-flex>
+                    <v-img
+                      class="ml-2 mt-2"
+                      src="@/assets/oxygen.svg"
+                      height="70"
+                      width="70"
+                      contain
+                    ></v-img>
+                  </v-flex>
+                  <v-flex xs12>
+                    <div class="ml-4 text-start">
+                      <h1 class="warning--text">98</h1>
+                      <div class="d-flex flex-column">
+                        <small>Streaming Mode</small>
+                      </div>
+                    </div>
+                  </v-flex>
+                </div>
+              </v-card>
+            </v-flex>
+            <v-flex d-flex xs12 sm12 md4>
               <v-card
                 color="#282934"
                 dark
@@ -1129,11 +1170,8 @@ export default {
       showPpgChart: false,
       connection: {
         protocol: "mqtt",
-        // protocol: "mqtt",
         host: "194.233.69.96",
-        // host: "accu.live",
         port: 15675,
-        // port: 443,
         endpoint: "ws",
         clean: true,
         connectTimeout: 30 * 1000,
@@ -1194,10 +1232,6 @@ export default {
         console.log("Disconnect failed", error.toString());
       }
     }
-    this.setEcgData([]);
-    this.setPpgData([]);
-    this.clearEcgData();
-    this.clearPpgData();
   },
   created() {
     this.getSingleDevice(this.$route?.params?.id);
@@ -1226,8 +1260,6 @@ export default {
       "setEcgData",
       "setPpgData",
       "setSchedulerData",
-      "clearEcgData",
-      "clearPpgData",
     ]),
     ...mapActions("patientData", [
       "getPatientAlgoData",
@@ -1269,8 +1301,6 @@ export default {
     displayAlgoData() {
       const payload = {
         mac_address_framed: this.getMacAddress.toString().toUpperCase(),
-        startDate: Date.parse(this.startDateValue),
-        endDate: Date.parse(this.endDateValue),
       };
       this.getPatientAlgoData(payload);
     },
@@ -1321,10 +1351,8 @@ export default {
         this.connecting = true;
         const { protocol, host, port, endpoint, ...options } = this.connection;
         // const connectUrl = `${protocol}://${host}:${port}/${endpoint}`;
-        // const connectUrl = `wss://${host}:${port}/${endpoint}/${protocol}`;
         const connectUrl = `wss://accu.live/ws/`;
         this.client = mqtt.connect(connectUrl, options);
-        // this.client = mqtt.connect(`mqtts://socket.accu.live:5672/ws`);
         console.log(
           "url--",
           connectUrl,
@@ -1347,8 +1375,15 @@ export default {
           this.client.on("error", (error) => {
             console.log("Connection failed", error);
           });
-          this.client.on("message", (_, message) => {
-            let data = JSON.parse(message);
+          this.client.on("message", async (_, message) => {
+            this.showEcgChart = true;
+            this.showPpgChart = true;
+            this.ecgChartData = [];
+            this.ppgChartData = [];
+            let data = await JSON.parse(message);
+            if (data?.msg === 17) {
+              this.displayAlgoData();
+            }
             console.log("data--", JSON.parse(message));
             this.liveMessage = data?.message;
             // if (this.liveMessage == "Online") {
@@ -1357,17 +1392,19 @@ export default {
               undefined,
               { timeZone: "Asia/Kolkata" }
             );
-            console.log("time---", this.startTime);
-            this.ecgChartData = data?.ecg_vals;
-            this.ppgChartData = data?.ppg_vals;
-            this.setEcgData(this.ecgChartData);
-            this.setPpgData(this.ppgChartData);
-            // this.showEcgChart = false;
-            // this.showPpgChart = false;
-            this.$nextTick(() => {
-              this.showEcgChart = true;
-              this.showPpgChart = true;
-            });
+            console.log("set data from parent", data?.ecg_vals);
+            if (data?.ecg_vals || data?.ppg_vals) {
+              // this.showEcgChart = false;
+              // this.showPpgChart = false;
+              this.$nextTick(() => {
+                this.showEcgChart = true;
+                this.showPpgChart = true;
+              });
+              this.ecgChartData = data?.ecg_vals;
+              this.ppgChartData = data?.ppg_vals;
+              await this.setEcgData(this.ecgChartData);
+              await this.setPpgData(this.ppgChartData);
+            }
             // }
           });
         }
@@ -1375,48 +1412,6 @@ export default {
         this.connecting = false;
         console.log("mqtt.connect error", error);
       }
-    },
-    createConnection2() {
-      const { host, port, options } = this.connection;
-      const connectUrl = `mqtt://${host}:${port}/ws`;
-      try {
-        this.client = mqtt.connect(connectUrl, options);
-        console.log("client---", this.client);
-      } catch (error) {
-        console.log("mqtt.connect error", error);
-      }
-      this.client.on("connect", () => {
-        console.log("Connection succeeded!");
-        this.client.subscribe(
-          `BMSFSEV/${this.getSingleDeviceData[0]?.macAddressFramed.toUpperCase()}/sTOf`
-        );
-      });
-      this.client.on("error", (error) => {
-        console.log("Connection failed", error);
-      });
-      this.client.on("message", (_, message) => {
-        let data = JSON.parse(message);
-        console.log("data--", JSON.parse(message));
-        this.liveMessage = data?.message;
-        // if (this.liveMessage == "Online") {
-        this.tempStartTime = data?.start_time;
-        this.startTime = new Date(this.tempStartTime).toLocaleString(
-          undefined,
-          { timeZone: "Asia/Kolkata" }
-        );
-        console.log("time---", this.startTime);
-        this.ecgChartData = data?.ecg_vals;
-        this.ppgChartData = data?.ppg_vals;
-        this.setEcgData(this.ecgChartData);
-        this.setPpgData(this.ppgChartData);
-        this.showEcgChart = false;
-        this.showPpgChart = false;
-        this.$nextTick(() => {
-          this.showEcgChart = true;
-          this.showPpgChart = true;
-        });
-        // }
-      });
     },
   },
 };

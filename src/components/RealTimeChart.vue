@@ -1,13 +1,13 @@
 <template>
   <div style="width: 100%" class="main__div">
-    <div style="overflow: hidden">
-      <canvas
+    <div style="overflow: hidden" id="ppgCanvas">
+      <!-- <canvas
         id="myLineChart"
         ref="myLineChart"
         :width="width"
         :height="height"
         style="background-color: black"
-      ></canvas>
+      ></canvas> -->
     </div>
   </div>
 </template>
@@ -25,7 +25,7 @@ import {
 import "chartjs-plugin-streaming";
 import "chartjs-adapter-moment";
 import { RealTimeScale, StreamingPlugin } from "chartjs-plugin-streaming";
-import { mapGetters, mapActions } from "vuex";
+import { mapActions } from "vuex";
 Chart.register(
   LineController,
   LineElement,
@@ -41,8 +41,9 @@ export default {
   name: "ppg-chart",
   data() {
     return {
-      myLineChart: {},
+      myChart: null,
       displayedPpgData: 0,
+      setIntervalMethod: null,
     };
   },
   props: {
@@ -54,123 +55,167 @@ export default {
       type: Number,
       validator: (value) => value > 0,
     },
-  },
-  computed: {
-    ...mapGetters("chartData", ["getPpgChartData"]),
+    ppgDataFromProps: {
+      type: Array,
+    },
   },
   destroyed() {
-    clearInterval(this.adddata({}));
     this.clearPpgData();
+  },
+  watch: {
+    ppgDataFromProps: {
+      immediate: true,
+      async handler(val) {
+        if (val?.length && val.length > 0) {
+          let buffer = JSON.parse(JSON.stringify(val));
+          if (this.myChart) {
+            clearInterval(this.setIntervalMethod);
+            this.setIntervalMethod = setInterval(async () => {
+              await this.adddatafromprops(buffer, 200);
+              buffer.splice(0, 200);
+              this.myChart.options.scales.y.min = Math.min(...buffer) - 500;
+              this.myChart.options.scales.y.max = Math.max(...buffer) + 500;
+              if (!buffer.length) {
+                clearInterval(this.setIntervalMethod);
+              }
+            }, 1000);
+            await this.adddatafromprops(buffer, 200);
+            buffer.splice(0, 200);
+          } else {
+            var canvas = document.createElement("canvas");
+            canvas.id = "myLineChart";
+            canvas.width = this.width;
+            canvas.height = this.height;
+            canvas.style.backgroundColor = "black";
+
+            var body = document.getElementById("ppgCanvas");
+            body.appendChild(canvas);
+            const ctx = document.getElementById("myLineChart").getContext("2d");
+            this.myChart = new Chart(ctx, {
+              type: "line",
+              data: {
+                labels: [...Array(1000).keys()],
+                datasets: [
+                  {
+                    label: "ECG",
+                    data: buffer.slice(0, 1000),
+                    borderColor: "green",
+                    borderWidth: 1,
+                    hoverBorderColor: "red",
+                    fill: false,
+                    pointRadius: 0.1,
+                  },
+                ],
+              },
+              options: {
+                elements: {
+                  line: {
+                    tension: 0.5,
+                  },
+                },
+                interaction: {
+                  intersect: false,
+                },
+                plugins: {
+                  legend: {
+                    display: false,
+                  },
+                  streaming: {
+                    refresh: 100,
+                    duration: 20000,
+                  },
+                },
+                responsive: true,
+                aspectRatio: 1.2,
+                maintainAspectRatio: false,
+                spanGaps: false,
+                scales: {
+                  y: {
+                    suggestedMin: 0,
+                    stacked: true,
+                    offset: true,
+                    ticks: {
+                      color: "#FFFFFF",
+                    },
+                  },
+                  x: {
+                    ticks: {
+                      major: {
+                        enabled: true,
+                      },
+                      color: "#FFFFFF",
+                      displayFormats: 1,
+                      maxRotation: 0,
+                      minRotation: 0,
+                      stepSize: 1,
+                      minUnit: "second",
+                      source: "data",
+                      autoSkip: true,
+                    },
+                    time: {
+                      unit: "second",
+                      displayFormat: "h:mm",
+                    },
+                    grid: {
+                      display: false,
+                    },
+                    display: false,
+                  },
+                },
+              },
+            });
+            buffer.splice(0, 1000);
+            clearInterval(this.setIntervalMethod);
+            this.myChart.options.scales.y.min = Math.min(...buffer) - 500;
+            this.myChart.options.scales.y.max = Math.max(...buffer) + 500;
+            this.setIntervalMethod = setInterval(async () => {
+              await this.adddatafromprops(buffer, 100);
+              buffer.splice(0, 100);
+              if (!buffer.length) {
+                console.log("empty - 187");
+                clearInterval(this.setIntervalMethod);
+              }
+            }, 1000);
+            this.myChart?.update("none");
+          }
+        } else {
+          clearInterval(this.setIntervalMethod);
+        }
+      },
+    },
   },
   methods: {
     ...mapActions("chartData", ["clearPpgData"]),
-    adddata(myChart) {
-      if (this.getPpgChartData.length) {
-        let endIndex = this.displayedPpgData + 20;
-        for (let i = this.displayedPpgData; i < endIndex; i++) {
-          myChart?.data.labels.push(i + 1);
-          myChart?.data.datasets[0].data.push(this.getPpgChartData[i]);
-          this.displayedPpgData += 1;
+    adddatafromprops(buffer, endIndex) {
+      if (buffer.length) {
+        for (let i = 0; i < endIndex; i++) {
+          this.myChart?.data.labels.push(this.myChart?.data.labels.length + i);
+          this.myChart?.data.datasets[0].data.push(buffer[i]);
         }
-        myChart?.data?.labels.splice(0, 20);
-        myChart?.data.datasets[0].data.splice(0, 20);
-        // console.log("myChart?.data.labels.length", myChart?.data?.labels.length);
+        this.myChart?.data.labels.splice(0, endIndex);
+        this.myChart?.data.datasets[0].data.splice(0, endIndex);
+        this.myChart?.update("none");
       }
-      // myChart?.data.labels.push(myChart?.data.labels.length + 1);
-      // myChart?.data.labels.push(myChart?.data.labels.length + 2);
-      // myChart?.data.datasets[0].data.push(data1);
-      // myChart?.data.datasets[0].data.push(data2);
-      // console.log("myChart", myChart);
-      myChart?.update("none");
     },
-  },
-  mounted() {
-    // console.log(
-    //   'document.getElementById("myLineChart")',
-    //   document.getElementById("myLineChart")
-    // );
-    const ctx = document.getElementById("myLineChart").getContext("2d");
-    this.myLineChart = new Chart(ctx, {
-      type: "line",
-      data: {
-        labels: [...Array(1000).keys()],
-        datasets: [
-          {
-            label: "PPG",
-            data: this.getPpgChartData.slice(0, 1000),
-            borderColor: "green",
-            borderWidth: 1,
-            hoverBorderColor: "red",
-            fill: false,
-            pointRadius: 0.1,
-          },
-        ],
-      },
-      options: {
-        elements: {
-          line: {
-            tension: 0.5,
-          },
-        },
-        interaction: {
-          intersect: false,
-        },
-        plugins: {
-          legend: {
-            display: false,
-          },
-          streaming: {
-            refresh: 100,
-            duration: 20000,
-          },
-        },
-        responsive: true,
-        aspectRatio: 1.2,
-        maintainAspectRatio: false,
-        spanGaps: false,
-        scales: {
-          y: {
-            suggestedMin: 0,
-            min: Math.min(...this.getPpgChartData) + 50000,
-            max: Math.max(...this.getPpgChartData) - 50000,
-            stacked: true,
-            offset: true,
-            ticks: {
-              color: "#FFFFFF",
-            },
-          },
-          x: {
-            ticks: {
-              major: {
-                enabled: true,
-              },
-              color: "#FFFFFF",
-              displayFormats: 1,
-              maxRotation: 0,
-              minRotation: 0,
-              stepSize: 1,
-              minUnit: "second",
-              source: "data",
-              autoSkip: true,
-            },
-            time: {
-              unit: "second",
-              displayFormat: "h:mm",
-            },
-            grid: {
-              display: false,
-            },
-            display: false,
-          },
-        },
-      },
-    });
-    this.displayedPpgData = 1000;
-    // console.log("---my chart from mounted", this.myLineChart);
-    this.myLineChart?.update("none");
-    setInterval(() => {
-      this.adddata(this.myLineChart);
-    }, 1000);
+    // adddata(myChart) {
+    //   if (this.getPpgChartData.length) {
+    //     let endIndex = this.displayedPpgData + 20;
+    //     for (let i = this.displayedPpgData; i < endIndex; i++) {
+    //       myChart?.data.labels.push(i + 1);
+    //       myChart?.data.datasets[0].data.push(this.getPpgChartData[i]);
+    //       this.displayedPpgData += 1;
+    //     }
+    //     myChart?.data?.labels.splice(0, 20);
+    //     myChart?.data.datasets[0].data.splice(0, 20);
+    //     // console.log("myChart?.data.labels.length", myChart?.data?.labels.length);
+    //   }
+    //   // myChart?.data.labels.push(myChart?.data.labels.length + 1);
+    //   // myChart?.data.labels.push(myChart?.data.labels.length + 2);
+    //   // myChart?.data.datasets[0].data.push(data1);
+    //   // myChart?.data.datasets[0].data.push(data2);
+    //   // console.log("myChart", myChart);
+    //   myChart?.update("none");
+    // },
   },
 };
 </script>
