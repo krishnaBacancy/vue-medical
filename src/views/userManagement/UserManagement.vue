@@ -21,11 +21,12 @@
           >Assign to Patient
         </v-btn>
         <v-select
-          :items="getAllPatientsNameOnly"
+          :items="getAllPatientsOnly"
           v-if="toggleSelect"
           v-model="selectedHeaders"
           :menu-props="{ value: toggleSelect }"
           @change="getSelectedValue"
+          item-text="fullName"
           return-object
         ></v-select>
         <v-data-table
@@ -69,7 +70,7 @@ export default {
       getDoctorId: localStorage.getItem("user_id"),
       role: localStorage.getItem("role"),
       toggleSelect: false,
-      selectedHeaders: "",
+      selectedHeaders: {},
       selected: [],
       headers: [
         {
@@ -89,7 +90,7 @@ export default {
   computed: {
     ...mapGetters("doctors", [
       "getPatients",
-      "getAllPatientsNameOnly",
+      "getAllPatientsOnly",
       "loadingStatus",
     ]),
   },
@@ -114,9 +115,9 @@ export default {
       let macAddress = this.selected.map((data) => data.macAddressFramed);
       let data = {
         devices: macAddress,
-        doctorId: this.getDoctorId,
+        customerId: this.selectedHeaders?.id,
       };
-      if (this.selectedHeaders !== null) {
+      if (this.selectedHeaders && this.selectedHeaders !== null) {
         this.checkAssignDevicesToPatient(data);
         if (
           await this.$refs.assign.open(
@@ -125,10 +126,13 @@ export default {
         ) {
           this.assignDeviceToPatient(data);
           this.selected = [];
+          setTimeout(() => {
+            this.getPatientsForDoctor(this.getDoctorId);
+          }, 500);
           this.$toast.success("Devices assigned to customer successfully.");
         }
       }
-      this.selectedHeaders = "";
+      this.selectedHeaders = {};
       this.toggleSelect = false;
     },
   },

@@ -21,15 +21,10 @@ const getters = {
       ?.filter((patient) => patient.role === "Customer")
       .reverse();
   },
-  getAllPatientsNameOnly(state) {
-    return state?.patientsData
-      ?.filter((patient) => patient.role === "Customer")
-      .map((data) => data.fullName);
-  },
-  getAllDoctorsNamesOnly(state) {
+  getAllDoctorsOnly(state) {
     return state?.patientsData
       ?.filter((patient) => patient.role === "Doctor")
-      .map((data) => data.fullName);
+      .reverse();
   },
   getSinglePatientData(state) {
     return state?.singlePatientData;

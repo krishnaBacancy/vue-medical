@@ -38,19 +38,21 @@
         >Assign to Customer</v-btn
       >
       <v-select
-        :items="getAllDoctorsNamesOnly"
+        :items="getAllDoctorsOnly"
         v-if="toggleSelect"
         v-model="selectedHeaders"
         :menu-props="{ value: toggleSelect }"
         @change="getSelectedValue"
         return-object
+        item-text="fullName"
       ></v-select>
       <v-select
-        :items="getAllPatientsNameOnly"
+        :items="getAllPatientsOnly"
         v-if="toggleSelectPatient"
         v-model="selectedHeadersPatient"
         :menu-props="{ value: toggleSelectPatient }"
         @change="getSelectedValuePatient"
+        item-text="fullName"
         return-object
       ></v-select>
       <v-dialog
@@ -263,18 +265,15 @@ export default {
       macAddressRules: [(v) => !!v || "Macaddress is required"],
       dialogDelete: false,
       toggleSelect: false,
-      selectedHeaders: "",
+      selectedHeaders: {},
       selected: [],
       toggleSelectPatient: false,
-      selectedHeadersPatient: "",
+      selectedHeadersPatient: {},
     };
   },
   computed: {
     ...mapGetters("devices", ["getDevices", "loadingStatus"]),
-    ...mapGetters("doctors", [
-      "getAllDoctorsNamesOnly",
-      "getAllPatientsNameOnly",
-    ]),
+    ...mapGetters("doctors", ["getAllDoctorsOnly", "getAllPatientsOnly"]),
   },
   methods: {
     ...mapActions("devices", [
@@ -380,9 +379,9 @@ export default {
       let macAddress = this.selected.map((data) => data.macAddressFramed);
       let data = {
         devices: macAddress,
-        doctorId: this.getDoctorId,
+        doctorId: this.selectedHeaders?.id,
       };
-      if (this.selectedHeaders !== null) {
+      if (this.selectedHeaders && this.selectedHeaders !== null) {
         this.checkAssignDevicesToDoctor(data);
         if (
           await this.$refs.assign.open(
@@ -391,19 +390,22 @@ export default {
         ) {
           this.assignDeviceToDoctor(data);
           this.selected = [];
+          setTimeout(() => {
+            this.getAllPatientsData(this.getDoctorId);
+          }, 500);
           this.$toast.success("Devices assigned to Doctor successfully.");
         }
       }
-      this.selectedHeaders = "";
+      this.selectedHeaders = {};
       this.toggleSelect = false;
     },
     async getSelectedValuePatient() {
       let macAddress = this.selected.map((data) => data.macAddressFramed);
       let data = {
         devices: macAddress,
-        doctorId: this.getDoctorId,
+        customerId: this.selectedHeadersPatient?.id,
       };
-      if (this.selectedHeadersPatient !== null) {
+      if (this.selectedHeadersPatient && this.selectedHeadersPatient !== null) {
         this.checkAssignDevicesToPatient(data);
         if (
           await this.$refs.assign.open(
@@ -412,10 +414,13 @@ export default {
         ) {
           this.assignDeviceToPatient(data);
           this.selected = [];
+          setTimeout(() => {
+            this.getAllPatientsData(this.getDoctorId);
+          }, 500);
           this.$toast.success("Devices assigned to Patient successfully.");
         }
       }
-      this.selectedHeadersPatient = "";
+      this.selectedHeadersPatient = {};
       this.toggleSelectPatient = false;
     },
   },
