@@ -44,12 +44,6 @@ const mutations = {
 };
 
 const actions = {
-  async getAllUsers({ commit }) {
-    commit("SET_LOADING_STATUS", true);
-    const res = await users.getAllUsers();
-    commit("SET_USER", res.data.data);
-    commit("SET_LOADING_STATUS", false);
-  },
   addUser({ commit }, payload) {
     commit("SET_LOADING_STATUS", true);
     return new Promise((resolve, reject) => {

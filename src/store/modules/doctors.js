@@ -132,14 +132,7 @@ const mutations = {
         heartCondition: patient?.medical_history[0]?.heartCondition,
         obesity: patient?.medical_history[0]?.obesity,
         thyroid: patient?.medical_history[0]?.thyroid,
-        familyMember1Name: patient?.family_members[0]?.familyMember1Name,
-        familyMember2Name: patient?.family_members[1]?.familyMember2Name,
-        familyMember1Contact: patient?.family_members[0]?.familyMember1Contact,
-        familyMember2Contact: patient?.family_members[1]?.familyMember2Contact,
-        familyMember1Relation:
-          patient?.family_members[0]?.familyMember1Relation,
-        familyMember2Relation:
-          patient?.family_members[1]?.familyMember2Relation,
+        familyMembers: patient?.family_members,
       };
     });
   },
@@ -173,33 +166,43 @@ const actions = {
   async getPatientsForDoctor({ commit }, id) {
     commit("SET_LOADING_STATUS", true);
     const res = await doctors.getAllDevicesOfDoctor(id);
-    commit("SET_PATIENTS_FOR_DOCTOR", res.data.data);
-    commit("SET_LOADING_STATUS", false);
+    if (res.status === 200) {
+      commit("SET_PATIENTS_FOR_DOCTOR", res.data.data);
+      commit("SET_LOADING_STATUS", false);
+    }
   },
   async getAllPatientsData({ commit }, id) {
     commit("SET_LOADING_STATUS", true);
     const res = await doctors.getAllPatientsData(id);
-    commit("SET_ALL_PATIENT", res.data.data);
-    commit("SET_LOADING_STATUS", false);
+    if (res.status === 200) {
+      commit("SET_ALL_PATIENT", res.data.data);
+      commit("SET_LOADING_STATUS", false);
+    }
   },
   async getSinglePatient({ commit }, id) {
     commit("SET_LOADING_STATUS", true);
     const res = await doctors.getSinglePatientData(id);
-    commit("SET_SINGLE_PATIENT", res.data.data);
-    commit("SET_LOADING_STATUS", false);
+    if (res.status === 200) {
+      commit("SET_SINGLE_PATIENT", res.data.data);
+      commit("SET_LOADING_STATUS", false);
+    }
   },
   async getSingleDevice({ commit }, id) {
     commit("SET_LOADING_STATUS", true);
     const res = await doctors.getSingleDeviceData(id);
-    commit("SET_SINGLE_DEVICE", res.data.data);
-    commit("SET_LOADING_STATUS", false);
+    if (res.status === 200) {
+      commit("SET_SINGLE_DEVICE", res.data.data);
+      commit("SET_LOADING_STATUS", false);
+    }
   },
   async deletePatient({ commit }, id) {
     commit("SET_LOADING_STATUS", true);
     const res = await doctors.deletePatient(id);
-    console.log("deleted--", res.data);
-    commit("DELETE_PATIENT", id);
-    commit("SET_LOADING_STATUS", false);
+    if (res.status === 200) {
+      console.log("deleted--", res.data);
+      commit("DELETE_PATIENT", id);
+      commit("SET_LOADING_STATUS", false);
+    }
   },
 };
 

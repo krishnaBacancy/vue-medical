@@ -37,24 +37,6 @@
         @click="assignDevicesToPatient"
         >Assign to Customer</v-btn
       >
-      <v-select
-        :items="getAllDoctorsOnly"
-        v-if="toggleSelect"
-        v-model="selectedHeaders"
-        :menu-props="{ value: toggleSelect }"
-        @change="getSelectedValue"
-        return-object
-        item-text="fullName"
-      ></v-select>
-      <v-select
-        :items="getAllPatientsOnly"
-        v-if="toggleSelectPatient"
-        v-model="selectedHeadersPatient"
-        :menu-props="{ value: toggleSelectPatient }"
-        @change="getSelectedValuePatient"
-        item-text="fullName"
-        return-object
-      ></v-select>
       <v-dialog
         transition="dialog-top-transition"
         max-width="600"
@@ -138,6 +120,94 @@
           </v-form>
         </v-card>
       </v-dialog>
+
+      <v-dialog
+        transition="dialog-top-transition"
+        max-width="600"
+        overlay-color="white"
+        persistent
+        v-model="assignDevicePatientDialog"
+      >
+        <v-card dark>
+          <v-card-title>
+            <span class="text-h5 ml-3"
+              >Select below patient to assign device</span
+            >
+          </v-card-title>
+
+          <v-card-text>
+            <v-container>
+              <v-row>
+                <v-col cols="12" sm="12" md="12">
+                  <v-select
+                    :items="getAllPatientsOnly"
+                    v-model="selectedHeadersPatient"
+                    @change="getSelectedValuePatient"
+                    item-text="fullName"
+                    return-object
+                  ></v-select>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-card-text>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="blue darken-1"
+              text
+              @click="assignDevicePatientDialog = false"
+            >
+              Cancel
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
+      <v-dialog
+        transition="dialog-top-transition"
+        max-width="600"
+        overlay-color="white"
+        persistent
+        v-model="assignDeviceDoctorDialog"
+      >
+        <v-card dark>
+          <v-card-title>
+            <span class="text-h5 ml-3"
+              >Select below doctor to assign device</span
+            >
+          </v-card-title>
+
+          <v-card-text>
+            <v-container>
+              <v-row>
+                <v-col cols="12" sm="12" md="12">
+                  <v-select
+                    :items="getAllDoctorsOnly"
+                    v-model="selectedHeaders"
+                    @change="getSelectedValue"
+                    return-object
+                    item-text="fullName"
+                    dark
+                  ></v-select>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-card-text>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="blue darken-1"
+              text
+              @click="assignDeviceDoctorDialog = false"
+            >
+              Cancel
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
       <div class="mt-3 mb-3 pa-2">
         <v-data-table
           item-key="name"
@@ -242,6 +312,7 @@ export default {
           value: "name",
         },
         { text: "Mac Address", value: "macAddressFramed" },
+        { text: "Name", value: "fullName" },
         { text: "Actions", value: "actions", sortable: false },
       ],
       editedIndex: -1,
@@ -255,6 +326,8 @@ export default {
       },
       itemId: "",
       addDialog: false,
+      assignDevicePatientDialog: false,
+      assignDeviceDoctorDialog: false,
       dateMenu: false,
       device: {
         name: "",
@@ -264,10 +337,8 @@ export default {
       nameRules: [(v) => !!v || "Device name is required"],
       macAddressRules: [(v) => !!v || "Macaddress is required"],
       dialogDelete: false,
-      toggleSelect: false,
       selectedHeaders: {},
       selected: [],
-      toggleSelectPatient: false,
       selectedHeadersPatient: {},
     };
   },
@@ -355,8 +426,8 @@ export default {
     },
     assignDevicesToDoctor() {
       if (this.selected.length > 0) {
+        this.assignDeviceDoctorDialog = true;
         this.getAllPatientsData(this.getDoctorId);
-        this.toggleSelect = true;
       } else {
         this.$toast.error(
           "You must select atleast one device to assign.",
@@ -366,8 +437,8 @@ export default {
     },
     assignDevicesToPatient() {
       if (this.selected.length > 0) {
+        this.assignDevicePatientDialog = true;
         this.getAllPatientsData(this.getDoctorId);
-        this.toggleSelectPatient = true;
       } else {
         this.$toast.error(
           "You must select atleast one device to assign.",
@@ -390,14 +461,14 @@ export default {
         ) {
           this.assignDeviceToDoctor(data);
           this.selected = [];
+          this.assignDeviceDoctorDialog = false;
           setTimeout(() => {
-            this.getAllPatientsData(this.getDoctorId);
+            this.getAllDevices();
           }, 500);
           this.$toast.success("Devices assigned to Doctor successfully.");
         }
       }
-      this.selectedHeaders = {};
-      this.toggleSelect = false;
+      // this.selectedHeaders = {};
     },
     async getSelectedValuePatient() {
       let macAddress = this.selected.map((data) => data.macAddressFramed);
@@ -414,14 +485,14 @@ export default {
         ) {
           this.assignDeviceToPatient(data);
           this.selected = [];
+          this.assignDevicePatientDialog = false;
           setTimeout(() => {
-            this.getAllPatientsData(this.getDoctorId);
+            this.getAllDevices();
           }, 500);
           this.$toast.success("Devices assigned to Patient successfully.");
         }
       }
-      this.selectedHeadersPatient = {};
-      this.toggleSelectPatient = false;
+      // this.selectedHeadersPatient = {};
     },
   },
   watch: {
@@ -431,7 +502,6 @@ export default {
   },
   mounted() {
     this.getAllDevices();
-    this.getAllPatientsData(this.getDoctorId);
   },
   components: { PageHeader, ConfirmDialog, DeviceAssignDialog },
 };

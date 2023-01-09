@@ -3,26 +3,23 @@ import patient from "@/api/patient";
 const state = {
   patientAlgoData: [],
   loading: false,
-  bodyTemp: null,
-  bloodOxygen: null,
-  patientSteps: null,
+  bodyTemp: [],
+  bloodOxygen: [],
+  patientSteps: [],
 };
 
 const getters = {
   loadingStatusPatient(state) {
     return state.loading;
   },
-  getPatientData(state) {
-    return state.patientData;
-  },
   getBodyTempGraphData(state) {
-    return state.bodyTemp;
+    return state?.bodyTemp;
   },
   getBloodOxygenGraphData(state) {
-    return state.bloodOxygen;
+    return state?.bloodOxygen;
   },
   getPatientSteps(state) {
-    return state.patientSteps;
+    return state?.patientSteps;
   },
   getAlgoData(state) {
     return state?.patientAlgoData;
@@ -51,26 +48,37 @@ const actions = {
   async getPatientAlgoData({ commit }, payload) {
     commit("SET_LOADING_STATUS", true);
     const res = await patient.getPatientAlgoData(payload);
-    commit("SET_PATIENT_ALGO_DATA", res.data.data);
-    commit("SET_LOADING_STATUS", false);
+    if (res.status === 200) {
+      commit("SET_PATIENT_ALGO_DATA", res.data.data);
+      commit("SET_LOADING_STATUS", false);
+    }
   },
   async getPatientBodyTempData({ commit }, payload) {
     commit("SET_LOADING_STATUS", true);
     const res = await patient.getBodyTempGraph(payload);
-    console.log("temp---", res.data);
-    commit("SET_LOADING_STATUS", false);
+    if (res.status === 200) {
+      console.log("temp---", res.data.data);
+      commit("SET_PATIENT_BODY_TEMP_GRAPHS", res.data.data);
+      commit("SET_LOADING_STATUS", false);
+    }
   },
   async getPatientBloodOxygenData({ commit }, payload) {
     commit("SET_LOADING_STATUS", true);
     const res = await patient.getBloodOxygenGraph(payload);
-    console.log("spo2----", res.data);
-    commit("SET_LOADING_STATUS", false);
+    if (res.status === 200) {
+      console.log("spo2----", res.data.data);
+      commit("SET_PATIENT_BLOOD_OXYGEN_GRAPHS", res.data.data);
+      commit("SET_LOADING_STATUS", false);
+    }
   },
   async getPatientStepsData({ commit }, payload) {
     commit("SET_LOADING_STATUS", true);
     const res = await patient.getStepGraph(payload);
-    console.log("steps--", res.data);
-    commit("SET_LOADING_STATUS", false);
+    if (res.status === 200) {
+      console.log("steps--", res.data.data);
+      commit("SET_PATIENT_STEPS_GRAPH", res.data.data);
+      commit("SET_LOADING_STATUS", false);
+    }
   },
 };
 

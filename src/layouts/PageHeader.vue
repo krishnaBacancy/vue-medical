@@ -16,7 +16,7 @@
             :color="colorName"
             rounded
             @click="$emit('addNewPatient')"
-            v-if="btnIconName"
+            v-if="btnIconName && role === 'Doctor'"
           >
             <v-icon>{{ btnIconName }}</v-icon>
           </v-btn>
@@ -30,13 +30,10 @@
 export default {
   name: "PageHeader",
   props: ["title", "pageIcon", "btnName", "colorName", "btnIconName"],
-  methods: {
-    addPatient() {
-      this.$emit("addNewPatient");
-    },
-    goToPreviousPage() {
-      this.$emit("goBack");
-    },
+  data() {
+    return {
+      role: localStorage.getItem("role"),
+    };
   },
 };
 </script>

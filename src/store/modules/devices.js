@@ -37,6 +37,12 @@ const mutations = {
           macAddressFramed: device.mac_address_framed.toUpperCase(),
           doctorFirstName: device.doctorfirstName,
           doctorLastName: device.doctorlastName,
+          fullName:
+            device.customerfirstName?.charAt(0).toUpperCase() +
+            device.customerfirstName?.slice(1) +
+            " " +
+            device.customerlastName?.charAt(0).toUpperCase() +
+            device.customerlastName?.slice(1),
           customerFirstName: device.customerfirstName,
           customerLastName: device.customerlastName,
           adminId: device.adminId,
@@ -64,15 +70,19 @@ const actions = {
   async getAllDevices({ commit }) {
     commit("SET_LOADING_STATUS", true);
     const res = await devices.getAllDevices();
-    commit("SET_ALL_DEVICES", res.data.data);
-    commit("SET_LOADING_STATUS", false);
+    if (res.status === 200) {
+      commit("SET_ALL_DEVICES", res.data.data);
+      commit("SET_LOADING_STATUS", false);
+    }
   },
   async deleteDevice({ commit }, id) {
     commit("SET_LOADING_STATUS", true);
     const res = await devices.deleteSingleDevice(id);
-    console.log("deleted--", res.data);
-    commit("DELETE_DEVICE", id);
-    commit("SET_LOADING_STATUS", false);
+    if (res.status === 200) {
+      console.log("deleted--", res.data);
+      commit("DELETE_DEVICE", id);
+      commit("SET_LOADING_STATUS", false);
+    }
   },
   async addDeviceData({ commit }, payload) {
     commit("SET_LOADING_STATUS", true);
@@ -84,21 +94,29 @@ const actions = {
   },
   async checkAssignDevicesToDoctor({ commit }, payload) {
     const res = await devices.checkDeviceAssignToDoctor(payload);
-    console.log("res--", res.data);
-    commit("SET_ASSIGN_DEVICES_DOCTOR", res.data.data);
+    if (res.status === 200) {
+      console.log("res--", res.data);
+      commit("SET_ASSIGN_DEVICES_DOCTOR", res.data.data);
+    }
   },
   async assignDeviceToDoctor(_, payload) {
     const res = await devices.deviceAssignToDoctor(payload);
-    console.log("doctor--", res.data);
+    if (res.status === 200) {
+      console.log("doctor--", res.data);
+    }
   },
   async checkAssignDevicesToPatient({ commit }, payload) {
     const res = await devices.checkDeviceAssignToCustomer(payload);
-    console.log("res--", res.data.data);
-    commit("SET_ASSIGN_DEVICES_PATIENT", res.data.data);
+    if (res.status === 200) {
+      console.log("res--", res.data.data);
+      commit("SET_ASSIGN_DEVICES_PATIENT", res.data.data);
+    }
   },
   async assignDeviceToPatient(_, payload) {
     const res = await devices.deviceAssignToCustomer(payload);
-    console.log("assign--", res.data);
+    if (res.status === 200) {
+      console.log("assign--", res.data);
+    }
   },
 };
 
