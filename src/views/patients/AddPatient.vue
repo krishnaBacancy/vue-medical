@@ -93,6 +93,7 @@
                         v-model="dateValue"
                         no-title
                         @input="dateMenu = false"
+                        :max="new Date().toISOString().slice(0, 10)"
                       ></v-date-picker>
                     </v-menu>
                   </v-col>
@@ -170,60 +171,68 @@
 
                 <v-card-title
                   class="warning--text text-h5 mb-2 ml-n2 font-weight-bold"
-                  >Family Member Info</v-card-title
+                  >Emergency Contact Info</v-card-title
                 >
-                <v-row>
-                  <v-col cols="12" sm="6" md="4">
+                <v-row
+                  v-for="(familyInfo, index) in familyMemberInfo"
+                  :key="index"
+                >
+                  <v-col cols="12" sm="6" md="3">
                     <CustomTextField
                       :type="'text'"
                       :label="'Member Name'"
                       :fieldRules="memberNameRules"
-                      v-model="familyMemberInfo.name1"
+                      v-model="familyInfo.name"
                     />
                   </v-col>
-                  <v-col cols="12" sm="6" md="4">
+                  <v-col cols="12" sm="6" md="3">
                     <v-select
                       :items="relations"
                       filled
                       dense
                       label="Select Relation"
                       :rules="selectRules"
-                      v-model="familyMemberInfo.selected1Relation"
+                      v-model="familyInfo.selectedRelation"
                     ></v-select>
                   </v-col>
-                  <v-col cols="12" sm="12" md="4">
+                  <v-col cols="12" sm="12" md="3">
                     <CustomTextField
                       :type="'number'"
                       :label="'Contact Number'"
                       :fieldRules="phoneRules"
-                      v-model="familyMemberInfo.contactNo1"
+                      v-model="familyInfo.contactNo"
                     />
                   </v-col>
-                </v-row>
-
-                <v-row>
-                  <v-col cols="12" sm="6" md="4">
-                    <CustomTextField
-                      :type="'text'"
-                      :label="'Member Name'"
-                      v-model="familyMemberInfo.name2"
-                    />
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-select
-                      :items="relations"
-                      filled
-                      label="Select Relation"
-                      v-model="familyMemberInfo.selected2Relation"
-                      dense
-                    ></v-select>
-                  </v-col>
-                  <v-col cols="12" sm="12" md="4">
-                    <CustomTextField
-                      :type="'number'"
-                      :label="'Contact Number'"
-                      v-model="familyMemberInfo.contactNo2"
-                    />
+                  <v-col cols="12" md="3">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      width="34"
+                      height="34"
+                      class="ml-2 mt-2 main__svg"
+                      @click="addField(familyInfo, familyMemberInfo)"
+                    >
+                      <path fill="none" d="M0 0h24v24H0z" />
+                      <path
+                        fill="green"
+                        d="M11 11V7h2v4h4v2h-4v4h-2v-4H7v-2h4zm1 11C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"
+                      />
+                    </svg>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      width="34"
+                      height="34"
+                      class="ml-10 main__svg"
+                      @click="removeField(index, familyMemberInfo)"
+                      v-show="familyMemberInfo.length > 1"
+                    >
+                      <path fill="none" d="M0 0h24v24H0z" />
+                      <path
+                        fill="#EC4899"
+                        d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm0-9.414l2.828-2.829 1.415 1.415L13.414 12l2.829 2.828-1.415 1.415L12 13.414l-2.828 2.829-1.415-1.415L10.586 12 7.757 9.172l1.415-1.415L12 10.586z"
+                      />
+                    </svg>
                   </v-col>
                 </v-row>
 
@@ -373,14 +382,7 @@ export default {
         thyroid: null,
         obesity: null,
       },
-      familyMemberInfo: {
-        name1: "",
-        name2: "",
-        selected1Relation: "",
-        selected2Relation: "",
-        contactNo1: null,
-        contactNo2: null,
-      },
+      familyMemberInfo: [{ name: "", selectedRelation: "", contactNo: "" }],
       medicalInfo: {
         bloodPressure: null,
         diabetics: null,
@@ -394,6 +396,38 @@ export default {
     ...mapActions("userManagement", ["addUser"]),
     goToPreviousPage() {
       this.$router.go(-1);
+    },
+    addField(obj, type) {
+      if (
+        obj.name === "" ||
+        obj.selectedRelation === "" ||
+        obj.contactNo === ""
+      ) {
+        this.$toast.error("Please enter all details properly.", 3000);
+      } else {
+        let newObj = {};
+        for (const [key, val] of Object.entries(obj)) {
+          newObj[key] = "";
+          console.log(val);
+        }
+        type.push(newObj);
+      }
+    },
+    removeField(index, type) {
+      type.splice(index, 1);
+    },
+    checkEmptyFamilyMemberInfo() {
+      for (let i = 0; i < this.familyMemberInfo.length; i++) {
+        if (
+          this.familyMemberInfo[i].name === "" ||
+          this.familyMemberInfo[i].selectedRelation === "" ||
+          this.familyMemberInfo.contactNo === ""
+        ) {
+          this.valid = false;
+          break;
+        }
+        this.valid = true;
+      }
     },
     addPatient() {
       let data = {
@@ -409,18 +443,7 @@ export default {
         password: this.user.password,
         aadharcard: this.user.aadhar,
         DOB: this.dateValue,
-        family_members: [
-          {
-            familyMember1Name: this.familyMemberInfo.name1,
-            familyMember1Relation: this.familyMemberInfo.selected1Relation,
-            familyMember1Contact: this.familyMemberInfo.contactNo1,
-          },
-          {
-            familyMember2Name: this.familyMemberInfo.name2,
-            familyMember2Relation: this.familyMemberInfo.selected2Relation,
-            familyMember2Contact: this.familyMemberInfo.contactNo2,
-          },
-        ],
+        family_members: this.familyMemberInfo,
         medical_history: [
           {
             bloodPressure: this.medicalInfo.bloodPressure,
@@ -432,11 +455,15 @@ export default {
         ],
       };
       this.$refs.form.validate();
+      const checkEmptyFamilyMemberInfo = this.checkEmptyFamilyMemberInfo();
       if (this.valid) {
         if (!this.dateValue) {
           this.$toast.error("Must select date of birth.", {
             timeout: 3000,
           });
+        }
+        if (!checkEmptyFamilyMemberInfo) {
+          this.$toast.error("Please fill all details", 3000);
         } else {
           this.addUser(data)
             .then((success) => {
@@ -467,4 +494,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.main__svg {
+  cursor: pointer;
+}
+</style>

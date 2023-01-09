@@ -57,9 +57,14 @@
               color="info"
               class="mr-4"
               @click="$router.push(`/edit-patient/${item.id}`)"
+              v-if="role === 'Doctor'"
               >mdi-pencil</v-icon
             >
-            <v-icon size="22" color="red" @click="deleteSinglePatient(item.id)"
+            <v-icon
+              size="22"
+              color="red"
+              @click="deleteSinglePatient(item.id)"
+              v-if="role === 'Doctor'"
               >mdi-delete</v-icon
             >
           </template>
@@ -79,6 +84,7 @@ export default {
   data() {
     return {
       getDoctorId: localStorage.getItem("user_id"),
+      role: localStorage.getItem("role"),
       headers: [
         {
           text: "Patient Image",

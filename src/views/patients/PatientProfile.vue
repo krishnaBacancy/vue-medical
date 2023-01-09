@@ -112,7 +112,7 @@
                     +{{
                       getSinglePatientData[0]?.emergencyPhone
                         ? getSinglePatientData[0]?.emergencyPhone
-                        : "NULL"
+                        : "Not Available"
                     }}
                   </h3>
                 </div>
@@ -127,7 +127,7 @@
                     {{
                       getSinglePatientData[0]?.weight
                         ? getSinglePatientData[0]?.weight
-                        : "NULL"
+                        : "Not Available"
                     }}
                   </h3>
                 </div>
@@ -142,7 +142,7 @@
                     {{
                       getSinglePatientData[0]?.height
                         ? getSinglePatientData[0]?.height
-                        : "NULL"
+                        : "Not Available"
                     }}
                   </h3>
                 </div>
@@ -157,7 +157,7 @@
                     {{
                       getSinglePatientData[0]?.gstNo
                         ? getSinglePatientData[0]?.gstNo
-                        : "NULL"
+                        : "Not Available"
                     }}
                   </h3>
                 </div>
@@ -169,7 +169,7 @@
                     {{
                       getSinglePatientData[0]?.aadhar
                         ? getSinglePatientData[0]?.aadhar
-                        : "NULL"
+                        : "Not Available"
                     }}
                   </h3>
                 </div>
@@ -201,55 +201,31 @@
               >Emergency Contacts</v-card-title
             >
             <v-row>
-              <v-col cols="12" sm="6" md="6">
+              <v-col
+                cols="12"
+                sm="6"
+                md="6"
+                v-for="(familyInfo, id) in getSinglePatientData[0]
+                  ?.familyMembers"
+                :key="id"
+              >
                 <div class="d-flex align-center">
                   <div class="d-flex flex-column ml-4">
                     <h3 class="font-weight-bold text-start">
-                      {{
-                        getSinglePatientData[0]?.familyMember1Name
-                          ? getSinglePatientData[0]?.familyMember1Name
-                          : "NULL"
-                      }}
+                      {{ familyInfo.name ? familyInfo.name : "Not Available" }}
                     </h3>
                     <h3 class="warning--text text-start">
                       {{
-                        getSinglePatientData[0]?.familyMember1Relation
-                          ? getSinglePatientData[0]?.familyMember1Relation
-                          : "NULL"
+                        familyInfo.selectedRelation
+                          ? familyInfo.selectedRelation
+                          : "Not Available"
                       }}
                     </h3>
                     <small class="text-start">
                       {{
-                        getSinglePatientData[0]?.familyMember1Contact
-                          ? getSinglePatientData[0]?.familyMember1Contact
-                          : "NULL"
-                      }}
-                    </small>
-                  </div>
-                </div>
-              </v-col>
-              <v-col cols="12" sm="6" md="6">
-                <div class="d-flex align-center">
-                  <div class="d-flex flex-column mr-16 ml-4 ml-sm-0">
-                    <h3 class="font-weight-bold text-start">
-                      {{
-                        getSinglePatientData[0]?.familyMember2Name
-                          ? getSinglePatientData[0]?.familyMember2Name
-                          : "NULL"
-                      }}
-                    </h3>
-                    <h3 class="warning--text text-start">
-                      {{
-                        getSinglePatientData[0]?.familyMember2Relation
-                          ? getSinglePatientData[0]?.familyMember2Relation
-                          : "NULL"
-                      }}
-                    </h3>
-                    <small class="text-start">
-                      {{
-                        getSinglePatientData[0]?.familyMember2Contact
-                          ? getSinglePatientData[0]?.familyMember2Contact
-                          : "NULL"
+                        familyInfo.contactNo
+                          ? familyInfo.contactNo
+                          : "Not Available"
                       }}
                     </small>
                   </div>
@@ -278,7 +254,7 @@
                     {{
                       getSinglePatientData[0]?.bloodPressure
                         ? getSinglePatientData[0]?.bloodPressure
-                        : "NULL"
+                        : "Not Available"
                     }}
                   </h3>
                 </div>
@@ -290,7 +266,7 @@
                     {{
                       getSinglePatientData[0]?.diabetics
                         ? getSinglePatientData[0]?.diabetics
-                        : "NULL"
+                        : "Not Available"
                     }}
                   </h3>
                 </div>
@@ -302,7 +278,7 @@
                     {{
                       getSinglePatientData[0]?.heartCondition
                         ? getSinglePatientData[0]?.heartCondition
-                        : "NULL"
+                        : "Not Available"
                     }}
                   </h3>
                 </div>
@@ -317,7 +293,7 @@
                     {{
                       getSinglePatientData[0]?.thyroid
                         ? getSinglePatientData[0]?.thyroid
-                        : "NULL"
+                        : "Not Available"
                     }}
                   </h3>
                 </div>
@@ -329,7 +305,7 @@
                     {{
                       getSinglePatientData[0]?.obesity
                         ? getSinglePatientData[0]?.obesity
-                        : "NULL"
+                        : "Not Available"
                     }}
                   </h3>
                 </div>

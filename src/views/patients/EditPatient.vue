@@ -10,7 +10,7 @@
       <v-progress-circular
         indeterminate
         color="blue"
-        v-if="loadingStatus"
+        v-if="loading"
       ></v-progress-circular>
       <v-layout row wrap v-else>
         <v-flex d-flex xs12 sm12 md12>
@@ -90,7 +90,7 @@
                     label="Emergency Number"
                     filled
                     dense
-                    :rules="phoneRules"
+                    :rules="emergencyPhoneRules"
                   ></v-text-field>
                 </v-col>
 
@@ -213,7 +213,10 @@
                 class="warning--text text-h5 mb-2 ml-n2 font-weight-bold"
                 >Family Member Info</v-card-title
               >
-              <v-row>
+              <v-row
+                v-for="(familyInfo, index) in user.family_members"
+                :key="index"
+              >
                 <v-col cols="12" sm="6" md="4">
                   <v-text-field
                     type="text"
@@ -222,7 +225,7 @@
                     required
                     filled
                     dense
-                    v-model="user.family_members[0].familyMember1Name"
+                    v-model="familyInfo.name"
                   />
                 </v-col>
                 <v-col cols="12" sm="6" md="4">
@@ -232,7 +235,7 @@
                     dense
                     label="Select Relation"
                     :rules="selectRules"
-                    v-model="user.family_members[0].familyMember1Relation"
+                    v-model="familyInfo.selectedRelation"
                   ></v-select>
                 </v-col>
                 <v-col cols="12" sm="12" md="4">
@@ -242,7 +245,7 @@
                     filled
                     dense
                     :rules="phoneRules"
-                    v-model="user.family_members[0].familyMember1Contact"
+                    v-model="familyInfo.contactNo"
                   />
                 </v-col>
               </v-row>
@@ -251,80 +254,75 @@
                 class="warning--text text-h5 mb-2 ml-n2 font-weight-bold"
                 >Medical History</v-card-title
               >
-              <v-row>
-                <v-col cols="12" sm="6" md="4">
-                  <v-text-field
-                    type="number"
-                    label="Blood Pressure"
-                    required
-                    filled
-                    dense
-                    v-model="user.medical_history[0].bloodPressure"
-                  />
-                </v-col>
-                <v-col cols="12" sm="6" md="4">
-                  <v-text-field
-                    type="number"
-                    filled
-                    dense
-                    label="Diabetics"
-                    required
-                    v-model="user.medical_history[0].diabetics"
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" sm="12" md="4">
-                  <v-select
-                    label="Heart Condition"
-                    filled
-                    dense
-                    :items="heartCondition"
-                    v-model="user.medical_history[0].heartCondition"
-                  />
-                </v-col>
-              </v-row>
+              <div
+                v-for="(medicalInfo, id) in user.medical_history"
+                :key="'A' + id"
+              >
+                <v-row>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field
+                      type="number"
+                      label="Blood Pressure"
+                      required
+                      filled
+                      dense
+                      v-model="medicalInfo.bloodPressure"
+                    />
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field
+                      type="number"
+                      filled
+                      dense
+                      label="Diabetics"
+                      required
+                      v-model="medicalInfo.diabetics"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="12" md="4">
+                    <v-select
+                      label="Heart Condition"
+                      filled
+                      dense
+                      :items="heartCondition"
+                      v-model="medicalInfo.heartCondition"
+                    />
+                  </v-col>
+                </v-row>
 
-              <v-row>
-                <v-col cols="12" sm="6" md="6">
-                  <v-text-field
-                    type="number"
-                    label="Thyroid"
-                    required
-                    filled
-                    dense
-                    v-model="user.medical_history[0].thyroid"
-                  />
-                </v-col>
-                <v-col cols="12" sm="6" md="6">
-                  <v-text-field
-                    type="number"
-                    filled
-                    dense
-                    label="Obesity"
-                    required
-                    v-model="user.medical_history[0].obesity"
-                  ></v-text-field>
-                </v-col>
-              </v-row>
+                <v-row>
+                  <v-col cols="12" sm="6" md="6">
+                    <v-text-field
+                      type="number"
+                      label="Thyroid"
+                      required
+                      filled
+                      dense
+                      v-model="medicalInfo.thyroid"
+                    />
+                  </v-col>
+                  <v-col cols="12" sm="6" md="6">
+                    <v-text-field
+                      type="number"
+                      filled
+                      dense
+                      label="Obesity"
+                      required
+                      v-model="medicalInfo.obesity"
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
+              </div>
 
               <v-row class="mt-2 mb-2">
-                <v-flex xs12 sm6>
+                <v-flex xs12 sm12>
                   <v-btn
                     :disabled="!valid"
                     color="success"
                     @click="updateUser"
-                    width="95%"
+                    class="ml-2 mr-2"
                   >
                     Update Patient
-                  </v-btn>
-                </v-flex>
-                <v-flex xs12 sm6>
-                  <v-btn
-                    color="error"
-                    class="mt-4 mt-sm-0 mt-md-0"
-                    width="95%"
-                    @click="reset"
-                  >
-                    Reset Form
                   </v-btn>
                 </v-flex>
               </v-row>
@@ -340,7 +338,6 @@
 import PageHeader from "@/layouts/PageHeader.vue";
 import axios from "axios";
 import moment from "moment";
-import { mapGetters } from "vuex";
 import doctors from "../../api/doctor";
 
 export default {
@@ -360,9 +357,15 @@ export default {
       showPassIcon: false,
       phoneRules: [
         (v) => !!v || "Phone Number is required",
-        (v) => (v && v.length == 10) || "type valid phone number 1",
-        (v) => (v && v.length > 9) || "type valid phone number 2",
-        (v) => (v && v.length < 11) || "type valid phone number 3",
+        (v) => (v && v.length == 10) || "type valid phone number",
+        (v) => (v && v.length > 9) || "type valid phone number",
+        (v) => (v && v.length < 11) || "type valid phone number",
+      ],
+      emergencyPhoneRules: [
+        (v) => !!v || "Phone Number is required",
+        (v) => (v && v.length == 10) || "type valid phone number",
+        (v) => (v && v.length > 9) || "type valid phone number",
+        (v) => (v && v.length < 11) || "type valid phone number",
       ],
       gstNoRules: [(v) => !!v || "GST Number is required"],
       memberNameRules: [(v) => !!v || "Member name is required"],
@@ -371,17 +374,17 @@ export default {
       checkbox: false,
       dateMenu: false,
       dateValue: null,
+      loading: false,
     };
   },
   async mounted() {
+    this.loading = true;
     const res = await doctors.getSinglePatientData(this.$route?.params?.id);
     this.user = res.data.data[0];
     let dateOfBirth = res.data.data[0].DOB;
     let formattedDate = moment(dateOfBirth).format("YYYY-MM-DD");
     this.dob = formattedDate;
-  },
-  computed: {
-    ...mapGetters("doctors", ["loadingStatus"]),
+    this.loading = false;
   },
   methods: {
     async updateUser() {
@@ -396,9 +399,6 @@ export default {
           this.$toast.success("User Updated successfully.", { timeout: 3000 });
         }
       }
-    },
-    reset() {
-      this.$refs.form.reset();
     },
     focusDate() {
       setTimeout(() => {
