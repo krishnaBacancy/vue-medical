@@ -456,15 +456,17 @@ export default {
       };
       this.$refs.form.validate();
       const checkEmptyFamilyMemberInfo = this.checkEmptyFamilyMemberInfo();
+      console.log("val--", checkEmptyFamilyMemberInfo);
       if (this.valid) {
         if (!this.dateValue) {
           this.$toast.error("Must select date of birth.", {
             timeout: 3000,
           });
         }
-        if (!checkEmptyFamilyMemberInfo) {
-          this.$toast.error("Please fill all details", 3000);
-        } else {
+        // if (!checkEmptyFamilyMemberInfo) {
+        //   this.$toast.error("Please fill all details", 3000);
+        // }
+        else {
           this.addUser(data)
             .then((success) => {
               console.log(success);
