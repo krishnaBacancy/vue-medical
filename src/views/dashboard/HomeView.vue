@@ -5,7 +5,7 @@
     <v-container
       fluid
       grid-list-md
-      style="background-color: rgba(0, 0, 0, 0.5); border-radius: 20px"
+      style="background-color: rgb(31, 32, 38); border-radius: 20px"
     >
       <v-progress-circular
         indeterminate
@@ -56,7 +56,7 @@
                       class="ml-1"
                     ></v-img>
                   </v-flex>
-                  <h3 class="ml-2">
+                  <h3 class="ml-2 font-weight-regular">
                     {{ patient?.firstName + " " + patient?.lastName }}
                   </h3>
                 </div>

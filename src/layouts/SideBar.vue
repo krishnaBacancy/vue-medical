@@ -15,10 +15,10 @@
       width="10%"
       dark
       :style="{
-        width: $vuetify.breakpoint.smAndDown ? '30%' : '7%',
+        width: $vuetify.breakpoint.smAndDown ? '30%' : '120px',
         backgroundColor: $vuetify.breakpoint.smAndDown
           ? 'rgba(0,0,0,0.8)'
-          : 'rgba(0,0,0,0.3)',
+          : 'rgb(31, 32, 38)',
       }"
       :permanent="$vuetify.breakpoint.mdAndUp"
       v-if="!getRoute"
@@ -249,7 +249,7 @@
       </v-list> -->
     </v-navigation-drawer>
 
-    <v-main style="width: 97%; margin-left: auto; margin-right: auto">
+    <v-main class="main-wrapper">
       <router-view />
     </v-main>
   </v-app>
@@ -343,5 +343,10 @@ export default {
 span {
   font-size: 14px;
   margin-top: 5px;
+}
+.main-wrapper {
+  width: calc(100% - 120px);
+  margin-left: auto;
+  padding: 30px !important;
 }
 </style>

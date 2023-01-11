@@ -17,7 +17,7 @@
           <v-card
             style="width: 100%; border-radius: 20px"
             dark
-            color="rgba(0, 0, 0, 0.5)"
+            color="rgb(31, 32, 38)"
             class="mt-2 mb-5 pa-5 white--text"
           >
             <v-card-title

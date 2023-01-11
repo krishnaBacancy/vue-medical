@@ -1,16 +1,18 @@
 <template>
   <v-container
-    style="background-color: rgba(0, 0, 0, 0.5)"
-    class="main__container mt-8"
+    style="background-color: rgba(31, 32, 38)"
+    class="main__container"
     fluid
   >
     <v-layout row wrap>
       <v-flex d-flex xs12 sm12 md12>
-        <v-icon class="white--text ml-4" @click="$emit('goBack')">{{
+        <v-icon class="white--text ml-5" @click="$emit('goBack')">{{
           pageIcon
         }}</v-icon>
         <div class="d-flex" style="width: 100%">
-          <v-card-title class="white--text bold">{{ title }}</v-card-title>
+          <v-card-title class="white--text font-weight-regular">
+            {{ title }}
+          </v-card-title>
           <v-btn
             class="align-self-center ml-auto mr-10"
             :color="colorName"
