@@ -234,7 +234,10 @@
                   >
                 </div>
                 <div class="d-flex align-start mt-2">
-                  <div class="grid-container">
+                  <div
+                    :id="getSingleDeviceData[0]?.macAddressFramed.toUpperCase()"
+                    class="grid-container"
+                  >
                     <!-- <LineChart
                       :key="showEcgChart"
                       :width="834.24"
@@ -242,6 +245,9 @@
                     /> -->
                     <test-charts
                       :ecgDataFromProps="ecgChartData"
+                      :macAddress="
+                        getSingleDeviceData[0]?.macAddressFramed.toUpperCase()
+                      "
                       :key="showEcgChart"
                       v-if="showEcgChart"
                       :width="834.24"
