@@ -28,15 +28,21 @@ const mutations = {
   },
   SET_ALL_DEVICES(state, deviceData) {
     state.devices = deviceData
-      .map((device) => {
+      ?.map((device) => {
         return {
           id: device._id,
           name: device.name,
           macAddress: device.mac_address,
           manufactureMonth: device.manufacture_month_year,
           macAddressFramed: device.mac_address_framed.toUpperCase(),
-          doctorFirstName: device.doctorfirstName,
-          doctorLastName: device.doctorlastName,
+          doctorFirstName: device.docterfirstName,
+          doctorLastName: device.docterlastName,
+          doctorFullName:
+            device.docterfirstName?.charAt(0).toUpperCase() +
+            device.docterfirstName?.slice(1) +
+            " " +
+            device.docterlastName?.charAt(0).toUpperCase() +
+            device.docterlastName?.slice(1),
           fullName:
             device.customerfirstName?.charAt(0).toUpperCase() +
             device.customerfirstName?.slice(1) +
@@ -84,13 +90,20 @@ const actions = {
       commit("SET_LOADING_STATUS", false);
     }
   },
-  async addDeviceData({ commit }, payload) {
+  addDeviceData({ commit }, payload) {
     commit("SET_LOADING_STATUS", true);
-    const res = await devices.addDeviceData(payload);
-    if (res.status === 200) {
-      commit("SET_ALL_DEVICES", res.data.data);
-    }
-    commit("SET_LOADING_STATUS", false);
+    return new Promise((resolve, reject) => {
+      devices
+        .addDeviceData(payload)
+        .then((res) => {
+          if (res.status === 201) {
+            commit("SET_ALL_DEVICES", res.data.data);
+            resolve(true);
+            commit("SET_LOADING_STATUS", false);
+          }
+        })
+        .catch((err) => reject(err));
+    });
   },
   async checkAssignDevicesToDoctor({ commit }, payload) {
     const res = await devices.checkDeviceAssignToDoctor(payload);

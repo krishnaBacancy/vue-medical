@@ -145,6 +145,7 @@
                     @change="getSelectedValuePatient"
                     item-text="fullName"
                     return-object
+                    placeholder="Select Patient"
                   ></v-select>
                 </v-col>
               </v-row>
@@ -189,6 +190,7 @@
                     return-object
                     item-text="fullName"
                     dark
+                    placeholder="Select Doctor"
                   ></v-select>
                 </v-col>
               </v-row>
@@ -259,16 +261,10 @@
             <v-card-text>
               <v-container>
                 <v-row>
-                  <v-col cols="12" sm="6" md="6">
+                  <v-col cols="12" sm="12" md="12">
                     <v-text-field
                       v-model="editedItem.name"
                       label="Device Name"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="6">
-                    <v-text-field
-                      v-model="editedItem.macAddressFramed"
-                      label="Mac Address"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -312,13 +308,12 @@ export default {
           value: "name",
         },
         { text: "Mac Address", value: "macAddressFramed" },
-        { text: "Name", value: "fullName" },
+        { text: "Patient Name", value: "fullName" },
         { text: "Actions", value: "actions", sortable: false },
       ],
       editedIndex: -1,
       editedItem: {
         name: "",
-        macAddressFramed: "",
       },
       defaultItem: {
         name: "",
@@ -362,6 +357,7 @@ export default {
         name: this.device.name,
         mac_address: this.device.macAddress,
         manufacture_month_year: this.device.dateValue,
+        adminId: this.getDoctorId,
       };
       this.$refs.form.validate();
       if (!this.device.dateValue) {
@@ -369,12 +365,21 @@ export default {
           timeout: 3000,
         });
       } else {
-        this.addDeviceData(data);
+        this.addDeviceData(data)
+          .then((success) => {
+            console.log(success);
+            this.$toast.success("Device added successfully.", {
+              timeout: 3000,
+            });
+          })
+          .catch((err) => {
+            console.log(err);
+            this.$toast.error(err.response.data.message, { timeout: 3000 });
+          });
+        this.addDialog = false;
         setTimeout(() => {
           this.getAllDevices();
         }, 500);
-        this.addDialog = false;
-        this.$toast.success("Device added successfully.", { timeout: 3000 });
         this.device = {};
         this.$refs.form.reset();
       }
@@ -427,6 +432,7 @@ export default {
     assignDevicesToDoctor() {
       if (this.selected.length > 0) {
         this.assignDeviceDoctorDialog = true;
+        this.selectedHeaders = this.selected[0].doctorFullName;
         this.getAllPatientsData(this.getDoctorId);
       } else {
         this.$toast.error(
@@ -438,6 +444,7 @@ export default {
     assignDevicesToPatient() {
       if (this.selected.length > 0) {
         this.assignDevicePatientDialog = true;
+        this.selectedHeadersPatient = this.selected[0].fullName;
         this.getAllPatientsData(this.getDoctorId);
       } else {
         this.$toast.error(
@@ -468,7 +475,7 @@ export default {
           this.$toast.success("Devices assigned to Doctor successfully.");
         }
       }
-      // this.selectedHeaders = {};
+      this.selectedHeaders = {};
     },
     async getSelectedValuePatient() {
       let macAddress = this.selected.map((data) => data.macAddressFramed);
@@ -492,7 +499,7 @@ export default {
           this.$toast.success("Devices assigned to Patient successfully.");
         }
       }
-      // this.selectedHeadersPatient = {};
+      this.selectedHeadersPatient = {};
     },
   },
   watch: {

@@ -153,6 +153,7 @@
                     type="submit"
                     width="83%"
                     large
+                    :disabled="isLoading"
                     >Login</v-btn
                   >
                 </form>
@@ -186,17 +187,13 @@ export default {
       ],
       errorMessage: "",
       showPassIcon: false,
-      stateObj: {
-        login: {
-          name: "Login",
-          message: "Register",
-        },
-      },
+      isLoading: false,
     };
   },
   methods: {
     ...mapActions("users", ["loginUser"]),
     login() {
+      this.isLoading = true;
       const data = {
         email: this.email,
         password: this.password,
@@ -204,10 +201,12 @@ export default {
       this.loginUser(data)
         .then((success) => {
           console.log(success);
+          this.isLoading = false;
           this.$router.push({ path: "/" });
           this.$toast.success("Login successful", { timeout: 3000 });
         })
         .catch((err) => {
+          this.isLoading = false;
           this.$toast.error("Invalid Credentials", { timeout: 3000 });
           console.log(err);
         });
