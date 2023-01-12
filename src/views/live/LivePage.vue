@@ -476,10 +476,6 @@ export default {
       socketConnection: null,
       allDeviceEcgData: [],
       connection: {
-        protocol: "mqtt",
-        host: "194.233.69.96",
-        port: 15675,
-        endpoint: "ws",
         clean: true,
         connectTimeout: 30 * 1000,
         reconnectTimeout: 4000,
