@@ -51,20 +51,32 @@
 
                 <v-row>
                   <v-col cols="12" sm="6" md="4">
-                    <CustomTextField
+                    <!-- <CustomTextField
                       :type="'number'"
                       :label="'Phone Number'"
                       :fieldRules="phoneRules"
                       v-model="user.phone"
-                    />
+                    /> -->
+                    <vue-tel-input
+                      v-model.trim="user.phone"
+                      style="height: 53px"
+                      v-bind="phoneProps"
+                      @validate="phoneNumberChanged"
+                    ></vue-tel-input>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
-                    <CustomTextField
+                    <!-- <CustomTextField
                       :type="'number'"
                       :label="'Emergency Number'"
                       :fieldRules="phoneRules"
                       v-model="user.emergencyPhone"
-                    />
+                    /> -->
+                    <vue-tel-input
+                      v-model.trim="user.emergencyPhone"
+                      style="height: 53px"
+                      v-bind="emergencyPhoneProps"
+                      @validate="emergencyPhoneChanged"
+                    ></vue-tel-input>
                   </v-col>
                   <v-col cols="12" sm="12" md="4">
                     <v-menu
@@ -358,6 +370,34 @@ export default {
       obesityRules: [(v) => !!v || "obesity is required"],
       dateMenu: false,
       dateValue: null,
+      phoneProps: {
+        preferredCountries: ["US", "GB"],
+        mode: "international",
+        inputOptions: {
+          showDialCode: false,
+          maxlength: 15,
+          placeholder: "Enter phone number",
+          required: true,
+        },
+        invalidMsg: "Invalid",
+        autoFormat: false,
+        validCharactersOnly: true,
+        disabledFormatting: false,
+      },
+      emergencyPhoneProps: {
+        preferredCountries: ["US", "GB"],
+        mode: "international",
+        inputOptions: {
+          showDialCode: false,
+          maxlength: 15,
+          placeholder: "Enter emergency phone number",
+          required: true,
+        },
+        invalidMsg: "Invalid",
+        autoFormat: false,
+        validCharactersOnly: true,
+        disabledFormatting: false,
+      },
       user: {
         fname: "",
         lname: "",
@@ -390,10 +430,19 @@ export default {
         thyroid: null,
         obesity: null,
       },
+      isValidPhoneNumber: false,
+      isValidEmergencyPhoneNumber: false,
     };
   },
   methods: {
     ...mapActions("userManagement", ["addUser"]),
+    phoneNumberChanged(e) {
+      this.isValidPhoneNumber = e?.valid;
+    },
+    emergencyPhoneChanged(e) {
+      this.isValidEmergencyPhoneNumber = e?.valid;
+      console.log("valid--", e?.valid);
+    },
     goToPreviousPage() {
       this.$router.go(-1);
     },
@@ -434,8 +483,8 @@ export default {
         first_Name: this.user.fname,
         last_Name: this.user.lname,
         email: this.user.email,
-        mobile_no: this.user.phone,
-        emergencyPhone: this.user.emergencyPhone,
+        mobile_no: this.user.phone.replaceAll(" ", ""),
+        emergencyPhone: this.user.emergencyPhone.replaceAll(" ", ""),
         gender: this.user.gender,
         height: this.user.height,
         weight: this.user.weight,
@@ -463,10 +512,9 @@ export default {
             timeout: 3000,
           });
         }
-        // if (!checkEmptyFamilyMemberInfo) {
-        //   this.$toast.error("Please fill all details", 3000);
-        // }
-        else {
+        if (!this.isValidPhoneNumber || !this.isValidEmergencyPhoneNumber) {
+          this.$toast.error("Please enter valid mobile number.", 3000);
+        } else {
           this.addUser(data)
             .then((success) => {
               console.log(success);
@@ -477,7 +525,7 @@ export default {
             })
             .catch((err) => {
               console.log(err);
-              this.$toast.error("some error occured.", { timeout: 3000 });
+              this.$toast.error(err.response.data.message, { timeout: 3000 });
             });
         }
       }

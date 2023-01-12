@@ -341,7 +341,7 @@ import moment from "moment";
 import doctors from "../../api/doctor";
 
 export default {
-  name: "AddUser",
+  name: "EditUser",
   data() {
     return {
       valid: true,
