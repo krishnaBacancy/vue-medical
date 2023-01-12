@@ -249,7 +249,7 @@
       </v-list> -->
     </v-navigation-drawer>
 
-    <v-main class="main-wrapper">
+    <v-main class="main-wrapper" style="width: 93%">
       <router-view />
     </v-main>
   </v-app>
@@ -345,7 +345,7 @@ span {
   margin-top: 5px;
 }
 .main-wrapper {
-  width: calc(100% - 120px);
+  min-width: calc(100% - 120px);
   margin-left: auto;
   padding: 30px !important;
 }
