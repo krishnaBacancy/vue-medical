@@ -56,14 +56,14 @@
                   <v-col cols="12" sm="6" md="6">
                     <v-text-field
                       label="Device Name"
-                      v-model="device.name"
+                      v-model.trim="device.name"
                       :rules="nameRules"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="6">
                     <v-text-field
                       label="Mac Address"
-                      v-model="device.macAddress"
+                      v-model.trim="device.macAddress"
                       :rules="macAddressRules"
                     ></v-text-field>
                   </v-col>

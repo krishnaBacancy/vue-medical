@@ -53,7 +53,7 @@
               <v-spacer></v-spacer>
               <div style="width: 70%" class="mr-3">
                 <div :id="device.macAddressFramed" style="overflow: hidden">
-                  <test-charts
+                  <ecg-chart
                     v-if="device.showEcgChart"
                     :ecgDataFromProps="device.ecgValues"
                     :macAddress="device.macAddressFramed"
@@ -453,18 +453,16 @@
 </template>
 
 <script>
-// import LineChart from "@/components/LineChart.vue";
 import PageHeader from "@/layouts/PageHeader.vue";
 import { mapActions, mapGetters } from "vuex";
 import mqtt from "mqtt/dist/mqtt";
-import TestCharts from "@/components/TestCharts.vue";
+import EcgChart from "@/components/EcgChart.vue";
 
 export default {
   name: "LivePage",
   components: {
     PageHeader,
-    // LineChart,
-    TestCharts,
+    EcgChart,
   },
   data() {
     return {
@@ -547,7 +545,7 @@ export default {
         }
 
         if (this.socketConnection.on) {
-          this.socketConnection.on("reconnect", this.handleOnReConnect);
+          // this.socketConnection.on("reconnect", this.handleOnReConnect);
           this.socketConnection.on("error", (error) => {
             console.log("Connection failed", error);
           });
@@ -665,20 +663,32 @@ export default {
       this.getPatientsForDoctor(this.getDoctorId);
     }
   },
+  destroyed() {
+    if (this.socketConnection.connected) {
+      try {
+        this.socketConnection.end(false, () => {
+          this.initData();
+          console.log("Successfully disconnected!");
+        });
+      } catch (error) {
+        console.log("Disconnect failed", error.toString());
+      }
+    }
+  },
   methods: {
     ...mapActions("doctors", ["getPatientsForDoctor"]),
-    handleOnReConnect() {
-      this.retryTimes += 1;
-      if (this.retryTimes > 5) {
-        try {
-          this.socketConnection.end();
-          this.initData();
-          console.log("Connection maxReconnectTimes limit, stop retry");
-        } catch (error) {
-          console.log("error---", error.toString());
-        }
-      }
-    },
+    // handleOnReConnect() {
+    //   this.retryTimes += 1;
+    //   if (this.retryTimes > 5) {
+    //     try {
+    //       this.socketConnection.end();
+    //       this.initData();
+    //       console.log("Connection maxReconnectTimes limit, stop retry");
+    //     } catch (error) {
+    //       console.log("error---", error.toString());
+    //     }
+    //   }
+    // },
     initData() {
       this.socketConnection = {
         connected: false,

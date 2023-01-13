@@ -243,7 +243,7 @@
                       :width="834.24"
                       :height="299.53"
                     /> -->
-                    <test-charts
+                    <ecg-chart
                       :ecgDataFromProps="ecgChartData"
                       :macAddress="
                         getSingleDeviceData[0]?.macAddressFramed.toUpperCase()
@@ -273,7 +273,7 @@
                 </div>
                 <div class="d-flex align-start mt-2">
                   <div class="grid-container">
-                    <RealTimeChart
+                    <ppg-chart
                       :width="834.24"
                       :height="299.53"
                       :key="showPpgChart"
@@ -408,7 +408,13 @@
                   </v-flex>
                   <v-flex xs12>
                     <div class="ml-4 text-start">
-                      <h1 class="warning--text">98</h1>
+                      <h1 class="warning--text">
+                        {{
+                          getBloodOxygenGraphData[0]?.avgspo2
+                            ? Math.round(getBloodOxygenGraphData[0]?.avgspo2)
+                            : "Loading..."
+                        }}
+                      </h1>
                       <div class="d-flex flex-column">
                         <small>Streaming Mode</small>
                       </div>
@@ -439,7 +445,7 @@
                   <v-flex>
                     <v-img
                       class="ml-2 mt-2"
-                      src="@/assets/oxygen.svg"
+                      src="@/assets/temprature.svg"
                       height="70"
                       width="70"
                       contain
@@ -447,7 +453,13 @@
                   </v-flex>
                   <v-flex xs12>
                     <div class="ml-4 text-start">
-                      <h1 class="warning--text">98</h1>
+                      <h1 class="warning--text">
+                        {{
+                          getBodyTempGraphData[0]?.avgspo2
+                            ? Math.round(getBodyTempGraphData[0]?.avgspo2)
+                            : "Loading..."
+                        }}
+                      </h1>
                       <div class="d-flex flex-column">
                         <small>Streaming Mode</small>
                       </div>
@@ -963,7 +975,8 @@
                   <TestChart
                     :height="286"
                     :width="623"
-                    :data-of-chart="[72, 115, 95, 130, 60, 116, 88]"
+                    :data-of-chart="getBodyTempGraphData"
+                    :chart-id="'temperatureGraph'"
                     :label="['12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm']"
                     :chart-bg-color="'#fd5d5d'"
                   />
@@ -1055,13 +1068,13 @@
                   </div>
                 </div>
                 <div class="grid-container">
-                  <TestChart
+                  <!-- <TestChart
                     :height="286"
                     :width="623"
                     :data-of-chart="[72, 115, 95, 130, 60, 116, 88]"
                     :label="['12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm']"
                     :chart-bg-color="'cyan'"
-                  />
+                  /> -->
                 </div>
               </v-card>
             </v-flex>
@@ -1140,36 +1153,36 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import mqtt from "mqtt/dist/mqtt";
-// import LineChart from "../../components/LineChart.vue";
-import TestCharts from "@/components/TestCharts.vue";
-import RealTimeChart from "@/components/RealTimeChart.vue";
 import PageHeader from "@/layouts/PageHeader.vue";
 import TestChart from "@/components/TestChart.vue";
 import ApexAreaChart from "@/components/ApexAreaChart.vue";
+import EcgChart from "@/components/EcgChart.vue";
+import PpgChart from "@/components/PpgChart.vue";
 
 export default {
   name: "PatientDetails",
   components: {
-    // LineChart,
-    TestCharts,
-    RealTimeChart,
     PageHeader,
     TestChart,
     ApexAreaChart,
+    EcgChart,
+    PpgChart,
   },
   data() {
     return {
       getDoctorId: localStorage.getItem("user_id"),
       aggregateValues: ["average", "minimum", "maximum"],
-      selectedAggregate: null,
+      selectedAggregate: "average",
       timePeriodValues: ["1hour", "1day", "7days", "30days"],
-      selectedTimePeriod: null,
+      selectedTimePeriod: "7days",
       ecgChartData: [],
       ppgChartData: [],
       startDateMenu: false,
       endDateMenu: false,
-      startDateValue: null,
-      endDateValue: null,
+      startDateValue: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+        .toISOString()
+        .slice(0, 10),
+      endDateValue: new Date().toISOString().slice(0, 10),
       tempStartTime: null,
       startTime: null,
       showEcgChart: false,
@@ -1187,6 +1200,7 @@ export default {
         username: "MYsmO5Oc7O6DKkS8",
         password: "ufUPnVWbLoMwwFaL",
         useSSL: true,
+        reconnect: true,
         // options: {
         //   // clean: true,
         //   connectTimeout: 4000,
@@ -1225,7 +1239,19 @@ export default {
       "getSingleDeviceData",
       "getMacAddress",
     ]),
-    ...mapGetters("patientData", ["getAlgoData"]),
+    ...mapGetters("patientData", [
+      "getAlgoData",
+      "getBloodOxygenGraphData",
+      "getBodyTempGraphData",
+    ]),
+    selectAllFilters() {
+      return (
+        this.selectedAggregate &&
+        this.selectedTimePeriod &&
+        this.startDateValue &&
+        this.endDateValue
+      );
+    },
   },
   destroyed() {
     if (this.client.connected) {
@@ -1246,19 +1272,19 @@ export default {
   mounted() {
     setTimeout(() => {
       this.displayAlgoData();
-    }, 1000);
-  },
-  updated() {
-    if (
-      this.selectedAggregate &&
-      this.selectedTimePeriod &&
-      this.startDateValue &&
-      this.endDateValue
-    ) {
       this.getBodyTempGraph();
       this.getBloodO2Grpah();
       this.getStepsGraph();
-    }
+    }, 1000);
+  },
+  watch: {
+    selectAllFilters(newVal, oldVal) {
+      if (newVal || oldVal) {
+        this.getBodyTempGraph();
+        this.getBloodO2Grpah();
+        this.getStepsGraph();
+      }
+    },
   },
   methods: {
     ...mapActions("doctors", ["getSingleDevice"]),
@@ -1341,6 +1367,12 @@ export default {
       this.getPatientStepsData(payload);
     },
     handleOnReConnect() {
+      // return new Promise((resolve) => {
+      //   this.client.end(true, {}, () => {
+      //     this.client.reconnect();
+      //     resolve();
+      //   });
+      // });
       this.retryTimes += 1;
       if (this.retryTimes > 5) {
         try {
