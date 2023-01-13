@@ -122,7 +122,7 @@
                     class="mt-15"
                     dark
                     type="email"
-                    v-model="email"
+                    v-model.trim="email"
                     name="email"
                     placeholder="Email"
                     required
@@ -136,7 +136,7 @@
                     dark
                     :append-icon="showPassIcon ? 'mdi-eye' : 'mdi-eye-off'"
                     :type="showPassIcon ? 'text' : 'password'"
-                    v-model="password"
+                    v-model.trim="password"
                     name="password"
                     placeholder="Password"
                     hint="At least 6 characters"

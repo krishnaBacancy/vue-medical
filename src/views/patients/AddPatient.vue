@@ -28,7 +28,7 @@
                       :type="'text'"
                       :label="'Patient First Name'"
                       :fieldRules="nameRules"
-                      v-model="user.fname"
+                      v-model.trim="user.fname"
                     />
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
@@ -36,7 +36,7 @@
                       :type="'text'"
                       :label="'Patient Last Name'"
                       :fieldRules="nameRules"
-                      v-model="user.lname"
+                      v-model.trim="user.lname"
                     />
                   </v-col>
                   <v-col cols="12" sm="12" md="4">
@@ -44,7 +44,7 @@
                       :type="'email'"
                       :label="'Email Address'"
                       :fieldRules="emailRules"
-                      v-model="user.email"
+                      v-model.trim="user.email"
                     />
                   </v-col>
                 </v-row>
@@ -134,7 +134,7 @@
                       :type="'number'"
                       :label="'Weight (kg)'"
                       :fieldRules="weightRules"
-                      v-model="user.weight"
+                      v-model.trim="user.weight"
                     />
                   </v-col>
                   <v-col cols="12" sm="12" md="4">
@@ -142,7 +142,7 @@
                       :type="'number'"
                       :label="'Height (cm)'"
                       :fieldRules="heightRules"
-                      v-model="user.height"
+                      v-model.trim="user.height"
                     />
                   </v-col>
                 </v-row>
@@ -152,7 +152,7 @@
                     <v-text-field
                       :append-icon="showPassIcon ? 'mdi-eye' : 'mdi-eye-off'"
                       :type="showPassIcon ? 'text' : 'password'"
-                      v-model="user.password"
+                      v-model.trim="user.password"
                       name="password"
                       label="Password"
                       hint="At least 6 characters"
@@ -168,7 +168,7 @@
                       :type="'number'"
                       :label="'Aadhar Number'"
                       :fieldRules="aadharRules"
-                      v-model="user.aadhar"
+                      v-model.trim="user.aadhar"
                     />
                   </v-col>
                   <v-col cols="12" sm="12" md="4">
@@ -176,7 +176,7 @@
                       :type="'text'"
                       :label="'Address'"
                       :fieldRules="addressRules"
-                      v-model="user.address"
+                      v-model.trim="user.address"
                     />
                   </v-col>
                 </v-row>
@@ -194,7 +194,7 @@
                       :type="'text'"
                       :label="'Member Name'"
                       :fieldRules="memberNameRules"
-                      v-model="familyInfo.name"
+                      v-model.trim="familyInfo.name"
                     />
                   </v-col>
                   <v-col cols="12" sm="6" md="3">
@@ -212,7 +212,7 @@
                       :type="'number'"
                       :label="'Contact Number'"
                       :fieldRules="phoneRules"
-                      v-model="familyInfo.contactNo"
+                      v-model.trim="familyInfo.contactNo"
                     />
                   </v-col>
                   <v-col cols="12" md="3">
@@ -258,7 +258,7 @@
                       :type="'number'"
                       :label="'Blood Pressure'"
                       :fieldRules="bloodPressureRules"
-                      v-model="medicalInfo.bloodPressure"
+                      v-model.trim="medicalInfo.bloodPressure"
                     />
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
@@ -266,7 +266,7 @@
                       :type="'number'"
                       :label="'Diabetics'"
                       :fieldRules="diabeticsRules"
-                      v-model="medicalInfo.diabetics"
+                      v-model.trim="medicalInfo.diabetics"
                     />
                   </v-col>
                   <v-col cols="12" sm="12" md="4">
@@ -287,7 +287,7 @@
                       :type="'number'"
                       :label="'Thyroid'"
                       :field-rules="thyroidRules"
-                      v-model="medicalInfo.thyroid"
+                      v-model.trim="medicalInfo.thyroid"
                     />
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
@@ -295,7 +295,7 @@
                       :type="'number'"
                       :label="'Obesity'"
                       :field-rules="obesityRules"
-                      v-model="medicalInfo.obesity"
+                      v-model.trim="medicalInfo.obesity"
                     />
                   </v-col>
                 </v-row>

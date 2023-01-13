@@ -29,7 +29,7 @@
                 <v-col cols="12" sm="6">
                   <v-text-field
                     type="text"
-                    v-model="user.first_Name"
+                    v-model.trim="user.first_Name"
                     name="fname"
                     label="First Name"
                     required
@@ -42,7 +42,7 @@
                 <v-col cols="12" sm="6">
                   <v-text-field
                     type="text"
-                    v-model="user.last_Name"
+                    v-model.trim="user.last_Name"
                     name="lname"
                     label="Last Name"
                     required
@@ -57,7 +57,7 @@
                 <v-col cols="12" sm="6">
                   <v-text-field
                     type="email"
-                    v-model="user.email"
+                    v-model.trim="user.email"
                     name="email"
                     label="Email"
                     required
@@ -70,7 +70,7 @@
                 <v-col cols="12" sm="6">
                   <v-text-field
                     type="number"
-                    v-model="user.mobile_no"
+                    v-model.trim="user.mobile_no"
                     name="phone"
                     label="Phone"
                     required
@@ -85,7 +85,7 @@
                 <v-col cols="12" sm="6">
                   <v-text-field
                     type="number"
-                    v-model="user.emergencyPhone"
+                    v-model.trim="user.emergencyPhone"
                     name="emergencyPhone"
                     label="Emergency Number"
                     filled
@@ -116,7 +116,7 @@
               <v-row>
                 <v-col cols="12" sm="12">
                   <v-textarea
-                    v-model="user.Address"
+                    v-model.trim="user.Address"
                     auto-grow
                     label="Address"
                     rows="1"
@@ -130,7 +130,7 @@
                 <v-col cols="12" sm="6">
                   <v-text-field
                     type="number"
-                    v-model="user.adharcard"
+                    v-model.trim="user.adharcard"
                     name="Aadhar"
                     label="Aadhar Card Number"
                     required
@@ -174,7 +174,7 @@
                 <v-col cols="12" sm="6">
                   <v-text-field
                     type="number"
-                    v-model="user.weight"
+                    v-model.trim="user.weight"
                     name="weight"
                     label="Weight"
                     required
@@ -186,7 +186,7 @@
                 <v-col cols="12" sm="6">
                   <v-text-field
                     type="number"
-                    v-model="user.height"
+                    v-model.trim="user.height"
                     name="height"
                     label="Height"
                     filled
@@ -199,7 +199,7 @@
                 <v-col cols="12" sm="12">
                   <v-text-field
                     type="number"
-                    v-model="user.GSTNO"
+                    v-model.trim="user.GSTNO"
                     name="gstNo"
                     label="Gst No"
                     required
@@ -225,7 +225,7 @@
                     required
                     filled
                     dense
-                    v-model="familyInfo.name"
+                    v-model.trim="familyInfo.name"
                   />
                 </v-col>
                 <v-col cols="12" sm="6" md="4">
@@ -245,7 +245,7 @@
                     filled
                     dense
                     :rules="phoneRules"
-                    v-model="familyInfo.contactNo"
+                    v-model.trim="familyInfo.contactNo"
                   />
                 </v-col>
               </v-row>
@@ -266,7 +266,7 @@
                       required
                       filled
                       dense
-                      v-model="medicalInfo.bloodPressure"
+                      v-model.trim="medicalInfo.bloodPressure"
                     />
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
@@ -276,7 +276,7 @@
                       dense
                       label="Diabetics"
                       required
-                      v-model="medicalInfo.diabetics"
+                      v-model.trim="medicalInfo.diabetics"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="12" md="4">
@@ -298,7 +298,7 @@
                       required
                       filled
                       dense
-                      v-model="medicalInfo.thyroid"
+                      v-model.trim="medicalInfo.thyroid"
                     />
                   </v-col>
                   <v-col cols="12" sm="6" md="6">
@@ -308,7 +308,7 @@
                       dense
                       label="Obesity"
                       required
-                      v-model="medicalInfo.obesity"
+                      v-model.trim="medicalInfo.obesity"
                     ></v-text-field>
                   </v-col>
                 </v-row>
