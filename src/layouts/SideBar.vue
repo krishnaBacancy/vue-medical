@@ -15,7 +15,7 @@
       width="10%"
       dark
       :style="{
-        width: $vuetify.breakpoint.smAndDown ? '30%' : '120px',
+        width: $vuetify.breakpoint.smAndDown ? '280px' : '120px',
         backgroundColor: $vuetify.breakpoint.smAndDown
           ? 'rgba(0,0,0,0.8)'
           : 'rgb(31, 32, 38)',
@@ -37,13 +37,10 @@
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-
-      <v-divider></v-divider>
-
       <div class="sidebar">
         <nav>
           <!-- Move event here -->
-          <ul class="ml-n5">
+          <ul>
             <li>
               <router-link
                 to="/"
@@ -249,7 +246,7 @@
       </v-list> -->
     </v-navigation-drawer>
 
-    <v-main class="main-wrapper" style="width: 93%">
+    <v-main class="main-wrapper">
       <router-view />
     </v-main>
   </v-app>
@@ -304,22 +301,41 @@ export default {
   color: white !important;
 }
 .sidebar {
-  margin-top: 20px;
+  padding-top: 20px;
   position: fixed;
-  height: 100vh;
+  height: calc(100vh - 88px);
   width: 120px;
   border-radius: 15px;
   margin-right: auto;
+  overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.sidebar::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+.sidebar::-webkit-scrollbar-track {
+  background: #1f2026;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #1f2026;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: #1f2026;
 }
 
 .sidebar ul {
   list-style: none;
+  padding: 0 15px 15px;
 }
 
 .sidebar li {
   text-align: left;
   width: 100%;
-  margin-bottom: 2rem;
   cursor: pointer;
 }
 
@@ -327,14 +343,13 @@ export default {
   color: white;
   text-decoration: none;
   font-size: 14px;
-  margin-top: 5px;
+  padding: 24px 10px;
+  font-weight: 400;
+  border-radius: 20px;
 }
 .sidebar a.exactActiveLink {
   color: #ffb23e;
-  background: transparent url("@/assets/Rectangle\ 37.svg") 0% 0% no-repeat
-    padding-box;
-  background-size: 120px 100px;
-  height: 60px;
+  background: #2b2934;
 }
 .sidebar a.exactActiveLink > .icon__color {
   color: #ffb23e;
@@ -345,8 +360,31 @@ span {
   margin-top: 5px;
 }
 .main-wrapper {
-  min-width: calc(100% - 120px);
+  width: calc(100% - 120px);
   margin-left: auto;
   padding: 30px !important;
+}
+@media (max-width: 960px) {
+  .main-wrapper {
+    width: 100%;
+    margin-top: 56px;
+  }
+  .sidebar {
+    width: 100%;
+  }
+  .sidebar a {
+    flex-direction: row !important;
+    justify-content: flex-start !important;
+    padding: 10px 20px;
+    border-radius: 40px;
+  }
+  .sidebar a .v-icon.v-icon {
+    margin-right: 10px;
+  }
+}
+@media (max-width: 767px) {
+  .main-wrapper {
+    padding: 15px !important;
+  }
 }
 </style>

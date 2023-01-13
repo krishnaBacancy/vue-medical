@@ -5,7 +5,7 @@
         <div class="">
           <v-card
             dark
-            class="ml-2 mb-2 pa-2"
+            class="mb-2 pa-2"
             style="width: 100%; border-radius: 50px"
           >
             <div>
@@ -39,5 +39,8 @@ export default {};
 <style scoped>
 input:focus {
   outline: none;
+}
+.theme--dark.v-card {
+  background: #2b2934;
 }
 </style>

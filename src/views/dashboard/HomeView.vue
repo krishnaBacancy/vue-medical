@@ -41,7 +41,7 @@
           >
             <v-card
               color="#2B2934"
-              class="ml-2 mr-2 mb-2 pa-2 white--text main__card"
+              class="white--text main__card"
               style="width: 100%"
               @click="$router.push(`/patient-details/${patient?.id}`)"
             >
@@ -358,6 +358,10 @@ span {
 }
 .main__card {
   border-radius: 20px;
+  padding: 20px;
+}
+.container.grid-list-md .layout .flex {
+  padding: 10px;
 }
 @media only screen and (max-width: 420px) {
   span {
