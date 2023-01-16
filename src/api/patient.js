@@ -17,4 +17,8 @@ export default {
     client.post(
       `devices/gettempdata?speedometerId=${params.speedometerId}&agrFunction=${params.agrFunction}&timePeriod=${params.timePeriod}&startDate=${params.startDate}&endDate=${params.endDate}`
     ),
+  getHeartRateGraph: (params) =>
+    client.post(
+      `devices/gethrdata??speedometerId=${params.speedometerId}&agrFunction=${params.agrFunction}&timePeriod=${params.timePeriod}&startDate=${params.startDate}&endDate=${params.endDate}`
+    ),
 };

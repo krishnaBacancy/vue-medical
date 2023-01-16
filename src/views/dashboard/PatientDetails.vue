@@ -89,7 +89,12 @@
                 fontSize: $vuetify.breakpoint.smAndDown ? '16px' : '20px',
               }"
             >
-              114Hrs 45Min
+              {{
+                getSingleDeviceData[0]?.batdata
+                  ? getSingleDeviceData[0]?.batdata.bat_vals
+                  : "100"
+              }}
+              %
             </h3>
           </div>
           <v-spacer></v-spacer>
@@ -410,8 +415,8 @@
                     <div class="ml-4 text-start">
                       <h1 class="warning--text">
                         {{
-                          getAlgoData?.temp
-                            ? Math.round(getAlgoData?.temp)
+                          getAlgoData?.spo2
+                            ? Math.round(getAlgoData?.spo2)
                             : "Loading..."
                         }}
                       </h1>
@@ -455,8 +460,8 @@
                     <div class="ml-4 text-start">
                       <h1 class="warning--text">
                         {{
-                          getAlgoData?.spo2
-                            ? Math.round(getAlgoData?.spo2)
+                          getAlgoData?.temp
+                            ? Math.round(getAlgoData?.temp)
                             : "Loading..."
                         }}
                       </h1>
@@ -1042,6 +1047,24 @@
                     :chart-border-color="'#774af1'"
                     :chart-bg-color="['#7741f1']"
                   /> -->
+                  <oxygen-graph
+                    v-if="getPatientSteps"
+                    :height="366"
+                    :width="770"
+                    :data-of-chart="getPatientSteps"
+                    :chart-id="'OxygenGraph'"
+                    :chart-label="[
+                      '12pm',
+                      '1pm',
+                      '2pm',
+                      '3pm',
+                      '4pm',
+                      '5pm',
+                      '6pm',
+                    ]"
+                    :chart-border-color="'cyan'"
+                    :chart-bg-color="['cyan']"
+                  />
                 </div>
               </v-card>
             </v-flex>
@@ -1079,13 +1102,28 @@
                   </div>
                 </div>
                 <div class="grid-container">
-                  <!-- <TestChart
-                    :height="286"
-                    :width="623"
-                    :data-of-chart="[72, 115, 95, 130, 60, 116, 88]"
-                    :label="['12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm']"
-                    :chart-bg-color="'cyan'"
-                  /> -->
+                  <div
+                    id="heartRateCanvas"
+                    style="width: 100%; overflow-x: auto"
+                  >
+                    <heart-rate-graph
+                      v-if="getBodyTempGraphData"
+                      :height="286"
+                      :width="623"
+                      :data-of-chart="getBodyTempGraphData"
+                      :label="[
+                        '12pm',
+                        '1pm',
+                        '2pm',
+                        '3pm',
+                        '4pm',
+                        '5pm',
+                        '6pm',
+                      ]"
+                      :chart-bg-color="'cyan'"
+                      :chart-id="'hrGraph'"
+                    />
+                  </div>
                 </div>
               </v-card>
             </v-flex>
@@ -1171,6 +1209,8 @@ import TestChart from "@/components/TestChart.vue";
 import ApexAreaChart from "@/components/ApexAreaChart.vue";
 import EcgChart from "@/components/EcgChart.vue";
 import PpgChart from "@/components/PpgChart.vue";
+import HeartRateGraph from "@/components/HeartRateGraph.vue";
+import OxygenGraph from "@/components/OxygenGraph.vue";
 
 export default {
   name: "PatientDetails",
@@ -1180,6 +1220,8 @@ export default {
     ApexAreaChart,
     EcgChart,
     PpgChart,
+    HeartRateGraph,
+    OxygenGraph,
   },
   data() {
     return {
@@ -1289,6 +1331,7 @@ export default {
         this.getBodyTempGraph();
         this.getBloodO2Grpah();
         this.getStepsGraph();
+        this.getHeartRateGraph();
       }
     },
     getMacAddress(val) {
@@ -1297,6 +1340,7 @@ export default {
         this.getBodyTempGraph();
         this.getBloodO2Grpah();
         this.getStepsGraph();
+        this.getHeartRateGraph();
       }
     },
   },
@@ -1312,6 +1356,7 @@ export default {
       "getPatientBodyTempData",
       "getPatientBloodOxygenData",
       "getPatientStepsData",
+      "getPatientHeartRateData",
     ]),
     focusStartDate() {
       setTimeout(() => {
@@ -1379,6 +1424,16 @@ export default {
         endDate: Date.parse(this.endDateValue),
       };
       this.getPatientStepsData(payload);
+    },
+    getHeartRateGraph() {
+      const payload = {
+        speedometerId: this.getMacAddress.toString().toUpperCase(),
+        agrFunction: this.selectedAggregate,
+        timePeriod: this.selectedTimePeriod,
+        startDate: Date.parse(this.startDateValue),
+        endDate: Date.parse(this.endDateValue),
+      };
+      this.getPatientHeartRateData(payload);
     },
     handleOnReConnect() {
       // return new Promise((resolve) => {

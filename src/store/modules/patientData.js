@@ -6,6 +6,7 @@ const state = {
   bodyTemp: [],
   bloodOxygen: [],
   patientSteps: [],
+  heartRate: [],
 };
 
 const getters = {
@@ -24,6 +25,9 @@ const getters = {
   getAlgoData(state) {
     return state?.patientAlgoData;
   },
+  getHeartRate(state) {
+    return state?.heartRate;
+  },
 };
 
 const mutations = {
@@ -41,6 +45,9 @@ const mutations = {
   },
   SET_PATIENT_STEPS_GRAPH(state, steps) {
     state.patientSteps = steps;
+  },
+  SET_PATIENT_HEART_RATE_GRAPH(state, hr) {
+    state.heartRate = hr;
   },
 };
 
@@ -77,6 +84,15 @@ const actions = {
     if (res.status === 200) {
       console.log("steps--", res.data.data);
       commit("SET_PATIENT_STEPS_GRAPH", res.data.data);
+      commit("SET_LOADING_STATUS", false);
+    }
+  },
+  async getPatientHeartRateData({ commit }, payload) {
+    commit("SET_LOADING_STATUS", true);
+    const res = await patient.getHeartRateGraph(payload);
+    if (res.status === 200) {
+      console.log("heart rate--", res.data.data);
+      commit("SET_PATIENT_HEART_RATE_GRAPH", res.data.data);
       commit("SET_LOADING_STATUS", false);
     }
   },

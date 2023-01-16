@@ -1,0 +1,110 @@
+<template>
+  <div id="Oxygenchart"></div>
+</template>
+
+<script>
+import ApexCharts from "apexcharts";
+export default {
+  name: "OxygenGraph",
+  data() {
+    return {
+      options: {
+        series: [
+          {
+            data: [],
+          },
+        ],
+        chart: {
+          type: "area",
+          height: this.height,
+          width: this.width,
+        },
+        colors: this.chartBgColor,
+        xaxis: {
+          categories: this.chartLabel,
+        },
+        theme: {
+          mode: "dark",
+          palette: "palette1",
+          monochrome: {
+            enabled: false,
+            shadeTo: "dark",
+            shadeIntensity: 0.65,
+          },
+        },
+        plotOptions: {
+          area: {
+            horizontal: false,
+          },
+        },
+        legend: {
+          position: "top",
+          horizontalAlign: "left",
+        },
+      },
+      oxygenChart: null,
+    };
+  },
+  props: {
+    chartId: {
+      type: String,
+    },
+    chartLabel: { type: Array },
+    dataOfChart: { type: Array },
+    datasetIdKey: {
+      type: String,
+      default: "label",
+    },
+    width: {
+      type: Number,
+      default: 400,
+    },
+    height: {
+      type: Number,
+      default: 400,
+    },
+    cssClasses: {
+      default: "",
+      type: String,
+    },
+    styles: {
+      type: Object,
+      default: () => {},
+    },
+    plugins: {
+      type: Object,
+      default: () => {},
+    },
+    chartBorderColor: {
+      type: String,
+    },
+    chartBgColor: {
+      type: Array,
+    },
+  },
+  watch: {
+    dataOfChart: {
+      immediate: true,
+      async handler(val) {
+        if (val.length && val.length > 0) {
+          if (!this.oxygenChart) {
+            document.getElementById("Oxygenchart").innerHTML = "";
+            this.oxygenChart = new ApexCharts(
+              document.querySelector("#Oxygenchart"),
+              this.options
+            );
+            this.oxygenChart.render();
+            this.oxygenChart.updateSeries([
+              {
+                data: this.dataOfChart?.map((d) => Math.round(d["step"])),
+              },
+            ]);
+          } else {
+            console.log("helloooooo");
+          }
+        }
+      },
+    },
+  },
+};
+</script>
