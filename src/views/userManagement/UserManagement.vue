@@ -44,6 +44,7 @@
                       v-model="selectedHeaders"
                       @change="getSelectedValue"
                       item-text="fullName"
+                      placeholder="Select Patient"
                       return-object
                     ></v-select>
                   </v-col>
@@ -134,6 +135,7 @@ export default {
     assignDevicesToPatient() {
       if (this.selected.length > 0) {
         this.assignDialog = true;
+        this.selectedHeaders = this.selected[0].fullName;
         this.getAllPatientsData(this.getDoctorId);
       } else {
         this.$toast.error(
@@ -164,7 +166,7 @@ export default {
           this.$toast.success("Devices assigned to customer successfully.");
         }
       }
-      // this.selectedHeaders = {};
+      this.selectedHeaders = {};
     },
   },
   mounted() {

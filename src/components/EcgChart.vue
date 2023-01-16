@@ -1,17 +1,3 @@
-<template>
-  <div style="width: 100%" class="main__div">
-    <div id="ecgCanvas" style="overflow: hidden">
-      <!-- <canvas
-        id="myChart"
-        ref="myChart"
-        :width="width"
-        :height="height"
-        style="background-color: black"
-      ></canvas> -->
-    </div>
-  </div>
-</template>
-
 <script>
 import {
   Chart,
@@ -39,7 +25,7 @@ Chart.register(
 );
 
 export default {
-  name: "test-charts",
+  name: "ecg-chart",
   props: {
     width: {
       type: Number,
@@ -51,6 +37,9 @@ export default {
     },
     ecgDataFromProps: {
       type: Array,
+    },
+    macAddress: {
+      type: String,
     },
   },
   data() {
@@ -64,40 +53,44 @@ export default {
     ecgDataFromProps: {
       immediate: true,
       async handler(val) {
-        // console.log("-----val", val);
         if (val?.length && val.length > 0) {
-          console.log("inside watch");
           let buffer = JSON.parse(JSON.stringify(val));
-          console.log("this.myChart from watch", this.myChart);
+          // console.log("this.myChart from watch", this.myChart);
           if (this.myChart) {
-            console.log("inside if");
             clearInterval(this.setIntervalMethod);
             this.setIntervalMethod = setInterval(async () => {
-              console.log("buffer length", buffer.length);
-              console.log("inside set interval");
               await this.adddatafromprops(buffer, 200);
               buffer.splice(0, 200);
               // this.myChart.options.scales.y.min = Math.min(...buffer) - 5000;
               // this.myChart.options.scales.y.max = Math.max(...buffer) + 5000;
               if (!buffer.length) {
-                console.log("hii empty");
+                console.log("empty buffer");
                 clearInterval(this.setIntervalMethod);
               }
             }, 1000);
-            console.log("hello");
             await this.adddatafromprops(buffer, 200);
             buffer.splice(0, 200);
           } else {
-            console.log("inside else");
-            var canvas = document.createElement("canvas");
-            canvas.id = "myChart";
-            canvas.width = this.width;
-            canvas.height = this.height;
-            canvas.style.backgroundColor = "black";
+            let ctx;
+            if (document.getElementById(`ecg-chart-${this.macAddress}`)) {
+              ctx = document
+                .getElementById(`ecg-chart-${this.macAddress}`)
+                .getContext("2d");
+            } else {
+              var canvas = document.createElement("canvas");
+              canvas.id = `ecg-chart-${this.macAddress}`;
+              canvas.width = this.width;
+              canvas.height = this.height;
+              canvas.style.backgroundColor = "black";
 
-            var body = document.getElementById("ecgCanvas");
-            body.appendChild(canvas);
-            const ctx = document.getElementById("myChart").getContext("2d");
+              var body = document.getElementById(this.macAddress);
+              // console.log("body", body);
+              body.appendChild(canvas);
+              ctx = document
+                .getElementById(`ecg-chart-${this.macAddress}`)
+                .getContext("2d");
+            }
+
             this.myChart = new Chart(ctx, {
               type: "line",
               data: {
@@ -178,8 +171,6 @@ export default {
             clearInterval(this.setIntervalMethod);
             buffer.splice(0, 1000);
             this.setIntervalMethod = setInterval(async () => {
-              console.log("inside else set interval");
-              console.log("buffer length", buffer.length);
               await this.adddatafromprops(buffer, 100);
               buffer.splice(0, 100);
               if (!buffer.length) {
@@ -199,12 +190,7 @@ export default {
       },
     },
   },
-  mounted() {
-    console.log(
-      'document.getElementById("myChart")',
-      document.getElementById("myChart")
-    );
-  },
+  mounted() {},
   methods: {
     ...mapActions("chartData", ["removeDisplayedEcgData"]),
     adddatafromprops(buffer, endIndex) {

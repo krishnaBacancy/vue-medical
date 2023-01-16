@@ -15,8 +15,6 @@
     "chartjs-plugin-streaming": "^2.0.0",
     "chartjs-plugin-zoom": "^1.2.1",
     "core-js": "^3.8.3",
-    "highcharts": "^10.2.1",
-    "highcharts-vue": "^1.4.0",
     "moment": "^2.29.4",
     "mqtt": "^4.3.7",
     "register-service-worker": "^1.7.2",
@@ -24,8 +22,8 @@
     "vue-apexcharts": "^1.6.2",
     "vue-chartjs": "^4.1.2",
     "vue-router": "^3.5.1",
+    "vue-tel-input": "^5.12.0",
     "vue-toastification": "^1.7.14",
-    "vue2-highcharts": "^1.2.5",
     "vuetify": "^2.6.0",
     "vuex": "^3.6.2"
   },

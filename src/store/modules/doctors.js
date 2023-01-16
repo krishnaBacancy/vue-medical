@@ -65,8 +65,8 @@ const mutations = {
           " " +
           data.customerlastName?.charAt(0).toUpperCase() +
           data.customerlastName?.slice(1),
-        doctorFirstName: data.doctorfirstName,
-        doctorLastName: data.doctorlastName,
+        doctorFirstName: data.docterfirstName,
+        doctorLastName: data.docterlastName,
         macAddress: data.mac_address,
         macAddressFramed: data.mac_address_framed.toUpperCase(),
         name: data.name,
@@ -150,8 +150,8 @@ const mutations = {
         macAddress: device.mac_address,
         manufactureMonth: device.manufacture_month_year,
         macAddressFramed: device.mac_address_framed,
-        doctorFirstName: device.doctorfirstName,
-        doctorLastName: device.doctorlastName,
+        doctorFirstName: device.docterfirstName,
+        doctorLastName: device.docterlastName,
         customerFirstName: device.customerfirstName,
         customerLastName: device.customerlastName,
         adminId: device.adminId,
