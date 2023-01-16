@@ -1,117 +1,91 @@
 <template>
-  <v-app
-    class="overflow-hidden"
-    style="
-      background: #171617
-        radial-gradient(closest-side at 34% 48%, #313131 0%, #171617 100%) 0% 0%
-        no-repeat padding-box;
-    "
-  >
+  <v-app class="overflow-hidden" style="background: #eee">
     <v-main>
-      <v-container class="fill-height mt-3" fluid>
-        <v-row class="white--text">
-          <v-col cols="12" sm="6" md="4" class="ml-0 ml-md-10">
-            <v-img
+      <v-container class="fill-height pt-0 pb-0" fluid>
+        <v-row>
+          <v-col
+            cols="12"
+            sm="6"
+            md="4"
+            class="d-flex flex-column align-items-center login-left-block"
+          >
+            <img
               v-if="$vuetify.breakpoint.mdAndUp"
               class="ml-auto"
               src="@/assets/arrow1.svg"
               height="100"
               width="100"
               contain
-            ></v-img>
-
-            <div class="text-start mt-n5">
+            />
+            <div class="text-start mt-n5 mb-15">
               <v-flex d-flex md10>
-                <h1>Sneak Peek Into Health</h1>
+                <h1>
+                  Sneak Peek <br />
+                  Into Health
+                </h1>
               </v-flex>
-              <v-flex md8>
+              <v-flex md12>
                 <p class="mt-5 ml-2 ml-sm-0">
                   Get access to essential health data that aids in taking
                   crucial decisions for life. Track vital information in a
                   graphical view and hasten the next step.
                 </p>
               </v-flex>
-              <v-row class="mt-5 ml-2 ml-sm-0 ml-md-0">
-                <v-col class="ml-n5">
-                  <v-img
-                    src="@/assets/Rectangle 112.svg"
-                    contain
-                    height="100"
-                    width="100"
-                  >
+              <div class="box-item-row">
+                <div class="mini-box-item">
+                  <div class="item">
                     <v-img
                       src="@/assets/Heart hand.png"
-                      height="100"
-                      width="100"
+                      class="item-img"
                       contain
                     ></v-img>
-                  </v-img>
-                </v-col>
-                <v-col class="ml-n15">
-                  <v-img
-                    src="@/assets/Rectangle 112.svg"
-                    contain
-                    height="100"
-                    width="100"
-                  >
+                  </div>
+                </div>
+                <div class="mini-box-item">
+                  <div class="item">
                     <v-img
                       src="@/assets/Heart hand1.png"
-                      height="100"
-                      width="100"
+                      class="item-img"
                       contain
                     ></v-img>
-                  </v-img>
-                </v-col>
-                <v-col class="ml-n15">
-                  <v-img
-                    src="@/assets/Rectangle 112.svg"
-                    contain
-                    height="100"
-                    width="100"
-                  >
+                  </div>
+                </div>
+                <div class="mini-box-item">
+                  <div class="item">
                     <v-img
                       src="@/assets/watch.png"
-                      height="100"
-                      width="100"
+                      class="item-img"
                       contain
                     ></v-img>
-                  </v-img>
-                </v-col>
-              </v-row>
+                  </div>
+                </div>
+              </div>
             </div>
+            <img
+              v-if="$vuetify.breakpoint.mdAndUp"
+              class="mr-auto mt-auto mb-n1 ml-n10 building-image"
+              src="@/assets/login-building.png"
+              width="320"
+              contain
+            />
+          </v-col>
+          <v-col
+            v-if="!$vuetify.breakpoint.smAndDown"
+            class="pa-0 login-center-block"
+          >
+            <img
+              src="@/assets/Mask Group 7.png"
+              width="100%"
+              contain
+              top
+              class="ml-8"
+            />
           </v-col>
 
-          <v-col cols="12" sm="6" md="4" v-if="!$vuetify.breakpoint.smAndDown">
-            <v-img src="@/assets/login-bg.svg" height="800" width="700" contain>
-              <v-img
-                src="@/assets/Mask Group 7.png"
-                height="900"
-                width="900"
-                contain
-                class="ml-8"
-              ></v-img>
-            </v-img>
-          </v-col>
-
-          <v-col cols="12" sm="6" md="3" class="ml-0 ml-md-15 mb-5 mb-md-2">
-            <v-img
-              src="@/assets/mobile-screen.svg"
-              style="
-                border-radius: 50px;
-                box-shadow: inset 0px 3px 99px #020203;
-              "
-              height="900"
-              width="600"
-            >
-              <v-img
-                class="ml-auto mr-auto"
-                src="@/assets/acculive-main.svg"
-                height="200"
-                width="300"
-                contain
-              ></v-img>
-
-              <div class="white--text">
+          <v-col class="d-flex flex-column mx-auto login-right-block">
+            <div class="login--box">
+              <img src="@/assets/logo-black.png" contain class="logo-img" />
+              <div class="inner-block">
                 <h2>Welcome Back!</h2>
                 <p class="mt-5" style="font-size: 20px">
                   Login into your account
@@ -119,21 +93,18 @@
 
                 <form class="mt-4" ref="form" @submit.prevent="login">
                   <v-text-field
-                    class="mt-15"
-                    dark
                     type="email"
                     v-model="email"
+                    :append-icon="'mdi-account'"
                     name="email"
                     placeholder="Email"
                     required
                     filled
                     :rules="emailRules"
-                    background-color="#2b2934"
                   ></v-text-field>
 
                   <v-text-field
-                    class="mt-5"
-                    dark
+                    class="mt-2"
                     :append-icon="showPassIcon ? 'mdi-eye' : 'mdi-eye-off'"
                     :type="showPassIcon ? 'text' : 'password'"
                     v-model="password"
@@ -144,23 +115,22 @@
                     filled
                     @click:append="showPassIcon = !showPassIcon"
                     :rules="passwordRules"
-                    background-color="#2b2934"
                   ></v-text-field>
 
                   <v-btn
-                    class="mt-5"
+                    class="mt-2"
                     color="warning"
                     type="submit"
-                    width="83%"
+                    width="100%"
                     large
                     >Login</v-btn
                   >
                 </form>
-                <h5 class="mt-16">
-                  © Copyright 2022 Bacancy. All Right Reserved.
-                </h5>
               </div>
-            </v-img>
+              <h5 class="font-weight-regular">
+                © Copyright 2022 Bacancy. All Right Reserved.
+              </h5>
+            </div>
           </v-col>
         </v-row>
       </v-container>
@@ -232,9 +202,73 @@ h5 {
   font: normal normal medium 16px/19px Gilroy;
 }
 .v-text-field {
-  width: 83%;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
   font-size: 20px;
+}
+.box-item-row {
+  display: flex;
+  margin-left: -4%;
+  margin-right: -4%;
+}
+.mini-box-item {
+  padding-left: 4%;
+  padding-right: 4%;
+  flex-grow: 0;
+  width: 33.33%;
+  max-width: 200px;
+}
+.mini-box-item .item {
+  padding: 12%;
+  background-color: #eee;
+  border: 1px solid #c1bebe;
+  border-radius: 30%;
+}
+.container.fill-height {
+  align-items: stretch;
+}
+.login-left-block {
+  padding-top: 100px;
+  padding-left: 50px;
+}
+.building-image {
+  width: 40%;
+  max-width: 320px;
+}
+.login--box {
+  background-color: #fff;
+  border: 1px solid #e9e9e9;
+  box-shadow: 0px 8px 12px #00000014;
+  padding: 60px 40px;
+  border-radius: 50px;
+  margin: 50px auto;
+  width: 90%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.inner-block {
+  margin-top: auto;
+  padding: 20px 0;
+  margin-bottom: auto;
+}
+
+p {
+  font-size: 18px;
+}
+.logo-img {
+  height: 40px;
+  object-fit: contain;
+}
+
+@media (max-width: 1400px) {
+  h1 {
+    font-size: 52px;
+  }
+  .login--box {
+    max-width: 500px;
+  }
 }
 </style>

@@ -54,15 +54,44 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  background-color: #282934;
+  background-color: #fff;
 }
 
 nav a {
   font-weight: bold;
   color: #2c3e50;
 }
+img {
+  max-width: 100%;
+}
 
 nav a.router-link-exact-active {
   color: #42b983;
+}
+.v-input input {
+  font-size: 18px;
+}
+
+.theme--light.v-text-field--filled > .v-input__control > .v-input__slot {
+  background-color: #fff;
+  border: 1px solid #e9e9e9;
+  border-radius: 10px;
+}
+
+.v-text-field > .v-input__control > .v-input__slot:before,
+.v-text-field > .v-input__control > .v-input__slot:after {
+  display: none;
+}
+.v-text-field.v-text-field--enclosed:not(.v-text-field--rounded)
+  > .v-input__control
+  > .v-input__slot,
+.v-text-field.v-text-field--enclosed .v-text-field__details {
+  padding: 0 20px;
+}
+.v-messages__message {
+  font-size: 14px;
+}
+.v-btn:not(.v-btn--round).v-size--large {
+  height: 50px;
 }
 </style>
