@@ -6,10 +6,7 @@
       @goBack="$router.go(-1)"
     />
     <br />
-    <v-container
-      style="background-color: rgb(31, 32, 38); border-radius: 20px"
-      fluid
-    >
+    <v-container style="border-radius: 20px" fluid>
       <v-btn
         color="warning"
         height="53"

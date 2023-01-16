@@ -1,12 +1,8 @@
 <template>
-  <div style="background-color: #282934">
+  <div>
     <PageHeader title="Dashboard" pageIcon="mdi-home" />
     <br />
-    <v-container
-      fluid
-      grid-list-md
-      style="background-color: rgb(31, 32, 38); border-radius: 20px"
-    >
+    <v-container fluid grid-list-md style="border-radius: 20px">
       <v-progress-circular
         indeterminate
         color="amber"
@@ -125,31 +121,21 @@
               </div>
 
               <div class="mt-5 d-flex">
-                <v-card
-                  class="elevation-1 card__div"
-                  height="60"
-                  color="black"
-                  style="width: 50%"
-                >
-                  <div class="d-flex align-center">
-                    <v-flex>
-                      <v-img
-                        class="ml-2 mt-2"
-                        src="@/assets/heartbeat.svg"
-                        height="39"
-                        width="39"
-                        contain
-                      ></v-img>
-                    </v-flex>
-                    <v-flex xs12>
-                      <div class="d-flex mt-1 text-start ml-1 flex-column">
-                        <h5 class="green--text">74</h5>
-                        <small class="white--text">>120-30</small>
-                      </div>
-                    </v-flex>
+                <div class="mini-dark-box">
+                  <div class="inner-icon-block">
+                    <v-img
+                      class="inner-icon"
+                      src="@/assets/heartbeat.svg"
+                      height="39"
+                      width="39"
+                      contain
+                    ></v-img>
                   </div>
-                </v-card>
-
+                  <div class="inner-block-content">
+                    <h5 class="green--text">74</h5>
+                    <small class="white--text">>120-30</small>
+                  </div>
+                </div>
                 <v-card
                   class="elevation-1 ml-3 card__div"
                   color="black"
@@ -315,7 +301,7 @@ export default {
   computed: {
     ...mapGetters("doctors", ["loadingStatus", "filteredPatients"]),
     showGrid() {
-      return `lg${this.gridNumber}`;
+      return `xl${this.gridNumber}`;
     },
     mobile() {
       return this.$vuetify.breakpoint.lgAndUp;

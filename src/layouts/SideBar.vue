@@ -17,8 +17,8 @@
       :style="{
         width: $vuetify.breakpoint.smAndDown ? '280px' : '120px',
         backgroundColor: $vuetify.breakpoint.smAndDown
-          ? 'rgba(0,0,0,0.8)'
-          : 'rgb(31, 32, 38)',
+          ? 'rgb(245,130,32)'
+          : 'rgb(245,130,32)',
       }"
       :permanent="$vuetify.breakpoint.mdAndUp"
       v-if="!getRoute"
@@ -286,6 +286,9 @@ export default {
 </script>
 
 <style scoped>
+.v-navigation-drawer {
+  border-radius: 0 65px 65px 0;
+}
 .item__container {
   display: flex;
   flex-direction: column;
@@ -330,7 +333,7 @@ export default {
 
 .sidebar ul {
   list-style: none;
-  padding: 0 15px 15px;
+  padding: 0 0 15px;
 }
 
 .sidebar li {
@@ -345,14 +348,13 @@ export default {
   font-size: 14px;
   padding: 24px 10px;
   font-weight: 400;
-  border-radius: 20px;
 }
 .sidebar a.exactActiveLink {
-  color: #ffb23e;
-  background: #2b2934;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.26);
 }
 .sidebar a.exactActiveLink > .icon__color {
-  color: #ffb23e;
+  color: #fff;
 }
 
 span {

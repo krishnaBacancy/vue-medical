@@ -1,16 +1,12 @@
 <template>
-  <v-container
-    style="background-color: rgba(31, 32, 38)"
-    class="main__container"
-    fluid
-  >
+  <v-container class="main__container" fluid>
     <v-layout row wrap>
       <v-flex d-flex xs12 sm12 md12>
-        <v-icon class="white--text ml-5" @click="$emit('goBack')">{{
-          pageIcon
-        }}</v-icon>
+        <!-- <v-icon class="ml-5" @click="$emit('goBack')">
+          {{ pageIcon }}
+        </v-icon> -->
         <div class="d-flex" style="width: 100%">
-          <v-card-title class="white--text font-weight-regular">
+          <v-card-title>
             {{ title }}
           </v-card-title>
           <v-btn
@@ -44,5 +40,8 @@ export default {
 .main__container {
   font-family: "Gilroy";
   border-radius: 20px;
+}
+.v-card__title {
+  font-size: 30px;
 }
 </style>
