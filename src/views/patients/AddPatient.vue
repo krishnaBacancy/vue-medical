@@ -28,7 +28,7 @@
                       :type="'text'"
                       :label="'Patient First Name'"
                       :fieldRules="nameRules"
-                      v-model="user.fname"
+                      v-model.trim="user.fname"
                     />
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
@@ -36,7 +36,7 @@
                       :type="'text'"
                       :label="'Patient Last Name'"
                       :fieldRules="nameRules"
-                      v-model="user.lname"
+                      v-model.trim="user.lname"
                     />
                   </v-col>
                   <v-col cols="12" sm="12" md="4">
@@ -44,27 +44,39 @@
                       :type="'email'"
                       :label="'Email Address'"
                       :fieldRules="emailRules"
-                      v-model="user.email"
+                      v-model.trim="user.email"
                     />
                   </v-col>
                 </v-row>
 
                 <v-row>
                   <v-col cols="12" sm="6" md="4">
-                    <CustomTextField
+                    <!-- <CustomTextField
                       :type="'number'"
                       :label="'Phone Number'"
                       :fieldRules="phoneRules"
                       v-model="user.phone"
-                    />
+                    /> -->
+                    <vue-tel-input
+                      v-model.trim="user.phone"
+                      style="height: 53px"
+                      v-bind="phoneProps"
+                      @validate="phoneNumberChanged"
+                    ></vue-tel-input>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
-                    <CustomTextField
+                    <!-- <CustomTextField
                       :type="'number'"
                       :label="'Emergency Number'"
                       :fieldRules="phoneRules"
                       v-model="user.emergencyPhone"
-                    />
+                    /> -->
+                    <vue-tel-input
+                      v-model.trim="user.emergencyPhone"
+                      style="height: 53px"
+                      v-bind="emergencyPhoneProps"
+                      @validate="emergencyPhoneChanged"
+                    ></vue-tel-input>
                   </v-col>
                   <v-col cols="12" sm="12" md="4">
                     <v-menu
@@ -122,7 +134,7 @@
                       :type="'number'"
                       :label="'Weight (kg)'"
                       :fieldRules="weightRules"
-                      v-model="user.weight"
+                      v-model.trim="user.weight"
                     />
                   </v-col>
                   <v-col cols="12" sm="12" md="4">
@@ -130,7 +142,7 @@
                       :type="'number'"
                       :label="'Height (cm)'"
                       :fieldRules="heightRules"
-                      v-model="user.height"
+                      v-model.trim="user.height"
                     />
                   </v-col>
                 </v-row>
@@ -140,7 +152,7 @@
                     <v-text-field
                       :append-icon="showPassIcon ? 'mdi-eye' : 'mdi-eye-off'"
                       :type="showPassIcon ? 'text' : 'password'"
-                      v-model="user.password"
+                      v-model.trim="user.password"
                       name="password"
                       label="Password"
                       hint="At least 6 characters"
@@ -156,7 +168,7 @@
                       :type="'number'"
                       :label="'Aadhar Number'"
                       :fieldRules="aadharRules"
-                      v-model="user.aadhar"
+                      v-model.trim="user.aadhar"
                     />
                   </v-col>
                   <v-col cols="12" sm="12" md="4">
@@ -164,7 +176,7 @@
                       :type="'text'"
                       :label="'Address'"
                       :fieldRules="addressRules"
-                      v-model="user.address"
+                      v-model.trim="user.address"
                     />
                   </v-col>
                 </v-row>
@@ -182,7 +194,7 @@
                       :type="'text'"
                       :label="'Member Name'"
                       :fieldRules="memberNameRules"
-                      v-model="familyInfo.name"
+                      v-model.trim="familyInfo.name"
                     />
                   </v-col>
                   <v-col cols="12" sm="6" md="3">
@@ -200,7 +212,7 @@
                       :type="'number'"
                       :label="'Contact Number'"
                       :fieldRules="phoneRules"
-                      v-model="familyInfo.contactNo"
+                      v-model.trim="familyInfo.contactNo"
                     />
                   </v-col>
                   <v-col cols="12" md="3">
@@ -246,7 +258,7 @@
                       :type="'number'"
                       :label="'Blood Pressure'"
                       :fieldRules="bloodPressureRules"
-                      v-model="medicalInfo.bloodPressure"
+                      v-model.trim="medicalInfo.bloodPressure"
                     />
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
@@ -254,7 +266,7 @@
                       :type="'number'"
                       :label="'Diabetics'"
                       :fieldRules="diabeticsRules"
-                      v-model="medicalInfo.diabetics"
+                      v-model.trim="medicalInfo.diabetics"
                     />
                   </v-col>
                   <v-col cols="12" sm="12" md="4">
@@ -275,7 +287,7 @@
                       :type="'number'"
                       :label="'Thyroid'"
                       :field-rules="thyroidRules"
-                      v-model="medicalInfo.thyroid"
+                      v-model.trim="medicalInfo.thyroid"
                     />
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
@@ -283,7 +295,7 @@
                       :type="'number'"
                       :label="'Obesity'"
                       :field-rules="obesityRules"
-                      v-model="medicalInfo.obesity"
+                      v-model.trim="medicalInfo.obesity"
                     />
                   </v-col>
                 </v-row>
@@ -358,6 +370,34 @@ export default {
       obesityRules: [(v) => !!v || "obesity is required"],
       dateMenu: false,
       dateValue: null,
+      phoneProps: {
+        preferredCountries: ["US", "GB"],
+        mode: "international",
+        inputOptions: {
+          showDialCode: false,
+          maxlength: 15,
+          placeholder: "Enter phone number",
+          required: true,
+        },
+        invalidMsg: "Invalid",
+        autoFormat: false,
+        validCharactersOnly: true,
+        disabledFormatting: false,
+      },
+      emergencyPhoneProps: {
+        preferredCountries: ["US", "GB"],
+        mode: "international",
+        inputOptions: {
+          showDialCode: false,
+          maxlength: 15,
+          placeholder: "Enter emergency phone number",
+          required: true,
+        },
+        invalidMsg: "Invalid",
+        autoFormat: false,
+        validCharactersOnly: true,
+        disabledFormatting: false,
+      },
       user: {
         fname: "",
         lname: "",
@@ -390,10 +430,19 @@ export default {
         thyroid: null,
         obesity: null,
       },
+      isValidPhoneNumber: false,
+      isValidEmergencyPhoneNumber: false,
     };
   },
   methods: {
     ...mapActions("userManagement", ["addUser"]),
+    phoneNumberChanged(e) {
+      this.isValidPhoneNumber = e?.valid;
+    },
+    emergencyPhoneChanged(e) {
+      this.isValidEmergencyPhoneNumber = e?.valid;
+      console.log("valid--", e?.valid);
+    },
     goToPreviousPage() {
       this.$router.go(-1);
     },
@@ -434,8 +483,8 @@ export default {
         first_Name: this.user.fname,
         last_Name: this.user.lname,
         email: this.user.email,
-        mobile_no: this.user.phone,
-        emergencyPhone: this.user.emergencyPhone,
+        mobile_no: this.user.phone.replaceAll(" ", ""),
+        emergencyPhone: this.user.emergencyPhone.replaceAll(" ", ""),
         gender: this.user.gender,
         height: this.user.height,
         weight: this.user.weight,
@@ -463,10 +512,9 @@ export default {
             timeout: 3000,
           });
         }
-        // if (!checkEmptyFamilyMemberInfo) {
-        //   this.$toast.error("Please fill all details", 3000);
-        // }
-        else {
+        if (!this.isValidPhoneNumber || !this.isValidEmergencyPhoneNumber) {
+          this.$toast.error("Please enter valid mobile number.", 3000);
+        } else {
           this.addUser(data)
             .then((success) => {
               console.log(success);
@@ -477,7 +525,7 @@ export default {
             })
             .catch((err) => {
               console.log(err);
-              this.$toast.error("some error occured.", { timeout: 3000 });
+              this.$toast.error(err.response.data.message, { timeout: 3000 });
             });
         }
       }

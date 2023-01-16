@@ -26,25 +26,42 @@
       </div>
 
       <v-layout row wrap class="mt-4">
-        <v-flex d-flex xs12 sm12 md6 v-for="i in 4" :key="i" :class="showGrid">
+        <v-flex
+          d-flex
+          xs12
+          sm12
+          md6
+          v-for="device in liveDevices"
+          :key="device.id"
+          :class="showGrid"
+        >
           <v-card
             color="#282934"
             class="ml-2 mr-2 mt-2 mb-2 pa-2 white--text"
             style="width: 100%; border-radius: 20px"
-            @click.stop="openDialog(i)"
+            @click.stop="openDialog(device.id)"
           >
             <div class="d-flex align-center">
               <div class="d-flex flex-column text-start">
-                <h3 class="ml-5">John Doe</h3>
+                <h3 class="ml-5">{{ device.fullName }}</h3>
                 <h5 class="ml-5 mt-2 grey--text second__heading">Floor No.</h5>
                 <h5 class="ml-5 mt-2 grey--text second__heading">Room No.</h5>
                 <h5 class="ml-5 mt-2 grey--text second__heading">
-                  Mac Address
+                  {{ device.macAddressFramed }}
                 </h5>
               </div>
               <v-spacer></v-spacer>
               <div style="width: 70%" class="mr-3">
-                <LineChart :width="200" />
+                <div :id="device.macAddressFramed" style="overflow: hidden">
+                  <ecg-chart
+                    v-if="device.showEcgChart"
+                    :ecgDataFromProps="device.ecgValues"
+                    :macAddress="device.macAddressFramed"
+                    :key="device.showEcgChart"
+                    :width="600"
+                    :height="165"
+                  />
+                </div>
               </div>
             </div>
 
@@ -91,7 +108,7 @@
             </div>
           </v-card>
           <v-dialog
-            v-model="dialog[i]"
+            v-model="dialog[device.id]"
             max-width="800px"
             dark
             overlay-color="white"
@@ -100,7 +117,7 @@
             <v-card>
               <v-card-title>
                 <span class="text-h5 ml-3 font-weight-bold"
-                  >Patient Name - {{ i }}</span
+                  >Patient Name - {{ device.fullName }}</span
                 >
               </v-card-title>
 
@@ -423,7 +440,7 @@
               </v-container>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue" text @click="closeDialog(i)">
+                <v-btn color="blue" text @click="closeDialog(device.id)">
                   Cancel
                 </v-btn>
               </v-card-actions>
@@ -436,22 +453,55 @@
 </template>
 
 <script>
-import LineChart from "@/components/LineChart.vue";
 import PageHeader from "@/layouts/PageHeader.vue";
+import { mapActions, mapGetters } from "vuex";
+import mqtt from "mqtt/dist/mqtt";
+import EcgChart from "@/components/EcgChart.vue";
 
 export default {
   name: "LivePage",
   components: {
     PageHeader,
-    LineChart,
+    EcgChart,
   },
   data() {
     return {
+      getDoctorId: localStorage.getItem("user_id"),
       gridNumber: 6,
       dialog: {},
+      liveDevices: [],
+      socketConnections: {},
+      socketConnection: null,
+      allDeviceEcgData: [],
+      connection: {
+        clean: true,
+        connectTimeout: 30 * 1000,
+        reconnectTimeout: 4000,
+        keepAlive: 120,
+        clientId: "lens_3DtlcZfxvR0idKzXQ90Vzm69vAM",
+        username: "MYsmO5Oc7O6DKkS8",
+        password: "ufUPnVWbLoMwwFaL",
+        useSSL: true,
+        // options: {
+        //   // clean: true,
+        //   connectTimeout: 4000,
+        //   // reconnectPeriod: 2000,
+        //   // keepAlive: 120,
+        //   clientId: "lens_3DtlcZfxvR0idKzXQ90Vzm69vAM",
+        //   username: "MYsmO5Oc7O6DKkS8",
+        //   password: "ufUPnVWbLoMwwFaL",
+        // },
+        // clean: true, // Reserved session
+        // connectTimeout: 4000, // Time out
+        // reconnectPeriod: 4000, // Reconnection interval
+      },
+      subscribeSuccess: false,
+      connecting: false,
+      retryTimes: 0,
     };
   },
   computed: {
+    ...mapGetters("doctors", ["getPatients"]),
     showGrid() {
       return `lg${this.gridNumber}`;
     },
@@ -459,7 +509,194 @@ export default {
       return this.$vuetify.breakpoint.lgAndUp;
     },
   },
+  watch: {
+    getPatients: {
+      async handler(devices) {
+        console.log("watch called");
+        // this.liveDevices = val.filter((device) => device.online === 0);
+        this.liveDevices = devices
+          .filter((device) => {
+            return (
+              device.macAddressFramed === "E51BBA6BE987" ||
+              device.macAddressFramed === "F1DDE98E9F16"
+            );
+          })
+          .map((device) => {
+            device.showEcgChart = false;
+            device.allEcgValues = [];
+            return device;
+          });
+        const { ...options } = this.connection;
+        const connectUrl = `wss://accu.live/ws/`;
+        let connection = await mqtt.connect(connectUrl, options);
+        this.socketConnection = connection;
+        for (let i = 0; i < this.liveDevices.length; i++) {
+          const element = this.liveDevices[i];
+          if (this.socketConnection.on) {
+            this.socketConnection.on("connect", () => {
+              this.connecting = false;
+              console.log("Connection succeeded!");
+              this.subscribeSuccess = true;
+              this.socketConnection.subscribe(
+                `BMSFSEV/${element.macAddressFramed.toUpperCase()}/sTOf`
+              );
+            });
+          }
+        }
+
+        if (this.socketConnection.on) {
+          // this.socketConnection.on("reconnect", this.handleOnReConnect);
+          this.socketConnection.on("error", (error) => {
+            console.log("Connection failed", error);
+          });
+          this.socketConnection.on("message", async (_, message) => {
+            // this.showEcgChart = true;
+            // this.showPpgChart = true;
+            // this.ecgChartData = [];
+            // this.ppgChartData = [];
+            let data = await JSON.parse(message);
+            // if (data?.msg === 17) {
+            //   this.displayAlgoData();
+            // }
+            console.log("data--", JSON.parse(message));
+            if (data?.ecg_vals || data?.ppg_vals) {
+              this.liveDevices = this.liveDevices.map((device) => {
+                if (device.macAddressFramed === data.mac_address_framed) {
+                  device.showEcgChart = true;
+                  device["ecgValues"] = data?.ecg_vals;
+                  device["allEcgValues"].push(data?.ecg_vals);
+                  return device;
+                }
+                return device;
+              });
+            }
+            // }
+          });
+        }
+
+        /** working code when connectio  single device */
+        // this.socketConnections[this.liveDevices[3].macAddressFramed] =
+        //   connection;
+        // if (this.socketConnections[this.liveDevices[3].macAddressFramed].on) {
+        //   this.socketConnections[this.liveDevices[3].macAddressFramed].on(
+        //     "connect",
+        //     () => {
+        //       this.connecting = false;
+        //       console.log("Connection succeeded!");
+        //       this.subscribeSuccess = true;
+        //       this.socketConnections[
+        //         this.liveDevices[3].macAddressFramed
+        //       ].subscribe(
+        //         `BMSFSEV/${this.liveDevices[3].macAddressFramed.toUpperCase()}/sTOf`
+        //       );
+        //     }
+        //   );
+        //   this.socketConnections[this.liveDevices[3].macAddressFramed].on(
+        //     "reconnect",
+        //     this.handleOnReConnect
+        //   );
+        //   this.socketConnections[this.liveDevices[3].macAddressFramed].on(
+        //     "error",
+        //     (error) => {
+        //       console.log("Connection failed", error);
+        //     }
+        //   );
+        //   this.socketConnections[this.liveDevices[3].macAddressFramed].on(
+        //     "message",
+        //     async (_, message) => {
+        //       // this.showEcgChart = true;
+        //       // this.showPpgChart = true;
+        //       // this.ecgChartData = [];
+        //       // this.ppgChartData = [];
+        //       let data = await JSON.parse(message);
+        //       // if (data?.msg === 17) {
+        //       //   this.displayAlgoData();
+        //       // }
+        //       console.log("data--", data);
+        //       if (data?.ecg_vals || data?.ppg_vals) {
+        //         console.log(
+        //           "this.liveDevices[data.mac_address_framed]",
+        //           this.liveDevices[3]
+        //         );
+        //         // this.liveDevices[3]["ecgValues"] = data?.ecg_vals;
+        //         // this.$nextTick(() => {
+        //         //   this.liveDevices[3]["showEcgChart"] = true;
+        //         // });
+        //         this.liveDevices = this.liveDevices.map((device) => {
+        //           if (device.macAddressFramed === data.mac_address_framed) {
+        //             device.showEcgChart = true;
+        //             device["ecgValues"] = data?.ecg_vals;
+        //             return device;
+        //           }
+        //           return device;
+        //         });
+        //       }
+        //       // this.liveMessage = data?.message;
+        //       // if (this.liveMessage == "Online") {
+        //       // this.tempStartTime = data?.start_time;
+        //       // this.startTime = new Date(this.tempStartTime).toLocaleString(
+        //       //   undefined,
+        //       //   { timeZone: "Asia/Kolkata" }
+        //       // );
+        //       // console.log("set data from parent", data?.ecg_vals);
+        //       // if (data?.ecg_vals || data?.ppg_vals) {
+        //       //   // this.showEcgChart = false;
+        //       //   // this.showPpgChart = false;
+        //       //   this.$nextTick(() => {
+        //       //     this.showEcgChart = true;
+        //       //     this.showPpgChart = true;
+        //       //   });
+        //       //   this.ecgChartData = data?.ecg_vals;
+        //       //   this.ppgChartData = data?.ppg_vals;
+        //       //   await this.setEcgData(this.ecgChartData);
+        //       //   await this.setPpgData(this.ppgChartData);
+        //       // }
+        //       // }
+        //     }
+        //   );
+        // }
+      },
+    },
+  },
+  mounted() {
+    if (this.getDoctorId) {
+      this.getPatientsForDoctor(this.getDoctorId);
+    }
+  },
+  destroyed() {
+    if (this.socketConnection.connected) {
+      try {
+        this.socketConnection.end(false, () => {
+          this.initData();
+          console.log("Successfully disconnected!");
+        });
+      } catch (error) {
+        console.log("Disconnect failed", error.toString());
+      }
+    }
+  },
   methods: {
+    ...mapActions("doctors", ["getPatientsForDoctor"]),
+    // handleOnReConnect() {
+    //   this.retryTimes += 1;
+    //   if (this.retryTimes > 5) {
+    //     try {
+    //       this.socketConnection.end();
+    //       this.initData();
+    //       console.log("Connection maxReconnectTimes limit, stop retry");
+    //     } catch (error) {
+    //       console.log("error---", error.toString());
+    //     }
+    //   }
+    // },
+    initData() {
+      this.socketConnection = {
+        connected: false,
+      };
+      this.retryTimes = 0;
+      this.connecting = false;
+      this.subscribeSuccess = false;
+    },
     goToPreviousPage() {
       this.$router.go(-1);
     },

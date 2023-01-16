@@ -1,36 +1,29 @@
 <template>
-  <div style="width: 100%; overflow-x: auto">
-    <Bar
-      :chart-options="chartOptions"
-      :chart-data="chartData"
-      :chart-id="chartId"
-      :dataset-id-key="datasetIdKey"
-      :plugins="plugins"
-      :css-classes="cssClasses"
-      :styles="styles"
-      :width="width"
-      :height="height"
-      style="background-color: #282934"
-    />
-  </div>
+  <div style="width: 100%; overflow-x: auto" id="barCanvas"></div>
 </template>
 
 <script>
-import { Bar } from "vue-chartjs/legacy";
 import {
-  Chart as ChartJS,
+  Chart,
   Title,
   Tooltip,
   Legend,
   BarElement,
   CategoryScale,
+  BarController,
 } from "chart.js";
 
-ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale);
+Chart.register(
+  Title,
+  Tooltip,
+  Legend,
+  BarElement,
+  CategoryScale,
+  BarController
+);
 
 export default {
   name: "BarChart",
-  components: { Bar },
   props: {
     chartId: {
       type: String,
@@ -66,28 +59,77 @@ export default {
       type: String,
     },
   },
+  destroyed() {
+    if (this.barChart) {
+      this.barChart?.destroy();
+    }
+  },
+  watch: {
+    dataOfChart: {
+      immediate: true,
+      async handler(val) {
+        if (val.length && val.length > 0) {
+          if (this.barChart) {
+            console.log("hell0", document.getElementById(this.chartId));
+            // this.barChart.clear();
+            // this.barChart.destroy();
+          } else {
+            let ctx;
+            // if (document.getElementById(this.chartId)) {
+            //   ctx = document.getElementById(this.chartId)?.getContext("2d");
+            // } else {
+            // }
+            var canvas = document.createElement("canvas");
+            canvas.id = this.chartId;
+            canvas.width = this.width;
+            canvas.height = this.height;
+
+            var body = document.getElementById("barCanvas");
+            body?.appendChild(canvas);
+            ctx = document.getElementById(this.chartId)?.getContext("2d");
+            console.log("ctx--", ctx);
+
+            this.barChart = new Chart(ctx, {
+              type: "bar",
+              data: {
+                labels: this.label,
+                datasets: [
+                  {
+                    label: "ECG",
+                    data: this.dataOfChart?.map((d) =>
+                      Math.round(d["avgspo2"])
+                    ),
+                    borderWidth: 1,
+                    hoverBorderColor: "red",
+                    fill: 1,
+                    barPercentage: 0.35,
+                    categoryPercentage: 1,
+                    backgroundColor: this.chartBgColor,
+                  },
+                ],
+              },
+              options: {
+                responsive: true,
+                plugins: {
+                  legend: {
+                    display: false,
+                  },
+                },
+                scales: {
+                  x: {
+                    display: false,
+                  },
+                },
+              },
+            });
+          }
+        }
+      },
+    },
+  },
   data() {
     return {
-      chartData: {
-        labels: this.label,
-        datasets: [
-          {
-            data: this.dataOfChart,
-            borderWidth: 1,
-            fill: 1,
-            barPercentage: 0.25,
-            backgroundColor: this.chartBgColor,
-          },
-        ],
-      },
-      chartOptions: {
-        responsive: true,
-        plugins: {
-          legend: {
-            display: false,
-          },
-        },
-      },
+      barChart: null,
     };
   },
 };

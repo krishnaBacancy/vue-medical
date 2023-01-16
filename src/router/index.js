@@ -32,11 +32,6 @@ const routes = [
     component: () => import("../views/admin/DeviceList.vue"),
   },
   {
-    path: "/add-user",
-    name: "adduser",
-    component: () => import("../views/userManagement/AddUser.vue"),
-  },
-  {
     path: "/patients",
     name: "patients",
     component: () => import("../views/patients/PatientsData.vue"),
