@@ -1,7 +1,3 @@
-<template>
-  <div style="width: 100%; overflow-x: auto" id="barCanvas"></div>
-</template>
-
 <script>
 import {
   Chart,
@@ -96,13 +92,11 @@ export default {
                 datasets: [
                   {
                     label: "ECG",
-                    data: this.dataOfChart?.map((d) =>
-                      Math.round(d["avgspo2"])
-                    ),
+                    data: this.dataOfChart?.map((d) => Math.round(d["temp"])),
                     borderWidth: 1,
                     hoverBorderColor: "red",
                     fill: 1,
-                    barPercentage: 0.35,
+                    barPercentage: 0.25,
                     categoryPercentage: 1,
                     backgroundColor: this.chartBgColor,
                   },

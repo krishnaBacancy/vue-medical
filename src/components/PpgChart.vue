@@ -22,9 +22,6 @@ import {
   PointElement,
   Title,
 } from "chart.js";
-import "chartjs-plugin-streaming";
-import "chartjs-adapter-moment";
-import { RealTimeScale, StreamingPlugin } from "chartjs-plugin-streaming";
 import { mapActions } from "vuex";
 Chart.register(
   LineController,
@@ -32,8 +29,6 @@ Chart.register(
   PointElement,
   LinearScale,
   Title,
-  StreamingPlugin,
-  RealTimeScale,
   CategoryScale
 );
 

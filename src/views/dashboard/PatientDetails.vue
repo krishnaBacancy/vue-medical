@@ -410,8 +410,8 @@
                     <div class="ml-4 text-start">
                       <h1 class="warning--text">
                         {{
-                          getBloodOxygenGraphData[0]?.avgspo2
-                            ? Math.round(getBloodOxygenGraphData[0]?.avgspo2)
+                          getAlgoData?.temp
+                            ? Math.round(getAlgoData?.temp)
                             : "Loading..."
                         }}
                       </h1>
@@ -455,8 +455,8 @@
                     <div class="ml-4 text-start">
                       <h1 class="warning--text">
                         {{
-                          getBodyTempGraphData[0]?.avgspo2
-                            ? Math.round(getBodyTempGraphData[0]?.avgspo2)
+                          getAlgoData?.spo2
+                            ? Math.round(getAlgoData?.spo2)
                             : "Loading..."
                         }}
                       </h1>
@@ -972,15 +972,25 @@
                   </div>
                 </div>
                 <div class="grid-container">
-                  <TestChart
-                    v-if="getBodyTempGraphData"
-                    :height="286"
-                    :width="623"
-                    :data-of-chart="getBodyTempGraphData"
-                    :chart-id="'temperatureGraph'"
-                    :label="['12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm']"
-                    :chart-bg-color="'#fd5d5d'"
-                  />
+                  <div id="barCanvas" style="width: 100%; overflow-x: auto">
+                    <TestChart
+                      v-if="getBodyTempGraphData"
+                      :height="286"
+                      :width="623"
+                      :data-of-chart="getBodyTempGraphData"
+                      :chart-id="'temperatureGraph'"
+                      :label="[
+                        '12pm',
+                        '1pm',
+                        '2pm',
+                        '3pm',
+                        '4pm',
+                        '5pm',
+                        '6pm',
+                      ]"
+                      :chart-bg-color="'#fd5d5d'"
+                    />
+                  </div>
                 </div>
               </v-card>
             </v-flex>

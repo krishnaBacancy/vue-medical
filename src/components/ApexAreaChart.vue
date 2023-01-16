@@ -97,12 +97,11 @@ export default {
             this.myAreaChart.render();
             this.myAreaChart.updateSeries([
               {
-                // data: [36, 27],
-                data: this.dataOfChart?.map((d) => Math.round(d["avgspo2"])),
+                data: this.dataOfChart?.map((d) => Math.round(d["step"])),
               },
             ]);
           } else {
-            console.log("hello");
+            console.log("helloooooo");
           }
         }
       },
