@@ -12,7 +12,7 @@
               <v-icon color="warning">mdi-magnify</v-icon>
               <input
                 type="search"
-                placeholder="Search..."
+                placeholder="Search by MAC Address"
                 v-model="$store.state.doctors.searchTerm"
                 class="ml-2"
                 style="color: white"
