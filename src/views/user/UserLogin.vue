@@ -1,12 +1,13 @@
 <template>
-  <v-app class="overflow-hidden" style="background: #eee">
+  <v-app class="overflow-hidden" style="background: #fdfcfc">
     <v-main>
       <v-container class="fill-height pt-0 pb-0" fluid>
-        <v-row>
+        <v-row class="login-row">
+          <img class="logo-img d-sm-none" src="@/assets/logo-black.png" />
           <v-col
-            cols="12"
+            col="12"
             sm="6"
-            md="4"
+            md=""
             class="d-flex flex-column align-items-center login-left-block"
           >
             <img
@@ -25,7 +26,7 @@
                 </h1>
               </v-flex>
               <v-flex md12>
-                <p class="mt-5 ml-2 ml-sm-0">
+                <p class="mt-5 ml-sm-0">
                   Get access to essential health data that aids in taking
                   crucial decisions for life. Track vital information in a
                   graphical view and hasten the next step.
@@ -69,16 +70,13 @@
               contain
             />
           </v-col>
-          <v-col
-            v-if="!$vuetify.breakpoint.smAndDown"
-            class="pa-0 login-center-block"
-          >
+          <v-col col="12" class="pa-0 login-center-block">
             <img
               src="@/assets/Mask Group 7.png"
               width="100%"
               contain
               top
-              class="ml-8"
+              class="ml-sm-8"
             />
           </v-col>
 
@@ -242,7 +240,7 @@ h5 {
   padding: 60px 40px;
   border-radius: 50px;
   margin: 50px auto;
-  width: 90%;
+  width: 94%;
   max-width: 600px;
   display: flex;
   flex-direction: column;
@@ -262,12 +260,111 @@ p {
   object-fit: contain;
 }
 
+@media (max-width: 1199px) and (min-width: 600px) {
+  .login-center-block {
+    display: none;
+  }
+}
 @media (max-width: 1400px) {
   h1 {
     font-size: 52px;
+    line-height: 1.5;
   }
   .login--box {
     max-width: 500px;
+  }
+}
+@media (max-width: 991px) {
+  h1 {
+    font-size: 42px;
+  }
+  .login--box {
+    width: 100%;
+    padding: 30px 20px;
+    margin: 30px auto;
+  }
+  h2 {
+    font-size: 30px;
+  }
+  .logo-img {
+    height: 24px;
+  }
+}
+@media (max-width: 767px) {
+  .login-left-block {
+    padding-left: 15px;
+  }
+}
+@media (max-width: 600px) {
+  .login-center-block {
+    order: 1;
+    width: 100%;
+    flex: none;
+  }
+  .login-left-block {
+    order: 2;
+  }
+  .login-left-block h1 br {
+    display: none;
+  }
+  .box-item-row {
+    padding: 0 1rem;
+  }
+  .login-left-block h1,
+  .login-left-block p {
+    text-align: center;
+    width: 100%;
+  }
+  .login-right-block {
+    order: 3;
+  }
+  .login-center-block img {
+    padding-left: calc(400px / 10.6);
+    width: 360px;
+    margin-top: 0;
+  }
+  .logo-img {
+    position: absolute;
+    top: 20px;
+    z-index: 99;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 23px;
+  }
+  .login-left-block h1 {
+    font-size: 32px;
+  }
+  .login-left-block {
+    position: absolute;
+    top: 440px;
+    padding: 0 20px;
+  }
+  .login-right-block {
+    visibility: hidden;
+    animation: fadeUp-4a679094 1s forwards;
+    animation-delay: 1s;
+    padding: 10px 16px;
+    transform: translateY(100%);
+  }
+  .login--box {
+    margin-top: 0;
+    max-width: 100%;
+  }
+  .login-right-block .logo-img {
+    display: none;
+  }
+  .inner-block {
+    padding: 0;
+    margin-bottom: 20px;
+  }
+  @keyframes fadeUp {
+    from {
+      visibility: hidden;
+    }
+    to {
+      visibility: visible;
+      transform: translateY(-14%);
+    }
   }
 }
 </style>
