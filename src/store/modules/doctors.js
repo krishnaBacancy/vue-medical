@@ -39,9 +39,11 @@ const getters = {
   },
   filteredPatients: (state) => {
     if (!state.searchTerm) return state.deviceData.reverse();
-    return state.deviceData.filter((data) =>
-      data.macAddressFramed.includes(state.searchTerm.trim().toUpperCase())
-    );
+    return state.deviceData
+      .reverse()
+      .filter((data) =>
+        data.macAddressFramed.includes(state.searchTerm.trim().toUpperCase())
+      );
   },
 };
 
@@ -70,6 +72,12 @@ const mutations = {
         macAddress: data.mac_address,
         macAddressFramed: data.mac_address_framed.toUpperCase(),
         name: data.name,
+        algodata: data.algodata,
+        batdata: data.batdata,
+        falldata: data.falldata,
+        spo2data: data.spo2data,
+        tempdata: data.tempdata,
+        isOnline: data.is_online,
       };
     });
   },
@@ -157,6 +165,12 @@ const mutations = {
         adminId: device.adminId,
         doctorId: device.doctorId,
         customerId: device.customerId,
+        algodata: device.algodata,
+        batdata: device.batdata,
+        falldata: device.falldata,
+        spo2data: device.spo2data,
+        tempdata: device.tempdata,
+        isOnline: device.is_online,
       };
     });
   },

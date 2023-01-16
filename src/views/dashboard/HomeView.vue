@@ -119,7 +119,14 @@
                     height="29"
                     class="icon__image"
                   ></v-img>
-                  <span class="ml-2">114Hrs 45 Min</span>
+                  <span class="ml-2"
+                    >{{
+                      patient?.batdata?.bat_vals
+                        ? patient.batdata.bat_vals
+                        : "100"
+                    }}
+                    %</span
+                  >
                 </div>
               </div>
 
@@ -142,7 +149,13 @@
                     </v-flex>
                     <v-flex xs12>
                       <div class="d-flex mt-1 text-start ml-1 flex-column">
-                        <h5 class="green--text">74</h5>
+                        <h5 class="green--text">
+                          {{
+                            patient?.algodata
+                              ? patient.algodata?.hr
+                              : "Loading."
+                          }}
+                        </h5>
                         <small class="white--text">>120-30</small>
                       </div>
                     </v-flex>
@@ -167,7 +180,13 @@
                     </v-flex>
                     <v-flex xs12>
                       <div class="d-flex text-start mt-1 flex-column ml-1">
-                        <h5 class="yellow--text">98</h5>
+                        <h5 class="yellow--text">
+                          {{
+                            patient?.spo2data
+                              ? Math.round(patient.spo2data?.spo2_vals)
+                              : "Loading."
+                          }}
+                        </h5>
                         <small class="white--text">Good</small>
                       </div>
                     </v-flex>
@@ -186,7 +205,7 @@
                     <v-flex>
                       <v-img
                         class="ml-2 mt-2"
-                        src="@/assets/lungs.svg"
+                        src="@/assets/Group 509.svg"
                         height="39"
                         width="39"
                         contain
@@ -194,7 +213,13 @@
                     </v-flex>
                     <v-flex xs12>
                       <div class="d-flex ml-1 mt-1 text-start flex-column">
-                        <h5 class="purple--text">16</h5>
+                        <h5 class="purple--text">
+                          {{
+                            patient?.algodata
+                              ? Math.round(patient.algodata?.map * 100) / 100
+                              : "Loading."
+                          }}
+                        </h5>
                         <small class="white--text">C1</small>
                       </div>
                     </v-flex>
@@ -219,7 +244,18 @@
                     </v-flex>
                     <v-flex xs12>
                       <div class="d-flex flex-column ml-1 mt-1 text-start">
-                        <h5 class="cyan--text">120/85</h5>
+                        <h5 class="cyan--text">
+                          {{
+                            patient?.algodata
+                              ? Math.round(patient.algodata?.bp)
+                              : "Loading."
+                          }}
+                          /
+                          {{
+                            patient?.algodata &&
+                            Math.round(patient.algodata?.dbp)
+                          }}
+                        </h5>
                         <small class="white--text">6 hrs ago</small>
                       </div>
                     </v-flex>
@@ -247,7 +283,11 @@
                     <v-flex xs12>
                       <div class="d-flex flex-column text-start ml-1 mt-1">
                         <h5 class="red--text">
-                          98.7<sup style="font-size: 10px">F</sup>
+                          {{
+                            patient?.tempdata
+                              ? Math.round(patient.tempdata?.temp_vals)
+                              : "Loading."
+                          }}<sup style="font-size: 10px">F</sup>
                         </h5>
                         <small class="white--text">>120-30</small>
                       </div>
@@ -276,7 +316,13 @@
                         class="d-flex flex-column text-start mt-1 ml-1"
                         style="flex-direction: column"
                       >
-                        <h5 class="pink--text">10000</h5>
+                        <h5 class="pink--text">
+                          {{
+                            patient?.algodata
+                              ? patient.algodata?.steps
+                              : "Loading."
+                          }}
+                        </h5>
                         <small class="white--text">Steps</small>
                       </div>
                     </v-flex>
