@@ -96,6 +96,7 @@
                     type="email"
                     v-model.trim="email"
                     name="email"
+                    :append-icon="'mdi-account'"
                     placeholder="Email"
                     required
                     filled
