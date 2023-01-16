@@ -68,7 +68,7 @@
                 </v-col>
 
                 <v-col cols="12" sm="6">
-                  <v-text-field
+                  <!-- <v-text-field
                     type="number"
                     v-model.trim="user.mobile_no"
                     name="phone"
@@ -77,13 +77,19 @@
                     filled
                     dense
                     :rules="phoneRules"
-                  ></v-text-field>
+                  ></v-text-field> -->
+                  <vue-tel-input
+                    v-model="userPhoneNumber"
+                    style="height: 53px"
+                    v-bind="phoneProps"
+                    @validate="phoneNumberChanged"
+                  ></vue-tel-input>
                 </v-col>
               </v-row>
 
               <v-row>
                 <v-col cols="12" sm="6">
-                  <v-text-field
+                  <!-- <v-text-field
                     type="number"
                     v-model.trim="user.emergencyPhone"
                     name="emergencyPhone"
@@ -91,7 +97,13 @@
                     filled
                     dense
                     :rules="emergencyPhoneRules"
-                  ></v-text-field>
+                  ></v-text-field> -->
+                  <vue-tel-input
+                    v-model.trim="userEmergencyPhone"
+                    style="height: 53px"
+                    v-bind="emergencyPhoneProps"
+                    @validate="emergencyPhoneChanged"
+                  ></vue-tel-input>
                 </v-col>
 
                 <v-col cols="12" sm="6" md="4">
@@ -211,7 +223,7 @@
 
               <v-card-title
                 class="warning--text text-h5 mb-2 ml-n2 font-weight-bold"
-                >Family Member Info</v-card-title
+                >Emergency Contact Info</v-card-title
               >
               <v-row
                 v-for="(familyInfo, index) in user.family_members"
@@ -375,28 +387,74 @@ export default {
       dateMenu: false,
       dateValue: null,
       loading: false,
+      userPhoneNumber: "",
+      userEmergencyPhone: "",
+      isValidPhoneNumber: false,
+      isValidEmergencyNumber: false,
+      emergencyPhoneProps: {
+        preferredCountries: ["US", "GB"],
+        mode: "international",
+        inputOptions: {
+          showDialCode: false,
+          maxlength: 15,
+          placeholder: "Enter emergency phone number",
+          required: true,
+        },
+        invalidMsg: "Invalid",
+        autoFormat: false,
+        validCharactersOnly: true,
+        disabledFormatting: false,
+      },
+      phoneProps: {
+        preferredCountries: ["US", "GB"],
+        mode: "international",
+        inputOptions: {
+          showDialCode: false,
+          maxlength: 15,
+          placeholder: "Enter phone number",
+          required: true,
+        },
+        invalidMsg: "Invalid",
+        autoFormat: false,
+        validCharactersOnly: true,
+        disabledFormatting: false,
+      },
     };
   },
   async mounted() {
     this.loading = true;
     const res = await doctors.getSinglePatientData(this.$route?.params?.id);
     this.user = res.data.data[0];
+    this.userPhoneNumber = this.user?.mobile_no.toString();
+    this.userEmergencyPhone = this.user?.emergencyPhone.toString();
     let dateOfBirth = res.data.data[0].DOB;
     let formattedDate = moment(dateOfBirth).format("YYYY-MM-DD");
     this.dob = formattedDate;
     this.loading = false;
   },
   methods: {
+    phoneNumberChanged(e) {
+      this.isValidPhoneNumber = e?.valid;
+    },
+    emergencyPhoneChanged(e) {
+      this.isValidEmergencyNumber = e?.valid;
+    },
     async updateUser() {
       this.$refs.form.validate();
       if (this.valid) {
-        const res = await axios.patch(
-          `https://api.accu.live/api/v1/users/updateuser/${this.user.userId}`,
-          this.user
-        );
-        if (res.status === 200) {
-          this.$router.push({ path: "/patients" });
-          this.$toast.success("User Updated successfully.", { timeout: 3000 });
+        if (!this.isValidPhoneNumber || !this.isValidEmergencyNumber) {
+          this.$toast.error("Please enter valid mobile number.", 3000);
+        } else {
+          const res = await axios.patch(
+            `https://api.accu.live/api/v1/users/updateuser/${this.user.userId}`,
+            this.user
+          );
+          if (res.status === 200) {
+            this.$router.push({ path: "/patients" });
+            this.$toast.success("User Updated successfully.", {
+              timeout: 3000,
+            });
+          }
         }
       }
     },

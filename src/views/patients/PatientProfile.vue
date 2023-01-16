@@ -167,8 +167,8 @@
                   <small class="font-weight-thin">Aadhar Number</small>
                   <h3 class="font-weight-bold">
                     {{
-                      getSinglePatientData[0]?.aadhar
-                        ? getSinglePatientData[0]?.aadhar
+                      getSinglePatientData[0]?.aadharcard
+                        ? getSinglePatientData[0]?.aadharcard
                         : "Not Available"
                     }}
                   </h3>

@@ -490,7 +490,7 @@ export default {
         weight: this.user.weight,
         Address: this.user.address,
         password: this.user.password,
-        aadharcard: this.user.aadhar,
+        adharcard: this.user.aadhar,
         DOB: this.dateValue,
         family_members: this.familyMemberInfo,
         medical_history: [

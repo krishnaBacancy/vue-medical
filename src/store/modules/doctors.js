@@ -38,7 +38,7 @@ const getters = {
     });
   },
   filteredPatients: (state) => {
-    if (!state.searchTerm) return state.deviceData;
+    if (!state.searchTerm) return state.deviceData.reverse();
     return state.deviceData.filter((data) =>
       data.macAddressFramed.includes(state.searchTerm.trim().toUpperCase())
     );

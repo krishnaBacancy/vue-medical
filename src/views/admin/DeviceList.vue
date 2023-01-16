@@ -457,7 +457,7 @@ export default {
       let macAddress = this.selected.map((data) => data.macAddressFramed);
       let data = {
         devices: macAddress,
-        doctorId: this.selectedHeaders?.id,
+        docterId: this.selectedHeaders?.id,
       };
       if (this.selectedHeaders && this.selectedHeaders !== null) {
         this.checkAssignDevicesToDoctor(data);
