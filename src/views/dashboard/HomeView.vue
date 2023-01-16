@@ -17,7 +17,8 @@
         <div class="d-flex align-center">
           <SearchBar />
           <div class="white--text d-flex mr-5" v-if="mobile">
-            <h3>Filter</h3>
+            <v-icon class="me-2" color="white">mdi-filter</v-icon>
+            <h3 class="font-weight-regular">Filter</h3>
             <v-icon class="ml-4" color="white" @click="gridNumber = 3"
               >mdi-view-grid</v-icon
             >
