@@ -59,27 +59,35 @@ export default {
       type: String,
     },
   },
+  destroyed() {
+    if (this.barChart) {
+      this.barChart?.destroy();
+    }
+  },
   watch: {
     dataOfChart: {
       immediate: true,
       async handler(val) {
         if (val.length && val.length > 0) {
           if (this.barChart) {
-            console.log("hell0");
+            console.log("hell0", document.getElementById(this.chartId));
+            // this.barChart.clear();
+            // this.barChart.destroy();
           } else {
             let ctx;
-            if (document.getElementById(this.chartId)) {
-              ctx = document.getElementById(this.chartId).getContext("2d");
-            } else {
-              var canvas = document.createElement("canvas");
-              canvas.id = this.chartId;
-              canvas.width = this.width;
-              canvas.height = this.height;
+            // if (document.getElementById(this.chartId)) {
+            //   ctx = document.getElementById(this.chartId)?.getContext("2d");
+            // } else {
+            // }
+            var canvas = document.createElement("canvas");
+            canvas.id = this.chartId;
+            canvas.width = this.width;
+            canvas.height = this.height;
 
-              var body = document.getElementById("barCanvas");
-              body?.appendChild(canvas);
-              ctx = document.getElementById(this.chartId)?.getContext("2d");
-            }
+            var body = document.getElementById("barCanvas");
+            body?.appendChild(canvas);
+            ctx = document.getElementById(this.chartId)?.getContext("2d");
+            console.log("ctx--", ctx);
 
             this.barChart = new Chart(ctx, {
               type: "bar",

@@ -973,6 +973,7 @@
                 </div>
                 <div class="grid-container">
                   <TestChart
+                    v-if="getBodyTempGraphData"
                     :height="286"
                     :width="623"
                     :data-of-chart="getBodyTempGraphData"
@@ -1015,7 +1016,7 @@
                   </div>
                 </div>
                 <div class="grid-container">
-                  <ApexAreaChart
+                  <!-- <ApexAreaChart
                     :height="366"
                     :width="600"
                     :data-of-chart="[72, 115, 95, 130, 60, 116, 88]"
@@ -1030,7 +1031,7 @@
                     ]"
                     :chart-border-color="'#774af1'"
                     :chart-bg-color="['#7741f1']"
-                  />
+                  /> -->
                 </div>
               </v-card>
             </v-flex>
@@ -1125,9 +1126,11 @@
                 </div>
                 <div class="grid-container">
                   <ApexAreaChart
+                    v-if="getPatientSteps"
                     :height="366"
                     :width="770"
-                    :data-of-chart="[72, 115, 95, 130, 60, 116, 88]"
+                    :data-of-chart="getPatientSteps"
+                    :chart-id="'stepsGraph'"
                     :chart-label="[
                       '12pm',
                       '1pm',
@@ -1243,12 +1246,13 @@ export default {
       "getAlgoData",
       "getBloodOxygenGraphData",
       "getBodyTempGraphData",
+      "getPatientSteps",
     ]),
     selectAllFilters() {
       return (
-        this.selectedAggregate &&
-        this.selectedTimePeriod &&
-        this.startDateValue &&
+        this.selectedAggregate ||
+        this.selectedTimePeriod ||
+        this.startDateValue ||
         this.endDateValue
       );
     },
@@ -1269,17 +1273,17 @@ export default {
     this.getSingleDevice(this.$route?.params?.id);
     this.createConnection();
   },
-  mounted() {
-    setTimeout(() => {
-      this.displayAlgoData();
-      this.getBodyTempGraph();
-      this.getBloodO2Grpah();
-      this.getStepsGraph();
-    }, 1000);
-  },
   watch: {
     selectAllFilters(newVal, oldVal) {
       if (newVal || oldVal) {
+        this.getBodyTempGraph();
+        this.getBloodO2Grpah();
+        this.getStepsGraph();
+      }
+    },
+    getMacAddress(val) {
+      if (val) {
+        this.displayAlgoData();
         this.getBodyTempGraph();
         this.getBloodO2Grpah();
         this.getStepsGraph();
