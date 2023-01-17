@@ -44,7 +44,7 @@ export default {
 
 @font-face {
   font-family: "Gilroy";
-  src: url("assets/fonts/Gilroy-Heavy.ttf") format("truetype");
+  src: url("assets/fonts/Gilroy-ExtraBold.ttf") format("truetype");
   font-weight: 600;
 }
 
@@ -54,7 +54,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  background-color: #fff;
+  /* background-color: cyan; */
 }
 
 nav a {
@@ -93,5 +93,12 @@ nav a.router-link-exact-active {
 }
 .v-btn:not(.v-btn--round).v-size--large {
   height: 50px;
+}
+.row {
+  margin: 0px -15px;
+}
+.row > * {
+  padding-left: 15px;
+  padding-right: 15px;
 }
 </style>

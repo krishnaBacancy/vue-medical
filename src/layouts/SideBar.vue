@@ -120,12 +120,14 @@
               </router-link>
             </li>
 
-            <li
-              @click="logOut"
-              class="d-flex white--text flex-column text-center justify-center align-center"
-            >
-              <v-icon class="icon__color">mdi-logout</v-icon>
-              <span>Logout</span>
+            <li>
+              <a
+                @click="logOut"
+                class="d-flex white--text flex-column text-center justify-center align-center"
+              >
+                <v-icon class="icon__color">mdi-logout</v-icon>
+                <span>Logout</span>
+              </a>
             </li>
           </ul>
         </nav>
@@ -333,7 +335,7 @@ export default {
 
 .sidebar ul {
   list-style: none;
-  padding: 0 0 15px;
+  padding: 0 0 30px;
 }
 
 .sidebar li {
@@ -346,7 +348,7 @@ export default {
   color: white;
   text-decoration: none;
   font-size: 14px;
-  padding: 24px 10px;
+  padding: 22px 10px;
   font-weight: 400;
 }
 .sidebar a.exactActiveLink {
@@ -364,7 +366,7 @@ span {
 .main-wrapper {
   width: calc(100% - 120px);
   margin-left: auto;
-  padding: 30px !important;
+  padding: 45px !important;
 }
 @media (max-width: 960px) {
   .main-wrapper {
