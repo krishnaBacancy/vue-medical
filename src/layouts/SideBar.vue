@@ -26,14 +26,13 @@
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="text-h6 mb-4 mt-4">
-            <v-img
+            <img
               src="@/assets/accuLive.svg"
               @click="$router.push('/')"
               height="30"
               style="cursor: pointer"
               contain
-            >
-            </v-img>
+            />
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
@@ -67,13 +66,13 @@
                 to="/user-management"
                 class="d-flex flex-column text-center justify-center align-center"
               >
-                <v-img
+                <img
                   src="@/assets/Device List.png"
                   height="40"
                   width="40"
                   contain
                   class="icon__color"
-                ></v-img>
+                />
                 <span>Device List</span>
               </router-link>
             </li>
@@ -83,13 +82,13 @@
                 to="/devices"
                 class="d-flex flex-column text-center justify-center align-center"
               >
-                <v-img
+                <img
                   src="@/assets/Device List.png"
                   height="40"
                   width="40"
                   contain
                   class="icon__color"
-                ></v-img>
+                />
                 <span>Device List</span>
               </router-link>
             </li>
@@ -99,13 +98,13 @@
                 to="/live-device"
                 class="d-flex flex-column text-center justify-center align-center"
               >
-                <v-img
+                <img
                   src="@/assets/Live Device.png"
                   height="40"
                   width="40"
                   contain
                   class="icon__color"
-                ></v-img>
+                />
                 <span>Live</span>
               </router-link>
             </li>
@@ -337,7 +336,10 @@ export default {
   list-style: none;
   padding: 0 0 30px;
 }
-
+.sidebar a .v-icon.v-icon {
+  height: 40px;
+  width: 40px;
+}
 .sidebar li {
   text-align: left;
   width: 100%;
@@ -382,6 +384,7 @@ span {
     padding: 10px 20px;
     border-radius: 40px;
   }
+  .sidebar a .icon__color,
   .sidebar a .v-icon.v-icon {
     margin-right: 10px;
   }
@@ -390,5 +393,8 @@ span {
   .main-wrapper {
     padding: 15px !important;
   }
+}
+.theme--dark.v-app-bar.v-toolbar.v-sheet {
+  background-color: rgb(245, 130, 32);
 }
 </style>

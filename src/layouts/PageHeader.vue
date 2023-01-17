@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex" style="width: 100%">
+  <div class="d-flex mr-auto">
     <v-card-title class="font-weight-bold pl-0">
       {{ title }}
     </v-card-title>

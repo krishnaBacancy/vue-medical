@@ -1,12 +1,12 @@
 <template>
-  <v-card style="width: 100%">
+  <v-card>
     <div class="d-inline-flex">
       <v-icon color="warning">mdi-magnify</v-icon>
       <input
         type="search"
         placeholder="Search by MAC Address"
         v-model="$store.state.doctors.searchTerm"
-        class="pl-2"
+        class="pl-2 search-input"
       />
       <v-icon
         class="ml-2"
@@ -38,5 +38,8 @@ input:focus {
   align-items: center;
   padding: 11px 14px;
   box-shadow: 2px 5px 16px rgba(0, 0, 0, 0.08);
+}
+.search-input {
+  min-width: 200px;
 }
 </style>

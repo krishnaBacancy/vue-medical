@@ -1,25 +1,23 @@
 <template>
   <div>
-    <div class="d-flex">
-      <PageHeader title="Dashboard" pageIcon="mdi-home" />
-      <div class="d-inline-flex align-center">
-        <SearchBar />
-        <div class="d-flex" v-if="mobile">
-          <button class="btn-group px-4">
-            <v-icon class="me-2" color="#333">mdi-filter</v-icon>
-            <h4 class="font-weight-medium">Filter</h4>
-          </button>
-          <div class="btn-group">
-            <v-icon class="mx-1" color="#333" @click="gridNumber = 3"
-              >mdi-tally-mark-4</v-icon
-            >
-            <v-icon class="mx-1" color="#333" @click="gridNumber = 4"
-              >mdi-tally-mark-3</v-icon
-            >
-            <v-icon class="mx-1 active" color="#333" @click="gridNumber = 6"
-              >mdi-tally-mark-2</v-icon
-            >
-          </div>
+    <div class="d-flex flex-wrap page-header-item align-center">
+      <PageHeader title="Dashboard" pageIcon="mdi-home" class="ph-item-1" />
+      <SearchBar class="mr-3 ph-item-2" />
+      <div class="d-flex ph-item-3">
+        <button class="btn-group px-4 ml-0">
+          <v-icon class="me-2" color="#333">mdi-filter</v-icon>
+          <h4 class="font-weight-medium">Filter</h4>
+        </button>
+        <div class="btn-group">
+          <v-icon class="mx-1" color="#333" @click="gridNumber = 3"
+            >mdi-tally-mark-4</v-icon
+          >
+          <v-icon class="mx-1" color="#333" @click="gridNumber = 4"
+            >mdi-tally-mark-3</v-icon
+          >
+          <v-icon class="mx-1 active" color="#333" @click="gridNumber = 6"
+            >mdi-tally-mark-2</v-icon
+          >
         </div>
       </div>
     </div>
@@ -260,6 +258,29 @@ span {
 @media only screen and (max-width: 790px) and (min-width: 600px) {
   span {
     font-size: 13px;
+  }
+}
+
+@media only screen and (max-width: 960px) {
+  .page-header-item {
+    flex-wrap: wrap;
+  }
+}
+
+@media only screen and (max-width: 850px) {
+  .ph-item-1 {
+    order: 1;
+  }
+  .ph-item-2 {
+    order: 3;
+  }
+  .ph-item-3 {
+    order: 2;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .ph-item-2 {
+    margin-top: 10px;
   }
 }
 .btn-group {
