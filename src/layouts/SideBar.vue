@@ -368,7 +368,7 @@ span {
 .main-wrapper {
   width: calc(100% - 120px);
   margin-left: auto;
-  padding: 45px !important;
+  padding: 40px 45px !important;
 }
 @media (max-width: 960px) {
   .main-wrapper {
