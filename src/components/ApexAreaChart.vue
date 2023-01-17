@@ -33,7 +33,7 @@ export default {
           },
           yaxis: {
             lines: {
-              show: false,
+              show: true,
             },
           },
         },

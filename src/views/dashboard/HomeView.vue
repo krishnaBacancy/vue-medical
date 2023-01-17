@@ -157,13 +157,9 @@
                     <v-flex xs12>
                       <div class="d-flex mt-1 text-start ml-1 flex-column">
                         <h5 class="green--text">
-                          {{
-                            patient?.algodata
-                              ? patient.algodata?.hr
-                              : "Loading."
-                          }}
+                          {{ patient?.algodata ? patient.algodata?.hr : "--" }}
                         </h5>
-                        <small class="white--text">>120-30</small>
+                        <small class="white--text">BPM</small>
                       </div>
                     </v-flex>
                   </div>
@@ -198,10 +194,10 @@
                           {{
                             patient?.spo2data
                               ? Math.round(patient.spo2data?.spo2_vals)
-                              : "Loading."
+                              : "--"
                           }}
                         </h5>
-                        <small class="white--text">Good</small>
+                        <small class="white--text">%</small>
                       </div>
                     </v-flex>
                   </div>
@@ -238,10 +234,10 @@
                           {{
                             patient?.algodata
                               ? Math.round(patient.algodata?.map * 100) / 100
-                              : "Loading."
+                              : "--"
                           }}
                         </h5>
-                        <small class="white--text">C1</small>
+                        <small class="white--text">mmHg</small>
                       </div>
                     </v-flex>
                   </div>
@@ -276,15 +272,16 @@
                           {{
                             patient?.algodata
                               ? Math.round(patient.algodata?.bp)
-                              : "Loading."
+                              : "--"
                           }}
                           /
                           {{
-                            patient?.algodata &&
-                            Math.round(patient.algodata?.dbp)
+                            patient?.algodata
+                              ? Math.round(patient.algodata?.dbp)
+                              : "--"
                           }}
                         </h5>
-                        <small class="white--text">6 hrs ago</small>
+                        <small class="white--text">mmHg</small>
                       </div>
                     </v-flex>
                   </div>
@@ -321,10 +318,10 @@
                           {{
                             patient?.tempdata
                               ? Math.round(patient.tempdata?.temp_vals)
-                              : "Loading."
-                          }}<sup style="font-size: 10px">F</sup>
+                              : "--"
+                          }}
                         </h5>
-                        <small class="white--text">>120-30</small>
+                        <small class="white--text">°C</small>
                       </div>
                     </v-flex>
                   </div>
@@ -360,9 +357,7 @@
                       >
                         <h5 class="pink--text">
                           {{
-                            patient?.algodata
-                              ? patient.algodata?.steps
-                              : "Loading."
+                            patient?.algodata ? patient.algodata?.steps : "--"
                           }}
                         </h5>
                         <small class="white--text">Steps</small>

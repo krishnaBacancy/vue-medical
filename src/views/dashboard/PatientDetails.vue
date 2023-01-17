@@ -243,11 +243,6 @@
                     :id="getSingleDeviceData[0]?.macAddressFramed.toUpperCase()"
                     class="grid-container"
                   >
-                    <!-- <LineChart
-                      :key="showEcgChart"
-                      :width="834.24"
-                      :height="299.53"
-                    /> -->
                     <ecg-chart
                       :ecgDataFromProps="ecgChartData"
                       :macAddress="
@@ -304,7 +299,6 @@
                 <div class="d-flex text-start">
                   <div>
                     <h3>Heart Rate</h3>
-                    <small class="warning--text">No Device Paired</small>
                   </div>
                   <v-spacer></v-spacer>
                   <div v-if="!$vuetify.breakpoint.smOnly">
@@ -315,7 +309,7 @@
                 <div class="d-flex justify-center align-center mt-5">
                   <v-flex>
                     <v-img
-                      class="ml-2 mt-2"
+                      class="ml-2"
                       src="@/assets/heartbeat.svg"
                       height="70"
                       width="70"
@@ -323,13 +317,11 @@
                     ></v-img>
                   </v-flex>
                   <v-flex xs12>
-                    <div class="ml-4 text-start">
+                    <div class="ml-4 text-start d-flex align-center">
                       <h1 class="success--text">
-                        {{ getAlgoData?.hr ? getAlgoData.hr : "Loading..." }}
+                        {{ getAlgoData?.hr ? getAlgoData.hr : "--" }}
                       </h1>
-                      <div class="d-flex flex-column">
-                        <small>C1</small>
-                      </div>
+                      <small class="ml-2 mt-2">BPM</small>
                     </div>
                   </v-flex>
                 </div>
@@ -345,7 +337,6 @@
                 <div class="d-flex text-start">
                   <div>
                     <h3>Heart Rate Variability</h3>
-                    <small class="warning--text">No Device Paired</small>
                   </div>
                   <v-spacer></v-spacer>
                   <div v-if="!$vuetify.breakpoint.smOnly">
@@ -356,7 +347,7 @@
                 <div class="d-flex justify-center align-center mt-5">
                   <v-flex>
                     <v-img
-                      class="ml-2 mt-2"
+                      class="ml-2"
                       src="@/assets/heartbeat.svg"
                       height="70"
                       width="70"
@@ -364,17 +355,13 @@
                     ></v-img>
                   </v-flex>
                   <v-flex xs12>
-                    <div class="ml-4 text-start">
+                    <div class="ml-4 text-start d-flex align-center">
                       <h1 class="success--text">
                         {{
-                          getAlgoData?.hrv
-                            ? Math.round(getAlgoData.hrv)
-                            : "Loading..."
+                          getAlgoData?.hrv ? Math.round(getAlgoData.hrv) : "--"
                         }}
                       </h1>
-                      <div class="d-flex flex-column">
-                        <small>C1</small>
-                      </div>
+                      <small class="ml-2 mt-2">ms</small>
                     </div>
                   </v-flex>
                 </div>
@@ -393,7 +380,6 @@
                 <div class="d-flex text-start">
                   <div>
                     <h3>Oxygen Saturation</h3>
-                    <small class="warning--text">00:0B:57:AC:66:DA</small>
                   </div>
                   <v-spacer></v-spacer>
                   <div v-if="!$vuetify.breakpoint.smOnly">
@@ -404,7 +390,7 @@
                 <div class="d-flex justify-center align-center mt-5">
                   <v-flex>
                     <v-img
-                      class="ml-2 mt-2"
+                      class="ml-2"
                       src="@/assets/oxygen.svg"
                       height="70"
                       width="70"
@@ -412,17 +398,17 @@
                     ></v-img>
                   </v-flex>
                   <v-flex xs12>
-                    <div class="ml-4 text-start">
+                    <div class="ml-4 text-start d-flex align-center">
                       <h1 class="warning--text">
                         {{
-                          getAlgoData?.spo2
-                            ? Math.round(getAlgoData?.spo2)
-                            : "Loading..."
+                          getSingleDeviceData[0]?.spo2data
+                            ? Math.round(
+                                getSingleDeviceData[0].spo2data?.spo2_vals
+                              )
+                            : "--"
                         }}
                       </h1>
-                      <div class="d-flex flex-column">
-                        <small>Streaming Mode</small>
-                      </div>
+                      <small class="ml-2 mt-2">%</small>
                     </div>
                   </v-flex>
                 </div>
@@ -438,7 +424,6 @@
                 <div class="d-flex text-start">
                   <div>
                     <h3>Temperature</h3>
-                    <small class="warning--text">00:0B:57:AC:66:DA</small>
                   </div>
                   <v-spacer></v-spacer>
                   <div v-if="!$vuetify.breakpoint.smOnly">
@@ -449,7 +434,7 @@
                 <div class="d-flex justify-center align-center mt-5">
                   <v-flex>
                     <v-img
-                      class="ml-2 mt-2"
+                      class="ml-2"
                       src="@/assets/temprature.svg"
                       height="70"
                       width="70"
@@ -457,17 +442,15 @@
                     ></v-img>
                   </v-flex>
                   <v-flex xs12>
-                    <div class="ml-4 text-start">
+                    <div class="ml-4 text-start d-flex align-center">
                       <h1 class="warning--text">
                         {{
-                          getAlgoData?.temp
-                            ? Math.round(getAlgoData?.temp)
-                            : "Loading..."
+                          getSingleDeviceData[0]?.tempdata
+                            ? getSingleDeviceData[0].tempdata?.temp_vals
+                            : "--"
                         }}
                       </h1>
-                      <div class="d-flex flex-column">
-                        <small>Streaming Mode</small>
-                      </div>
+                      <small class="ml-2 mt-2">°C</small>
                     </div>
                   </v-flex>
                 </div>
@@ -483,7 +466,6 @@
                 <div class="d-flex text-start">
                   <div>
                     <h3>Pulse Rate Variability</h3>
-                    <small class="warning--text">No Device Paired</small>
                   </div>
                   <v-spacer></v-spacer>
                   <div v-if="!$vuetify.breakpoint.smOnly">
@@ -494,7 +476,7 @@
                 <div class="d-flex justify-center align-center mt-5">
                   <v-flex>
                     <v-img
-                      class="ml-2 mt-2"
+                      class="ml-2"
                       src="@/assets/Group 507.svg"
                       height="70"
                       width="70"
@@ -502,17 +484,13 @@
                     ></v-img>
                   </v-flex>
                   <v-flex xs12>
-                    <div class="ml-4 text-start">
+                    <div class="ml-4 text-start d-flex align-center">
                       <h1 class="success--text">
                         {{
-                          getAlgoData?.prv
-                            ? Math.round(getAlgoData.prv)
-                            : "Loading..."
+                          getAlgoData?.prv ? Math.round(getAlgoData.prv) : "--"
                         }}
                       </h1>
-                      <div class="d-flex flex-column">
-                        <small>Streaming Mode</small>
-                      </div>
+                      <small class="ml-2 mt-2">ms</small>
                     </div>
                   </v-flex>
                 </div>
@@ -531,7 +509,6 @@
                 <div class="d-flex text-start">
                   <div>
                     <h3>Movement</h3>
-                    <small class="warning--text">No Device Paired</small>
                   </div>
                   <v-spacer></v-spacer>
                   <div>
@@ -546,15 +523,15 @@
                       height="70"
                       width="70"
                       contain
-                      class="mt-2 ml-2"
+                      class="ml-2"
                     ></v-img>
                   </v-flex>
                   <v-flex xs12>
-                    <div class="text-start ml-4">
+                    <div class="text-start ml-4 d-flex align-center">
                       <h1 class="pink--text">
                         {{ getAlgoData?.steps ? getAlgoData?.steps : "0" }}
                       </h1>
-                      <small>Steps</small>
+                      <small class="ml-2 mt-2">steps</small>
                     </div>
                   </v-flex>
                 </div>
@@ -570,7 +547,6 @@
                 <div class="d-flex text-start">
                   <div>
                     <h3>Blood Pressure</h3>
-                    <small class="warning--text">No Device Paired</small>
                   </div>
                   <v-spacer></v-spacer>
                   <div>
@@ -581,7 +557,7 @@
                 <div class="d-flex justify-center align-center mt-5">
                   <v-flex>
                     <v-img
-                      class="mt-2 ml-2"
+                      class="ml-2"
                       src="@/assets/bloodPressure.svg"
                       height="70"
                       contain
@@ -589,23 +565,17 @@
                     ></v-img>
                   </v-flex>
                   <v-flex xs12>
-                    <div class="text-start ml-4">
+                    <div class="text-start ml-4 d-flex align-center">
                       <h1 class="cyan--text">
                         {{
-                          getAlgoData?.bp
-                            ? Math.round(getAlgoData?.bp)
-                            : "Loading..."
+                          getAlgoData?.bp ? Math.round(getAlgoData?.bp) : "--"
                         }}
                         /
                         {{
-                          getAlgoData?.dbp
-                            ? Math.round(getAlgoData?.dbp)
-                            : "..."
+                          getAlgoData?.dbp ? Math.round(getAlgoData?.dbp) : "--"
                         }}
                       </h1>
-                      <div class="d-flex flex-column">
-                        <small>mmHg</small>
-                      </div>
+                      <small class="ml-2 mt-2">mmHg</small>
                     </div>
                   </v-flex>
                 </div>
@@ -621,7 +591,6 @@
                 <div class="d-flex text-start">
                   <div>
                     <h3>MAP</h3>
-                    <small class="red--text">Mean arterial pressure</small>
                   </div>
                   <v-spacer></v-spacer>
                   <div>
@@ -636,21 +605,19 @@
                       width="70"
                       height="70"
                       contain
-                      class="mt-2 ml-2"
+                      class="ml-2"
                     ></v-img>
                   </v-flex>
                   <v-flex xs12>
-                    <div class="text-start ml-4">
+                    <div class="text-start ml-4 d-flex align-center">
                       <h1 class="red--text">
                         {{
                           getAlgoData?.map
                             ? Math.round(getAlgoData?.map * 100) / 100
-                            : "Loading..."
+                            : "--"
                         }}
                       </h1>
-                      <div class="d-flex flex-column">
-                        <small>mmHg</small>
-                      </div>
+                      <small class="ml-2 mt-2">mmHg</small>
                     </div>
                   </v-flex>
                 </div>
@@ -670,7 +637,6 @@
                 <div class="d-flex text-start">
                   <div>
                     <h3>RR Interval</h3>
-                    <small class="warning--text">00:0B:57:AC:66:DA</small>
                   </div>
                   <v-spacer></v-spacer>
                   <div v-if="!$vuetify.breakpoint.smOnly">
@@ -681,7 +647,7 @@
                 <div class="d-flex justify-center align-center mt-5">
                   <v-flex>
                     <v-img
-                      class="mt-2 ml-2"
+                      class="ml-2"
                       src="../../assets/Group 508.svg"
                       height="70"
                       width="70"
@@ -689,17 +655,15 @@
                     ></v-img>
                   </v-flex>
                   <v-flex xs12>
-                    <div class="text-start ml-4">
+                    <div class="text-start ml-4 d-flex align-center">
                       <h1 class="warning--text">
                         {{
                           getAlgoData?.rr
                             ? Math.round(getAlgoData?.rr * 100) / 100
-                            : "Loading..."
+                            : "--"
                         }}
                       </h1>
-                      <div class="d-flex flex-column">
-                        <small>Streaming Mode</small>
-                      </div>
+                      <small class="mt-2 ml-2">s</small>
                     </div>
                   </v-flex>
                 </div>
@@ -717,7 +681,6 @@
                 <div class="d-flex text-start">
                   <div>
                     <h3>Pulse Pressure</h3>
-                    <small class="warning--text">00:0B:57:AC:66:DA</small>
                   </div>
                   <v-spacer></v-spacer>
                   <div v-if="!$vuetify.breakpoint.smOnly">
@@ -728,7 +691,7 @@
                 <div class="d-flex justify-center align-center mt-5">
                   <v-flex>
                     <v-img
-                      class="ml-2 mt-2"
+                      class="ml-2"
                       src="../../assets/Group 507.svg"
                       height="70"
                       width="70"
@@ -736,17 +699,15 @@
                     ></v-img>
                   </v-flex>
                   <v-flex xs12>
-                    <div class="ml-4 text-start">
+                    <div class="ml-4 text-start d-flex align-center">
                       <h1 class="warning--text">
                         {{
                           getAlgoData?.pp
                             ? Math.round(getAlgoData?.pp * 100) / 100
-                            : "Loading..."
+                            : "--"
                         }}
                       </h1>
-                      <div class="d-flex flex-column">
-                        <small>Streaming Mode</small>
-                      </div>
+                      <small class="ml-2 mt-2">mmHg</small>
                     </div>
                   </v-flex>
                 </div>
@@ -764,7 +725,6 @@
                 <div class="d-flex text-start">
                   <div>
                     <h3>Arrthymia</h3>
-                    <small class="warning--text">00:0B:57:AC:66:DA</small>
                   </div>
                   <v-spacer></v-spacer>
                   <div>
@@ -775,7 +735,7 @@
                 <div class="d-flex justify-center align-center mt-5">
                   <v-flex>
                     <v-img
-                      class="ml-2 mt-2"
+                      class="ml-2"
                       src="../../assets/Group 506.svg"
                       height="70"
                       width="70"
@@ -788,12 +748,9 @@
                         {{
                           getAlgoData?.arrhythmia
                             ? getAlgoData.arrhythmia
-                            : "Loading..."
+                            : "--"
                         }}
                       </h1>
-                      <div class="d-flex flex-column">
-                        <small>Streaming Mode</small>
-                      </div>
                     </div>
                   </v-flex>
                 </div>
@@ -813,7 +770,6 @@
                 <div class="d-flex text-start">
                   <div>
                     <h3>Stroke Volume</h3>
-                    <small class="warning--text">00:0B:57:AC:66:DA</small>
                   </div>
                   <v-spacer></v-spacer>
                   <div v-if="!$vuetify.breakpoint.smOnly">
@@ -824,7 +780,7 @@
                 <div class="d-flex justify-center align-center mt-5">
                   <v-flex>
                     <v-img
-                      class="ml-2 mt-2"
+                      class="ml-2"
                       src="../../assets/Group 505.svg"
                       height="70"
                       width="70"
@@ -832,17 +788,15 @@
                     ></v-img>
                   </v-flex>
                   <v-flex xs12>
-                    <div class="ml-4 text-start">
+                    <div class="ml-4 text-start d-flex align-center">
                       <h1 class="warning--text">
                         {{
                           getAlgoData?.sv
                             ? Math.round(getAlgoData?.sv * 100) / 100
-                            : "Loading..."
+                            : "--"
                         }}
                       </h1>
-                      <div class="d-flex flex-column">
-                        <small>Streaming Mode</small>
-                      </div>
+                      <small class="ml-2 mt-2">ml</small>
                     </div>
                   </v-flex>
                 </div>
@@ -859,7 +813,6 @@
                 <div class="d-flex text-start">
                   <div>
                     <h3>Cardiac Output</h3>
-                    <small class="warning--text">00:0B:57:AC:66:DA</small>
                   </div>
                   <v-spacer></v-spacer>
                   <div v-if="!$vuetify.breakpoint.smOnly">
@@ -870,7 +823,7 @@
                 <div class="d-flex justify-center align-center mt-5">
                   <v-flex>
                     <v-img
-                      class="ml-2 mt-2"
+                      class="ml-2"
                       src="../../assets/Group 504.svg"
                       height="70"
                       width="70"
@@ -878,17 +831,15 @@
                     ></v-img>
                   </v-flex>
                   <v-flex xs12>
-                    <div class="ml-4 text-start">
+                    <div class="ml-4 text-start d-flex align-center">
                       <h1 class="warning--text">
                         {{
                           getAlgoData?.co
                             ? Math.round(getAlgoData?.co * 100) / 100
-                            : "Loading..."
+                            : "--"
                         }}
                       </h1>
-                      <div class="d-flex flex-column">
-                        <small>Streaming Mode</small>
-                      </div>
+                      <small class="ml-2 mt-2">L/min</small>
                     </div>
                   </v-flex>
                 </div>
@@ -906,7 +857,6 @@
                 <div class="d-flex text-start">
                   <div>
                     <h3>Pulse Transit Time</h3>
-                    <small class="warning--text">00:0B:57:AC:66:DA</small>
                   </div>
                   <v-spacer></v-spacer>
                   <div>
@@ -917,7 +867,7 @@
                 <div class="d-flex justify-center align-center mt-5">
                   <v-flex>
                     <v-img
-                      class="ml-2 mt-2"
+                      class="ml-2"
                       src="../../assets/Group 503.svg"
                       height="70"
                       width="70"
@@ -925,17 +875,15 @@
                     ></v-img>
                   </v-flex>
                   <v-flex xs12>
-                    <div class="ml-4 text-start">
+                    <div class="ml-4 text-start d-flex align-center">
                       <h1 class="warning--text">
                         {{
                           getAlgoData?.ptt
                             ? Math.round(getAlgoData?.ptt * 100) / 100
-                            : "Loading..."
+                            : "--"
                         }}
                       </h1>
-                      <div class="d-flex flex-column">
-                        <small>Streaming Mode</small>
-                      </div>
+                      <small class="ml-2 mt-2">ms</small>
                     </div>
                   </v-flex>
                 </div>
@@ -966,7 +914,7 @@
                       <div class="d-flex ml-5 text-start flex-column">
                         <span>Body Temperature</span>
                         <span class="warning--text" style="font-size: 16px"
-                          >00:0B:57:AC:66:DA</span
+                          >°C</span
                         >
                       </div>
                     </h3>
@@ -1020,7 +968,7 @@
                       <div class="d-flex ml-5 text-start flex-column">
                         <span>Blood Oxygen</span>
                         <span class="warning--text" style="font-size: 16px"
-                          >mmHg</span
+                          >%</span
                         >
                       </div>
                     </h3>
@@ -1074,7 +1022,7 @@
                       <div class="d-flex ml-5 text-start flex-column">
                         <span>Heart Rate</span>
                         <span class="warning--text" style="font-size: 16px"
-                          >mmHg</span
+                          >BPM</span
                         >
                       </div>
                     </h3>
