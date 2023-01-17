@@ -326,7 +326,7 @@ p {
   .logo-img {
     position: absolute;
     top: 20px;
-    z-index: 99;
+    z-index: 2;
     left: 50%;
     transform: translateX(-50%);
     height: 23px;
@@ -341,13 +341,15 @@ p {
   }
   .login-right-block {
     visibility: hidden;
-    animation: fadeUp-4a679094 1s forwards;
+    animation: fadeUp-4a679094 1s forwards ease-in;
     animation-delay: 1s;
     padding: 10px 16px;
+    position: relative;
+    z-index: 9;
     transform: translateY(100%);
   }
   .login--box {
-    margin-top: 0;
+    margin: 0 auto;
     max-width: 100%;
   }
   .login-right-block .logo-img {
