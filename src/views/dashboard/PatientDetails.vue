@@ -1031,10 +1031,11 @@
                   </div>
                 </div>
                 <div class="grid-container">
-                  <!-- <ApexAreaChart
+                  <oxygen-graph
                     :height="366"
-                    :width="600"
-                    :data-of-chart="[72, 115, 95, 130, 60, 116, 88]"
+                    :width="770"
+                    :data-of-chart="getBloodOxygenGraphData"
+                    :chart-id="'OxygenGraph'"
                     :chart-label="[
                       '12pm',
                       '1pm',
@@ -1046,24 +1047,6 @@
                     ]"
                     :chart-border-color="'#774af1'"
                     :chart-bg-color="['#7741f1']"
-                  /> -->
-                  <oxygen-graph
-                    v-if="getPatientSteps"
-                    :height="366"
-                    :width="770"
-                    :data-of-chart="getPatientSteps"
-                    :chart-id="'OxygenGraph'"
-                    :chart-label="[
-                      '12pm',
-                      '1pm',
-                      '2pm',
-                      '3pm',
-                      '4pm',
-                      '5pm',
-                      '6pm',
-                    ]"
-                    :chart-border-color="'cyan'"
-                    :chart-bg-color="['cyan']"
                   />
                 </div>
               </v-card>
@@ -1174,7 +1157,6 @@
                 </div>
                 <div class="grid-container">
                   <ApexAreaChart
-                    v-if="getPatientSteps"
                     :height="366"
                     :width="770"
                     :data-of-chart="getPatientSteps"

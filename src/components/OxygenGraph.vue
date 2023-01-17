@@ -18,6 +18,9 @@ export default {
           type: "area",
           height: this.height,
           width: this.width,
+          toolbar: {
+            show: false,
+          },
         },
         colors: this.chartBgColor,
         xaxis: {
@@ -96,7 +99,7 @@ export default {
             this.oxygenChart.render();
             this.oxygenChart.updateSeries([
               {
-                data: this.dataOfChart?.map((d) => Math.round(d["step"])),
+                data: this.dataOfChart?.map((d) => Math.round(d["spo2"])),
               },
             ]);
           } else {

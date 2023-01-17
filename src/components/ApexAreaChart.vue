@@ -18,10 +18,34 @@ export default {
           type: "area",
           height: this.height,
           width: this.width,
+          toolbar: {
+            show: false,
+          },
+          // background: "#fff",
         },
         colors: this.chartBgColor,
+        grid: {
+          show: true,
+          xaxis: {
+            lines: {
+              show: true,
+            },
+          },
+          yaxis: {
+            lines: {
+              show: false,
+            },
+          },
+        },
         xaxis: {
           categories: this.chartLabel,
+        },
+        yaxis: {
+          labels: {
+            formatter: function (val) {
+              return Math.round(val);
+            },
+          },
         },
         theme: {
           mode: "dark",

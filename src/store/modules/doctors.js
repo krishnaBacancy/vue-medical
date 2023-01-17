@@ -14,7 +14,7 @@ const getters = {
     return state.loading;
   },
   getPatients(state) {
-    return state.deviceData;
+    return state.deviceData.reverse();
   },
   getAllPatientsOnly(state) {
     return state?.patientsData

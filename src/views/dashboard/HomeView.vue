@@ -88,7 +88,7 @@
                   <span style="color: orange" class="ml-2">Floor - 1 </span>
                 </div>
                 <v-spacer></v-spacer>
-                <div class="d-flex mr-11 justify-center align-center">
+                <div class="d-flex mr-9 justify-center align-center">
                   <v-img
                     src="@/assets/rooms.svg"
                     width="29"
@@ -112,7 +112,7 @@
                   }}</span>
                 </div>
                 <v-spacer></v-spacer>
-                <div class="d-flex mr-4 justify-center align-center">
+                <div class="d-flex mr-14 justify-center align-center">
                   <v-img
                     src="@/assets/battery.svg"
                     width="29"
@@ -139,13 +139,20 @@
                 >
                   <div class="d-flex align-center">
                     <v-flex>
-                      <v-img
-                        class="ml-2 mt-2"
-                        src="@/assets/heartbeat.svg"
-                        height="39"
-                        width="39"
-                        contain
-                      ></v-img>
+                      <v-tooltip bottom>
+                        <template v-slot:activator="{ on, attrs }">
+                          <v-img
+                            v-on="on"
+                            v-bind="attrs"
+                            class="mt-2 ml-2"
+                            src="@/assets/heartbeat.svg"
+                            height="39"
+                            width="39"
+                            contain
+                          ></v-img>
+                        </template>
+                        <span>Heart Rate</span>
+                      </v-tooltip>
                     </v-flex>
                     <v-flex xs12>
                       <div class="d-flex mt-1 text-start ml-1 flex-column">
@@ -170,13 +177,20 @@
                 >
                   <div class="d-flex align-center">
                     <v-flex>
-                      <v-img
-                        class="ml-2 mt-2"
-                        src="@/assets/oxygen.svg"
-                        height="39"
-                        width="39"
-                        contain
-                      ></v-img>
+                      <v-tooltip bottom>
+                        <template v-slot:activator="{ on, attrs }">
+                          <v-img
+                            v-on="on"
+                            v-bind="attrs"
+                            class="mt-2 ml-2"
+                            src="@/assets/oxygen.svg"
+                            height="39"
+                            width="39"
+                            contain
+                          ></v-img>
+                        </template>
+                        <span>Oxygen</span>
+                      </v-tooltip>
                     </v-flex>
                     <v-flex xs12>
                       <div class="d-flex text-start mt-1 flex-column ml-1">
@@ -203,13 +217,20 @@
                 >
                   <div class="d-flex align-center">
                     <v-flex>
-                      <v-img
-                        class="ml-2 mt-2"
-                        src="@/assets/Group 509.svg"
-                        height="39"
-                        width="39"
-                        contain
-                      ></v-img>
+                      <v-tooltip bottom>
+                        <template v-slot:activator="{ on, attrs }">
+                          <v-img
+                            v-on="on"
+                            v-bind="attrs"
+                            class="mt-2 ml-2"
+                            src="@/assets/Group 509.svg"
+                            height="39"
+                            width="39"
+                            contain
+                          ></v-img>
+                        </template>
+                        <span>Mean arterial pressure</span>
+                      </v-tooltip>
                     </v-flex>
                     <v-flex xs12>
                       <div class="d-flex ml-1 mt-1 text-start flex-column">
@@ -234,13 +255,20 @@
                 >
                   <div class="d-flex align-center">
                     <v-flex>
-                      <v-img
-                        class="ml-2 mt-2"
-                        src="@/assets/bloodPressure.svg"
-                        height="39"
-                        width="39"
-                        contain
-                      ></v-img>
+                      <v-tooltip bottom>
+                        <template v-slot:activator="{ on, attrs }">
+                          <v-img
+                            v-on="on"
+                            v-bind="attrs"
+                            class="mt-2 ml-2"
+                            src="@/assets/bloodPressure.svg"
+                            height="39"
+                            width="39"
+                            contain
+                          ></v-img>
+                        </template>
+                        <span>Blood Pressure</span>
+                      </v-tooltip>
                     </v-flex>
                     <v-flex xs12>
                       <div class="d-flex flex-column ml-1 mt-1 text-start">
@@ -272,13 +300,20 @@
                 >
                   <div class="d-flex align-center">
                     <v-flex>
-                      <v-img
-                        class="ml-2 mt-2"
-                        src="@/assets/temprature.svg"
-                        height="39"
-                        width="39"
-                        contain
-                      ></v-img>
+                      <v-tooltip bottom>
+                        <template v-slot:activator="{ on, attrs }">
+                          <v-img
+                            v-on="on"
+                            v-bind="attrs"
+                            class="mt-2 ml-2"
+                            src="@/assets/temprature.svg"
+                            height="39"
+                            width="39"
+                            contain
+                          ></v-img>
+                        </template>
+                        <span>Temperature</span>
+                      </v-tooltip>
                     </v-flex>
                     <v-flex xs12>
                       <div class="d-flex flex-column text-start ml-1 mt-1">
@@ -303,13 +338,20 @@
                 >
                   <div class="d-flex align-center">
                     <v-flex>
-                      <v-img
-                        class="ml-2 mt-2"
-                        src="@/assets/steps.svg"
-                        height="39"
-                        width="39"
-                        contain
-                      ></v-img>
+                      <v-tooltip bottom>
+                        <template v-slot:activator="{ on, attrs }">
+                          <v-img
+                            v-on="on"
+                            v-bind="attrs"
+                            class="mt-2 ml-2"
+                            src="@/assets/steps.svg"
+                            height="39"
+                            width="39"
+                            contain
+                          ></v-img>
+                        </template>
+                        <span>Steps</span>
+                      </v-tooltip>
                     </v-flex>
                     <v-flex xs12>
                       <div
