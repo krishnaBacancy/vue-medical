@@ -8,7 +8,7 @@
           <v-icon class="me-2" color="#333">mdi-filter</v-icon>
           <h4 class="font-weight-medium">Filter</h4>
         </button>
-        <div class="btn-group">
+        <div class="btn-group" v-if="mobile">
           <v-icon class="mx-1" color="#333" @click="gridNumber = 3"
             >mdi-tally-mark-4</v-icon
           >
@@ -106,70 +106,148 @@
             </div>
             <div class="card-body">
               <div class="mini-light-box">
-                <img
-                  class="box-icon"
-                  src="@/assets/heartbeat.svg"
-                  height="39"
-                  width="39"
-                  contain
-                />
-                <h5 class="text-success">74 <span class="unit">unit</span></h5>
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <img
+                      v-on="on"
+                      v-bind="attrs"
+                      class="box-icon"
+                      src="@/assets/heartbeat.svg"
+                      height="39"
+                      width="39"
+                      contain
+                    />
+                  </template>
+                  <span>Heart Rate</span>
+                </v-tooltip>
+                <h5 class="text-success">
+                  {{ patient?.algodata ? patient.algodata?.hr : "--" }}
+                  <span class="unit">BPM</span>
+                </h5>
               </div>
               <div class="mini-light-box">
-                <img
-                  class="box-icon"
-                  src="@/assets/oxygen.svg"
-                  height="39"
-                  width="39"
-                  contain
-                />
-                <h5 class="text-warning">99 <span class="unit">O2</span></h5>
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <img
+                      v-on="on"
+                      v-bind="attrs"
+                      class="box-icon"
+                      src="@/assets/oxygen.svg"
+                      height="39"
+                      width="39"
+                      contain
+                    />
+                  </template>
+                  <span>Oxygen</span>
+                </v-tooltip>
+                <h5 class="text-warning">
+                  {{
+                    patient?.spo2data
+                      ? Math.round(patient.spo2data?.spo2_vals)
+                      : "--"
+                  }}
+                  <span class="unit">%</span>
+                </h5>
               </div>
               <div class="mini-light-box">
-                <img
-                  class="box-icon"
-                  src="@/assets/lungs.svg"
-                  height="39"
-                  width="39"
-                  contain
-                />
-                <h5 class="text-purple">16 <span class="unit">Cl</span></h5>
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <img
+                      v-on="on"
+                      v-bind="attrs"
+                      class="box-icon"
+                      src="@/assets/Group 509.svg"
+                      height="39"
+                      width="39"
+                      contain
+                    />
+                  </template>
+                  <span>Mean arterial pressure</span>
+                </v-tooltip>
+                <h5 class="text-purple">
+                  {{
+                    patient?.algodata
+                      ? Math.round(patient.algodata?.map * 100) / 100
+                      : "--"
+                  }}
+                  <span class="unit">mmHg</span>
+                </h5>
               </div>
               <div class="mini-light-box">
-                <img
-                  class="box-icon"
-                  src="@/assets/bloodPressure.svg"
-                  height="39"
-                  width="39"
-                  contain
-                />
-                <h5 class="text-info">120/85</h5>
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <img
+                      v-on="on"
+                      v-bind="attrs"
+                      class="box-icon"
+                      src="@/assets/bloodPressure.svg"
+                      height="39"
+                      width="39"
+                      contain
+                    />
+                  </template>
+                  <span>Blood Pressure</span>
+                </v-tooltip>
+                <h5 class="text-info">
+                  {{
+                    patient?.algodata ? Math.round(patient.algodata?.bp) : "--"
+                  }}
+                  /
+                  {{
+                    patient?.algodata ? Math.round(patient.algodata?.dbp) : "--"
+                  }}
+                  <span class="unit">mmHg</span>
+                </h5>
               </div>
               <div
                 class="mini-light-box"
                 style="border-bottom-left-radius: inherit"
               >
-                <img
-                  class="box-icon"
-                  src="@/assets/temprature.svg"
-                  height="39"
-                  width="39"
-                  contain
-                />
-                <h5 class="text-danger">98.7 <span class="unit">F</span></h5>
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <img
+                      v-on="on"
+                      v-bind="attrs"
+                      class="box-icon"
+                      src="@/assets/temprature.svg"
+                      height="39"
+                      width="39"
+                      contain
+                    />
+                  </template>
+                  <span>Temperature</span>
+                </v-tooltip>
+                <h5 class="text-danger">
+                  {{
+                    patient?.tempdata
+                      ? Math.round(patient.tempdata?.temp_vals)
+                      : "--"
+                  }}
+                  <span class="unit">°C</span>
+                </h5>
               </div>
               <div
                 class="mini-light-box"
                 style="border-bottom-right-radius: inherit"
               >
-                <img
-                  class="box-icon"
-                  src="@/assets/steps.svg"
-                  height="39"
-                  width="39"
-                  contain
-                />
-                <h5 class="text-pink">150 <span class="unit">steps</span></h5>
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <img
+                      v-on="on"
+                      v-bind="attrs"
+                      class="box-icon"
+                      src="@/assets/steps.svg"
+                      height="39"
+                      width="39"
+                      contain
+                    />
+                  </template>
+                  <span>Steps</span>
+                </v-tooltip>
+                <h5 class="text-pink">
+                  {{ patient?.algodata ? patient.algodata?.steps : "--" }}
+                  <span class="unit">Steps</span>
+                </h5>
               </div>
             </div>
           </v-card>
@@ -199,7 +277,7 @@ export default {
   computed: {
     ...mapGetters("doctors", ["loadingStatus", "filteredPatients"]),
     showGrid() {
-      return `xl${this.gridNumber}`;
+      return `lg${this.gridNumber}`;
     },
     mobile() {
       return this.$vuetify.breakpoint.lgAndUp;
