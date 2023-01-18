@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: #282934">
+  <div>
     <PageHeader
       title="Patient Details"
       pageIcon="mdi-arrow-left"

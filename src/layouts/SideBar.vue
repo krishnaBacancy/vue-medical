@@ -302,7 +302,7 @@ export default {
 .sidebar {
   padding-top: 60px;
   position: fixed;
-  height: calc(100vh - 88px);
+  height: calc(100vh - 70px);
   width: 120px;
   border-radius: 15px;
   margin-right: auto;
@@ -377,10 +377,19 @@ span {
   .sidebar {
     width: 100%;
   }
+  .sidebar-logo-wrapper {
+    margin-top: 20px;
+  }
+  .sidebar-logo {
+    height: 26px;
+  }
+  .sidebar {
+    padding-top: 20px;
+  }
   .sidebar a {
     flex-direction: row !important;
     justify-content: flex-start !important;
-    padding: 10px 20px;
+    padding: 5px 12px;
     border-radius: 40px;
   }
   .sidebar a .icon__color,

@@ -239,30 +239,42 @@ h5 {
   box-shadow: 0px 8px 12px #00000014;
   padding: 60px 40px;
   border-radius: 50px;
-  margin: 50px auto;
+  margin: auto;
   width: 94%;
   max-width: 600px;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
 }
 .inner-block {
-  margin-top: auto;
   padding: 20px 0;
-  margin-bottom: auto;
+  margin: 15% 0;
 }
 
 p {
   font-size: 18px;
 }
 .logo-img {
-  height: 40px;
+  height: 74px;
   object-fit: contain;
+}
+.v-btn {
+  border-radius: 10px;
+}
+.v-application .warning {
+  background: linear-gradient(45deg, #e53985, #f58220) !important;
 }
 
 @media (max-width: 1199px) and (min-width: 600px) {
   .login-center-block {
     display: none;
+  }
+}
+@media (max-width: 1800px) {
+  .inner-block {
+    margin: 20px 0;
+  }
+  .logo-img {
+    height: 50px;
   }
 }
 @media (max-width: 1400px) {
@@ -287,7 +299,7 @@ p {
     font-size: 30px;
   }
   .logo-img {
-    height: 24px;
+    height: 46px;
   }
 }
 @media (max-width: 767px) {
@@ -329,7 +341,7 @@ p {
     z-index: 2;
     left: 50%;
     transform: translateX(-50%);
-    height: 23px;
+    height: 42px;
   }
   .login-left-block h1 {
     font-size: 32px;
@@ -342,7 +354,7 @@ p {
   .login-right-block {
     visibility: hidden;
     animation: fadeUp-4a679094 1s forwards ease-in;
-    animation-delay: 1s;
+    animation-delay: 0.5s;
     padding: 10px 16px;
     position: relative;
     z-index: 9;
