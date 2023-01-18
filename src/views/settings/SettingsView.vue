@@ -10,7 +10,7 @@
       <v-layout row wrap class="pa-2">
         <v-flex d-flex xs12 sm12 md6 class="mt-2">
           <v-card
-            color="rgba(0, 0, 0, 0.5)"
+            color="rgb(31, 32, 38)"
             class="ml-2 mr-2 mb-2 pa-2 white--text"
             style="width: 100%; border-radius: 20px"
             height="332"
@@ -43,7 +43,7 @@
 
         <v-flex d-flex xs12 sm12 md6 class="mt-2">
           <v-card
-            color="rgba(0, 0, 0, 0.5)"
+            color="rgb(31, 32, 38)"
             class="ml-2 mr-2 mb-2 pa-2 white--text"
             style="width: 100%; border-radius: 20px"
             height="332"
@@ -86,7 +86,7 @@
 
         <v-flex d-flex xs12 sm12 md6 class="mt-2 mb-4">
           <v-card
-            color="rgba(0, 0, 0, 0.5)"
+            color="rgb(31, 32, 38)"
             class="ml-2 mr-2 mb-2 pa-2 white--text"
             style="width: 100%; border-radius: 20px"
             height="332"
@@ -149,7 +149,7 @@
 
         <v-flex d-flex xs12 sm12 md6 class="mt-2 mb-4">
           <v-card
-            color="rgba(0, 0, 0, 0.5)"
+            color="rgb(31, 32, 38)"
             class="ml-2 mr-2 mb-5 mb-md-0 pa-2 white--text"
             style="width: 100%; border-radius: 20px"
             height="332"

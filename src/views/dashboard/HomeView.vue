@@ -1,383 +1,185 @@
 <template>
-  <div style="background-color: #282934">
-    <PageHeader title="Dashboard" pageIcon="mdi-home" />
-    <br />
-    <v-container
-      fluid
-      grid-list-md
-      style="background-color: rgba(0, 0, 0, 0.5); border-radius: 20px"
-    >
-      <v-progress-circular
-        indeterminate
-        color="amber"
-        v-if="loadingStatus"
-      ></v-progress-circular>
-
-      <div v-else>
-        <div class="d-flex align-center">
-          <SearchBar />
-          <div class="white--text d-flex mr-5" v-if="mobile">
-            <h3>Filter</h3>
-            <v-icon class="ml-4" color="white" @click="gridNumber = 3"
-              >mdi-view-grid</v-icon
-            >
-            <v-icon class="ml-2" color="white" @click="gridNumber = 4"
-              >mdi-tally-mark-3</v-icon
-            >
-            <v-icon class="ml-2" color="white" @click="gridNumber = 6"
-              >mdi-tally-mark-2</v-icon
-            >
-          </div>
-        </div>
-        <v-layout row wrap>
-          <v-flex
-            d-flex
-            xs12
-            sm6
-            md4
-            :class="showGrid"
-            v-for="patient in filteredPatients"
-            :key="patient.id"
+  <div>
+    <div class="d-flex flex-wrap page-header-item align-center">
+      <PageHeader title="Dashboard" pageIcon="mdi-home" class="ph-item-1" />
+      <SearchBar class="mr-3 ph-item-2" />
+      <div class="d-flex ph-item-3">
+        <button class="btn-group px-4 ml-0">
+          <v-icon class="me-2" color="#333">mdi-filter</v-icon>
+          <h4 class="font-weight-medium">Filter</h4>
+        </button>
+        <div class="btn-group">
+          <v-icon class="mx-1" color="#333" @click="gridNumber = 3"
+            >mdi-tally-mark-4</v-icon
           >
-            <v-card
-              color="#2B2934"
-              class="ml-2 mr-2 mb-2 pa-2 white--text main__card"
-              style="width: 100%"
-              @click="$router.push(`/patient-details/${patient?.id}`)"
-            >
-              <div class="d-flex">
-                <div class="d-flex justify-center align-center">
-                  <v-flex>
-                    <v-img
-                      src="@/assets/User.svg"
-                      width="35"
-                      height="35"
-                      contain
-                      class="ml-1"
-                    ></v-img>
-                  </v-flex>
-                  <h3 class="ml-2">
+          <v-icon class="mx-1" color="#333" @click="gridNumber = 4"
+            >mdi-tally-mark-3</v-icon
+          >
+          <v-icon class="mx-1 active" color="#333" @click="gridNumber = 6"
+            >mdi-tally-mark-2</v-icon
+          >
+        </div>
+      </div>
+    </div>
+    <br />
+    <v-progress-circular
+      indeterminate
+      color="amber"
+      v-if="loadingStatus"
+    ></v-progress-circular>
+
+    <div v-else>
+      <v-layout row wrap class="card-item-row">
+        <v-flex
+          d-flex
+          xs12
+          sm6
+          md4
+          :class="showGrid"
+          v-for="patient in filteredPatients"
+          :key="patient.id"
+        >
+          <v-card
+            color="#F6F2F2"
+            class="main__card"
+            style="width: 100%"
+            @click="$router.push(`/patient-details/${patient?.id}`)"
+          >
+            <div class="card-header">
+              <div class="d-flex card-title-row">
+                <div class="d-flex">
+                  <img src="@/assets/User.svg" width="35" height="35" contain />
+                  <h3 class="ml-3 font-weight-bold">
                     {{ patient?.firstName + " " + patient?.lastName }}
                   </h3>
                 </div>
-                <v-spacer></v-spacer>
-                <v-icon
-                  color="warning"
-                  size="50"
-                  v-if="realTimeMessage === 'Offline'"
-                  >mdi-circle-small</v-icon
-                >
-                <v-img
-                  src="@/assets/live.png"
-                  height="50"
-                  width="50"
-                  contain
+                <v-spacer>
+                  <span
+                    class="active-status offline"
+                    v-if="realTimeMessage === 'Offline'"
+                  ></span>
+                </v-spacer>
+                <span
+                  class="active-status online"
                   v-if="realTimeMessage === 'Online'"
-                ></v-img>
+                ></span>
               </div>
-
-              <div class="d-flex mt-1" style="font-size: 12px">
-                <div class="d-flex ml-2 justify-center align-center">
-                  <v-img
-                    src="@/assets/floor.svg"
-                    width="29"
-                    height="29"
-                    contain
-                    class="icon__image"
-                  ></v-img>
-                  <span style="color: orange" class="ml-2">Floor - 1 </span>
-                </div>
-                <v-spacer></v-spacer>
-                <div class="d-flex mr-9 justify-center align-center">
-                  <v-img
-                    src="@/assets/rooms.svg"
-                    width="29"
-                    height="29"
-                    class="icon__image"
-                  ></v-img>
-                  <span style="color: orange" class="ml-2">Room - 1 </span>
-                </div>
+              <div class="icon-text-block">
+                <img
+                  src="@/assets/floor.svg"
+                  width="29"
+                  height="29"
+                  contain
+                  class="icon__image"
+                />
+                <span class="text">Floor - 1 </span>
               </div>
-
-              <div class="d-flex mt-2" style="font-size: 12px">
-                <div class="d-flex ml-2 justify-center align-center">
-                  <v-img
-                    src="@/assets/macAddress.svg"
-                    width="29"
-                    height="29"
-                    class="icon__image"
-                  ></v-img>
-                  <span class="ml-2">{{
-                    patient?.macAddressFramed.toUpperCase()
-                  }}</span>
-                </div>
-                <v-spacer></v-spacer>
-                <div class="d-flex mr-14 justify-center align-center">
-                  <v-img
-                    src="@/assets/battery.svg"
-                    width="29"
-                    height="29"
-                    class="icon__image"
-                  ></v-img>
-                  <span class="ml-2"
-                    >{{
-                      patient?.batdata?.bat_vals
-                        ? patient.batdata.bat_vals
-                        : "100"
-                    }}
-                    %</span
-                  >
-                </div>
+              <div class="icon-text-block">
+                <img
+                  src="@/assets/rooms.svg"
+                  width="29"
+                  height="29"
+                  class="icon__image"
+                />
+                <span class="text">Room - 1 </span>
               </div>
-
-              <div class="mt-5 d-flex">
-                <v-card
-                  class="elevation-1 card__div"
-                  height="60"
-                  color="black"
-                  style="width: 50%"
-                >
-                  <div class="d-flex align-center">
-                    <v-flex>
-                      <v-tooltip bottom>
-                        <template v-slot:activator="{ on, attrs }">
-                          <v-img
-                            v-on="on"
-                            v-bind="attrs"
-                            class="mt-2 ml-2"
-                            src="@/assets/heartbeat.svg"
-                            height="39"
-                            width="39"
-                            contain
-                          ></v-img>
-                        </template>
-                        <span>Heart Rate</span>
-                      </v-tooltip>
-                    </v-flex>
-                    <v-flex xs12>
-                      <div class="d-flex mt-1 text-start ml-1 flex-column">
-                        <h5 class="green--text">
-                          {{ patient?.algodata ? patient.algodata?.hr : "--" }}
-                        </h5>
-                        <small class="white--text">BPM</small>
-                      </div>
-                    </v-flex>
-                  </div>
-                </v-card>
-
-                <v-card
-                  class="elevation-1 ml-3 card__div"
-                  color="black"
-                  style="width: 50%"
-                  height="60"
-                >
-                  <div class="d-flex align-center">
-                    <v-flex>
-                      <v-tooltip bottom>
-                        <template v-slot:activator="{ on, attrs }">
-                          <v-img
-                            v-on="on"
-                            v-bind="attrs"
-                            class="mt-2 ml-2"
-                            src="@/assets/oxygen.svg"
-                            height="39"
-                            width="39"
-                            contain
-                          ></v-img>
-                        </template>
-                        <span>Oxygen</span>
-                      </v-tooltip>
-                    </v-flex>
-                    <v-flex xs12>
-                      <div class="d-flex text-start mt-1 flex-column ml-1">
-                        <h5 class="yellow--text">
-                          {{
-                            patient?.spo2data
-                              ? Math.round(patient.spo2data?.spo2_vals)
-                              : "--"
-                          }}
-                        </h5>
-                        <small class="white--text">%</small>
-                      </div>
-                    </v-flex>
-                  </div>
-                </v-card>
+              <div class="icon-text-block">
+                <img
+                  src="@/assets/macAddress.svg"
+                  width="29"
+                  height="29"
+                  class="icon__image"
+                />
+                <span class="text">{{
+                  patient?.macAddressFramed.toUpperCase()
+                }}</span>
               </div>
-
-              <div class="mt-5 d-flex">
-                <v-card
-                  class="elevation-1 card__div"
-                  height="60"
-                  color="black"
-                  style="width: 50%"
-                >
-                  <div class="d-flex align-center">
-                    <v-flex>
-                      <v-tooltip bottom>
-                        <template v-slot:activator="{ on, attrs }">
-                          <v-img
-                            v-on="on"
-                            v-bind="attrs"
-                            class="mt-2 ml-2"
-                            src="@/assets/Group 509.svg"
-                            height="39"
-                            width="39"
-                            contain
-                          ></v-img>
-                        </template>
-                        <span>Mean arterial pressure</span>
-                      </v-tooltip>
-                    </v-flex>
-                    <v-flex xs12>
-                      <div class="d-flex ml-1 mt-1 text-start flex-column">
-                        <h5 class="purple--text">
-                          {{
-                            patient?.algodata
-                              ? Math.round(patient.algodata?.map * 100) / 100
-                              : "--"
-                          }}
-                        </h5>
-                        <small class="white--text">mmHg</small>
-                      </div>
-                    </v-flex>
-                  </div>
-                </v-card>
-
-                <v-card
-                  class="elevation-1 ml-3 card__div"
-                  color="black"
-                  style="width: 50%"
-                  height="60"
-                >
-                  <div class="d-flex align-center">
-                    <v-flex>
-                      <v-tooltip bottom>
-                        <template v-slot:activator="{ on, attrs }">
-                          <v-img
-                            v-on="on"
-                            v-bind="attrs"
-                            class="mt-2 ml-2"
-                            src="@/assets/bloodPressure.svg"
-                            height="39"
-                            width="39"
-                            contain
-                          ></v-img>
-                        </template>
-                        <span>Blood Pressure</span>
-                      </v-tooltip>
-                    </v-flex>
-                    <v-flex xs12>
-                      <div class="d-flex flex-column ml-1 mt-1 text-start">
-                        <h5 class="cyan--text">
-                          {{
-                            patient?.algodata
-                              ? Math.round(patient.algodata?.bp)
-                              : "--"
-                          }}
-                          /
-                          {{
-                            patient?.algodata
-                              ? Math.round(patient.algodata?.dbp)
-                              : "--"
-                          }}
-                        </h5>
-                        <small class="white--text">mmHg</small>
-                      </div>
-                    </v-flex>
-                  </div>
-                </v-card>
+              <div class="icon-text-block">
+                <img
+                  src="@/assets/battery.svg"
+                  width="29"
+                  height="29"
+                  class="icon__image"
+                />
+                <span class="text">114Hrs 45 Min</span>
               </div>
-
-              <div class="mt-5 d-flex mb-2">
-                <v-card
-                  class="elevation-1 card__div"
-                  height="60"
-                  color="black"
-                  style="width: 50%"
-                >
-                  <div class="d-flex align-center">
-                    <v-flex>
-                      <v-tooltip bottom>
-                        <template v-slot:activator="{ on, attrs }">
-                          <v-img
-                            v-on="on"
-                            v-bind="attrs"
-                            class="mt-2 ml-2"
-                            src="@/assets/temprature.svg"
-                            height="39"
-                            width="39"
-                            contain
-                          ></v-img>
-                        </template>
-                        <span>Temperature</span>
-                      </v-tooltip>
-                    </v-flex>
-                    <v-flex xs12>
-                      <div class="d-flex flex-column text-start ml-1 mt-1">
-                        <h5 class="red--text">
-                          {{
-                            patient?.tempdata
-                              ? Math.round(patient.tempdata?.temp_vals)
-                              : "--"
-                          }}
-                        </h5>
-                        <small class="white--text">°C</small>
-                      </div>
-                    </v-flex>
-                  </div>
-                </v-card>
-
-                <v-card
-                  class="elevation-1 ml-3 card__div"
-                  color="black"
-                  style="width: 50%"
-                  height="60"
-                >
-                  <div class="d-flex align-center">
-                    <v-flex>
-                      <v-tooltip bottom>
-                        <template v-slot:activator="{ on, attrs }">
-                          <v-img
-                            v-on="on"
-                            v-bind="attrs"
-                            class="mt-2 ml-2"
-                            src="@/assets/steps.svg"
-                            height="39"
-                            width="39"
-                            contain
-                          ></v-img>
-                        </template>
-                        <span>Steps</span>
-                      </v-tooltip>
-                    </v-flex>
-                    <v-flex xs12>
-                      <div
-                        class="d-flex flex-column text-start mt-1 ml-1"
-                        style="flex-direction: column"
-                      >
-                        <h5 class="pink--text">
-                          {{
-                            patient?.algodata ? patient.algodata?.steps : "--"
-                          }}
-                        </h5>
-                        <small class="white--text">Steps</small>
-                      </div>
-                    </v-flex>
-                  </div>
-                </v-card>
+            </div>
+            <div class="card-body">
+              <div class="mini-light-box">
+                <img
+                  class="box-icon"
+                  src="@/assets/heartbeat.svg"
+                  height="39"
+                  width="39"
+                  contain
+                />
+                <h5 class="text-success">74 <span class="unit">unit</span></h5>
               </div>
-            </v-card>
-          </v-flex>
-        </v-layout>
-      </div>
+              <div class="mini-light-box">
+                <img
+                  class="box-icon"
+                  src="@/assets/oxygen.svg"
+                  height="39"
+                  width="39"
+                  contain
+                />
+                <h5 class="text-warning">99 <span class="unit">O2</span></h5>
+              </div>
+              <div class="mini-light-box">
+                <img
+                  class="box-icon"
+                  src="@/assets/lungs.svg"
+                  height="39"
+                  width="39"
+                  contain
+                />
+                <h5 class="text-purple">16 <span class="unit">Cl</span></h5>
+              </div>
+              <div class="mini-light-box">
+                <img
+                  class="box-icon"
+                  src="@/assets/bloodPressure.svg"
+                  height="39"
+                  width="39"
+                  contain
+                />
+                <h5 class="text-info">120/85</h5>
+              </div>
+              <div
+                class="mini-light-box"
+                style="border-bottom-left-radius: inherit"
+              >
+                <img
+                  class="box-icon"
+                  src="@/assets/temprature.svg"
+                  height="39"
+                  width="39"
+                  contain
+                />
+                <h5 class="text-danger">98.7 <span class="unit">F</span></h5>
+              </div>
+              <div
+                class="mini-light-box"
+                style="border-bottom-right-radius: inherit"
+              >
+                <img
+                  class="box-icon"
+                  src="@/assets/steps.svg"
+                  height="39"
+                  width="39"
+                  contain
+                />
+                <h5 class="text-pink">150 <span class="unit">steps</span></h5>
+              </div>
+            </div>
+          </v-card>
+        </v-flex>
+      </v-layout>
+    </div>
 
-      <div
-        v-if="!$store.state.doctors.deviceData"
-        class="white--text display-1"
-      >
-        No Patients to display...
-      </div>
-    </v-container>
+    <div v-if="!$store.state.doctors.deviceData" class="white--text display-1">
+      No Patients to display...
+    </div>
   </div>
 </template>
 
@@ -397,7 +199,7 @@ export default {
   computed: {
     ...mapGetters("doctors", ["loadingStatus", "filteredPatients"]),
     showGrid() {
-      return `lg${this.gridNumber}`;
+      return `xl${this.gridNumber}`;
     },
     mobile() {
       return this.$vuetify.breakpoint.lgAndUp;
@@ -439,8 +241,9 @@ span {
   border-radius: 10px;
   opacity: 1;
 }
-.main__card {
+.main__card.v-sheet.v-card {
   border-radius: 20px;
+  box-shadow: 0px 6px 8px -2px #eee;
 }
 @media only screen and (max-width: 420px) {
   span {
@@ -456,5 +259,147 @@ span {
   span {
     font-size: 13px;
   }
+}
+
+@media only screen and (max-width: 960px) {
+  .page-header-item {
+    flex-wrap: wrap;
+  }
+}
+
+@media only screen and (max-width: 850px) {
+  .ph-item-1 {
+    order: 1;
+  }
+  .ph-item-2 {
+    order: 3;
+  }
+  .ph-item-3 {
+    order: 2;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .ph-item-2 {
+    margin-top: 10px;
+  }
+}
+.btn-group {
+  display: flex;
+  align-items: center;
+  padding: 8px 5px;
+  border-radius: 12px;
+  margin-left: 14px;
+  background-color: #f6f2f2;
+}
+.btn-group .v-icon--link {
+  border-radius: 5px;
+  width: 30px;
+  height: 30px;
+}
+
+.theme--light.v-icon:focus::after {
+  border-radius: inherit;
+  transform: scale(1);
+}
+.btn-group .v-icon--link.active {
+  background-color: #f58220;
+  color: #fff !important;
+}
+.card-item-row > * {
+  margin-bottom: 30px;
+}
+.card-header {
+  padding: 18px 12px 0;
+  display: flex;
+  border: 1px solid #eeeeef;
+  flex-wrap: wrap;
+}
+.icon-text-block {
+  width: 50%;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  margin-bottom: 18px;
+  font-weight: 400;
+  padding-right: 10px;
+}
+
+.icon-text-block .icon__image {
+  height: 18px;
+  width: 18px;
+  margin-right: 14px;
+}
+.card-title-row {
+  margin-bottom: 24px;
+  width: 100%;
+}
+.active-status {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 0;
+  display: block;
+}
+.active-status.offline {
+  background: #f58220;
+}
+.active-status.online {
+  background: #29da57;
+}
+.active-status.online:after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: inherit;
+  height: inherit;
+  background: inherit;
+  transform: scale(2.25);
+  opacity: 0.3;
+  content: "";
+  border-radius: inherit;
+}
+.card-body {
+  background-color: #fff;
+  display: flex;
+  flex-wrap: wrap;
+}
+.mini-light-box {
+  display: flex;
+  width: 50%;
+  align-items: center;
+  padding: 14px 20px;
+  border: 1px solid #eeeeef;
+}
+.unit {
+  font-size: 12px;
+}
+.box-icon {
+  border-radius: 5px;
+  margin-right: 10px;
+}
+.text-success {
+  color: #29dca1;
+}
+.text-warning {
+  color: #f8d716;
+}
+.text-pink {
+  color: #29dca1;
+}
+.text-purple {
+  color: #7649f2;
+}
+.text-info {
+  color: #53eaff;
+}
+.text-danger {
+  color: #fd5d5d;
+}
+.text-pink {
+  color: #f719c2;
 }
 </style>

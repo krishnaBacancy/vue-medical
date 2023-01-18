@@ -9,7 +9,7 @@
     <v-container
       fluid
       grid-list-md
-      style="background-color: rgba(0, 0, 0, 0.5); border-radius: 20px"
+      style="background-color: rgb(31, 32, 38); border-radius: 20px"
       class="mb-4"
     >
       <div class="white--text d-flex ml-5" v-if="mobile">

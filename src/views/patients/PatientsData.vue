@@ -11,7 +11,7 @@
     />
     <br />
     <v-container
-      style="background-color: rgba(0, 0, 0, 0.5); border-radius: 20px"
+      style="background-color: rgb(31, 32, 38); border-radius: 20px"
       fluid
     >
       <div class="mt-3 mb-3 pa-2">

@@ -10,7 +10,7 @@
       fluid
       grid-list-md
       style="
-        background: rgba(0, 0, 0, 0.5) 0% 0% no-repeat padding-box;
+        background: rgb(31, 32, 38) 0% 0% no-repeat padding-box;
         border-radius: 20px;
       "
       class="mb-4"
