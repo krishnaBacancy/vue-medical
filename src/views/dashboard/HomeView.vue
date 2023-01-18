@@ -113,7 +113,14 @@
                   height="29"
                   class="icon__image"
                 />
-                <span class="text">114Hrs 45 Min</span>
+                <span class="text"
+                  >{{
+                    patient?.batdata?.bat_vals
+                      ? patient.batdata.bat_vals
+                      : "100"
+                  }}
+                  %</span
+                >
               </div>
             </div>
             <div class="card-body">
