@@ -398,6 +398,7 @@ span {
 .theme--dark.v-app-bar.v-toolbar.v-sheet {
   background-color: rgb(245, 130, 32);
 }
+.v-navigation-drawer,
 .theme--dark.v-navigation-drawer {
   background: linear-gradient(45deg, #e53985, #f58220) !important;
 }

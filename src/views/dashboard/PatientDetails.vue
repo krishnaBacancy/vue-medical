@@ -13,7 +13,9 @@
         v-if="loadingStatus"
       ></v-progress-circular>
       <div v-else class="patient-header">
-        <div class="d-flex align-center justify-md-space-around">
+        <div
+          class="d-flex align-center justify-md-space-around text-nowrap flex-wrap"
+        >
           <v-img
             class="rounded-circle"
             src="https://picsum.photos/id/11/50/50"
@@ -33,7 +35,7 @@
               )
             }}
           </h3>
-          <button class="btn-orange">
+          <button class="btn-orange mr-5">
             <v-icon>mdi-cog</v-icon>
           </button>
           <v-spacer></v-spacer>
@@ -97,7 +99,7 @@
             </h3>
           </div>
           <v-spacer></v-spacer>
-          <div class="d-flex align-center justify-center">
+          <div class="d-flex align-center justify-center mr-auto">
             <h3
               class="mr-5 font-weight-medium green--text"
               style="font-size: 20px"
@@ -227,7 +229,7 @@
           </div>
         </div> -->
 
-        <v-layout row wrap class="mt-5">
+        <v-layout row wrap class="mt-8">
           <v-flex d-flex xs12 sm12 md6>
             <div class="d-flex align-center w-100">
               <h3>ECG</h3>
@@ -1100,5 +1102,8 @@ h3 {
 }
 .btn-sm.active {
   color: #f58220;
+}
+.text-nowrap {
+  white-space: nowrap;
 }
 </style>
