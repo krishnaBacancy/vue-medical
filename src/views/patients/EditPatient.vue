@@ -16,9 +16,7 @@
         <v-flex d-flex xs12 sm12 md12>
           <v-card
             style="width: 100%; border-radius: 20px"
-            dark
-            color="rgb(31, 32, 38)"
-            class="mt-2 mb-5 pa-5 white--text"
+            class="mt-2 mb-5 pa-5"
           >
             <v-card-title
               class="warning--text text-h5 ml-n2 mb-2 font-weight-bold"

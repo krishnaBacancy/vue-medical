@@ -177,7 +177,7 @@
       </v-layout>
     </div>
 
-    <div v-if="!$store.state.doctors.deviceData" class="white--text display-1">
+    <div v-if="!$store.state.doctors.deviceData" class="display-1">
       No Patients to display...
     </div>
   </div>

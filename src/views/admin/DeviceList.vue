@@ -41,7 +41,7 @@
         persistent
         v-model="addDialog"
       >
-        <v-card dark>
+        <v-card>
           <v-card-title>
             <span class="text-h5 ml-3">Add Device</span>
           </v-card-title>
@@ -125,7 +125,7 @@
         persistent
         v-model="assignDevicePatientDialog"
       >
-        <v-card dark>
+        <v-card>
           <v-card-title>
             <span class="text-h5 ml-3"
               >Select below patient to assign device</span
@@ -169,7 +169,7 @@
         persistent
         v-model="assignDeviceDoctorDialog"
       >
-        <v-card dark>
+        <v-card>
           <v-card-title>
             <span class="text-h5 ml-3"
               >Select below doctor to assign device</span
@@ -186,7 +186,6 @@
                     @change="getSelectedValue"
                     return-object
                     item-text="fullName"
-                    dark
                     placeholder="Select Doctor"
                   ></v-select>
                 </v-col>
@@ -215,7 +214,6 @@
           loading-text="Loading... Please wait"
           height="350"
           :items-per-page="5"
-          dark
           v-if="loadingStatus"
         ></v-data-table>
         <v-data-table
@@ -225,7 +223,6 @@
           :items-per-page="5"
           class="elevation-1 table"
           height="500"
-          dark
           show-select
           v-model="selected"
         >
@@ -247,7 +244,6 @@
           v-model="dialog"
           max-width="600px"
           persistent
-          dark
           overlay-color="white"
         >
           <v-card>

@@ -1,18 +1,12 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      dark
-      class="white--text"
-      v-if="$vuetify.breakpoint.smAndDown && !getRoute"
-    >
+    <v-app-bar app v-if="$vuetify.breakpoint.smAndDown && !getRoute">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
     </v-app-bar>
     <v-navigation-drawer
       app
       v-model="drawer"
       width="10%"
-      dark
       :style="{
         width: $vuetify.breakpoint.smAndDown ? '280px' : '120px',
         backgroundColor: $vuetify.breakpoint.smAndDown
@@ -406,5 +400,8 @@ span {
 }
 .theme--dark.v-navigation-drawer {
   background: linear-gradient(45deg, #e53985, #f58220) !important;
+}
+.sidebar a .v-icon {
+  color: #fff;
 }
 </style>

@@ -10,15 +10,14 @@
       <v-layout row wrap class="pa-2">
         <v-flex d-flex xs12 sm12 md6 class="mt-2">
           <v-card
-            color="rgb(31, 32, 38)"
-            class="ml-2 mr-2 mb-2 pa-2 white--text"
+            class="ml-2 mr-2 mb-2 pa-2"
             style="width: 100%; border-radius: 20px"
             height="332"
           >
             <div class="d-flex ml-4">
               <h6 class="mb-4">Notification</h6>
             </div>
-            <v-divider dark></v-divider>
+            <v-divider></v-divider>
 
             <div class="d-flex justify-center">
               <v-card-title class="font-weight-bold card__title"
@@ -43,15 +42,14 @@
 
         <v-flex d-flex xs12 sm12 md6 class="mt-2">
           <v-card
-            color="rgb(31, 32, 38)"
-            class="ml-2 mr-2 mb-2 pa-2 white--text"
+            class="ml-2 mr-2 mb-2 pa-2"
             style="width: 100%; border-radius: 20px"
             height="332"
           >
             <div class="d-flex ml-4">
               <h6 class="mb-4">Data Setting</h6>
             </div>
-            <v-divider dark></v-divider>
+            <v-divider></v-divider>
 
             <v-card-title class="font-weight-bold card__title"
               >Start of the week</v-card-title
@@ -67,17 +65,17 @@
             <v-radio-group v-model="radioDays" row class="ml-3">
               <v-radio value="monday" color="warning">
                 <template v-slot:label>
-                  <div class="white--text card__radio">Monday</div>
+                  <div class="card__radio">Monday</div>
                 </template>
               </v-radio>
               <v-radio value="saturday" color="warning">
                 <template v-slot:label>
-                  <div class="white--text card__radio">Saturday</div>
+                  <div class="card__radio">Saturday</div>
                 </template>
               </v-radio>
               <v-radio value="sunday" color="warning">
                 <template v-slot:label>
-                  <div class="white--text card__radio">Sunday</div>
+                  <div class="card__radio">Sunday</div>
                 </template>
               </v-radio>
             </v-radio-group>
@@ -86,15 +84,14 @@
 
         <v-flex d-flex xs12 sm12 md6 class="mt-2 mb-4">
           <v-card
-            color="rgb(31, 32, 38)"
-            class="ml-2 mr-2 mb-2 pa-2 white--text"
+            class="ml-2 mr-2 mb-2 pa-2"
             style="width: 100%; border-radius: 20px"
             height="332"
           >
             <div class="d-flex ml-4">
               <h6 class="mb-4">Units</h6>
             </div>
-            <v-divider dark></v-divider>
+            <v-divider></v-divider>
 
             <v-card-title class="font-weight-bold card__title"
               >Measurements</v-card-title
@@ -115,12 +112,12 @@
               <v-radio-group v-model="radioWeight" row class="mr-7">
                 <v-radio value="kg" color="warning">
                   <template v-slot:label>
-                    <div class="white--text card__radio">KG</div>
+                    <div class="card__radio">KG</div>
                   </template>
                 </v-radio>
                 <v-radio value="lbs" color="warning">
                   <template v-slot:label>
-                    <div class="white--text card__radio">LBS</div>
+                    <div class="card__radio">LBS</div>
                   </template>
                 </v-radio>
               </v-radio-group>
@@ -134,12 +131,12 @@
               <v-radio-group v-model="radioHeight" row class="mr-3">
                 <v-radio value="cm" color="warning">
                   <template v-slot:label>
-                    <div class="white--text card__radio">CM</div>
+                    <div class="card__radio">CM</div>
                   </template>
                 </v-radio>
                 <v-radio value="feet" color="warning">
                   <template v-slot:label>
-                    <div class="white--text card__radio">FEET</div>
+                    <div class="card__radio">FEET</div>
                   </template>
                 </v-radio>
               </v-radio-group>
@@ -149,15 +146,14 @@
 
         <v-flex d-flex xs12 sm12 md6 class="mt-2 mb-4">
           <v-card
-            color="rgb(31, 32, 38)"
-            class="ml-2 mr-2 mb-5 mb-md-0 pa-2 white--text"
+            class="ml-2 mr-2 mb-5 mb-md-0 pa-2"
             style="width: 100%; border-radius: 20px"
             height="332"
           >
             <div class="d-flex ml-4">
               <h6 class="mb-4">Notification</h6>
             </div>
-            <v-divider dark></v-divider>
+            <v-divider></v-divider>
 
             <div class="d-flex justify-center">
               <v-card-title class="font-weight-bold card__title"
