@@ -9,13 +9,25 @@
           <h4 class="font-weight-medium">Filter</h4>
         </button>
         <div class="btn-group" v-if="mobile">
-          <v-icon class="mx-1" color="#333" @click="gridNumber = 3"
+          <v-icon
+            class="mx-1"
+            color="#333"
+            :class="{ active: gridNumber === 3 }"
+            @click="gridNumber = 3"
             >mdi-tally-mark-4</v-icon
           >
-          <v-icon class="mx-1" color="#333" @click="gridNumber = 4"
+          <v-icon
+            class="mx-1"
+            color="#333"
+            :class="{ active: gridNumber === 4 }"
+            @click="gridNumber = 4"
             >mdi-tally-mark-3</v-icon
           >
-          <v-icon class="mx-1 active" color="#333" @click="gridNumber = 6"
+          <v-icon
+            class="mx-1"
+            color="#333"
+            :class="{ active: gridNumber === 6 }"
+            @click="gridNumber = 6"
             >mdi-tally-mark-2</v-icon
           >
         </div>
@@ -380,6 +392,10 @@ span {
   transform: scale(1);
 }
 .btn-group .v-icon--link.active {
+  background-color: #f58220;
+  color: #fff !important;
+}
+.active {
   background-color: #f58220;
   color: #fff !important;
 }
