@@ -63,7 +63,7 @@ export default {
             if (document.getElementById(`heartRate-chart-${this.macAddress}`)) {
               ctx = document
                 .getElementById(`heartRate-chart-${this.macAddress}`)
-                .getContext("2d");
+                ?.getContext("2d");
             } else {
               var canvas = document.createElement("canvas");
               canvas.id = `heartRate-chart-${this.macAddress}`;
@@ -72,10 +72,10 @@ export default {
 
               var body = document.getElementById(`heartRateCanvas`);
               console.log("body", body);
-              body.appendChild(canvas);
+              body?.appendChild(canvas);
               ctx = document
                 .getElementById(`heartRate-chart-${this.macAddress}`)
-                .getContext("2d");
+                ?.getContext("2d");
             }
             console.log("ctx", ctx);
             this.HeartRateChart = await new Chart(ctx, {

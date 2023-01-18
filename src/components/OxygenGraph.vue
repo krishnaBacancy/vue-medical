@@ -25,6 +25,11 @@ export default {
         colors: this.chartBgColor,
         xaxis: {
           categories: this.chartLabel,
+          labels: {
+            formatter: function () {
+              return "";
+            },
+          },
         },
         theme: {
           mode: "dark",

@@ -942,23 +942,6 @@
                         :chart-bg-color="'#fd5d5d'"
                       />
                     </div>
-                    <!-- <TestChart
-                      v-if="getBodyTempGraphData"
-                      :height="286"
-                      :width="623"
-                      :data-of-chart="getBodyTempGraphData"
-                      :chart-id="'temperatureGraph'"
-                      :label="[
-                        '12pm',
-                        '1pm',
-                        '2pm',
-                        '3pm',
-                        '4pm',
-                        '5pm',
-                        '6pm',
-                      ]"
-                      :chart-bg-color="'#fd5d5d'"
-                    /> -->
                   </div>
                 </div>
               </v-card>
@@ -1162,7 +1145,6 @@
 import { mapActions, mapGetters } from "vuex";
 import mqtt from "mqtt/dist/mqtt";
 import PageHeader from "@/layouts/PageHeader.vue";
-// import TestChart from "@/components/TestChart.vue";
 import ApexAreaChart from "@/components/ApexAreaChart.vue";
 import EcgChart from "@/components/EcgChart.vue";
 import PpgChart from "@/components/PpgChart.vue";
@@ -1174,7 +1156,6 @@ export default {
   name: "PatientDetails",
   components: {
     PageHeader,
-    // TestChart,
     ApexAreaChart,
     EcgChart,
     PpgChart,

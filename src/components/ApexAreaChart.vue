@@ -39,6 +39,11 @@ export default {
         },
         xaxis: {
           categories: this.chartLabel,
+          labels: {
+            formatter: function () {
+              return "";
+            },
+          },
         },
         yaxis: {
           labels: {
