@@ -6,27 +6,24 @@
       @goBack="$router.go(-1)"
     />
     <br />
-    <div
-      class="white--text mb-5"
-      style="background-color: rgb(31, 32, 38); border-radius: 20px"
-    >
+    <div class="patient-details-wrapper">
       <v-progress-circular
         indeterminate
         color="amber"
         v-if="loadingStatus"
       ></v-progress-circular>
-      <div v-else>
+      <div v-else class="patient-header">
         <div class="d-flex align-center justify-md-space-around">
           <v-img
-            class="rounded-circle ml-4 mt-2"
+            class="rounded-circle"
             src="https://picsum.photos/id/11/50/50"
             max-width="80"
             max-height="80"
           />
           <h3
-            class="mr-2 ml-4"
+            class="ml-5"
             :style="{
-              fontSize: $vuetify.breakpoint.smAndDown ? '20px' : '28px',
+              fontSize: $vuetify.breakpoint.smAndDown ? '20px' : '26px',
             }"
           >
             {{
@@ -36,16 +33,19 @@
               )
             }}
           </h3>
+          <button class="btn-orange">
+            <v-icon>mdi-cog</v-icon>
+          </button>
           <v-spacer></v-spacer>
           <div class="d-flex align-center justify-md-space-between">
             <v-img
-              src="@/assets/floor1.svg"
-              height="40"
-              width="40"
+              src="@/assets/floor.svg"
+              height="20"
+              width="20"
               contain
             ></v-img>
             <h3
-              class="ml-3"
+              class="ml-3 mr-10 font-weight-regular"
               :style="{
                 fontSize: $vuetify.breakpoint.smAndDown ? '16px' : '20px',
               }"
@@ -53,14 +53,13 @@
               Floor - 1
             </h3>
             <v-img
-              src="@/assets/room.svg"
-              class="ml-5"
-              height="40"
-              width="40"
+              src="@/assets/rooms.svg"
+              height="20"
+              width="20"
               contain
             ></v-img>
             <h3
-              class="ml-3"
+              class="ml-3 mr-10 font-weight-regular"
               :style="{
                 fontSize: $vuetify.breakpoint.smAndDown ? '16px' : '20px',
               }"
@@ -68,23 +67,28 @@
               Room - 1
             </h3>
             <v-img
-              src="@/assets/Mac Address.png"
-              class="ml-5"
-              height="40"
-              width="40"
+              src="@/assets/macAddress.svg"
+              height="20"
+              width="20"
               contain
             ></v-img>
             <h3
-              class="ml-3"
+              class="ml-3 mr-10 font-weight-regular"
               :style="{
                 fontSize: $vuetify.breakpoint.smAndDown ? '16px' : '20px',
               }"
             >
               {{ getSingleDeviceData[0]?.macAddressFramed.toUpperCase() }}
             </h3>
-            <v-icon color="warning" size="30" class="ml-5">mdi-battery</v-icon>
+            <v-img
+              src="@/assets/battery.svg"
+              class="ml-5"
+              height="20"
+              width="20"
+              contain
+            ></v-img>
             <h3
-              class="ml-3"
+              class="ml-3 mr-10 font-weight-regular"
               :style="{
                 fontSize: $vuetify.breakpoint.smAndDown ? '16px' : '20px',
               }"
@@ -93,9 +97,20 @@
             </h3>
           </div>
           <v-spacer></v-spacer>
-          <div class="d-flex align-center justify-center mr-7">
-            <h3 class="mr-5" style="font-size: 20px">Device Status</h3>
-            <v-tooltip bottom>
+          <div class="d-flex align-center justify-center">
+            <h3
+              class="mr-5 font-weight-medium green--text"
+              style="font-size: 20px"
+            >
+              Device Status
+            </h3>
+            <v-switch
+              v-model="pushNotification"
+              color="success"
+              value="true"
+              inset
+            ></v-switch>
+            <!-- <v-tooltip bottom>
               <template v-slot:activator="{ on, attrs }">
                 <v-img
                   v-on="on"
@@ -124,32 +139,30 @@
                 ></v-img>
               </template>
               <span>Scheduler Mode</span>
-            </v-tooltip>
+            </v-tooltip> -->
           </div>
         </div>
 
-        <div class="d-flex mt-6 justify-md-space-around">
-          <div class="ml-6">
+        <!-- <div class="d-flex mt-6 justify-md-space-around">
+          <div>
             <v-select
               :items="aggregateValues"
               filled
-              dark
               dense
               label="Aggregate"
               v-model="selectedAggregate"
             ></v-select>
           </div>
-          <div class="ml-6">
+          <div>
             <v-select
               :items="timePeriodValues"
               v-model="selectedTimePeriod"
               filled
               label="Time Period"
-              dark
               dense
             ></v-select>
           </div>
-          <div class="ml-6">
+          <div>
             <v-menu
               v-model="startDateMenu"
               :close-on-content-click="false"
@@ -167,7 +180,6 @@
                   :value="startDateValue"
                   @focus="focusStartDate"
                   filled
-                  dark
                   dense
                   v-on="on"
                 ></v-text-field>
@@ -181,7 +193,7 @@
               ></v-date-picker>
             </v-menu>
           </div>
-          <div class="ml-6">
+          <div>
             <v-menu
               v-model="endDateMenu"
               :close-on-content-click="false"
@@ -199,7 +211,6 @@
                   :value="endDateValue"
                   @focus="focusEndDate"
                   filled
-                  dark
                   dense
                   v-on="on"
                 ></v-text-field>
@@ -214,809 +225,335 @@
               ></v-date-picker>
             </v-menu>
           </div>
-        </div>
+        </div> -->
 
-        <v-container fluid grid-list-md>
-          <v-layout row wrap>
-            <v-flex d-flex xs12 sm12 md6>
-              <v-card
-                color="#282934"
-                dark
-                class="ml-2 mr-2 mr-md-0 mb-2 pa-2"
-                style="width: 98%"
-              >
-                <div class="d-flex align-center">
-                  <h3>ECG</h3>
-                  <!-- <v-spacer></v-spacer> -->
-                  <v-spacer></v-spacer>
-                  <v-btn class="mr-3 export__btn" color="warning" outlined
-                    >Export</v-btn
-                  >
-                </div>
-                <div class="d-flex align-start mt-2">
-                  <div
-                    :id="getSingleDeviceData[0]?.macAddressFramed.toUpperCase()"
-                    class="grid-container"
-                  >
-                    <!-- <LineChart
+        <v-layout row wrap class="mt-5">
+          <v-flex d-flex xs12 sm12 md6>
+            <div class="d-flex align-center w-100">
+              <h3>ECG</h3>
+              <v-spacer></v-spacer>
+              <v-btn class="export__btn" color="warning" outlined>Export</v-btn>
+            </div>
+            <div>
+              <div class="d-flex align-start mt-2">
+                <div
+                  :id="getSingleDeviceData[0]?.macAddressFramed.toUpperCase()"
+                  class="grid-container w-100"
+                >
+                  <!-- <LineChart
                       :key="showEcgChart"
                       :width="834.24"
                       :height="299.53"
                     /> -->
-                    <ecg-chart
-                      :ecgDataFromProps="ecgChartData"
-                      :macAddress="
-                        getSingleDeviceData[0]?.macAddressFramed.toUpperCase()
-                      "
-                      :key="showEcgChart"
-                      v-if="showEcgChart"
-                      :width="834.24"
-                      :height="299.53"
-                    />
-                  </div>
-                </div>
-              </v-card>
-            </v-flex>
-            <v-flex d-flex xs12 sm12 md6>
-              <v-card
-                dark
-                color="#282934"
-                class="ml-2 mr-2 mb-2 pa-2"
-                style="width: 98%"
-              >
-                <div class="d-flex">
-                  <h3>PPG</h3>
-                  <v-spacer></v-spacer>
-                  <v-btn class="mr-3 export__btn" color="warning" outlined
-                    >Export</v-btn
-                  >
-                </div>
-                <div class="d-flex align-start mt-2">
-                  <div class="grid-container">
-                    <ppg-chart
-                      :width="834.24"
-                      :height="299.53"
-                      :key="showPpgChart"
-                      v-if="showPpgChart"
-                      :ppgDataFromProps="ppgChartData"
-                    />
-                  </div>
-                </div>
-              </v-card>
-            </v-flex>
-          </v-layout>
-
-          <br />
-
-          <v-layout row wrap>
-            <v-flex d-flex xs12 sm6 md6>
-              <v-card
-                color="#282934"
-                dark
-                class="ml-2 mr-2 mr-sm-0 mb-2 pa-2"
-                style="width: 100%"
-              >
-                <div class="d-flex text-start">
-                  <div>
-                    <h3>Heart Rate</h3>
-                    <small class="warning--text">No Device Paired</small>
-                  </div>
-                  <v-spacer></v-spacer>
-                  <div v-if="!$vuetify.breakpoint.smOnly">
-                    <h3>Last Reading</h3>
-                    <small class="grey--text">2 hour ago</small>
-                  </div>
-                </div>
-                <div class="d-flex justify-center align-center mt-5">
-                  <v-flex>
-                    <v-img
-                      class="ml-2 mt-2"
-                      src="@/assets/heartbeat.svg"
-                      height="70"
-                      width="70"
-                      contain
-                    ></v-img>
-                  </v-flex>
-                  <v-flex xs12>
-                    <div class="ml-4 text-start">
-                      <h1 class="success--text">
-                        {{ getAlgoData?.hr ? getAlgoData.hr : "Loading..." }}
-                      </h1>
-                      <div class="d-flex flex-column">
-                        <small>C1</small>
-                      </div>
-                    </div>
-                  </v-flex>
-                </div>
-              </v-card>
-            </v-flex>
-            <v-flex d-flex xs12 sm6 md6>
-              <v-card
-                color="#282934"
-                dark
-                class="ml-2 mr-2 mb-2 pa-2"
-                style="width: 100%"
-              >
-                <div class="d-flex text-start">
-                  <div>
-                    <h3>Heart Rate Variability</h3>
-                    <small class="warning--text">No Device Paired</small>
-                  </div>
-                  <v-spacer></v-spacer>
-                  <div v-if="!$vuetify.breakpoint.smOnly">
-                    <h3>Last Reading</h3>
-                    <small class="grey--text">2 hour ago</small>
-                  </div>
-                </div>
-                <div class="d-flex justify-center align-center mt-5">
-                  <v-flex>
-                    <v-img
-                      class="ml-2 mt-2"
-                      src="@/assets/heartbeat.svg"
-                      height="70"
-                      width="70"
-                      contain
-                    ></v-img>
-                  </v-flex>
-                  <v-flex xs12>
-                    <div class="ml-4 text-start">
-                      <h1 class="success--text">
-                        {{
-                          getAlgoData?.hrv
-                            ? Math.round(getAlgoData.hrv)
-                            : "Loading..."
-                        }}
-                      </h1>
-                      <div class="d-flex flex-column">
-                        <small>C1</small>
-                      </div>
-                    </div>
-                  </v-flex>
-                </div>
-              </v-card>
-            </v-flex>
-          </v-layout>
-
-          <v-layout row wrap>
-            <v-flex d-flex xs12 sm12 md4>
-              <v-card
-                color="#282934"
-                dark
-                class="ml-2 mr-2 mr-md-0 mb-2 pa-2"
-                style="width: 100%"
-              >
-                <div class="d-flex text-start">
-                  <div>
-                    <h3>Oxygen Saturation</h3>
-                    <small class="warning--text">00:0B:57:AC:66:DA</small>
-                  </div>
-                  <v-spacer></v-spacer>
-                  <div v-if="!$vuetify.breakpoint.smOnly">
-                    <h3>Last Reading</h3>
-                    <small class="grey--text">2 hour ago</small>
-                  </div>
-                </div>
-                <div class="d-flex justify-center align-center mt-5">
-                  <v-flex>
-                    <v-img
-                      class="ml-2 mt-2"
-                      src="@/assets/oxygen.svg"
-                      height="70"
-                      width="70"
-                      contain
-                    ></v-img>
-                  </v-flex>
-                  <v-flex xs12>
-                    <div class="ml-4 text-start">
-                      <h1 class="warning--text">
-                        {{
-                          getBloodOxygenGraphData[0]?.avgspo2
-                            ? Math.round(getBloodOxygenGraphData[0]?.avgspo2)
-                            : "Loading..."
-                        }}
-                      </h1>
-                      <div class="d-flex flex-column">
-                        <small>Streaming Mode</small>
-                      </div>
-                    </div>
-                  </v-flex>
-                </div>
-              </v-card>
-            </v-flex>
-            <v-flex d-flex xs12 sm12 md4>
-              <v-card
-                color="#282934"
-                dark
-                class="ml-2 mr-2 mr-md-0 mb-2 pa-2"
-                style="width: 100%"
-              >
-                <div class="d-flex text-start">
-                  <div>
-                    <h3>Temperature</h3>
-                    <small class="warning--text">00:0B:57:AC:66:DA</small>
-                  </div>
-                  <v-spacer></v-spacer>
-                  <div v-if="!$vuetify.breakpoint.smOnly">
-                    <h3>Last Reading</h3>
-                    <small class="grey--text">2 hour ago</small>
-                  </div>
-                </div>
-                <div class="d-flex justify-center align-center mt-5">
-                  <v-flex>
-                    <v-img
-                      class="ml-2 mt-2"
-                      src="@/assets/temprature.svg"
-                      height="70"
-                      width="70"
-                      contain
-                    ></v-img>
-                  </v-flex>
-                  <v-flex xs12>
-                    <div class="ml-4 text-start">
-                      <h1 class="warning--text">
-                        {{
-                          getBodyTempGraphData[0]?.avgspo2
-                            ? Math.round(getBodyTempGraphData[0]?.avgspo2)
-                            : "Loading..."
-                        }}
-                      </h1>
-                      <div class="d-flex flex-column">
-                        <small>Streaming Mode</small>
-                      </div>
-                    </div>
-                  </v-flex>
-                </div>
-              </v-card>
-            </v-flex>
-            <v-flex d-flex xs12 sm12 md4>
-              <v-card
-                color="#282934"
-                dark
-                class="ml-2 mr-2 mb-2 pa-2"
-                style="width: 100%"
-              >
-                <div class="d-flex text-start">
-                  <div>
-                    <h3>Pulse Rate Variability</h3>
-                    <small class="warning--text">No Device Paired</small>
-                  </div>
-                  <v-spacer></v-spacer>
-                  <div v-if="!$vuetify.breakpoint.smOnly">
-                    <h3>Last Reading</h3>
-                    <small class="grey--text">2 hour ago</small>
-                  </div>
-                </div>
-                <div class="d-flex justify-center align-center mt-5">
-                  <v-flex>
-                    <v-img
-                      class="ml-2 mt-2"
-                      src="@/assets/Group 507.svg"
-                      height="70"
-                      width="70"
-                      contain
-                    ></v-img>
-                  </v-flex>
-                  <v-flex xs12>
-                    <div class="ml-4 text-start">
-                      <h1 class="success--text">
-                        {{
-                          getAlgoData?.prv
-                            ? Math.round(getAlgoData.prv)
-                            : "Loading..."
-                        }}
-                      </h1>
-                      <div class="d-flex flex-column">
-                        <small>Streaming Mode</small>
-                      </div>
-                    </div>
-                  </v-flex>
-                </div>
-              </v-card>
-            </v-flex>
-          </v-layout>
-
-          <v-layout row wrap>
-            <v-flex d-flex xs12 sm12 md4>
-              <v-card
-                color="#282934"
-                dark
-                class="ml-2 mr-2 mr-md-0 mb-2 pa-2"
-                style="width: 100%"
-              >
-                <div class="d-flex text-start">
-                  <div>
-                    <h3>Movement</h3>
-                    <small class="warning--text">No Device Paired</small>
-                  </div>
-                  <v-spacer></v-spacer>
-                  <div>
-                    <h3>Last Reading</h3>
-                    <small class="grey--text">2 hour ago</small>
-                  </div>
-                </div>
-                <div class="d-flex justify-center align-center mt-5">
-                  <v-flex>
-                    <v-img
-                      src="@/assets/steps.svg"
-                      height="70"
-                      width="70"
-                      contain
-                      class="mt-2 ml-2"
-                    ></v-img>
-                  </v-flex>
-                  <v-flex xs12>
-                    <div class="text-start ml-4">
-                      <h1 class="pink--text">
-                        {{ getAlgoData?.steps ? getAlgoData?.steps : "0" }}
-                      </h1>
-                      <small>Steps</small>
-                    </div>
-                  </v-flex>
-                </div>
-              </v-card>
-            </v-flex>
-            <v-flex d-flex xs12 sm12 md4>
-              <v-card
-                color="#282934"
-                dark
-                class="ml-2 mr-2 mr-md-0 mb-2 pa-2"
-                style="width: 100%"
-              >
-                <div class="d-flex text-start">
-                  <div>
-                    <h3>Blood Pressure</h3>
-                    <small class="warning--text">No Device Paired</small>
-                  </div>
-                  <v-spacer></v-spacer>
-                  <div>
-                    <h3>Last Reading</h3>
-                    <small class="grey--text">2 hour ago</small>
-                  </div>
-                </div>
-                <div class="d-flex justify-center align-center mt-5">
-                  <v-flex>
-                    <v-img
-                      class="mt-2 ml-2"
-                      src="@/assets/bloodPressure.svg"
-                      height="70"
-                      contain
-                      width="70"
-                    ></v-img>
-                  </v-flex>
-                  <v-flex xs12>
-                    <div class="text-start ml-4">
-                      <h1 class="cyan--text">
-                        {{
-                          getAlgoData?.bp
-                            ? Math.round(getAlgoData?.bp)
-                            : "Loading..."
-                        }}
-                        /
-                        {{
-                          getAlgoData?.dbp
-                            ? Math.round(getAlgoData?.dbp)
-                            : "..."
-                        }}
-                      </h1>
-                      <div class="d-flex flex-column">
-                        <small>mmHg</small>
-                      </div>
-                    </div>
-                  </v-flex>
-                </div>
-              </v-card>
-            </v-flex>
-            <v-flex d-flex xs12 sm12 md4>
-              <v-card
-                color="#282934"
-                dark
-                class="ml-2 mr-2 mb-2 pa-2"
-                style="width: 100%"
-              >
-                <div class="d-flex text-start">
-                  <div>
-                    <h3>MAP</h3>
-                    <small class="red--text">Mean arterial pressure</small>
-                  </div>
-                  <v-spacer></v-spacer>
-                  <div>
-                    <h3>Last Reading</h3>
-                    <small class="grey--text">2 hour ago</small>
-                  </div>
-                </div>
-                <div class="d-flex justify-center mt-5">
-                  <v-flex>
-                    <v-img
-                      src="../../assets/Group 509.svg"
-                      width="70"
-                      height="70"
-                      contain
-                      class="mt-2 ml-2"
-                    ></v-img>
-                  </v-flex>
-                  <v-flex xs12>
-                    <div class="text-start ml-4">
-                      <h1 class="red--text">
-                        {{
-                          getAlgoData?.map
-                            ? Math.round(getAlgoData?.map * 100) / 100
-                            : "Loading..."
-                        }}
-                      </h1>
-                      <div class="d-flex flex-column">
-                        <small>mmHg</small>
-                      </div>
-                    </div>
-                  </v-flex>
-                </div>
-              </v-card>
-            </v-flex>
-          </v-layout>
-
-          <v-layout row wrap>
-            <!--rr interval-->
-            <v-flex d-flex xs12 sm6 md4>
-              <v-card
-                color="#282934"
-                dark
-                class="ml-2 mr-2 mr-sm-0 mb-2 pa-2"
-                style="width: 100%"
-              >
-                <div class="d-flex text-start">
-                  <div>
-                    <h3>RR Interval</h3>
-                    <small class="warning--text">00:0B:57:AC:66:DA</small>
-                  </div>
-                  <v-spacer></v-spacer>
-                  <div v-if="!$vuetify.breakpoint.smOnly">
-                    <h3>Last Reading</h3>
-                    <small class="grey--text">2 hour ago</small>
-                  </div>
-                </div>
-                <div class="d-flex justify-center align-center mt-5">
-                  <v-flex>
-                    <v-img
-                      class="mt-2 ml-2"
-                      src="../../assets/Group 508.svg"
-                      height="70"
-                      width="70"
-                      contain
-                    ></v-img>
-                  </v-flex>
-                  <v-flex xs12>
-                    <div class="text-start ml-4">
-                      <h1 class="warning--text">
-                        {{
-                          getAlgoData?.rr
-                            ? Math.round(getAlgoData?.rr * 100) / 100
-                            : "Loading..."
-                        }}
-                      </h1>
-                      <div class="d-flex flex-column">
-                        <small>Streaming Mode</small>
-                      </div>
-                    </div>
-                  </v-flex>
-                </div>
-              </v-card>
-            </v-flex>
-
-            <!--pulse pressure-->
-            <v-flex d-flex xs12 sm6 md4>
-              <v-card
-                color="#282934"
-                dark
-                class="ml-2 mr-2 mr-md-0 mb-2 pa-2"
-                style="width: 100%"
-              >
-                <div class="d-flex text-start">
-                  <div>
-                    <h3>Pulse Pressure</h3>
-                    <small class="warning--text">00:0B:57:AC:66:DA</small>
-                  </div>
-                  <v-spacer></v-spacer>
-                  <div v-if="!$vuetify.breakpoint.smOnly">
-                    <h3>Last Reading</h3>
-                    <small class="grey--text">2 hour ago</small>
-                  </div>
-                </div>
-                <div class="d-flex justify-center align-center mt-5">
-                  <v-flex>
-                    <v-img
-                      class="ml-2 mt-2"
-                      src="../../assets/Group 507.svg"
-                      height="70"
-                      width="70"
-                      contain
-                    ></v-img>
-                  </v-flex>
-                  <v-flex xs12>
-                    <div class="ml-4 text-start">
-                      <h1 class="warning--text">
-                        {{
-                          getAlgoData?.pp
-                            ? Math.round(getAlgoData?.pp * 100) / 100
-                            : "Loading..."
-                        }}
-                      </h1>
-                      <div class="d-flex flex-column">
-                        <small>Streaming Mode</small>
-                      </div>
-                    </div>
-                  </v-flex>
-                </div>
-              </v-card>
-            </v-flex>
-
-            <!--arrthymia-->
-            <v-flex d-flex xs12 sm12 md4>
-              <v-card
-                color="#282934"
-                dark
-                class="ml-2 mr-2 mb-2 pa-2"
-                style="width: 100%"
-              >
-                <div class="d-flex text-start">
-                  <div>
-                    <h3>Arrthymia</h3>
-                    <small class="warning--text">00:0B:57:AC:66:DA</small>
-                  </div>
-                  <v-spacer></v-spacer>
-                  <div>
-                    <h3>Last Reading</h3>
-                    <small class="grey--text">2 hour ago</small>
-                  </div>
-                </div>
-                <div class="d-flex justify-center align-center mt-5">
-                  <v-flex>
-                    <v-img
-                      class="ml-2 mt-2"
-                      src="../../assets/Group 506.svg"
-                      height="70"
-                      width="70"
-                      contain
-                    ></v-img>
-                  </v-flex>
-                  <v-flex xs12>
-                    <div class="ml-4 text-start">
-                      <h1 class="warning--text">
-                        {{
-                          getAlgoData?.arrhythmia
-                            ? getAlgoData.arrhythmia
-                            : "Loading..."
-                        }}
-                      </h1>
-                      <div class="d-flex flex-column">
-                        <small>Streaming Mode</small>
-                      </div>
-                    </div>
-                  </v-flex>
-                </div>
-              </v-card>
-            </v-flex>
-          </v-layout>
-
-          <v-layout row wrap>
-            <!--Stroke Volume-->
-            <v-flex d-flex xs12 sm6 md4>
-              <v-card
-                color="#282934"
-                dark
-                class="ml-2 mr-2 mr-sm-0 mb-2 pa-2"
-                style="width: 100%"
-              >
-                <div class="d-flex text-start">
-                  <div>
-                    <h3>Stroke Volume</h3>
-                    <small class="warning--text">00:0B:57:AC:66:DA</small>
-                  </div>
-                  <v-spacer></v-spacer>
-                  <div v-if="!$vuetify.breakpoint.smOnly">
-                    <h3>Last Reading</h3>
-                    <small class="grey--text">2 hour ago</small>
-                  </div>
-                </div>
-                <div class="d-flex justify-center align-center mt-5">
-                  <v-flex>
-                    <v-img
-                      class="ml-2 mt-2"
-                      src="../../assets/Group 505.svg"
-                      height="70"
-                      width="70"
-                      contain
-                    ></v-img>
-                  </v-flex>
-                  <v-flex xs12>
-                    <div class="ml-4 text-start">
-                      <h1 class="warning--text">
-                        {{
-                          getAlgoData?.sv
-                            ? Math.round(getAlgoData?.sv * 100) / 100
-                            : "Loading..."
-                        }}
-                      </h1>
-                      <div class="d-flex flex-column">
-                        <small>Streaming Mode</small>
-                      </div>
-                    </div>
-                  </v-flex>
-                </div>
-              </v-card>
-            </v-flex>
-            <!--Cardiac Output-->
-            <v-flex d-flex xs12 sm6 md4>
-              <v-card
-                color="#282934"
-                dark
-                class="ml-2 mr-2 mr-md-0 mb-2 pa-2"
-                style="width: 100%"
-              >
-                <div class="d-flex text-start">
-                  <div>
-                    <h3>Cardiac Output</h3>
-                    <small class="warning--text">00:0B:57:AC:66:DA</small>
-                  </div>
-                  <v-spacer></v-spacer>
-                  <div v-if="!$vuetify.breakpoint.smOnly">
-                    <h3>Last Reading</h3>
-                    <small class="grey--text">2 hour ago</small>
-                  </div>
-                </div>
-                <div class="d-flex justify-center align-center mt-5">
-                  <v-flex>
-                    <v-img
-                      class="ml-2 mt-2"
-                      src="../../assets/Group 504.svg"
-                      height="70"
-                      width="70"
-                      contain
-                    ></v-img>
-                  </v-flex>
-                  <v-flex xs12>
-                    <div class="ml-4 text-start">
-                      <h1 class="warning--text">
-                        {{
-                          getAlgoData?.co
-                            ? Math.round(getAlgoData?.co * 100) / 100
-                            : "Loading..."
-                        }}
-                      </h1>
-                      <div class="d-flex flex-column">
-                        <small>Streaming Mode</small>
-                      </div>
-                    </div>
-                  </v-flex>
-                </div>
-              </v-card>
-            </v-flex>
-
-            <!--Pulse transit time-->
-            <v-flex d-flex xs12 sm12 md4>
-              <v-card
-                color="#282934"
-                dark
-                class="ml-2 mr-2 mb-2 pa-2"
-                style="width: 100%"
-              >
-                <div class="d-flex text-start">
-                  <div>
-                    <h3>Pulse Transit Time</h3>
-                    <small class="warning--text">00:0B:57:AC:66:DA</small>
-                  </div>
-                  <v-spacer></v-spacer>
-                  <div>
-                    <h3>Last Reading</h3>
-                    <small class="grey--text">2 hour ago</small>
-                  </div>
-                </div>
-                <div class="d-flex justify-center align-center mt-5">
-                  <v-flex>
-                    <v-img
-                      class="ml-2 mt-2"
-                      src="../../assets/Group 503.svg"
-                      height="70"
-                      width="70"
-                      contain
-                    ></v-img>
-                  </v-flex>
-                  <v-flex xs12>
-                    <div class="ml-4 text-start">
-                      <h1 class="warning--text">
-                        {{
-                          getAlgoData?.ptt
-                            ? Math.round(getAlgoData?.ptt * 100) / 100
-                            : "Loading..."
-                        }}
-                      </h1>
-                      <div class="d-flex flex-column">
-                        <small>Streaming Mode</small>
-                      </div>
-                    </div>
-                  </v-flex>
-                </div>
-              </v-card>
-            </v-flex>
-          </v-layout>
-
-          <v-layout row wrap>
-            <v-flex d-flex xs12 sm12 md6>
-              <v-card
-                color="#282934"
-                dark
-                class="ml-2 mb-2 pa-2"
-                style="width: 100%"
-              >
-                <div>
-                  <div class="d-flex justify-center align-center">
-                    <h3 class="d-flex align-center mt-2 mb-2">
-                      <span>
-                        <v-img
-                          class="ml-2"
-                          src="@/assets/temprature.svg"
-                          height="50"
-                          width="50"
-                          contain
-                        ></v-img>
-                      </span>
-                      <div class="d-flex ml-5 text-start flex-column">
-                        <span>Body Temperature</span>
-                        <span class="warning--text" style="font-size: 16px"
-                          >00:0B:57:AC:66:DA</span
-                        >
-                      </div>
-                    </h3>
-                    <v-spacer></v-spacer>
-                    <v-btn class="mr-3 export__btn" color="warning" outlined
-                      >Export</v-btn
-                    >
-                  </div>
-                </div>
-                <div class="grid-container">
-                  <TestChart
-                    v-if="getBodyTempGraphData"
-                    :height="286"
-                    :width="623"
-                    :data-of-chart="getBodyTempGraphData"
-                    :chart-id="'temperatureGraph'"
-                    :label="['12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm']"
-                    :chart-bg-color="'#fd5d5d'"
+                  <ecg-chart
+                    :ecgDataFromProps="ecgChartData"
+                    :macAddress="
+                      getSingleDeviceData[0]?.macAddressFramed.toUpperCase()
+                    "
+                    :key="showEcgChart"
+                    v-if="showEcgChart"
+                    :width="834.24"
+                    :height="299.53"
                   />
                 </div>
-              </v-card>
-            </v-flex>
-
-            <v-flex d-flex xs12 sm12 md6>
-              <v-card
-                color="#282934"
-                dark
-                class="ml-2 mr-2 mb-2 pa-2"
-                style="width: 100%"
-              >
-                <div>
-                  <div class="d-flex justify-center align-center">
-                    <h3 class="d-flex align-center mt-2 mb-2">
-                      <v-img
-                        class="ml-2"
-                        src="@/assets/lungs.svg"
-                        height="50"
-                        width="50"
-                        contain
-                      ></v-img>
-                      <div class="d-flex ml-5 text-start flex-column">
-                        <span>Blood Oxygen</span>
-                        <span class="warning--text" style="font-size: 16px"
-                          >mmHg</span
-                        >
-                      </div>
-                    </h3>
-                    <v-spacer></v-spacer>
-                    <v-btn class="mr-3 export__btn" color="warning" outlined
-                      >Export</v-btn
-                    >
+              </div>
+            </div>
+          </v-flex>
+          <v-flex d-flex xs12 sm12 md6>
+            <div class="d-flex w-100">
+              <h3>PPG</h3>
+              <v-spacer></v-spacer>
+              <v-btn class="export__btn" color="warning" outlined>Export</v-btn>
+            </div>
+            <div>
+              <div class="d-flex align-start mt-2">
+                <div class="grid-container w-100">
+                  <ppg-chart
+                    :width="834.24"
+                    :height="299.53"
+                    :key="showPpgChart"
+                    v-if="showPpgChart"
+                    :ppgDataFromProps="ppgChartData"
+                  />
+                </div>
+              </div>
+            </div>
+          </v-flex>
+        </v-layout>
+      </div>
+      <v-layout row wrap>
+        <v-flex d-flex xs12 sm6 md4 column5>
+          <div class="mini-light-box">
+            <img
+              src="@/assets/heartbeat.svg"
+              height="70"
+              width="70"
+              contain
+              class="mini-icon"
+            />
+            <div class="mini-content">
+              <h4 class="mini-title text-success">
+                {{ getAlgoData?.hr ? getAlgoData.hr : "Loading..." }}
+                <!-- {{
+                  getAlgoData?.hrv ? Math.round(getAlgoData.hrv) : "Loading..."
+                }} -->
+              </h4>
+              <small>>120 &lt; 30 C1</small>
+            </div>
+            <!-- <div v-if="!$vuetify.breakpoint.smOnly">
+              <h3 class="font-weight-medium">Last Reading</h3>
+              <small class="grey--text">2 hour ago</small>
+            </div> -->
+          </div>
+        </v-flex>
+        <v-flex d-flex xs12 sm6 md4 column5>
+          <div class="mini-light-box">
+            <img
+              src="@/assets/lungs.svg"
+              height="70"
+              width="70"
+              contain
+              class="mini-icon"
+            />
+            <div class="mini-content">
+              <h4 data-v-7ae0f2dc="" class="mini-title text-purple">16</h4>
+              <small>C1</small>
+            </div>
+          </div>
+        </v-flex>
+        <v-flex d-flex xs12 sm6 md4 column5>
+          <div class="mini-light-box">
+            <img
+              src="@/assets/temprature.svg"
+              height="70"
+              width="70"
+              contain
+              class="mini-icon"
+            />
+            <div class="mini-content">
+              <h4 data-v-7ae0f2dc="" class="mini-title text-danger">98.7</h4>
+              <small>2 hours ago</small>
+            </div>
+          </div>
+        </v-flex>
+        <v-flex d-flex xs12 sm6 md4 column5>
+          <div class="mini-light-box">
+            <img
+              src="@/assets/steps.svg"
+              height="70"
+              width="70"
+              contain
+              class="mini-icon"
+            />
+            <div class="mini-content">
+              <h4 data-v-7ae0f2dc="" class="mini-title text-pink">3000</h4>
+              <small>Steps</small>
+            </div>
+          </div>
+        </v-flex>
+        <v-flex d-flex xs12 sm6 md4 column5>
+          <div class="mini-light-box">
+            <img
+              src="@/assets/Man.svg"
+              height="70"
+              width="70"
+              contain
+              class="mini-icon"
+            />
+            <div class="mini-content">
+              <h4 data-v-7ae0f2dc="" class="mini-title text-brown">3000</h4>
+              <small>Posture</small>
+            </div>
+          </div>
+        </v-flex>
+        <div class="w-100"></div>
+        <v-flex d-flex xs12 sm6 lg4>
+          <div class="mini-light-box">
+            <div class="min-light-header">
+              <div class="left">
+                <h3>Oxygen Saturation</h3>
+                <small class="warning--text">00:0B:57:AC:66:DA</small>
+              </div>
+              <div class="right">
+                <div v-if="!$vuetify.breakpoint.smOnly">
+                  <h3 class="font-weight-medium">Last Reading</h3>
+                  <small class="grey--text">2 hour ago</small>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex justify-center align-center mt-5">
+              <v-flex>
+                <v-img
+                  src="@/assets/oxygen.svg"
+                  height="70"
+                  width="70"
+                  contain
+                ></v-img>
+              </v-flex>
+              <v-flex xs12>
+                <div class="text-medium">
+                  <h1 class="text-warning">
+                    {{
+                      getBloodOxygenGraphData[0]?.avgspo2
+                        ? Math.round(getBloodOxygenGraphData[0]?.avgspo2)
+                        : "Loading..."
+                    }}
+                    <span class="unit">%SPO2</span>
+                  </h1>
+                  <div class="d-flex flex-column">
+                    <small>Streaming Mode</small>
                   </div>
                 </div>
-                <div class="grid-container">
-                  <!-- <ApexAreaChart
+              </v-flex>
+            </div>
+          </div>
+        </v-flex>
+        <v-flex d-flex xs12 sm6 lg4>
+          <div class="mini-light-box">
+            <div class="min-light-header">
+              <div class="left">
+                <h3>Temperature</h3>
+                <small class="warning--text">00:0B:57:AC:66:DA</small>
+              </div>
+              <div class="right">
+                <div v-if="!$vuetify.breakpoint.smOnly">
+                  <h3 class="font-weight-medium">Last Reading</h3>
+                  <small class="grey--text">2 hour ago</small>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex justify-center align-center mt-5">
+              <v-flex>
+                <v-img
+                  src="@/assets/bloodPressure.svg"
+                  height="70"
+                  width="70"
+                  contain
+                ></v-img>
+              </v-flex>
+              <v-flex xs12>
+                <div class="text-medium">
+                  <h1 class="text-info">
+                    {{
+                      getAlgoData?.bp
+                        ? Math.round(getAlgoData?.bp)
+                        : "Loading..."
+                    }}
+                    /
+                    {{
+                      getAlgoData?.dbp ? Math.round(getAlgoData?.dbp) : "..."
+                    }}
+                    <span class="unit">mmHg</span>
+                  </h1>
+                  <div class="d-flex flex-column">
+                    <small>Manual Entry</small>
+                  </div>
+                </div>
+              </v-flex>
+            </div>
+          </div>
+        </v-flex>
+        <v-flex d-flex xs12 sm6 lg4>
+          <div class="mini-light-box">
+            <div class="min-light-header">
+              <div class="left">
+                <h3 cl>Weight</h3>
+                <small class="warning--text">No Device Paired</small>
+              </div>
+              <div class="right">
+                <div v-if="!$vuetify.breakpoint.smOnly">
+                  <h3 class="font-weight-medium">Last Reading</h3>
+                  <small class="grey--text">2 hour ago</small>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex justify-center align-center mt-5">
+              <v-flex>
+                <v-img
+                  src="@/assets/weight.svg"
+                  height="70"
+                  width="70"
+                  contain
+                ></v-img>
+              </v-flex>
+              <v-flex xs12>
+                <div class="text-medium">
+                  <h1 class="text-danger">
+                    {{
+                      getAlgoData?.prv
+                        ? Math.round(getAlgoData.prv)
+                        : "Loading..."
+                    }}
+                    <span class="unit">%SPO2</span>
+                  </h1>
+                  <div class="d-flex flex-column">
+                    <small>Streaming Mode</small>
+                  </div>
+                </div>
+              </v-flex>
+            </div>
+          </div>
+        </v-flex>
+      </v-layout>
+      <v-layout row wrap>
+        <v-flex d-flex xs12 sm12 md6>
+          <div class="mini-light-box">
+            <div class="w-100 d-flex justify-center align-center">
+              <h3 class="d-flex align-center">
+                <span>
+                  <v-img
+                    src="@/assets/temprature.svg"
+                    height="50"
+                    width="50"
+                    contain
+                  ></v-img>
+                </span>
+                <div class="d-flex ml-5 text-start flex-column">
+                  <span>Body Temperature</span>
+                  <span class="warning--text" style="font-size: 16px"
+                    >00:0B:57:AC:66:DA</span
+                  >
+                </div>
+              </h3>
+              <v-spacer></v-spacer>
+              <v-btn class="export__btn" color="warning" outlined>Export</v-btn>
+            </div>
+            <div class="grid-container w-100">
+              <TestChart
+                v-if="getBodyTempGraphData"
+                :height="286"
+                :width="623"
+                :data-of-chart="getBodyTempGraphData"
+                :chart-id="'temperatureGraph'"
+                :label="['12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm']"
+                :chart-bg-color="'#fd5d5d'"
+              />
+            </div>
+          </div>
+        </v-flex>
+
+        <v-flex d-flex xs12 sm12 md6>
+          <div class="mini-light-box">
+            <div class="w-100 d-flex justify-center align-center">
+              <h3 class="d-flex align-center">
+                <v-img
+                  src="@/assets/lungs.svg"
+                  height="50"
+                  width="50"
+                  contain
+                ></v-img>
+                <div class="d-flex ml-5 text-start flex-column">
+                  <span>Blood Oxygen</span>
+                  <span class="warning--text" style="font-size: 16px"
+                    >mmHg</span
+                  >
+                </div>
+              </h3>
+              <v-spacer></v-spacer>
+              <v-btn class="export__btn" color="warning" outlined>Export</v-btn>
+            </div>
+            <div class="grid-container w-100">
+              <!-- <ApexAreaChart
                     :height="366"
                     :width="600"
                     :data-of-chart="[72, 115, 95, 130, 60, 116, 88]"
@@ -1032,123 +569,94 @@
                     :chart-border-color="'#774af1'"
                     :chart-bg-color="['#7741f1']"
                   /> -->
+            </div>
+          </div>
+        </v-flex>
+        <v-flex d-flex xs12 sm12 md6>
+          <div class="mini-light-box">
+            <div class="w-100 d-flex justify-center align-center">
+              <h3 class="d-flex align-center">
+                <v-img
+                  src="@/assets/heartbeat.svg"
+                  height="50"
+                  width="50"
+                  contain
+                ></v-img>
+                <div class="d-flex ml-5 text-start flex-column">
+                  <span>Heart Rate</span>
+                  <span class="warning--text" style="font-size: 16px"
+                    >00:0B:57:AC:66:DA</span
+                  >
                 </div>
-              </v-card>
-            </v-flex>
-          </v-layout>
-
-          <v-layout row wrap>
-            <v-flex d-flex xs12 sm12 md6>
-              <v-card
-                color="#282934"
-                dark
-                class="ml-2 mb-2 pa-2"
-                style="width: 100%"
-              >
-                <div>
-                  <div class="d-flex justify-center align-center">
-                    <h3 class="d-flex align-center mt-2 mb-2">
-                      <v-img
-                        class="ml-2"
-                        src="@/assets/heartbeat.svg"
-                        height="50"
-                        width="50"
-                        contain
-                      ></v-img>
-                      <div class="d-flex ml-5 text-start flex-column">
-                        <span>Heart Rate</span>
-                        <span class="warning--text" style="font-size: 16px"
-                          >mmHg</span
-                        >
-                      </div>
-                    </h3>
-                    <v-spacer></v-spacer>
-                    <v-btn class="mr-3 export__btn" color="warning" outlined
-                      >Export</v-btn
-                    >
-                  </div>
-                </div>
-                <div class="grid-container">
-                  <!-- <TestChart
+              </h3>
+              <v-spacer></v-spacer>
+              <v-btn class="export__btn" color="warning" outlined>Export</v-btn>
+            </div>
+            <div class="grid-container w-100">
+              <!-- <TestChart
                     :height="286"
                     :width="623"
                     :data-of-chart="[72, 115, 95, 130, 60, 116, 88]"
                     :label="['12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm']"
                     :chart-bg-color="'cyan'"
                   /> -->
-                </div>
-              </v-card>
-            </v-flex>
+            </div>
+          </div>
+        </v-flex>
 
-            <v-flex d-flex xs12 sm12 md6>
-              <v-card
-                color="#282934"
-                dark
-                class="ml-2 mr-2 mb-2 pa-2"
-                style="width: 100%"
+        <v-flex d-flex xs12 sm12 md6>
+          <div class="mini-light-box">
+            <div class="w-100 d-flex justify-center align-center">
+              <h3 class="d-flex align-center">
+                <span>
+                  <v-img
+                    src="@/assets/sleep.svg"
+                    height="50"
+                    width="50"
+                    contain
+                  ></v-img>
+                </span>
+                <div class="d-flex ml-5 text-start flex-column">
+                  <span>Sleep</span>
+                  <span class="warning--text" style="font-size: 16px"
+                    >Hrs/Day</span
+                  >
+                </div>
+              </h3>
+              <v-spacer></v-spacer>
+              <div
+                class="rounded-pill mr-4 sleep__block ml-auto"
+                style="background-color: #f6f2f2"
               >
-                <div>
-                  <div class="d-flex justify-center align-center">
-                    <h3 class="d-flex align-center mt-2 mb-2">
-                      <span>
-                        <div style="" class="mr-3 ml-2">
-                          <!-- <v-icon dark size="40"> mdi-power-sleep </v-icon> -->
-                          <v-img
-                            class="ml-2"
-                            src="@/assets/steps.svg"
-                            height="50"
-                            width="50"
-                            contain
-                          ></v-img>
-                        </div>
-                      </span>
-                      <div class="d-flex ml-5 text-start flex-column">
-                        <span>Steps</span>
-                        <span class="warning--text" style="font-size: 16px"
-                          >Hrs/Day</span
-                        >
-                      </div>
-                    </h3>
-                    <v-spacer></v-spacer>
-                    <div
-                      class="rounded-circle sleep__div"
-                      style="background-color: grey"
-                    >
-                      <span class="mr-3">W</span>
-                      <span class="mr-3">M</span>
-                      <span class="mr-3">6M</span>
-                    </div>
-                    <v-spacer></v-spacer>
-                    <v-btn class="mr-3 export__btn" color="warning" outlined
-                      >Export</v-btn
-                    >
-                  </div>
-                </div>
-                <div class="grid-container">
-                  <ApexAreaChart
-                    v-if="getPatientSteps"
-                    :height="366"
-                    :width="770"
-                    :data-of-chart="getPatientSteps"
-                    :chart-id="'stepsGraph'"
-                    :chart-label="[
-                      '12pm',
-                      '1pm',
-                      '2pm',
-                      '3pm',
-                      '4pm',
-                      '5pm',
-                      '6pm',
-                    ]"
-                    :chart-border-color="'cyan'"
-                    :chart-bg-color="['cyan']"
-                  />
-                </div>
-              </v-card>
-            </v-flex>
-          </v-layout>
-        </v-container>
-      </div>
+                <span class="btn-sm active">W</span>
+                <span class="btn-sm">M</span>
+                <span class="btn-sm">6M</span>
+              </div>
+              <v-btn class="export__btn" color="warning" outlined>Export</v-btn>
+            </div>
+            <div class="grid-container w-100">
+              <ApexAreaChart
+                v-if="getPatientSteps"
+                :height="366"
+                :width="770"
+                :data-of-chart="getPatientSteps"
+                :chart-id="'stepsGraph'"
+                :chart-label="[
+                  '12pm',
+                  '1pm',
+                  '2pm',
+                  '3pm',
+                  '4pm',
+                  '5pm',
+                  '6pm',
+                ]"
+                :chart-border-color="'cyan'"
+                :chart-bg-color="['cyan']"
+              />
+            </div>
+          </div>
+        </v-flex>
+      </v-layout>
     </div>
   </div>
 </template>
@@ -1460,13 +968,13 @@ export default {
 </script>
 
 <style scoped>
-.sleep__div {
+.sleep__block {
   display: flex;
   height: 40px;
   align-items: center;
   padding: 10px;
 }
-.grid-container {
+.grid-container w-100 {
   display: flex;
   flex-flow: row wrap;
   justify-content: start;
@@ -1481,7 +989,7 @@ h1 {
   font-size: 40px;
 }
 
-.v-card {
+.div {
   border-radius: 10px;
 }
 small {
@@ -1497,5 +1005,100 @@ h3 {
   h3 {
     font-size: 20px;
   }
+}
+.patient-header {
+  background-color: #f6f2f2;
+  padding: 30px;
+  border-radius: 26px;
+  margin-bottom: 30px;
+}
+.patient-details-wrapper {
+}
+.btn-orange {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  border-radius: 50%;
+  margin-left: 20px;
+  background-color: #f58220;
+}
+.btn-orange .v-icon {
+  color: #fff;
+}
+.mini-title {
+  font-size: 36px;
+}
+.text-success {
+  color: #29dca1;
+}
+.mini-light-box {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  text-align: left;
+  box-shadow: 0px 8px 16px #00000014;
+  border: 1px solid #e9e9e9;
+  padding: 20px;
+  border-radius: 20px;
+  margin-bottom: 30px;
+}
+.mini-content {
+  margin-left: 20px;
+}
+.mini-icon {
+  height: 90px;
+  width: auto;
+}
+@media (min-width: 1800px) {
+  .column5 {
+    flex-basis: auto;
+    flex-grow: 1;
+    max-width: 100%;
+  }
+}
+.mini-content small {
+  font-size: 20px;
+  font-weight: 400;
+}
+.min-light-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.text-small {
+  margin-left: 20px;
+  font-weight: 500;
+}
+.min-light-header .right {
+  text-align: right;
+}
+.text-medium {
+  margin-left: 20px;
+}
+.text-medium small {
+  font-size: 20px;
+  font-weight: 500;
+}
+.text-medium .unit {
+  color: #7f7f7f;
+  font-size: 16px;
+  font-weight: 400;
+}
+.text-medium h1 {
+  line-height: 1.3;
+  display: flex;
+  flex-wrap: wrap;
+}
+.btn-sm {
+  color: #7f7f7f;
+  font-weight: 500;
+  padding: 8px;
+  cursor: pointer;
+}
+.btn-sm.active {
+  color: #f58220;
 }
 </style>

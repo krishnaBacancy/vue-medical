@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="d-flex flex-wrap page-header-item align-center">
-      <PageHeader title="Dashboard" pageIcon="mdi-home" class="ph-item-1" />
+      <PageHeader title="Dashboard" class="ph-item-1" />
       <SearchBar class="mr-3 ph-item-2" />
       <div class="d-flex ph-item-3">
         <button class="btn-group px-4 ml-0">
@@ -373,6 +373,8 @@ span {
   align-items: center;
   padding: 14px 20px;
   border: 1px solid #eeeeef;
+  text-align: left;
+  line-height: 1;
 }
 .unit {
   font-size: 12px;
@@ -380,26 +382,5 @@ span {
 .box-icon {
   border-radius: 5px;
   margin-right: 10px;
-}
-.text-success {
-  color: #29dca1;
-}
-.text-warning {
-  color: #f8d716;
-}
-.text-pink {
-  color: #29dca1;
-}
-.text-purple {
-  color: #7649f2;
-}
-.text-info {
-  color: #53eaff;
-}
-.text-danger {
-  color: #fd5d5d;
-}
-.text-pink {
-  color: #f719c2;
 }
 </style>

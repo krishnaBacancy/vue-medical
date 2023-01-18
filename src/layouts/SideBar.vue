@@ -11,7 +11,6 @@
     <v-navigation-drawer
       app
       v-model="drawer"
-      color="rgba(0,0,0,0.3)"
       width="10%"
       dark
       :style="{
@@ -300,7 +299,7 @@ export default {
   color: white !important;
 }
 .sidebar {
-  padding-top: 60px;
+  padding-top: 45px;
   position: fixed;
   height: calc(100vh - 70px);
   width: 120px;
@@ -404,5 +403,8 @@ span {
 }
 .theme--dark.v-app-bar.v-toolbar.v-sheet {
   background-color: rgb(245, 130, 32);
+}
+.theme--dark.v-navigation-drawer {
+  background: linear-gradient(45deg, #e53985, #f58220) !important;
 }
 </style>
