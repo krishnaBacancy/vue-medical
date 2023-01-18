@@ -22,9 +22,9 @@ Chart.register(
 );
 
 export default {
-  name: "HeartRateChart",
+  name: "temprature-chart",
   props: {
-    heartrateData: { type: Array },
+    tempratureData: { type: Array },
     width: {
       type: Number,
       default: 400,
@@ -42,52 +42,52 @@ export default {
   },
   data() {
     return {
-      HeartRateChart: null,
+      tempratureChart: null,
       setIntervalMethod: null,
     };
   },
   watch: {
-    heartrateData: {
+    tempratureData: {
       immediate: true,
       async handler(val) {
         if (val?.length && val.length > 0) {
           let buffer = JSON.parse(JSON.stringify(val));
           console.log("buffer", buffer);
           if (
-            this.HeartRateChart &&
-            document.getElementById(`heartRate-chart-${this.macAddress}`)
+            this.tempratureChart &&
+            document.getElementById(`temp-chart-${this.macAddress}`)
           ) {
             console.log("chart exist");
           } else {
             let ctx;
-            if (document.getElementById(`heartRate-chart-${this.macAddress}`)) {
+            if (document.getElementById(`temp-chart-${this.macAddress}`)) {
               ctx = document
-                .getElementById(`heartRate-chart-${this.macAddress}`)
+                .getElementById(`temp-chart-${this.macAddress}`)
                 .getContext("2d");
             } else {
               var canvas = document.createElement("canvas");
-              canvas.id = `heartRate-chart-${this.macAddress}`;
+              canvas.id = `temp-chart-${this.macAddress}`;
               canvas.width = this.width;
               canvas.height = this.height;
 
-              var body = document.getElementById(`heartRateCanvas`);
+              var body = document.getElementById(`temp-${this.macAddress}`);
               console.log("body", body);
               body.appendChild(canvas);
               ctx = document
-                .getElementById(`heartRate-chart-${this.macAddress}`)
+                .getElementById(`temp-chart-${this.macAddress}`)
                 .getContext("2d");
             }
             console.log("ctx", ctx);
-            this.HeartRateChart = await new Chart(ctx, {
+            this.tempratureChart = await new Chart(ctx, {
               type: "bar",
               data: {
                 labels: ["12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm"],
                 datasets: [
                   {
-                    label: "HeartRate",
+                    label: "Temprature",
                     data: buffer?.map((d) => Math.round(d["temp"])),
                     borderWidth: 1,
-                    hoverBorderColor: "green",
+                    hoverBorderColor: "red",
                     fill: 1,
                     barPercentage: 0.25,
                     categoryPercentage: 1,
@@ -109,16 +109,16 @@ export default {
                 },
               },
             });
-            this.HeartRateChart.render();
+            this.tempratureChart.render();
           }
         }
       },
     },
   },
   destroyed() {
-    if (this.HeartRateChart) {
-      this.HeartRateChart?.destroy();
-      this.HeartRateChart = null;
+    if (this.tempratureChart) {
+      this.tempratureChart?.destroy();
+      this.tempratureChart = null;
     }
   },
 };

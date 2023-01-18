@@ -926,7 +926,23 @@
                 </div>
                 <div class="grid-container">
                   <div id="barCanvas" style="width: 100%; overflow-x: auto">
-                    <TestChart
+                    <div
+                      :id="`temp-${getSingleDeviceData[0]?.macAddressFramed.toUpperCase()}`"
+                      class="grid-container"
+                    >
+                      <temprature-graph
+                        v-if="getBodyTempGraphData.length"
+                        :key="getBodyTempGraphData.length"
+                        :temprature-data="getBodyTempGraphData"
+                        :macAddress="
+                          getSingleDeviceData[0]?.macAddressFramed.toUpperCase()
+                        "
+                        :height="286"
+                        :width="623"
+                        :chart-bg-color="'#fd5d5d'"
+                      />
+                    </div>
+                    <!-- <TestChart
                       v-if="getBodyTempGraphData"
                       :height="286"
                       :width="623"
@@ -942,7 +958,7 @@
                         '6pm',
                       ]"
                       :chart-bg-color="'#fd5d5d'"
-                    />
+                    /> -->
                   </div>
                 </div>
               </v-card>
@@ -1038,6 +1054,17 @@
                     style="width: 100%; overflow-x: auto"
                   >
                     <heart-rate-graph
+                      v-if="getBodyTempGraphData.length"
+                      :key="getBodyTempGraphData.length"
+                      :heartrate-data="getBodyTempGraphData"
+                      :macAddress="
+                        getSingleDeviceData[0]?.macAddressFramed.toUpperCase()
+                      "
+                      :height="286"
+                      :width="623"
+                      :chart-bg-color="'cyan'"
+                    />
+                    <!-- <heart-rate-graph
                       v-if="getBodyTempGraphData"
                       :height="286"
                       :width="623"
@@ -1053,7 +1080,7 @@
                       ]"
                       :chart-bg-color="'cyan'"
                       :chart-id="'hrGraph'"
-                    />
+                    /> -->
                   </div>
                 </div>
               </v-card>
@@ -1135,23 +1162,25 @@
 import { mapActions, mapGetters } from "vuex";
 import mqtt from "mqtt/dist/mqtt";
 import PageHeader from "@/layouts/PageHeader.vue";
-import TestChart from "@/components/TestChart.vue";
+// import TestChart from "@/components/TestChart.vue";
 import ApexAreaChart from "@/components/ApexAreaChart.vue";
 import EcgChart from "@/components/EcgChart.vue";
 import PpgChart from "@/components/PpgChart.vue";
 import HeartRateGraph from "@/components/HeartRateGraph.vue";
 import OxygenGraph from "@/components/OxygenGraph.vue";
+import TempratureGraph from "@/components/TempratureGraph.vue";
 
 export default {
   name: "PatientDetails",
   components: {
     PageHeader,
-    TestChart,
+    // TestChart,
     ApexAreaChart,
     EcgChart,
     PpgChart,
     HeartRateGraph,
     OxygenGraph,
+    TempratureGraph,
   },
   data() {
     return {
@@ -1334,6 +1363,9 @@ export default {
         endDate: Date.parse(this.endDateValue),
       };
       this.getPatientBodyTempData(payload);
+      setTimeout(() => {
+        this.getPatientBodyTempData(payload);
+      }, 5000);
     },
     getBloodO2Grpah() {
       const payload = {
