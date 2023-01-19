@@ -1,35 +1,21 @@
 <template>
-  <v-container fluid grid-list-md>
-    <v-layout row wrap style="margin-left: -14px">
-      <v-flex d-flex xs12 sm8 md4>
-        <div class="">
-          <v-card
-            dark
-            class="ml-2 mb-2 pa-2"
-            style="width: 100%; border-radius: 50px"
-          >
-            <div>
-              <v-icon color="warning">mdi-magnify</v-icon>
-              <input
-                type="search"
-                placeholder="Search by MAC Address"
-                v-model="$store.state.doctors.searchTerm"
-                class="ml-2"
-                style="color: white"
-              />
-              <v-icon
-                class="ml-2"
-                color="warning"
-                @click="$store.state.doctors.searchTerm = ''"
-                >mdi-close-circle</v-icon
-              >
-            </div>
-          </v-card>
-          <v-spacer></v-spacer>
-        </div>
-      </v-flex>
-    </v-layout>
-  </v-container>
+  <v-card>
+    <div class="d-inline-flex">
+      <v-icon color="warning">mdi-magnify</v-icon>
+      <input
+        type="search"
+        placeholder="Search by MAC Address"
+        v-model="$store.state.doctors.searchTerm"
+        class="pl-2 search-input"
+      />
+      <v-icon
+        class="ml-2"
+        color="warning"
+        @click="$store.state.doctors.searchTerm = ''"
+        >mdi-close-circle</v-icon
+      >
+    </div>
+  </v-card>
 </template>
 
 <script>
@@ -39,5 +25,21 @@ export default {};
 <style scoped>
 input:focus {
   outline: none;
+}
+.theme--dark.v-card {
+  background: #2b2934;
+}
+.v-icon.v-icon.v-icon--link {
+  color: #212121 !important;
+}
+.v-sheet.v-card {
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  padding: 11px 14px;
+  box-shadow: 2px 5px 16px rgba(0, 0, 0, 0.08);
+}
+.search-input {
+  min-width: 200px;
 }
 </style>

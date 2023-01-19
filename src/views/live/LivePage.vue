@@ -6,23 +6,12 @@
       @goBack="$router.go(-1)"
     />
     <br />
-    <v-container
-      fluid
-      grid-list-md
-      style="background-color: rgba(0, 0, 0, 0.5); border-radius: 20px"
-      class="mb-4"
-    >
-      <div class="white--text d-flex ml-5" v-if="mobile">
+    <v-container fluid grid-list-md style="border-radius: 20px" class="mb-4">
+      <div class="d-flex" v-if="mobile">
         <h3>Filter</h3>
-        <v-icon class="ml-4" color="white" @click="gridNumber = 4"
-          >mdi-tally-mark-3</v-icon
-        >
-        <v-icon class="ml-2" color="white" @click="gridNumber = 6"
-          >mdi-tally-mark-2</v-icon
-        >
-        <v-icon class="ml-2" color="white" @click="gridNumber = 12"
-          >mdi-tally-mark-1</v-icon
-        >
+        <v-icon class="ml-4" @click="gridNumber = 4">mdi-tally-mark-3</v-icon>
+        <v-icon class="ml-2" @click="gridNumber = 6">mdi-tally-mark-2</v-icon>
+        <v-icon class="ml-2" @click="gridNumber = 12">mdi-tally-mark-1</v-icon>
       </div>
 
       <v-layout row wrap class="mt-4">
@@ -36,17 +25,26 @@
           :class="showGrid"
         >
           <v-card
-            color="#282934"
-            class="ml-2 mr-2 mt-2 mb-2 pa-2 white--text"
+            class="card-theme"
             style="width: 100%; border-radius: 20px"
             @click="$router.push(`/patient-details/${device?.id}`)"
           >
             <div class="d-flex align-center">
               <div class="d-flex flex-column text-start">
                 <h3 class="ml-5">{{ device.fullName }}</h3>
-                <h5 class="ml-5 mt-2 grey--text second__heading">Floor No.</h5>
-                <h5 class="ml-5 mt-2 grey--text second__heading">Room No.</h5>
-                <h5 class="ml-5 mt-2 grey--text second__heading">
+                <h5
+                  class="ml-5 mt-2 grey--text second__heading font-weight-regular"
+                >
+                  Floor No.
+                </h5>
+                <h5
+                  class="ml-5 mt-2 grey--text second__heading font-weight-regular"
+                >
+                  Room No.
+                </h5>
+                <h5
+                  class="ml-5 mt-2 grey--text second__heading font-weight-regular"
+                >
                   {{ device.macAddressFramed }}
                 </h5>
               </div>
@@ -66,7 +64,7 @@
             </div>
 
             <div class="d-flex mt-3">
-              <v-card color="black" width="33%" height="65">
+              <v-card width="33%" height="70">
                 <div class="d-flex align-center">
                   <v-flex>
                     <v-tooltip bottom>
@@ -85,17 +83,17 @@
                     </v-tooltip>
                   </v-flex>
                   <v-flex xs12>
-                    <div class="d-flex text-start ml-2 mt-2">
+                    <div class="d-flex flex-column text-start mt-2 ml-2">
                       <h5 class="green--text">
                         {{ device?.algodata ? device.algodata?.hr : "--" }}
                       </h5>
-                      <small class="white--text ml-2 mt-2">BPM</small>
+                      <small class="">BPM</small>
                     </div>
                   </v-flex>
                 </div>
               </v-card>
 
-              <v-card color="black" width="33%" height="65" class="ml-2">
+              <v-card width="33%" height="70" class="ml-2">
                 <div class="d-flex align-center">
                   <v-flex>
                     <v-tooltip bottom>
@@ -114,7 +112,7 @@
                     </v-tooltip>
                   </v-flex>
                   <v-flex xs12>
-                    <div class="d-flex text-start ml-2 mt-2">
+                    <div class="d-flex flex-column text-start ml-2 mt-2">
                       <h5 class="yellow--text">
                         {{
                           device?.algodata
@@ -122,13 +120,13 @@
                             : "--"
                         }}
                       </h5>
-                      <small class="white--text ml-2 mt-2">%</small>
+                      <small class="">%</small>
                     </div>
                   </v-flex>
                 </div>
               </v-card>
 
-              <v-card color="black" width="33%" height="65" class="ml-2">
+              <v-card width="33%" height="70" class="ml-2">
                 <div class="d-flex align-center">
                   <v-flex>
                     <v-tooltip bottom>
@@ -147,11 +145,15 @@
                     </v-tooltip>
                   </v-flex>
                   <v-flex xs12>
-                    <div class="d-flex text-start ml-2 mt-2">
-                      <h5 class="red--text">
-                        {{ device?.algodata ? device.algodata?.temp : "--" }}
+                    <div class="d-flex flex-column text-start ml-2 mt-2">
+                      <h5 class="text-danger">
+                        {{
+                          device?.algodata
+                            ? Math.round(device.algodata?.temp)
+                            : "--"
+                        }}
                       </h5>
-                      <small class="white--text ml-2 mt-2">°C</small>
+                      <small class="">°C</small>
                     </div>
                   </v-flex>
                 </div>
@@ -431,6 +433,9 @@ h3 {
 }
 .second__heading {
   font-size: 18px;
+}
+.card-theme {
+  padding: 20px;
 }
 @media only screen and (max-width: 530px) {
   h3 {

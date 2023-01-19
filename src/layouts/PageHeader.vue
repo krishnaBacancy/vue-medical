@@ -1,29 +1,25 @@
 <template>
-  <v-container
-    style="background-color: rgba(0, 0, 0, 0.5)"
-    class="main__container mt-8"
-    fluid
-  >
-    <v-layout row wrap>
-      <v-flex d-flex xs12 sm12 md12>
-        <v-icon class="white--text ml-4" @click="$emit('goBack')">{{
-          pageIcon
-        }}</v-icon>
-        <div class="d-flex" style="width: 100%">
-          <v-card-title class="white--text bold">{{ title }}</v-card-title>
-          <v-btn
-            class="align-self-center ml-auto mr-10"
-            :color="colorName"
-            rounded
-            @click="$emit('addNewPatient')"
-            v-if="btnIconName && role === 'Doctor'"
-          >
-            <v-icon>{{ btnIconName }}</v-icon>
-          </v-btn>
-        </div>
-      </v-flex>
-    </v-layout>
-  </v-container>
+  <div class="d-flex mr-auto align-center">
+    <v-icon
+      v-if="pageIcon"
+      class="black--text icon-big"
+      @click="$emit('goBack')"
+      >{{ pageIcon }}</v-icon
+    >
+    <v-card-title class="font-weight-bold pl-0">
+      {{ title }}
+    </v-card-title>
+    <v-btn
+      class="align-self-center ml-auto"
+      :color="colorName"
+      rounded
+      @click="$emit('addNewPatient')"
+      v-if="btnIconName && role === 'Doctor'"
+    >
+      <!-- <v-icon>{{ btnIconName }}</v-icon> -->
+      <span v-if="btnName">{{ btnName }}</span>
+    </v-btn>
+  </div>
 </template>
 
 <script>
@@ -42,5 +38,37 @@ export default {
 .main__container {
   font-family: "Gilroy";
   border-radius: 20px;
+}
+.v-card__title {
+  font-size: 30px;
+}
+.icon-big {
+  font-size: 32px;
+}
+.v-btn.theme--light,
+.v-btn:not(.v-btn--round).v-size--default {
+  padding: 14px 20px;
+  border-radius: 10px;
+  height: auto;
+  min-width: 190px;
+  text-transform: none;
+  font-weight: 600;
+}
+.icon-big {
+  margin-right: 16px;
+}
+@media (max-width: 600px) {
+  .icon-big {
+    margin-right: 10px;
+    font-size: 24px;
+  }
+  .v-card__title {
+    font-size: 22px;
+  }
+  .v-btn:not(.v-btn--round).v-size--default {
+    min-width: unset;
+    padding: 12px 18px;
+    border-radius: 8px;
+  }
 }
 </style>

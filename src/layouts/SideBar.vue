@@ -1,50 +1,40 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      dark
-      class="white--text"
-      v-if="$vuetify.breakpoint.smAndDown && !getRoute"
-    >
+    <v-app-bar app v-if="$vuetify.breakpoint.smAndDown && !getRoute">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <img
+        class="sidebar-logo ml-8"
+        src="@/assets/logo-white.svg"
+        @click="$router.push('/')"
+        height="30"
+      />
     </v-app-bar>
     <v-navigation-drawer
       app
       v-model="drawer"
-      color="rgba(0,0,0,0.3)"
       width="10%"
-      dark
       :style="{
-        width: $vuetify.breakpoint.smAndDown ? '30%' : '7%',
+        width: $vuetify.breakpoint.smAndDown ? '280px' : '120px',
         backgroundColor: $vuetify.breakpoint.smAndDown
-          ? 'rgba(0,0,0,0.8)'
-          : 'rgba(0,0,0,0.3)',
+          ? 'rgb(245,130,32)'
+          : 'rgb(245,130,32)',
       }"
       :permanent="$vuetify.breakpoint.mdAndUp"
       v-if="!getRoute"
     >
-      <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title class="text-h6 mb-4 mt-4">
-            <v-img
-              src="@/assets/accuLive.svg"
-              @click="$router.push('/')"
-              height="30"
-              style="cursor: pointer"
-              contain
-            >
-            </v-img>
-          </v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-
-      <v-divider></v-divider>
-
+      <v-list-item-title class="sidebar-logo-wrapper">
+        <img
+          class="sidebar-logo"
+          src="@/assets/logo-white.svg"
+          @click="$router.push('/')"
+          height="30"
+        />
+      </v-list-item-title>
       <div class="sidebar">
         <nav>
           <!-- Move event here -->
-          <ul class="ml-n5">
-            <li>
+          <ul>
+            <li v-if="role !== 'Admin'">
               <router-link
                 to="/"
                 class="d-flex flex-column text-center justify-center align-center"
@@ -70,13 +60,13 @@
                 to="/user-management"
                 class="d-flex flex-column text-center justify-center align-center"
               >
-                <v-img
+                <img
                   src="@/assets/Device List.png"
                   height="40"
                   width="40"
                   contain
                   class="icon__color"
-                ></v-img>
+                />
                 <span>Device List</span>
               </router-link>
             </li>
@@ -86,13 +76,13 @@
                 to="/devices"
                 class="d-flex flex-column text-center justify-center align-center"
               >
-                <v-img
+                <img
                   src="@/assets/Device List.png"
                   height="40"
                   width="40"
                   contain
                   class="icon__color"
-                ></v-img>
+                />
                 <span>Device List</span>
               </router-link>
             </li>
@@ -102,13 +92,13 @@
                 to="/live-device"
                 class="d-flex flex-column text-center justify-center align-center"
               >
-                <v-img
+                <img
                   src="@/assets/Live Device.png"
                   height="40"
                   width="40"
                   contain
                   class="icon__color"
-                ></v-img>
+                />
                 <span>Live</span>
               </router-link>
             </li>
@@ -123,12 +113,14 @@
               </router-link>
             </li>
 
-            <li
-              @click="logOut"
-              class="d-flex white--text flex-column text-center justify-center align-center"
-            >
-              <v-icon class="icon__color">mdi-logout</v-icon>
-              <span>Logout</span>
+            <li>
+              <a
+                @click="logOut"
+                class="d-flex white--text flex-column text-center justify-center align-center"
+              >
+                <v-icon class="icon__color">mdi-logout</v-icon>
+                <span>Logout</span>
+              </a>
             </li>
           </ul>
         </nav>
@@ -249,7 +241,7 @@
       </v-list> -->
     </v-navigation-drawer>
 
-    <v-main style="width: 97%; margin-left: auto; margin-right: auto">
+    <v-main class="main-wrapper">
       <router-view />
     </v-main>
   </v-app>
@@ -289,6 +281,9 @@ export default {
 </script>
 
 <style scoped>
+.v-navigation-drawer {
+  border-radius: 0 65px 65px 0;
+}
 .item__container {
   display: flex;
   flex-direction: column;
@@ -304,22 +299,47 @@ export default {
   color: white !important;
 }
 .sidebar {
-  margin-top: 20px;
+  padding-top: 45px;
   position: fixed;
-  height: 100vh;
+  height: calc(100vh - 70px);
   width: 120px;
   border-radius: 15px;
   margin-right: auto;
+  overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.sidebar-logo-wrapper {
+  margin-top: 30px;
+}
+.sidebar::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+.sidebar::-webkit-scrollbar-track {
+  background: #1f2026;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #1f2026;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: #1f2026;
 }
 
 .sidebar ul {
   list-style: none;
+  padding: 0 0 30px;
 }
-
+.sidebar a .v-icon.v-icon {
+  height: 40px;
+  width: 40px;
+}
 .sidebar li {
   text-align: left;
   width: 100%;
-  margin-bottom: 2rem;
   cursor: pointer;
 }
 
@@ -327,21 +347,97 @@ export default {
   color: white;
   text-decoration: none;
   font-size: 14px;
-  margin-top: 5px;
+  padding: 22px 10px;
+  font-weight: 400;
 }
 .sidebar a.exactActiveLink {
-  color: #ffb23e;
-  background: transparent url("@/assets/Rectangle\ 37.svg") 0% 0% no-repeat
-    padding-box;
-  background-size: 120px 100px;
-  height: 60px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.26);
 }
 .sidebar a.exactActiveLink > .icon__color {
-  color: #ffb23e;
+  color: #fff;
 }
 
 span {
   font-size: 14px;
   margin-top: 5px;
+}
+.main-wrapper {
+  width: calc(100% - 120px);
+  margin-left: auto;
+  padding: 40px 45px !important;
+}
+
+@media (max-width: 1600px) {
+  .sidebar a {
+    padding: 16px 10px;
+  }
+  .sidebar a span {
+    margin-top: 0;
+  }
+}
+@media (max-width: 1400px) {
+  .sidebar a {
+    padding: 12px 10px;
+  }
+  .sidebar a span {
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 960px) {
+  .main-wrapper {
+    width: 100%;
+    margin-top: 56px;
+    padding: 20px 20px !important;
+  }
+  .sidebar {
+    width: 100%;
+  }
+  .sidebar-logo-wrapper {
+    margin-top: 20px;
+  }
+  .sidebar-logo {
+    height: 26px;
+  }
+  .sidebar {
+    padding-top: 20px;
+  }
+  .sidebar a {
+    flex-direction: row !important;
+    justify-content: flex-start !important;
+    padding: 5px 12px;
+    border-radius: 40px;
+  }
+  .sidebar a .icon__color,
+  .sidebar a .v-icon.v-icon {
+    margin-right: 10px;
+  }
+}
+@media (max-width: 767px) {
+  .main-wrapper {
+    padding: 15px !important;
+  }
+}
+.theme--dark.v-app-bar.v-toolbar.v-sheet {
+  background-color: rgb(245, 130, 32);
+}
+.v-navigation-drawer,
+.theme--light.v-app-bar.v-toolbar.v-sheet,
+.theme--dark.v-navigation-drawer {
+  background: linear-gradient(45deg, #f58220, #e53985) !important;
+}
+.sidebar a .v-icon {
+  color: #fff;
+}
+.v-app-bar__nav-icon.v-btn > .v-btn__content .v-icon {
+  color: rgb(245, 130, 32);
+}
+.v-app-bar__nav-icon.v-btn {
+  background-color: #fff;
+  border-radius: 10px;
+  height: 36px !important;
+  width: 36px !important;
+  left: 10px;
 }
 </style>

@@ -7,21 +7,17 @@
     />
     <br />
     <div>
-      <v-layout row wrap class="pa-2">
+      <v-layout row wrap>
         <v-flex d-flex xs12 sm12 md6 class="mt-2">
-          <v-card
-            color="rgba(0, 0, 0, 0.5)"
-            class="ml-2 mr-2 mb-2 pa-2 white--text"
-            style="width: 100%; border-radius: 20px"
-            height="332"
-          >
-            <div class="d-flex ml-4">
-              <h6 class="mb-4">Notification</h6>
-            </div>
-            <v-divider dark></v-divider>
-
+          <v-card>
+            <v-card-title
+              class="text-left text-h7 font-weight-bold pb-0"
+              style="color: #f58220"
+            >
+              Notification
+            </v-card-title>
             <div class="d-flex justify-center">
-              <v-card-title class="font-weight-bold card__title"
+              <v-card-title class="font-weight-medium card__title text-h7"
                 >Push Notification</v-card-title
               >
               <v-spacer></v-spacer>
@@ -29,11 +25,11 @@
                 v-model="pushNotification"
                 color="warning"
                 value="warning"
+                inset
               ></v-switch>
             </div>
-
-            <v-flex d-flex xs12 sm12 md8 class="text-start ml-4">
-              <p class="card__text">
+            <v-flex class="text-start pl-4 pr-4">
+              <p>
                 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
                 diam nonumy eirmod tempor invidunt ut labore et dolore magna.
               </p>
@@ -42,42 +38,37 @@
         </v-flex>
 
         <v-flex d-flex xs12 sm12 md6 class="mt-2">
-          <v-card
-            color="rgba(0, 0, 0, 0.5)"
-            class="ml-2 mr-2 mb-2 pa-2 white--text"
-            style="width: 100%; border-radius: 20px"
-            height="332"
-          >
-            <div class="d-flex ml-4">
-              <h6 class="mb-4">Data Setting</h6>
-            </div>
-            <v-divider dark></v-divider>
-
-            <v-card-title class="font-weight-bold card__title"
+          <v-card>
+            <v-card-title
+              class="text-left text-h7 font-weight-bold pb-0"
+              style="color: #f58220"
+            >
+              Data Setting
+            </v-card-title>
+            <v-card-title class="font-weight-medium card__title text-h7 pb-0"
               >Start of the week</v-card-title
             >
-
-            <v-flex d-flex xs12 sm12 md8 class="text-start ml-4">
-              <p class="card__text">
+            <v-flex class="text-start pl-4 pr-4">
+              <p class="mb-0">
                 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
                 diam nonumy eirmod tempor invidunt ut labore et dolore magna.
               </p>
             </v-flex>
 
-            <v-radio-group v-model="radioDays" row class="ml-3">
+            <v-radio-group v-model="radioDays" row class="ml-3 mt-1">
               <v-radio value="monday" color="warning">
                 <template v-slot:label>
-                  <div class="white--text card__radio">Monday</div>
+                  <div class="card__radio">Monday</div>
                 </template>
               </v-radio>
               <v-radio value="saturday" color="warning">
                 <template v-slot:label>
-                  <div class="white--text card__radio">Saturday</div>
+                  <div class="card__radio">Saturday</div>
                 </template>
               </v-radio>
               <v-radio value="sunday" color="warning">
                 <template v-slot:label>
-                  <div class="white--text card__radio">Sunday</div>
+                  <div class="card__radio">Sunday</div>
                 </template>
               </v-radio>
             </v-radio-group>
@@ -85,61 +76,64 @@
         </v-flex>
 
         <v-flex d-flex xs12 sm12 md6 class="mt-2 mb-4">
-          <v-card
-            color="rgba(0, 0, 0, 0.5)"
-            class="ml-2 mr-2 mb-2 pa-2 white--text"
-            style="width: 100%; border-radius: 20px"
-            height="332"
-          >
-            <div class="d-flex ml-4">
-              <h6 class="mb-4">Units</h6>
-            </div>
-            <v-divider dark></v-divider>
-
-            <v-card-title class="font-weight-bold card__title"
+          <v-card>
+            <v-card-title
+              class="text-left text-h7 font-weight-bold pb-0"
+              style="color: #f58220"
+            >
+              Units
+            </v-card-title>
+            <v-card-title class="font-weight-medium card__title text-h7 pb-0"
               >Measurements</v-card-title
             >
-
-            <v-flex d-flex xs12 sm12 md8 class="text-start ml-4">
-              <p class="card__text">
+            <v-flex class="text-start pl-4 pr-4">
+              <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Non,
                 numquam!
               </p>
             </v-flex>
 
             <div class="d-flex align-center">
-              <v-card-title class="font-weight-bold card__title"
+              <v-card-title class="font-weight-bold card__title text-h6"
                 >Weight</v-card-title
               >
               <v-spacer></v-spacer>
-              <v-radio-group v-model="radioWeight" row class="mr-7">
+              <v-radio-group v-model="radioWeight" row>
                 <v-radio value="kg" color="warning">
                   <template v-slot:label>
-                    <div class="white--text card__radio">KG</div>
+                    <div class="card__radio font-weight-regular text-h7">
+                      KG
+                    </div>
                   </template>
                 </v-radio>
                 <v-radio value="lbs" color="warning">
                   <template v-slot:label>
-                    <div class="white--text card__radio">LBS</div>
+                    <div class="card__radio font-weight-regular text-h7">
+                      LBS
+                    </div>
                   </template>
                 </v-radio>
               </v-radio-group>
             </div>
 
             <div class="d-flex align-center">
-              <v-card-title class="font-weight-bold card__title"
+              <v-card-title class="font-weight-bold card__title text-h6"
                 >Height</v-card-title
               >
               <v-spacer></v-spacer>
-              <v-radio-group v-model="radioHeight" row class="mr-3">
+              <v-radio-group v-model="radioHeight" row>
                 <v-radio value="cm" color="warning">
                   <template v-slot:label>
-                    <div class="white--text card__radio">CM</div>
+                    <div class="card__radio font-weight-regular text-h7">
+                      CM
+                    </div>
                   </template>
                 </v-radio>
                 <v-radio value="feet" color="warning">
                   <template v-slot:label>
-                    <div class="white--text card__radio">FEET</div>
+                    <div class="card__radio font-weight-regular text-h7">
+                      FEET
+                    </div>
                   </template>
                 </v-radio>
               </v-radio-group>
@@ -148,19 +142,15 @@
         </v-flex>
 
         <v-flex d-flex xs12 sm12 md6 class="mt-2 mb-4">
-          <v-card
-            color="rgba(0, 0, 0, 0.5)"
-            class="ml-2 mr-2 mb-5 mb-md-0 pa-2 white--text"
-            style="width: 100%; border-radius: 20px"
-            height="332"
-          >
-            <div class="d-flex ml-4">
-              <h6 class="mb-4">Notification</h6>
-            </div>
-            <v-divider dark></v-divider>
-
+          <v-card class="ml-2 mr-2 mb-5 mb-md-0 pa-2">
+            <v-card-title
+              class="text-left text-h7 font-weight-bold pb-0"
+              style="color: #f58220"
+            >
+              Reminders
+            </v-card-title>
             <div class="d-flex justify-center">
-              <v-card-title class="font-weight-bold card__title"
+              <v-card-title class="font-weight-bold card__title text-h6"
                 >Daily Reminders</v-card-title
               >
               <v-spacer></v-spacer>
@@ -168,30 +158,32 @@
                 v-model="dailyReminders"
                 color="warning"
                 value="warning"
+                inset
               ></v-switch>
             </div>
 
-            <v-flex d-flex xs12 sm12 md8 class="text-start ml-4">
-              <p class="card__text">
+            <v-flex class="text-start pl-4 pr-4">
+              <p>
                 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
                 diam nonumy.
               </p>
             </v-flex>
 
             <div class="d-flex justify-center">
-              <v-card-title class="font-weight-bold card__title"
+              <v-card-title class="font-weight-bold card__title text-h6"
                 >Upcoming Reminders</v-card-title
               >
               <v-spacer></v-spacer>
               <v-switch
                 v-model="upcomingReminders"
                 color="warning"
+                inset
                 value="warning"
               ></v-switch>
             </div>
 
-            <v-flex d-flex xs12 sm12 md8 class="text-start ml-4">
-              <p class="card__text">
+            <v-flex class="text-start pl-4 pr-4">
+              <p>
                 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
                 diam nonumy.
               </p>
@@ -238,9 +230,35 @@ h6 {
 .card__radio {
   font: normal normal 600 20px/24px Lato;
 }
+.card__radio {
+  font-family: "Gilroy";
+  font-weight: 500;
+  color: #212121;
+  font-size: 18px;
+}
+.v-sheet.v-card {
+  border-radius: 26px;
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 15px 10px;
+}
+.text-h7 {
+  font-size: 18px;
+}
+.v-input--radio-group.v-input--radio-group--row .v-radio {
+  min-width: 100px;
+  margin-top: 10px;
+  font-weight: 100;
+}
 @media only screen and (max-width: 600px) {
   .card__title {
     font-size: 20px;
+  }
+  .card__radio {
+    font-size: 14px;
+  }
+  .v-input--radio-group.v-input--radio-group--row .v-radio {
+    min-width: unset;
   }
 }
 </style>

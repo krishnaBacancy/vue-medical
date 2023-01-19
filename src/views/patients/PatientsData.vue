@@ -4,74 +4,63 @@
       title="Patients"
       pageIcon="mdi-arrow-left"
       @goBack="$router.go(-1)"
-      btnName="Add"
+      btnName="Add Patient"
       color-name="warning"
-      btnIconName="mdi-account-plus"
+      btnIconName="mdi-plus"
       @addNewPatient="addPatient"
     />
     <br />
-    <v-container
-      style="background-color: rgba(0, 0, 0, 0.5); border-radius: 20px"
-      fluid
-    >
-      <div class="mt-3 mb-3 pa-2">
-        <v-data-table
-          item-key="name"
-          class="elevation-1"
-          loading
-          loading-text="Loading... Please wait"
-          height="350"
-          :items-per-page="5"
-          dark
-          v-if="loadingStatus"
-        ></v-data-table>
-        <v-data-table
-          v-else
-          :headers="headers"
-          :items="getAllPatientsOnly"
-          :items-per-page="5"
-          class="elevation-1 table"
-          height="600"
-          dark
-        >
-          <template v-slot:[`item.image`]>
-            <v-img
-              src="@/assets/Ellipse 10.png"
-              height="80"
-              width="80"
-              contain
-              class="mt-2 mb-2"
-            ></v-img>
-          </template>
-          <template v-slot:[`item.actions`]="{ item }">
-            <v-icon
-              color="warning"
-              class="mr-4"
-              size="22"
-              @click="$router.push(`/patients/patient/${item.id}`)"
-            >
-              mdi-eye
-            </v-icon>
-            <v-icon
-              size="22"
-              color="info"
-              class="mr-4"
-              @click="$router.push(`/edit-patient/${item.id}`)"
-              v-if="role === 'Doctor'"
-              >mdi-pencil</v-icon
-            >
-            <v-icon
-              size="22"
-              color="red"
-              @click="deleteSinglePatient(item.id)"
-              v-if="role === 'Doctor'"
-              >mdi-delete</v-icon
-            >
-          </template>
-        </v-data-table>
-      </div>
-      <ConfirmDialog ref="confirm" />
-    </v-container>
+    <div class="table-changes">
+      <v-data-table
+        item-key="name"
+        class="elevation-1"
+        loading
+        loading-text="Loading... Please wait"
+        height="350"
+        :items-per-page="5"
+        v-if="loadingStatus"
+      ></v-data-table>
+      <v-data-table
+        v-else
+        :headers="headers"
+        :items="getAllPatientsOnly"
+        :items-per-page="5"
+        class="elevation-1 table"
+      >
+        <template v-slot:[`item.image`]>
+          <v-img
+            src="@/assets/Ellipse 10.png"
+            height="80"
+            width="80"
+            contain
+            class="table-user"
+          ></v-img>
+        </template>
+        <template v-slot:[`item.actions`]="{ item }">
+          <button
+            class="btn btn-orange"
+            @click="$router.push(`/patients/patient/${item.id}`)"
+          >
+            <v-icon color="white" size="22"> mdi-eye </v-icon>
+          </button>
+          <button
+            class="btn btn-info"
+            v-if="role === 'Doctor'"
+            @click="$router.push(`/edit-patient/${item.id}`)"
+          >
+            <v-icon size="22" color="white">mdi-pencil</v-icon>
+          </button>
+          <button
+            class="btn btn-danger"
+            v-if="role === 'Doctor'"
+            @click="deleteSinglePatient(item.id)"
+          >
+            <v-icon size="22" color="white">mdi-delete</v-icon>
+          </button>
+        </template>
+      </v-data-table>
+    </div>
+    <ConfirmDialog ref="confirm" />
   </div>
 </template>
 
@@ -156,28 +145,49 @@ small {
   font-size: 0.9rem;
   color: grey;
 }
-.table >>> th {
+.table th {
   font-size: 16px !important;
 }
-.table >>> tr > td {
+.table tr > td {
   font-size: 24px !important;
 }
-.table >>> .v-data-footer__select,
-.table >>> .v-select__selection,
-.table >>> .v-data-footer__pagination {
+.table .v-data-footer__select,
+.table .v-select__selection,
+.table .v-data-footer__pagination {
   font-size: 1rem;
 }
 @media only screen and (max-width: 960px) {
-  .table >>> th {
+  .table th {
     font-size: 12px !important;
   }
-  .table >>> tr > td {
+  .table tr > td {
     font-size: 16px !important;
   }
-  .table >>> .v-data-footer__select,
-  .table >>> .v-select__selection,
-  .table >>> .v-data-footer__pagination {
+  .table .v-data-footer__select,
+  .table .v-select__selection,
+  .table .v-data-footer__pagination {
     font-size: 0.8rem;
+  }
+}
+.btn {
+  padding: 9px;
+  color: #fff;
+  margin-left: 12px;
+  border-radius: 10px;
+}
+.btn-orange {
+  background-color: #f58220;
+}
+.btn-info {
+  background-color: #1ad2d9;
+}
+.btn-danger {
+  background-color: #fd5d5d;
+}
+@media (max-width: 600px) {
+  .btn {
+    margin-left: 0;
+    margin-right: 10px;
   }
 }
 </style>
