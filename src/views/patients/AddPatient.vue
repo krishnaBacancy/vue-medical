@@ -452,7 +452,9 @@ export default {
         obj.selectedRelation === "" ||
         obj.contactNo === ""
       ) {
-        this.$toast.error("Please enter all details properly.", 3000);
+        this.$toast.error("Please enter all details properly.", {
+          timeout: 3000,
+        });
       } else {
         let newObj = {};
         for (const [key, val] of Object.entries(obj)) {
@@ -513,7 +515,9 @@ export default {
           });
         }
         if (!this.isValidPhoneNumber || !this.isValidEmergencyPhoneNumber) {
-          this.$toast.error("Please enter valid mobile number.", 3000);
+          this.$toast.error("Please enter valid mobile number.", {
+            timeout: 3000,
+          });
         } else {
           this.addUser(data)
             .then((success) => {

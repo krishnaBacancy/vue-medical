@@ -128,7 +128,9 @@ export default {
         )
       ) {
         this.deletePatient(item);
-        this.$toast.success("Patient deleted successfully.");
+        this.$toast.success("Patient deleted successfully.", {
+          timeout: 3000,
+        });
         setTimeout(() => {
           this.getAllPatientsData(this.getDoctorId);
         }, 500);

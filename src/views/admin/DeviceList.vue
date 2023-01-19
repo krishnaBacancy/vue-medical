@@ -335,6 +335,8 @@ export default {
       selectedHeaders: {},
       selected: [],
       selectedHeadersPatient: {},
+      isValidAssignDoctor: false,
+      isValidAssignPatient: false,
     };
   },
   computed: {
@@ -391,7 +393,7 @@ export default {
         )
       ) {
         this.deleteDevice(item);
-        this.$toast.success("Device deleted successfully.");
+        this.$toast.success("Device deleted successfully.", { timeout: 3000 });
       }
       this.dialogDelete = true;
     },
@@ -435,10 +437,9 @@ export default {
         this.selectedHeaders = this.selected[0].doctorFullName;
         this.getAllPatientsData(this.getDoctorId);
       } else {
-        this.$toast.error(
-          "You must select atleast one device to assign.",
-          3000
-        );
+        this.$toast.error("You must select atleast one device to assign.", {
+          timeout: 3000,
+        });
       }
     },
     assignDevicesToPatient() {
@@ -447,57 +448,94 @@ export default {
         this.selectedHeadersPatient = this.selected[0].fullName;
         this.getAllPatientsData(this.getDoctorId);
       } else {
-        this.$toast.error(
-          "You must select atleast one device to assign.",
-          3000
-        );
+        this.$toast.error("You must select atleast one device to assign.", {
+          timeout: 3000,
+        });
       }
     },
-    async getSelectedValue() {
+    async checkValidAssignDoctor() {
+      this.isValidAssignDoctor = await this.$refs.assign.open(
+        "Some of device are already assigned to doctor. Do You wish to continue?"
+      );
+      return this.isValidAssignDoctor;
+    },
+    async checkValidAssignPatient() {
+      this.isValidAssignPatient = await this.$refs.assign.open(
+        "Some of device are already assigned to doctor. Do You wish to continue?"
+      );
+      return this.isValidAssignPatient;
+    },
+    getSelectedValue() {
       let macAddress = this.selected.map((data) => data.macAddressFramed);
       let data = {
         devices: macAddress,
         docterId: this.selectedHeaders?.id,
       };
       if (this.selectedHeaders && this.selectedHeaders !== null) {
-        this.checkAssignDevicesToDoctor(data);
-        if (
-          await this.$refs.assign.open(
-            "Some of device are already assigned to doctor. Do You wish to continue?"
-          )
-        ) {
-          this.assignDeviceToDoctor(data);
-          this.selected = [];
-          this.assignDeviceDoctorDialog = false;
-          setTimeout(() => {
-            this.getAllDevices();
-          }, 500);
-          this.$toast.success("Devices assigned to Doctor successfully.");
-        }
+        this.checkAssignDevicesToDoctor(data)
+          .then((res) => {
+            if (res.message === "devices assigned to  doctor successfully.") {
+              this.selected = [];
+              this.assignDeviceDoctorDialog = false;
+              setTimeout(() => {
+                this.getAllDevices();
+              }, 500);
+              this.$toast.success(res.message, { timeout: 3000 });
+              return;
+            } else {
+              this.checkValidAssignDoctor().then((res) => {
+                console.log(res);
+                this.assignDeviceToDoctor(data);
+                this.selected = [];
+                this.assignDeviceDoctorDialog = false;
+                setTimeout(() => {
+                  this.getAllDevices();
+                }, 500);
+                this.$toast.success("device assigned to doctor successfully.", {
+                  timeout: 3000,
+                });
+              });
+            }
+          })
+          .catch((err) => console.log(err));
       }
       this.selectedHeaders = {};
     },
-    async getSelectedValuePatient() {
+    getSelectedValuePatient() {
       let macAddress = this.selected.map((data) => data.macAddressFramed);
       let data = {
         devices: macAddress,
         customerId: this.selectedHeadersPatient?.id,
       };
       if (this.selectedHeadersPatient && this.selectedHeadersPatient !== null) {
-        this.checkAssignDevicesToPatient(data);
-        if (
-          await this.$refs.assign.open(
-            "Some of device are already assigned to customer. Do You wish to continue?"
-          )
-        ) {
-          this.assignDeviceToPatient(data);
-          this.selected = [];
-          this.assignDevicePatientDialog = false;
-          setTimeout(() => {
-            this.getAllDevices();
-          }, 500);
-          this.$toast.success("Devices assigned to Patient successfully.");
-        }
+        this.checkAssignDevicesToPatient(data)
+          .then((res) => {
+            if (res.message === "devices assigned to  customer successfully.") {
+              this.selected = [];
+              this.assignDevicePatientDialog = false;
+              setTimeout(() => {
+                this.getAllDevices();
+              }, 500);
+              this.$toast.success(res.message, { timeout: 3000 });
+            } else {
+              this.checkValidAssignPatient().then((res) => {
+                console.log(res);
+                this.assignDeviceToPatient(data);
+                this.selected = [];
+                this.assignDevicePatientDialog = false;
+                setTimeout(() => {
+                  this.getAllDevices();
+                }, 500);
+                this.$toast.success(
+                  "device assigned to customer successfully.",
+                  {
+                    timeout: 3000,
+                  }
+                );
+              });
+            }
+          })
+          .catch((err) => console.log(err));
       }
       this.selectedHeadersPatient = {};
     },
