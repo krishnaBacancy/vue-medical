@@ -7,323 +7,290 @@
     />
     <br />
     <div class="pa-3">
-      <v-layout row wrap>
-        <v-flex d-flex xs12 sm12 md12>
-          <v-card
-            class="mt-2 mb-5 pa-5"
-            style="width: 100%; border-radius: 20px"
+      <h5 class="text-left warning--text text-h5 mb-4 font-weight-bold">
+        Patient Info
+      </h5>
+      <div>
+        <v-form ref="form" v-model="valid" lazy-validation>
+          <v-row>
+            <v-col class="form-group" cols="12" sm="6" md="4">
+              <CustomTextField
+                :type="'text'"
+                :label="'Patient First Name'"
+                :fieldRules="nameRules"
+                v-model.trim="user.fname"
+              />
+            </v-col>
+            <v-col class="form-group" cols="12" sm="6" md="4">
+              <CustomTextField
+                :type="'text'"
+                :label="'Patient Last Name'"
+                :fieldRules="nameRules"
+                v-model.trim="user.lname"
+              />
+            </v-col>
+            <v-col class="form-group" cols="12" sm="12" md="4">
+              <CustomTextField
+                :type="'email'"
+                :label="'Email Address'"
+                :fieldRules="emailRules"
+                v-model.trim="user.email"
+              />
+            </v-col>
+            <v-col class="form-group" cols="12" sm="6" md="4">
+              <!-- <CustomTextField
+                :type="'number'"
+                :label="'Phone Number'"
+                :fieldRules="phoneRules"
+                v-model="user.phone"
+              /> -->
+              <vue-tel-input
+                v-model.trim="user.phone"
+                style="height: 53px"
+                v-bind="phoneProps"
+                @validate="phoneNumberChanged"
+              ></vue-tel-input>
+            </v-col>
+            <v-col class="form-group" cols="12" sm="6" md="4">
+              <!-- <CustomTextField
+                :type="'number'"
+                :label="'Emergency Number'"
+                :fieldRules="phoneRules"
+                v-model="user.emergencyPhone"
+              /> -->
+              <vue-tel-input
+                v-model.trim="user.emergencyPhone"
+                style="height: 53px"
+                v-bind="emergencyPhoneProps"
+                @validate="emergencyPhoneChanged"
+              ></vue-tel-input>
+            </v-col>
+            <v-col class="form-group" cols="12" sm="12" md="4">
+              <v-menu
+                v-model="dateMenu"
+                :close-on-content-click="false"
+                :nudge-right="40"
+                transition="scale-transition"
+                offset-y
+                min-width="290px"
+                max-width="290px"
+              >
+                <template v-slot:activator="{ on }">
+                  <v-text-field
+                    label="Date Of Birth"
+                    readonly
+                    hide-details
+                    :value="dateValue"
+                    @focus="focusDate"
+                    filled
+                    dense
+                    v-on="on"
+                  ></v-text-field>
+                </template>
+                <v-date-picker
+                  locale="en-in"
+                  v-model="dateValue"
+                  no-title
+                  @input="dateMenu = false"
+                  :max="new Date().toISOString().slice(0, 10)"
+                ></v-date-picker>
+              </v-menu>
+            </v-col>
+            <v-col class="form-group" cols="12" sm="6" md="4">
+              <v-radio-group v-model="user.gender" row>
+                <template v-slot:label>
+                  <div><strong>Gender</strong></div>
+                </template>
+                <v-radio value="male" color="warning">
+                  <template v-slot:label>
+                    <div>Male</div>
+                  </template>
+                </v-radio>
+                <v-radio value="female" color="warning">
+                  <template v-slot:label>
+                    <div>Female</div>
+                  </template>
+                </v-radio>
+              </v-radio-group>
+            </v-col>
+            <v-col class="form-group" cols="12" sm="6" md="4">
+              <CustomTextField
+                :type="'number'"
+                :label="'Weight (kg)'"
+                :fieldRules="weightRules"
+                v-model.trim="user.weight"
+              />
+            </v-col>
+            <v-col class="form-group" cols="12" sm="12" md="4">
+              <CustomTextField
+                :type="'number'"
+                :label="'Height (cm)'"
+                :fieldRules="heightRules"
+                v-model.trim="user.height"
+              />
+            </v-col>
+            <v-col class="form-group" cols="12" sm="6" md="4">
+              <v-text-field
+                :append-icon="showPassIcon ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="showPassIcon ? 'text' : 'password'"
+                v-model.trim="user.password"
+                name="password"
+                label="Password"
+                hint="At least 6 characters"
+                required
+                filled
+                dense
+                :rules="passwordRules"
+                @click:append="showPassIcon = !showPassIcon"
+              ></v-text-field>
+            </v-col>
+            <v-col class="form-group" cols="12" sm="6" md="4">
+              <CustomTextField
+                :type="'number'"
+                :label="'Aadhar Number'"
+                :fieldRules="aadharRules"
+                v-model.trim="user.aadhar"
+              />
+            </v-col>
+            <v-col class="form-group" cols="12" sm="12" md="4">
+              <CustomTextField
+                :type="'text'"
+                :label="'Address'"
+                :fieldRules="addressRules"
+                v-model.trim="user.address"
+              />
+            </v-col>
+          </v-row>
+
+          <h5
+            class="text-left warning--text text-h5 mb-4 mt-5 font-weight-bold"
           >
-            <v-card-title
-              class="warning--text text-h5 ml-n2 mb-2 font-weight-bold"
-              >Patient Info</v-card-title
+            Emergency Contact Info
+          </h5>
+          <v-row v-for="(familyInfo, index) in familyMemberInfo" :key="index">
+            <v-col class="form-group" cols="12" sm="auto">
+              <CustomTextField
+                :type="'text'"
+                :label="'Member Name'"
+                :fieldRules="memberNameRules"
+                v-model.trim="familyInfo.name"
+              />
+            </v-col>
+            <v-col class="form-group" cols="12" sm="auto">
+              <v-select
+                :items="relations"
+                filled
+                dense
+                label="Select Relation"
+                :rules="selectRules"
+                v-model="familyInfo.selectedRelation"
+              ></v-select>
+            </v-col>
+            <v-col class="form-group" cols="12" sm="auto">
+              <CustomTextField
+                :type="'number'"
+                :label="'Contact Number'"
+                :fieldRules="phoneRules"
+                v-model.trim="familyInfo.contactNo"
+              />
+            </v-col>
+            <v-col class="form-group" cols="12" sm="auto">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="34"
+                height="34"
+                class="ml-2 mt-2 main__svg"
+                @click="addField(familyInfo, familyMemberInfo)"
+              >
+                <path fill="none" d="M0 0h24v24H0z" />
+                <path
+                  fill="green"
+                  d="M11 11V7h2v4h4v2h-4v4h-2v-4H7v-2h4zm1 11C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="34"
+                height="34"
+                class="ml-10 main__svg"
+                @click="removeField(index, familyMemberInfo)"
+                v-show="familyMemberInfo.length > 1"
+              >
+                <path fill="none" d="M0 0h24v24H0z" />
+                <path
+                  fill="#EC4899"
+                  d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm0-9.414l2.828-2.829 1.415 1.415L13.414 12l2.829 2.828-1.415 1.415L12 13.414l-2.828 2.829-1.415-1.415L10.586 12 7.757 9.172l1.415-1.415L12 10.586z"
+                />
+              </svg>
+            </v-col>
+          </v-row>
+
+          <h5
+            class="text-left warning--text text-h5 mb-4 mt-5 font-weight-bold"
+          >
+            Medical History
+          </h5>
+          <v-row>
+            <v-col class="form-group" cols="12" sm="6" md="4">
+              <CustomTextField
+                :type="'number'"
+                :label="'Blood Pressure'"
+                :fieldRules="bloodPressureRules"
+                v-model.trim="medicalInfo.bloodPressure"
+              />
+            </v-col>
+            <v-col class="form-group" cols="12" sm="6" md="4">
+              <CustomTextField
+                :type="'number'"
+                :label="'Diabetics'"
+                :fieldRules="diabeticsRules"
+                v-model.trim="medicalInfo.diabetics"
+              />
+            </v-col>
+            <v-col class="form-group" cols="12" sm="12" md="4">
+              <v-select
+                :items="heartCondition"
+                filled
+                dense
+                label="Heart Condition"
+                :rules="selectRules"
+                v-model="medicalInfo.heartCondition"
+              ></v-select>
+            </v-col>
+            <v-col class="form-group" cols="12" sm="6" md="4">
+              <CustomTextField
+                :type="'number'"
+                :label="'Thyroid'"
+                :field-rules="thyroidRules"
+                v-model.trim="medicalInfo.thyroid"
+              />
+            </v-col>
+            <v-col class="form-group" cols="12" sm="6" md="4">
+              <CustomTextField
+                :type="'number'"
+                :label="'Obesity'"
+                :field-rules="obesityRules"
+                v-model.trim="medicalInfo.obesity"
+              />
+            </v-col>
+          </v-row>
+
+          <div class="text-left">
+            <v-btn color="warning" class="py-3 h-auto" outlined @click="reset">
+              Reset Form
+            </v-btn>
+            <v-btn
+              color="warning"
+              class="py-3 ml-4 px-6 h-auto"
+              :disabled="!valid"
+              @click="addPatient"
+              >Add Patient</v-btn
             >
-
-            <div>
-              <v-form ref="form" v-model="valid" lazy-validation>
-                <v-row>
-                  <v-col cols="12" sm="6" md="4">
-                    <CustomTextField
-                      :type="'text'"
-                      :label="'Patient First Name'"
-                      :fieldRules="nameRules"
-                      v-model.trim="user.fname"
-                    />
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <CustomTextField
-                      :type="'text'"
-                      :label="'Patient Last Name'"
-                      :fieldRules="nameRules"
-                      v-model.trim="user.lname"
-                    />
-                  </v-col>
-                  <v-col cols="12" sm="12" md="4">
-                    <CustomTextField
-                      :type="'email'"
-                      :label="'Email Address'"
-                      :fieldRules="emailRules"
-                      v-model.trim="user.email"
-                    />
-                  </v-col>
-                </v-row>
-
-                <v-row>
-                  <v-col cols="12" sm="6" md="4">
-                    <!-- <CustomTextField
-                      :type="'number'"
-                      :label="'Phone Number'"
-                      :fieldRules="phoneRules"
-                      v-model="user.phone"
-                    /> -->
-                    <vue-tel-input
-                      v-model.trim="user.phone"
-                      style="height: 53px"
-                      v-bind="phoneProps"
-                      @validate="phoneNumberChanged"
-                    ></vue-tel-input>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <!-- <CustomTextField
-                      :type="'number'"
-                      :label="'Emergency Number'"
-                      :fieldRules="phoneRules"
-                      v-model="user.emergencyPhone"
-                    /> -->
-                    <vue-tel-input
-                      v-model.trim="user.emergencyPhone"
-                      style="height: 53px"
-                      v-bind="emergencyPhoneProps"
-                      @validate="emergencyPhoneChanged"
-                    ></vue-tel-input>
-                  </v-col>
-                  <v-col cols="12" sm="12" md="4">
-                    <v-menu
-                      v-model="dateMenu"
-                      :close-on-content-click="false"
-                      :nudge-right="40"
-                      transition="scale-transition"
-                      offset-y
-                      min-width="290px"
-                      max-width="290px"
-                    >
-                      <template v-slot:activator="{ on }">
-                        <v-text-field
-                          label="Date Of Birth"
-                          readonly
-                          hide-details
-                          :value="dateValue"
-                          @focus="focusDate"
-                          filled
-                          dense
-                          v-on="on"
-                        ></v-text-field>
-                      </template>
-                      <v-date-picker
-                        locale="en-in"
-                        v-model="dateValue"
-                        no-title
-                        @input="dateMenu = false"
-                        :max="new Date().toISOString().slice(0, 10)"
-                      ></v-date-picker>
-                    </v-menu>
-                  </v-col>
-                </v-row>
-
-                <v-row>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-radio-group v-model="user.gender" row class="ml-4">
-                      <template v-slot:label>
-                        <div><strong>Gender</strong></div>
-                      </template>
-                      <v-radio value="male" color="warning">
-                        <template v-slot:label>
-                          <div>Male</div>
-                        </template>
-                      </v-radio>
-                      <v-radio value="female" color="warning">
-                        <template v-slot:label>
-                          <div>Female</div>
-                        </template>
-                      </v-radio>
-                    </v-radio-group>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <CustomTextField
-                      :type="'number'"
-                      :label="'Weight (kg)'"
-                      :fieldRules="weightRules"
-                      v-model.trim="user.weight"
-                    />
-                  </v-col>
-                  <v-col cols="12" sm="12" md="4">
-                    <CustomTextField
-                      :type="'number'"
-                      :label="'Height (cm)'"
-                      :fieldRules="heightRules"
-                      v-model.trim="user.height"
-                    />
-                  </v-col>
-                </v-row>
-
-                <v-row>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field
-                      :append-icon="showPassIcon ? 'mdi-eye' : 'mdi-eye-off'"
-                      :type="showPassIcon ? 'text' : 'password'"
-                      v-model.trim="user.password"
-                      name="password"
-                      label="Password"
-                      hint="At least 6 characters"
-                      required
-                      filled
-                      dense
-                      :rules="passwordRules"
-                      @click:append="showPassIcon = !showPassIcon"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <CustomTextField
-                      :type="'number'"
-                      :label="'Aadhar Number'"
-                      :fieldRules="aadharRules"
-                      v-model.trim="user.aadhar"
-                    />
-                  </v-col>
-                  <v-col cols="12" sm="12" md="4">
-                    <CustomTextField
-                      :type="'text'"
-                      :label="'Address'"
-                      :fieldRules="addressRules"
-                      v-model.trim="user.address"
-                    />
-                  </v-col>
-                </v-row>
-
-                <v-card-title
-                  class="warning--text text-h5 mb-2 ml-n2 font-weight-bold"
-                  >Emergency Contact Info</v-card-title
-                >
-                <v-row
-                  v-for="(familyInfo, index) in familyMemberInfo"
-                  :key="index"
-                >
-                  <v-col cols="12" sm="6" md="3">
-                    <CustomTextField
-                      :type="'text'"
-                      :label="'Member Name'"
-                      :fieldRules="memberNameRules"
-                      v-model.trim="familyInfo.name"
-                    />
-                  </v-col>
-                  <v-col cols="12" sm="6" md="3">
-                    <v-select
-                      :items="relations"
-                      filled
-                      dense
-                      label="Select Relation"
-                      :rules="selectRules"
-                      v-model="familyInfo.selectedRelation"
-                    ></v-select>
-                  </v-col>
-                  <v-col cols="12" sm="12" md="3">
-                    <CustomTextField
-                      :type="'number'"
-                      :label="'Contact Number'"
-                      :fieldRules="phoneRules"
-                      v-model.trim="familyInfo.contactNo"
-                    />
-                  </v-col>
-                  <v-col cols="12" md="3">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      width="34"
-                      height="34"
-                      class="ml-2 mt-2 main__svg"
-                      @click="addField(familyInfo, familyMemberInfo)"
-                    >
-                      <path fill="none" d="M0 0h24v24H0z" />
-                      <path
-                        fill="green"
-                        d="M11 11V7h2v4h4v2h-4v4h-2v-4H7v-2h4zm1 11C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      width="34"
-                      height="34"
-                      class="ml-10 main__svg"
-                      @click="removeField(index, familyMemberInfo)"
-                      v-show="familyMemberInfo.length > 1"
-                    >
-                      <path fill="none" d="M0 0h24v24H0z" />
-                      <path
-                        fill="#EC4899"
-                        d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm0-9.414l2.828-2.829 1.415 1.415L13.414 12l2.829 2.828-1.415 1.415L12 13.414l-2.828 2.829-1.415-1.415L10.586 12 7.757 9.172l1.415-1.415L12 10.586z"
-                      />
-                    </svg>
-                  </v-col>
-                </v-row>
-
-                <v-card-title
-                  class="warning--text text-h5 mb-2 ml-n2 font-weight-bold"
-                  >Medical History</v-card-title
-                >
-                <v-row>
-                  <v-col cols="12" sm="6" md="4">
-                    <CustomTextField
-                      :type="'number'"
-                      :label="'Blood Pressure'"
-                      :fieldRules="bloodPressureRules"
-                      v-model.trim="medicalInfo.bloodPressure"
-                    />
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <CustomTextField
-                      :type="'number'"
-                      :label="'Diabetics'"
-                      :fieldRules="diabeticsRules"
-                      v-model.trim="medicalInfo.diabetics"
-                    />
-                  </v-col>
-                  <v-col cols="12" sm="12" md="4">
-                    <v-select
-                      :items="heartCondition"
-                      filled
-                      dense
-                      label="Heart Condition"
-                      :rules="selectRules"
-                      v-model="medicalInfo.heartCondition"
-                    ></v-select>
-                  </v-col>
-                </v-row>
-
-                <v-row>
-                  <v-col cols="12" sm="6" md="4">
-                    <CustomTextField
-                      :type="'number'"
-                      :label="'Thyroid'"
-                      :field-rules="thyroidRules"
-                      v-model.trim="medicalInfo.thyroid"
-                    />
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <CustomTextField
-                      :type="'number'"
-                      :label="'Obesity'"
-                      :field-rules="obesityRules"
-                      v-model.trim="medicalInfo.obesity"
-                    />
-                  </v-col>
-                </v-row>
-
-                <v-row class="mt-2 mb-2">
-                  <v-flex xs12 sm6>
-                    <v-btn
-                      color="warning"
-                      :disabled="!valid"
-                      width="95%"
-                      @click="addPatient"
-                      >Add Patient</v-btn
-                    >
-                  </v-flex>
-                  <v-flex xs12 sm6>
-                    <v-btn
-                      color="error"
-                      class="mt-4 mt-sm-0 mt-md-0"
-                      width="95%"
-                      @click="reset"
-                    >
-                      Reset Form
-                    </v-btn>
-                  </v-flex>
-                </v-row>
-              </v-form>
-            </div>
-          </v-card>
-        </v-flex>
-      </v-layout>
+          </div>
+        </v-form>
+      </div>
     </div>
   </div>
 </template>
@@ -545,5 +512,12 @@ export default {
 <style scoped>
 .main__svg {
   cursor: pointer;
+}
+.vue-tel-input {
+  border: 1px solid #efefef;
+  border-radius: 10px;
+}
+.vue-tel-input:focus-within {
+  box-shadow: none;
 }
 </style>

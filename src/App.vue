@@ -104,6 +104,7 @@ nav a.router-link-exact-active {
   margin: 0px -15px;
 }
 .row > * {
+  padding: 0;
   padding-left: 15px;
   padding-right: 15px;
 }
@@ -303,5 +304,14 @@ nav a.router-link-exact-active {
     line-height: 1;
     margin-top: 12px;
   }
+}
+.h-auto {
+  height: auto !important;
+}
+.v-text-field.v-text-field--enclosed:not(.error--text) .v-text-field__details {
+  display: none;
+}
+.form-group {
+  margin-bottom: 28px;
 }
 </style>
