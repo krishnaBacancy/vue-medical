@@ -441,7 +441,9 @@ export default {
       this.$refs.form.validate();
       if (this.valid) {
         if (!this.isValidPhoneNumber || !this.isValidEmergencyNumber) {
-          this.$toast.error("Please enter valid mobile number.", 3000);
+          this.$toast.error("Please enter valid mobile number.", {
+            timeout: 3000,
+          });
         } else {
           const res = await axios.patch(
             `https://api.accu.live/api/v1/users/updateuser/${this.user.userId}`,

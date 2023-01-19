@@ -63,11 +63,9 @@ const mutations = {
     state.devices = newData;
   },
   SET_ASSIGN_DEVICES_DOCTOR(state, devices) {
-    console.log("data doctor--", devices);
     state.assignDevicesOfDoctor = devices;
   },
   SET_ASSIGN_DEVICES_PATIENT(state, devices) {
-    console.log("data patient", devices);
     state.assignDevicesOfPatient = devices;
   },
 };
@@ -108,9 +106,9 @@ const actions = {
   async checkAssignDevicesToDoctor({ commit }, payload) {
     const res = await devices.checkDeviceAssignToDoctor(payload);
     if (res.status === 200) {
-      console.log("res--", res.data);
       commit("SET_ASSIGN_DEVICES_DOCTOR", res.data.data);
     }
+    return res.data;
   },
   async assignDeviceToDoctor(_, payload) {
     const res = await devices.deviceAssignToDoctor(payload);
@@ -121,9 +119,9 @@ const actions = {
   async checkAssignDevicesToPatient({ commit }, payload) {
     const res = await devices.checkDeviceAssignToCustomer(payload);
     if (res.status === 200) {
-      console.log("res--", res.data.data);
       commit("SET_ASSIGN_DEVICES_PATIENT", res.data.data);
     }
+    return res.data;
   },
   async assignDeviceToPatient(_, payload) {
     const res = await devices.deviceAssignToCustomer(payload);
