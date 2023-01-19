@@ -698,6 +698,7 @@ export default {
   },
   data() {
     return {
+      pushNotification: true,
       getDoctorId: localStorage.getItem("user_id"),
       aggregateValues: ["average", "minimum", "maximum"],
       selectedAggregate: "average",
