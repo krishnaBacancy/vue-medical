@@ -7,18 +7,12 @@
     />
     <br />
     <v-container fluid grid-list-md style="border-radius: 20px" class="mb-4">
-      <!-- <div class="d-flex" v-if="mobile">
+      <div class="d-flex" v-if="mobile">
         <h3>Filter</h3>
-        <v-icon class="ml-4" color="white" @click="gridNumber = 4"
-          >mdi-tally-mark-3</v-icon
-        >
-        <v-icon class="ml-2" color="white" @click="gridNumber = 6"
-          >mdi-tally-mark-2</v-icon
-        >
-        <v-icon class="ml-2" color="white" @click="gridNumber = 12"
-          >mdi-tally-mark-1</v-icon
-        >
-      </div> -->
+        <v-icon class="ml-4" @click="gridNumber = 4">mdi-tally-mark-3</v-icon>
+        <v-icon class="ml-2" @click="gridNumber = 6">mdi-tally-mark-2</v-icon>
+        <v-icon class="ml-2" @click="gridNumber = 12">mdi-tally-mark-1</v-icon>
+      </div>
 
       <v-layout row wrap class="mt-4">
         <v-flex
@@ -70,7 +64,7 @@
             </div>
 
             <div class="d-flex mt-3">
-              <v-card width="50%" height="70">
+              <v-card width="33%" height="70">
                 <div class="d-flex align-center">
                   <v-flex>
                     <v-tooltip bottom>
@@ -89,7 +83,7 @@
                     </v-tooltip>
                   </v-flex>
                   <v-flex xs12>
-                    <div class="d-flex text-start mt-2 ml-2">
+                    <div class="d-flex flex-column text-start mt-2 ml-2">
                       <h5 class="green--text">
                         {{ device?.algodata ? device.algodata?.hr : "--" }}
                       </h5>
@@ -99,7 +93,7 @@
                 </div>
               </v-card>
 
-              <v-card width="50%" height="70" class="ml-2">
+              <v-card width="33%" height="70" class="ml-2">
                 <div class="d-flex align-center">
                   <v-flex>
                     <v-tooltip bottom>
@@ -127,6 +121,39 @@
                         }}
                       </h5>
                       <small class="">%</small>
+                    </div>
+                  </v-flex>
+                </div>
+              </v-card>
+
+              <v-card width="33%" height="70" class="ml-2">
+                <div class="d-flex align-center">
+                  <v-flex>
+                    <v-tooltip bottom>
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-img
+                          v-on="on"
+                          v-bind="attrs"
+                          class="mt-2 ml-2"
+                          src="@/assets/temprature.svg"
+                          height="40"
+                          width="40"
+                          contain
+                        ></v-img>
+                      </template>
+                      <span>Temperature</span>
+                    </v-tooltip>
+                  </v-flex>
+                  <v-flex xs12>
+                    <div class="d-flex flex-column text-start ml-2 mt-2">
+                      <h5 class="text-danger">
+                        {{
+                          device?.algodata
+                            ? Math.round(device.algodata?.temp)
+                            : "--"
+                        }}
+                      </h5>
+                      <small class="">°C</small>
                     </div>
                   </v-flex>
                 </div>
