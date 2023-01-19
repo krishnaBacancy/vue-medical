@@ -128,4 +128,66 @@ nav a.router-link-exact-active {
 .text-brown {
   color: #cba9a9;
 }
+.theme--light.v-data-table
+  > .v-data-table__wrapper
+  > table
+  > thead
+  > tr:last-child
+  > th {
+  color: #666;
+  font-weight: 500;
+  font-size: 12px;
+}
+.table-changes
+  .theme--light.v-data-table
+  > .v-data-table__wrapper
+  > table
+  > thead
+  > tr:last-child
+  > th,
+.table-changes
+  .theme--light.v-data-table
+  > .v-data-table__wrapper
+  > table
+  > tbody
+  > tr:not(:last-child)
+  > td:not(.v-data-table__mobile-row) {
+  border: none;
+}
+.table-changes .theme--light.v-data-table {
+  box-shadow: none !important;
+}
+.table-changes
+  .theme--light.v-data-table
+  > .v-data-table__wrapper
+  > table
+  > tbody
+  > tr:hover:not(.v-data-table__expanded__content):not(.v-data-table__empty-wrapper) {
+  background: none;
+}
+.table-changes
+  .v-data-table
+  > .v-data-table__wrapper
+  > table
+  > tbody
+  > tr
+  > td {
+  border-bottom: 1px solid #e9e9e9 !important;
+  font-weight: 500;
+  padding: 15px 20px;
+}
+.table-changes .v-data-table > .v-data-table__wrapper > table {
+  border: 1px solid #e9e9e9;
+  border-bottom: none;
+}
+.table-changes
+  .v-data-table
+  > .v-data-table__wrapper
+  > table
+  > tbody
+  > tr
+  > td:last-child {
+  width: 1%;
+  white-space: nowrap;
+}
 </style>
