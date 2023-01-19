@@ -5,8 +5,7 @@
       pageIcon="mdi-arrow-left"
       @goBack="$router.go(-1)"
     />
-    <br />
-    <v-container style="border-radius: 20px" fluid>
+    <div class="text-right mb-5">
       <v-btn
         color="warning"
         height="53"
@@ -34,116 +33,68 @@
         @click="assignDevicesToPatient"
         >Assign to Customer</v-btn
       >
-      <v-dialog
-        transition="dialog-top-transition"
-        max-width="600"
-        overlay-color="white"
-        persistent
-        v-model="addDialog"
-      >
-        <v-card>
-          <v-card-title>
-            <span class="text-h5 ml-3">Add Device</span>
-          </v-card-title>
+    </div>
+    <v-dialog
+      transition="dialog-top-transition"
+      max-width="600"
+      overlay-color="white"
+      persistent
+      v-model="addDialog"
+    >
+      <v-card>
+        <v-card-title>
+          <span class="text-h5 ml-3">Add Device</span>
+        </v-card-title>
 
-          <v-form ref="form" v-model="valid" lazy-validation>
-            <v-card-text>
-              <v-container>
-                <v-row>
-                  <v-col cols="12" sm="6" md="6">
-                    <v-text-field
-                      label="Device Name"
-                      v-model.trim="device.name"
-                      :rules="nameRules"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="6">
-                    <v-text-field
-                      label="Mac Address"
-                      v-model.trim="device.macAddress"
-                      :rules="macAddressRules"
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
-
-                <v-row>
-                  <v-col cols="12" sm="6" md="6">
-                    <v-menu
-                      v-model="dateMenu"
-                      :close-on-content-click="false"
-                      :nudge-right="40"
-                      transition="scale-transition"
-                      offset-y
-                      min-width="290px"
-                      max-width="290px"
-                    >
-                      <template v-slot:activator="{ on }">
-                        <v-text-field
-                          label="Manufacture Month"
-                          readonly
-                          hide-details
-                          :value="device.dateValue"
-                          @focus="focusDate"
-                          v-on="on"
-                        ></v-text-field>
-                      </template>
-                      <v-date-picker
-                        locale="en-in"
-                        v-model="device.dateValue"
-                        no-title
-                        @input="dateMenu = false"
-                        :max="new Date().toISOString().slice(0, 10)"
-                      ></v-date-picker>
-                    </v-menu>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-card-text>
-
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="addDialog = false">
-                Cancel
-              </v-btn>
-              <v-btn
-                color="blue darken-1"
-                text
-                :disabled="!valid"
-                @click="addDevice"
-              >
-                Add Device
-              </v-btn>
-            </v-card-actions>
-          </v-form>
-        </v-card>
-      </v-dialog>
-
-      <v-dialog
-        transition="dialog-top-transition"
-        max-width="600"
-        overlay-color="white"
-        persistent
-        v-model="assignDevicePatientDialog"
-      >
-        <v-card>
-          <v-card-title>
-            <span class="text-h5 ml-3"
-              >Select below patient to assign device</span
-            >
-          </v-card-title>
-
+        <v-form ref="form" v-model="valid" lazy-validation>
           <v-card-text>
             <v-container>
               <v-row>
-                <v-col cols="12" sm="12" md="12">
-                  <v-select
-                    :items="getAllPatientsOnly"
-                    v-model="selectedHeadersPatient"
-                    @change="getSelectedValuePatient"
-                    item-text="fullName"
-                    return-object
-                    placeholder="Select Patient"
-                  ></v-select>
+                <v-col cols="12" sm="6" md="6">
+                  <v-text-field
+                    label="Device Name"
+                    v-model.trim="device.name"
+                    :rules="nameRules"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12" sm="6" md="6">
+                  <v-text-field
+                    label="Mac Address"
+                    v-model.trim="device.macAddress"
+                    :rules="macAddressRules"
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+
+              <v-row>
+                <v-col cols="12" sm="6" md="6">
+                  <v-menu
+                    v-model="dateMenu"
+                    :close-on-content-click="false"
+                    :nudge-right="40"
+                    transition="scale-transition"
+                    offset-y
+                    min-width="290px"
+                    max-width="290px"
+                  >
+                    <template v-slot:activator="{ on }">
+                      <v-text-field
+                        label="Manufacture Month"
+                        readonly
+                        hide-details
+                        :value="device.dateValue"
+                        @focus="focusDate"
+                        v-on="on"
+                      ></v-text-field>
+                    </template>
+                    <v-date-picker
+                      locale="en-in"
+                      v-model="device.dateValue"
+                      no-title
+                      @input="dateMenu = false"
+                      :max="new Date().toISOString().slice(0, 10)"
+                    ></v-date-picker>
+                  </v-menu>
                 </v-col>
               </v-row>
             </v-container>
@@ -151,130 +102,176 @@
 
           <v-card-actions>
             <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text @click="addDialog = false">
+              Cancel
+            </v-btn>
             <v-btn
               color="blue darken-1"
               text
-              @click="assignDevicePatientDialog = false"
+              :disabled="!valid"
+              @click="addDevice"
             >
-              Cancel
+              Add Device
             </v-btn>
           </v-card-actions>
-        </v-card>
-      </v-dialog>
+        </v-form>
+      </v-card>
+    </v-dialog>
 
-      <v-dialog
-        transition="dialog-top-transition"
-        max-width="600"
-        overlay-color="white"
-        persistent
-        v-model="assignDeviceDoctorDialog"
+    <v-dialog
+      transition="dialog-top-transition"
+      max-width="600"
+      overlay-color="white"
+      persistent
+      v-model="assignDevicePatientDialog"
+    >
+      <v-card>
+        <v-card-title>
+          <span class="text-h5 ml-3"
+            >Select below patient to assign device</span
+          >
+        </v-card-title>
+
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col cols="12" sm="12" md="12">
+                <v-select
+                  :items="getAllPatientsOnly"
+                  v-model="selectedHeadersPatient"
+                  @change="getSelectedValuePatient"
+                  item-text="fullName"
+                  return-object
+                  placeholder="Select Patient"
+                ></v-select>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="assignDevicePatientDialog = false"
+          >
+            Cancel
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog
+      transition="dialog-top-transition"
+      max-width="600"
+      overlay-color="white"
+      persistent
+      v-model="assignDeviceDoctorDialog"
+    >
+      <v-card>
+        <v-card-title>
+          <span class="text-h5 ml-3">Select below doctor to assign device</span>
+        </v-card-title>
+
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col cols="12" sm="12" md="12">
+                <v-select
+                  :items="getAllDoctorsOnly"
+                  v-model="selectedHeaders"
+                  @change="getSelectedValue"
+                  return-object
+                  item-text="fullName"
+                  placeholder="Select Doctor"
+                ></v-select>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="assignDeviceDoctorDialog = false"
+          >
+            Cancel
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <div class="table-changes">
+      <v-data-table
+        item-key="name"
+        class="elevation-1"
+        loading
+        loading-text="Loading... Please wait"
+        height="350"
+        :items-per-page="5"
+        v-if="loadingStatus"
+      ></v-data-table>
+      <v-data-table
+        v-else
+        :headers="headers"
+        :items="getDevices"
+        :items-per-page="5"
+        class="elevation-1 table"
+        height="500"
+        show-select
+        v-model="selected"
       >
-        <v-card>
-          <v-card-title>
-            <span class="text-h5 ml-3"
-              >Select below doctor to assign device</span
-            >
-          </v-card-title>
-
-          <v-card-text>
-            <v-container>
-              <v-row>
-                <v-col cols="12" sm="12" md="12">
-                  <v-select
-                    :items="getAllDoctorsOnly"
-                    v-model="selectedHeaders"
-                    @change="getSelectedValue"
-                    return-object
-                    item-text="fullName"
-                    placeholder="Select Doctor"
-                  ></v-select>
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-card-text>
-
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn
-              color="blue darken-1"
-              text
-              @click="assignDeviceDoctorDialog = false"
-            >
-              Cancel
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-
-      <div class="mt-3 mb-3 pa-2">
-        <v-data-table
-          item-key="name"
-          class="elevation-1"
-          loading
-          loading-text="Loading... Please wait"
-          height="350"
-          :items-per-page="5"
-          v-if="loadingStatus"
-        ></v-data-table>
-        <v-data-table
-          v-else
-          :headers="headers"
-          :items="getDevices"
-          :items-per-page="5"
-          class="elevation-1 table"
-          height="500"
-          show-select
-          v-model="selected"
-        >
-          <template v-slot:[`item.actions`]="{ item }">
-            <v-icon color="info" @click="editDevice(item)" size="28">
+        <template v-slot:[`item.actions`]="{ item }">
+          <button class="btn btn-orange">
+            <v-icon color="white" @click="editDevice(item)" size="18">
               mdi-pencil
             </v-icon>
-            <v-icon
-              size="26"
-              color="red"
-              class="ml-4"
-              @click="deleteSingleDevice(item.id)"
+          </button>
+          <button class="btn btn-info">
+            <v-icon size="18" color="white" @click="deleteSingleDevice(item.id)"
               >mdi-delete</v-icon
             >
-          </template>
-        </v-data-table>
+          </button>
+        </template>
+      </v-data-table>
 
-        <v-dialog
-          v-model="dialog"
-          max-width="600px"
-          persistent
-          overlay-color="white"
-        >
-          <v-card>
-            <v-card-title>
-              <span class="text-h5 ml-3">Edit</span>
-            </v-card-title>
+      <v-dialog
+        v-model="dialog"
+        max-width="600px"
+        persistent
+        overlay-color="white"
+      >
+        <v-card>
+          <v-card-title>
+            <span class="text-h5 ml-3">Edit</span>
+          </v-card-title>
 
-            <v-card-text>
-              <v-container>
-                <v-row>
-                  <v-col cols="12" sm="12" md="12">
-                    <v-text-field
-                      v-model="editedItem.name"
-                      label="Device Name"
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-card-text>
+          <v-card-text>
+            <v-container>
+              <v-row>
+                <v-col cols="12" sm="12" md="12">
+                  <v-text-field
+                    v-model="editedItem.name"
+                    label="Device Name"
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-card-text>
 
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="close"> Cancel </v-btn>
-              <v-btn color="blue darken-1" text @click="save"> Save </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-      </div>
-      <ConfirmDialog ref="confirm" />
-      <device-assign-dialog ref="assign" />
-    </v-container>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text @click="close"> Cancel </v-btn>
+            <v-btn color="blue darken-1" text @click="save"> Save </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </div>
+    <ConfirmDialog ref="confirm" />
+    <device-assign-dialog ref="assign" />
   </div>
 </template>
 
@@ -550,28 +547,41 @@ export default {
   display: flex;
   justify-content: space-evenly;
 }
-.table >>> th {
+.table th {
   font-size: 16px !important;
 }
-.table >>> tr > td {
+.table tr > td {
   font-size: 24px !important;
 }
-.table >>> .v-data-footer__select,
-.table >>> .v-select__selection,
-.table >>> .v-data-footer__pagination {
+.table .v-data-footer__select,
+.table .v-select__selection,
+.table .v-data-footer__pagination {
   font-size: 1rem;
 }
 @media only screen and (max-width: 960px) {
-  .table >>> th {
+  .table th {
     font-size: 12px !important;
   }
-  .table >>> tr > td {
+  .table tr > td {
     font-size: 16px !important;
   }
-  .table >>> .v-data-footer__select,
-  .table >>> .v-select__selection,
-  .table >>> .v-data-footer__pagination {
+  .table .v-data-footer__select,
+  .table .v-select__selection,
+  .table .v-data-footer__pagination {
     font-size: 0.69rem;
   }
+}
+
+.btn {
+  padding: 9px;
+  color: #fff;
+  margin-left: 12px;
+  border-radius: 10px;
+}
+.btn-orange {
+  background-color: #f58220;
+}
+.btn-info {
+  background-color: #1ad2d9;
 }
 </style>
