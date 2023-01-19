@@ -254,7 +254,7 @@ p {
   font-size: 18px;
 }
 .logo-img {
-  height: 74px;
+  height: 70px;
   object-fit: contain;
 }
 .v-btn {
@@ -274,7 +274,7 @@ p {
     margin: 20px 0;
   }
   .logo-img {
-    height: 50px;
+    height: 54px;
   }
 }
 @media (max-width: 1400px) {
@@ -299,7 +299,7 @@ p {
     font-size: 30px;
   }
   .logo-img {
-    height: 46px;
+    height: 50px;
   }
 }
 @media (max-width: 767px) {
