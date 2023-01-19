@@ -225,15 +225,19 @@
         v-model="selected"
       >
         <template v-slot:[`item.actions`]="{ item }">
-          <button class="btn btn-orange">
-            <v-icon color="white" @click="editDevice(item)" size="18">
-              mdi-pencil
-            </v-icon>
+          <button
+            class="btn btn-orange"
+            v-if="role === 'Admin'"
+            @click="editDevice(item)"
+          >
+            <v-icon color="white" size="18"> mdi-pencil </v-icon>
           </button>
-          <button class="btn btn-info">
-            <v-icon size="18" color="white" @click="deleteSingleDevice(item.id)"
-              >mdi-delete</v-icon
-            >
+          <button
+            class="btn btn-info"
+            v-if="role === 'Admin'"
+            @click="deleteSingleDevice(item.id)"
+          >
+            <v-icon size="18" color="white">mdi-delete</v-icon>
           </button>
         </template>
       </v-data-table>

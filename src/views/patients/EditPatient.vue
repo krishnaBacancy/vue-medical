@@ -151,6 +151,7 @@
               locale="en-in"
               v-model="dob"
               no-title
+              :max="new Date().toISOString().slice(0, 10)"
               @input="dateMenu = false"
             ></v-date-picker>
           </v-menu>

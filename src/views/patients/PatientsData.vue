@@ -37,32 +37,25 @@
           ></v-img>
         </template>
         <template v-slot:[`item.actions`]="{ item }">
-          <button class="btn btn-orange">
-            <v-icon
-              color="white"
-              size="22"
-              @click="$router.push(`/patients/patient/${item.id}`)"
-            >
-              mdi-eye
-            </v-icon>
+          <button
+            class="btn btn-orange"
+            @click="$router.push(`/patients/patient/${item.id}`)"
+          >
+            <v-icon color="white" size="22"> mdi-eye </v-icon>
           </button>
-          <button class="btn btn-info">
-            <v-icon
-              size="22"
-              color="white"
-              @click="$router.push(`/edit-patient/${item.id}`)"
-              v-if="role === 'Doctor'"
-              >mdi-pencil</v-icon
-            >
+          <button
+            class="btn btn-info"
+            v-if="role === 'Doctor'"
+            @click="$router.push(`/edit-patient/${item.id}`)"
+          >
+            <v-icon size="22" color="white">mdi-pencil</v-icon>
           </button>
-          <button class="btn btn-danger">
-            <v-icon
-              size="22"
-              color="white"
-              @click="deleteSinglePatient(item.id)"
-              v-if="role === 'Doctor'"
-              >mdi-delete</v-icon
-            >
+          <button
+            class="btn btn-danger"
+            v-if="role === 'Doctor'"
+            @click="deleteSinglePatient(item.id)"
+          >
+            <v-icon size="22" color="white">mdi-delete</v-icon>
           </button>
         </template>
       </v-data-table>
