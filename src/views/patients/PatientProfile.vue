@@ -11,7 +11,7 @@
       v-if="loadingStatus"
     ></v-progress-circular>
     <v-layout row wrap v-else>
-      <v-flex d-flex xs12 md12 sm12 lg12 class="mb-8 mt-8">
+      <v-flex d-flex xs12 md12 sm12 lg12 class="mt-8">
         <div class="d-flex align-center profile-header" style="width: 100%">
           <div class="d-flex align-center">
             <div class="flex-shrink-0">
@@ -156,8 +156,8 @@
         </div>
       </v-flex>
 
-      <v-flex d-flex xs12 sm12 md6 class="mb-2">
-        <v-card class="ml-2 mr-2 mb-2 pa-2" style="width: 100%">
+      <v-flex d-flex xs12 sm12 md6>
+        <div class="card-light w-100">
           <v-card-title class="text-h5 font-weight-bold" style="color: #f58220"
             >Emergency Contacts</v-card-title
           >
@@ -192,16 +192,16 @@
               </div>
             </v-col>
           </v-row>
-        </v-card>
+        </div>
       </v-flex>
 
-      <v-flex d-flex xs12 sm12 md6 class="mb-2">
-        <v-card class="ml-2 mr-2 mb-2 pa-2" style="width: 100%">
-          <v-card-title class="text-h5 font-weight-bold" style="color: #f58220"
-            >Medical Info</v-card-title
-          >
+      <v-flex d-flex xs12 sm12 md6>
+        <div class="card-light w-100">
+          <h4 class="text-h5 font-weight-bold text-left" style="color: #f58220">
+            Medical Info
+          </h4>
           <v-row>
-            <v-col cols="12" sm="6" md="4">
+            <v-col cols="12" sm="12" lg="4">
               <div class="d-flex flex-column align-start">
                 <small>Blood Pressure</small>
                 <h3 class="font-weight-medium">
@@ -213,7 +213,7 @@
                 </h3>
               </div>
             </v-col>
-            <v-col cols="12" sm="6" md="4">
+            <v-col cols="6" sm="6" lg="4">
               <div class="d-flex flex-column align-start">
                 <small class="">Diabetics</small>
                 <h3 class="font-weight-medium">
@@ -225,8 +225,8 @@
                 </h3>
               </div>
             </v-col>
-            <v-col cols="12" sm="6" md="4">
-              <div class="d-flex flex-column align-start ml-4 ml-md-0">
+            <v-col cols="6" sm="6" lg="4">
+              <div class="d-flex flex-column align-start">
                 <small class="">Heart Condition</small>
                 <h3 class="font-weight-medium">
                   {{
@@ -237,10 +237,7 @@
                 </h3>
               </div>
             </v-col>
-          </v-row>
-
-          <v-row>
-            <v-col cols="12" sm="6" md="4">
+            <v-col cols="6" sm="6" lg="4">
               <div class="d-flex flex-column align-start">
                 <small>Thyroid</small>
                 <h3 class="font-weight-medium">
@@ -252,7 +249,7 @@
                 </h3>
               </div>
             </v-col>
-            <v-col cols="12" sm="6" md="4">
+            <v-col cols="6" sm="6" lg="4">
               <div class="d-flex flex-column align-start">
                 <small class="">Obesity</small>
                 <h3 class="font-weight-medium">
@@ -265,7 +262,7 @@
               </div>
             </v-col>
           </v-row>
-        </v-card>
+        </div>
       </v-flex>
     </v-layout>
   </div>
@@ -319,7 +316,7 @@ h3 {
   border: 1px solid #e9e9e9;
   border-radius: 26px;
   padding: 30px;
-  margin-bottom: 30px;
+  margin-top: 30px;
 }
 .v-btn.v-application .warning--text {
   border-width: 2px;
@@ -330,13 +327,25 @@ h3 {
 .contact {
   font-size: 22px;
 }
+@media (max-width: 991px) {
+  .profile-pic {
+    width: 100px;
+    height: 100px;
+  }
+  .profile-name {
+    font-size: 24px;
+  }
+  .contact {
+    font-size: 18px;
+  }
+}
 @media (max-width: 767px) {
   .card-light {
     padding: 20px;
   }
   .profile-pic {
-    width: 65px;
-    height: 65px;
+    width: 80px;
+    height: 80px;
   }
   .profile-name {
     font-size: 22px;
@@ -348,6 +357,18 @@ h3 {
     min-width: 55px;
     padding: 0;
     border-radius: 12px;
+  }
+}
+@media (max-width: 575px) {
+  .profile-pic {
+    width: 60px;
+    height: 60px;
+  }
+  .profile-name {
+    font-size: 20px;
+  }
+  .contact {
+    font-size: 15px;
   }
 }
 .word-break {
