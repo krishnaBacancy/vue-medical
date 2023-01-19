@@ -361,6 +361,24 @@ span {
   margin-left: auto;
   padding: 40px 45px !important;
 }
+
+@media (max-width: 1600px) {
+  .sidebar a {
+    padding: 16px 10px;
+  }
+  .sidebar a span {
+    margin-top: 0;
+  }
+}
+@media (max-width: 1400px) {
+  .sidebar a {
+    padding: 12px 10px;
+  }
+  .sidebar a span {
+    margin-top: 0;
+  }
+}
+
 @media (max-width: 960px) {
   .main-wrapper {
     width: 100%;
