@@ -121,8 +121,8 @@
                     <div class="d-flex flex-column text-start ml-2 mt-2">
                       <h5 class="yellow--text">
                         {{
-                          device?.spo2data
-                            ? Math.round(device.spo2data?.spo2_vals)
+                          device?.algodata
+                            ? Math.round(device.algodata?.spo2)
                             : "--"
                         }}
                       </h5>
@@ -133,344 +133,6 @@
               </v-card>
             </div>
           </v-card>
-          <!-- <v-dialog
-            v-model="dialog[device.id]"
-            max-width="800px"
-            overlay-color="white"
-            :retain-focus="false"
-          >
-            <v-card>
-              <v-card-title>
-                <span class="text-h5 ml-3 font-weight-bold"
-                  >Patient Name - {{ device.fullName }}</span
-                >
-              </v-card-title>
-
-              <v-container>
-                <v-row>
-                  <v-col cols="12" sm="4" md="4">
-                    <v-card width="100%" height="65">
-                      <div class="d-flex align-center mt-1">
-                        <v-flex>
-                          <v-img
-                            class="mt-2 ml-3"
-                            src="@/assets/heartbeat.svg"
-                            height="40"
-                            width="40"
-                            contain
-                          ></v-img>
-                        </v-flex>
-                        <v-flex xs12>
-                          <div class="d-flex flex-column text-start mt-2 ml-4">
-                            <h5 class="green--text">74</h5>
-                            <small class="">>120-30 C1</small>
-                          </div>
-                        </v-flex>
-                      </div>
-                    </v-card>
-                  </v-col>
-
-                  <v-col cols="12" sm="4" md="4">
-                    <v-card width="100%" height="65">
-                      <div class="d-flex align-center mt-1">
-                        <v-flex>
-                          <v-img
-                            class="mt-2 ml-3"
-                            src="@/assets/oxygen.svg"
-                            height="40"
-                            width="40"
-                            contain
-                          ></v-img>
-                        </v-flex>
-                        <v-flex xs12>
-                          <div class="d-flex flex-column text-start ml-4 mt-2">
-                            <h5 class="yellow--text">98</h5>
-                            <small class="">Good</small>
-                          </div>
-                        </v-flex>
-                      </div>
-                    </v-card>
-                  </v-col>
-
-                  <v-col cols="12" sm="4" md="4">
-                    <v-card width="100%" height="65">
-                      <div class="d-flex align-center mt-1">
-                        <v-flex>
-                          <v-img
-                            class="mt-2 ml-3"
-                            src="@/assets/bloodPressure.svg"
-                            height="40"
-                            width="40"
-                            contain
-                          ></v-img>
-                        </v-flex>
-                        <v-flex xs12>
-                          <div class="d-flex flex-column text-start ml-4 mt-2">
-                            <h5 class="cyan--text">120/85</h5>
-                            <small class="">6 hrs ago</small>
-                          </div>
-                        </v-flex>
-                      </div>
-                    </v-card>
-                  </v-col>
-                </v-row>
-
-                <v-row class="mt-0 mt-sm-0 mt-md-3">
-                  <v-col cols="12" sm="6" md="3" class="mt-2 mt-sm-3 mt-md-0">
-                    <v-card width="100%" height="65">
-                      <div class="d-flex align-center mt-1">
-                        <v-flex>
-                          <v-img
-                            class="mt-2 ml-3"
-                            src="@/assets/temprature.svg"
-                            height="40"
-                            width="40"
-                            contain
-                          ></v-img>
-                        </v-flex>
-                        <v-flex xs12>
-                          <div class="d-flex flex-column text-start ml-4 mt-2">
-                            <h5 class="red--text">98.7<sup>F</sup></h5>
-                            <small class="">>120-30 C1</small>
-                          </div>
-                        </v-flex>
-                      </div>
-                    </v-card>
-                  </v-col>
-
-                  <v-col cols="12" sm="6" md="3" class="mt-sm-3 mt-md-0">
-                    <v-card width="100%" height="65">
-                      <div class="d-flex align-center mt-1">
-                        <v-flex>
-                          <v-img
-                            class="ml-3 mt-2"
-                            src="@/assets/steps.svg"
-                            height="40"
-                            width="40"
-                            contain
-                          ></v-img>
-                        </v-flex>
-                        <v-flex xs12>
-                          <div class="d-flex flex-column text-start ml-4 mt-2">
-                            <h5 class="pink--text">10000</h5>
-                            <small class="">steps</small>
-                          </div>
-                        </v-flex>
-                      </div>
-                    </v-card>
-                  </v-col>
-
-                  <v-col cols="12" sm="6" md="3" class="mt-sm-n1 mt-0 mt-md-0">
-                    <v-card width="100%" height="65">
-                      <div class="d-flex align-center mt-1">
-                        <v-flex>
-                          <v-img
-                            class="mt-2 ml-3"
-                            src="@/assets/heartbeat.svg"
-                            height="40"
-                            width="40"
-                            contain
-                          ></v-img>
-                        </v-flex>
-                        <v-flex xs12>
-                          <div class="d-flex flex-column text-start ml-4 mt-2">
-                            <h5 class="green--text">83</h5>
-                            <small class="">C1</small>
-                          </div>
-                        </v-flex>
-                      </div>
-                    </v-card>
-                  </v-col>
-
-                  <v-col cols="12" sm="6" md="3" class="mt-sm-n1 mt-0 mt-md-0">
-                    <v-card width="100%" height="65">
-                      <div class="d-flex align-center mt-1">
-                        <v-flex>
-                          <v-img
-                            class="mt-2 ml-3"
-                            src="@/assets/Group 507.svg"
-                            height="40"
-                            width="40"
-                            contain
-                          ></v-img>
-                        </v-flex>
-                        <v-flex xs12>
-                          <div class="d-flex flex-column text-start ml-4 mt-2">
-                            <h5 class="green--text">92</h5>
-                            <small class="">PRV</small>
-                          </div>
-                        </v-flex>
-                      </div>
-                    </v-card>
-                  </v-col>
-                </v-row>
-
-                <v-row class="mt-0 mt-sm-0 mt-md-3">
-                  <v-col cols="12" sm="6" md="3" class="mt-2 mt-sm-3 mt-md-0">
-                    <v-card width="100%" height="65">
-                      <div class="d-flex align-center mt-1">
-                        <v-flex>
-                          <v-img
-                            class="mt-2 ml-3"
-                            src="@/assets/Group 508.svg"
-                            height="40"
-                            width="40"
-                            contain
-                          ></v-img>
-                        </v-flex>
-                        <v-flex xs12>
-                          <div class="d-flex flex-column text-start ml-4 mt-2">
-                            <h5 class="red--text">0.67</h5>
-                            <small class="">RR</small>
-                          </div>
-                        </v-flex>
-                      </div>
-                    </v-card>
-                  </v-col>
-
-                  <v-col cols="12" sm="6" md="3" class="mt-sm-3 mt-md-0">
-                    <v-card width="100%" height="65">
-                      <div class="d-flex align-center mt-1">
-                        <v-flex>
-                          <v-img
-                            class="ml-3 mt-2"
-                            src="@/assets/Group 507.svg"
-                            height="40"
-                            width="40"
-                            contain
-                          ></v-img>
-                        </v-flex>
-                        <v-flex xs12>
-                          <div class="d-flex flex-column text-start ml-4 mt-2">
-                            <h5 class="pink--text">39.17</h5>
-                            <small class="">PP</small>
-                          </div>
-                        </v-flex>
-                      </div>
-                    </v-card>
-                  </v-col>
-
-                  <v-col cols="12" sm="6" md="3" class="mt-sm-n1 mt-0 mt-md-0">
-                    <v-card width="100%" height="65">
-                      <div class="d-flex align-center mt-1">
-                        <v-flex>
-                          <v-img
-                            class="mt-2 ml-3"
-                            src="@/assets/Group 506.svg"
-                            height="40"
-                            width="40"
-                            contain
-                          ></v-img>
-                        </v-flex>
-                        <v-flex xs12>
-                          <div class="d-flex flex-column text-start ml-4 mt-2">
-                            <h5 class="green--text">Normal</h5>
-                            <small class="">Arr</small>
-                          </div>
-                        </v-flex>
-                      </div>
-                    </v-card>
-                  </v-col>
-
-                  <v-col cols="12" sm="6" md="3" class="mt-sm-n1 mt-0 mt-md-0">
-                    <v-card width="100%" height="65">
-                      <div class="d-flex align-center mt-1">
-                        <v-flex>
-                          <v-img
-                            class="mt-2 ml-3"
-                            src="@/assets/Group 505.svg"
-                            height="40"
-                            width="40"
-                            contain
-                          ></v-img>
-                        </v-flex>
-                        <v-flex xs12>
-                          <div class="d-flex flex-column text-start ml-4 mt-2">
-                            <h5 class="green--text">67.1</h5>
-                            <small class="">SV</small>
-                          </div>
-                        </v-flex>
-                      </div>
-                    </v-card>
-                  </v-col>
-                </v-row>
-
-                <v-row class="mt-0 mt-sm-0 mt-md-3">
-                  <v-col cols="12" sm="6" md="4" class="mt-2 mt-sm-3 mt-md-0">
-                    <v-card width="100%" height="65">
-                      <div class="d-flex align-center mt-1">
-                        <v-flex>
-                          <v-img
-                            class="mt-2 ml-3"
-                            src="@/assets/Group 504.svg"
-                            height="40"
-                            width="40"
-                            contain
-                          ></v-img>
-                        </v-flex>
-                        <v-flex xs12>
-                          <div class="d-flex flex-column text-start ml-4 mt-2">
-                            <h5 class="red--text">5.97</h5>
-                            <small class="">CO</small>
-                          </div>
-                        </v-flex>
-                      </div>
-                    </v-card>
-                  </v-col>
-
-                  <v-col cols="12" sm="6" md="4" class="mt-sm-3 mt-md-0">
-                    <v-card width="100%" height="65">
-                      <div class="d-flex align-center mt-1">
-                        <v-flex>
-                          <v-img
-                            class="ml-3 mt-2"
-                            src="@/assets/Group 503.svg"
-                            height="40"
-                            width="40"
-                            contain
-                          ></v-img>
-                        </v-flex>
-                        <v-flex xs12>
-                          <div class="d-flex flex-column text-start ml-4 mt-2">
-                            <h5 class="pink--text">0.29</h5>
-                            <small class="">PTT</small>
-                          </div>
-                        </v-flex>
-                      </div>
-                    </v-card>
-                  </v-col>
-
-                  <v-col cols="12" sm="6" md="4" class="mt-sm-3 mt-md-0">
-                    <v-card width="100%" height="65">
-                      <div class="d-flex align-center mt-1">
-                        <v-flex>
-                          <v-img
-                            class="ml-3 mt-2"
-                            src="@/assets/Group 509.svg"
-                            height="40"
-                            width="40"
-                            contain
-                          ></v-img>
-                        </v-flex>
-                        <v-flex xs12>
-                          <div class="d-flex flex-column text-start ml-4 mt-2">
-                            <h5 class="success--text">95.51</h5>
-                            <small class="">MAP</small>
-                          </div>
-                        </v-flex>
-                      </div>
-                    </v-card>
-                  </v-col>
-                </v-row>
-              </v-container>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="blue" text @click="closeDialog(device.id)">
-                  Cancel
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog> -->
         </v-flex>
       </v-layout>
     </v-container>
@@ -541,7 +203,7 @@ export default {
         this.liveDevices = devices
           .filter((device) => {
             return (
-              device.macAddressFramed === "E51BBA6BE987" ||
+              device.macAddressFramed === "C9F7BF309DC9" ||
               device.macAddressFramed === "F1DDE98E9F16"
             );
           })
@@ -579,11 +241,18 @@ export default {
             // this.ecgChartData = [];
             // this.ppgChartData = [];
             let data = await JSON.parse(message);
-            // if (data?.msg === 17) {
-            //   this.displayAlgoData();
-            // }
+            if (data?.msg === 17) {
+              this.liveDevices = this.liveDevices.map((device) => {
+                if (device.macAddressFramed === data.mac_address_framed) {
+                  device["algodata"] = data;
+                  return device;
+                }
+                return device;
+              });
+              // this.getPatientsForDoctor(this.getDoctorId);
+            }
             console.log("data--", JSON.parse(message));
-            if (data?.ecg_vals || data?.ppg_vals) {
+            if (data?.ecg_vals) {
               this.liveDevices = this.liveDevices.map((device) => {
                 if (device.macAddressFramed === data.mac_address_framed) {
                   device.showEcgChart = true;
