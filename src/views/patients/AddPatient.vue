@@ -6,14 +6,14 @@
       @goBack="$router.go(-1)"
     />
     <br />
-    <div class="pa-3">
+    <div>
       <h5 class="text-left warning--text text-h5 mb-4 font-weight-bold">
         Patient Info
       </h5>
       <div>
         <v-form ref="form" v-model="valid" lazy-validation>
           <v-row>
-            <v-col class="form-group" cols="12" sm="6" md="4">
+            <v-col class="form-group" cols="12" sm="4" md="4">
               <CustomTextField
                 :type="'text'"
                 :label="'Patient First Name'"
@@ -21,7 +21,7 @@
                 v-model.trim="user.fname"
               />
             </v-col>
-            <v-col class="form-group" cols="12" sm="6" md="4">
+            <v-col class="form-group" cols="12" sm="4" md="4">
               <CustomTextField
                 :type="'text'"
                 :label="'Patient Last Name'"
@@ -29,7 +29,7 @@
                 v-model.trim="user.lname"
               />
             </v-col>
-            <v-col class="form-group" cols="12" sm="12" md="4">
+            <v-col class="form-group" cols="12" sm="4" md="4">
               <CustomTextField
                 :type="'email'"
                 :label="'Email Address'"
@@ -65,7 +65,7 @@
                 @validate="emergencyPhoneChanged"
               ></vue-tel-input>
             </v-col>
-            <v-col class="form-group" cols="12" sm="12" md="4">
+            <v-col class="form-group" cols="12" sm="6" md="4">
               <v-menu
                 v-model="dateMenu"
                 :close-on-content-click="false"
@@ -106,7 +106,7 @@
                     <div>Male</div>
                   </template>
                 </v-radio>
-                <v-radio value="female" color="warning">
+                <v-radio value="female" color="warning" class="mr-0">
                   <template v-slot:label>
                     <div>Female</div>
                   </template>
@@ -121,7 +121,7 @@
                 v-model.trim="user.weight"
               />
             </v-col>
-            <v-col class="form-group" cols="12" sm="12" md="4">
+            <v-col class="form-group" cols="12" sm="6" md="4">
               <CustomTextField
                 :type="'number'"
                 :label="'Height (cm)'"
@@ -168,7 +168,7 @@
             Emergency Contact Info
           </h5>
           <v-row v-for="(familyInfo, index) in familyMemberInfo" :key="index">
-            <v-col class="form-group" cols="12" sm="auto">
+            <v-col class="form-group" cols="12" sm="4" lg="auto">
               <CustomTextField
                 :type="'text'"
                 :label="'Member Name'"
@@ -176,7 +176,7 @@
                 v-model.trim="familyInfo.name"
               />
             </v-col>
-            <v-col class="form-group" cols="12" sm="auto">
+            <v-col class="form-group" cols="12" sm="4" lg="auto">
               <v-select
                 :items="relations"
                 filled
@@ -186,7 +186,7 @@
                 v-model="familyInfo.selectedRelation"
               ></v-select>
             </v-col>
-            <v-col class="form-group" cols="12" sm="auto">
+            <v-col class="form-group" cols="12" sm="4" lg="auto">
               <CustomTextField
                 :type="'number'"
                 :label="'Contact Number'"
@@ -194,7 +194,7 @@
                 v-model.trim="familyInfo.contactNo"
               />
             </v-col>
-            <v-col class="form-group" cols="12" sm="auto">
+            <v-col class="form-group" cols="12" sm="auto" lg="auto">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
