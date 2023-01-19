@@ -1,3 +1,7 @@
+<template>
+  <div></div>
+</template>
+
 <script>
 import {
   Chart,
@@ -52,6 +56,7 @@ export default {
           let buffer = JSON.parse(JSON.stringify(val));
           // console.log("this.myChart from watch", this.myChart);
           if (this.myChart) {
+            // this.myChart.destroy();
             clearInterval(this.setIntervalMethod);
             this.setIntervalMethod = setInterval(async () => {
               await this.adddatafromprops(buffer, 200);
@@ -184,6 +189,12 @@ export default {
         }
       },
     },
+  },
+  destroyed() {
+    if (this.myChart) {
+      this.myChart.destroy();
+      console.log("destroyed");
+    }
   },
   mounted() {},
   methods: {

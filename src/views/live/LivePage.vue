@@ -117,8 +117,8 @@
                     <div class="d-flex text-start ml-2 mt-2">
                       <h5 class="yellow--text">
                         {{
-                          device?.spo2data
-                            ? Math.round(device.spo2data?.spo2_vals)
+                          device?.algodata
+                            ? Math.round(device.algodata?.spo2)
                             : "--"
                         }}
                       </h5>
@@ -149,9 +149,7 @@
                   <v-flex xs12>
                     <div class="d-flex text-start ml-2 mt-2">
                       <h5 class="red--text">
-                        {{
-                          device?.tempdata ? device.tempdata?.temp_vals : "--"
-                        }}
+                        {{ device?.algodata ? device.algodata?.temp : "--" }}
                       </h5>
                       <small class="white--text ml-2 mt-2">°C</small>
                     </div>
@@ -230,7 +228,7 @@ export default {
         this.liveDevices = devices
           .filter((device) => {
             return (
-              device.macAddressFramed === "E51BBA6BE987" ||
+              device.macAddressFramed === "C9F7BF309DC9" ||
               device.macAddressFramed === "F1DDE98E9F16"
             );
           })
@@ -268,11 +266,18 @@ export default {
             // this.ecgChartData = [];
             // this.ppgChartData = [];
             let data = await JSON.parse(message);
-            // if (data?.msg === 17) {
-            //   this.displayAlgoData();
-            // }
+            if (data?.msg === 17) {
+              this.liveDevices = this.liveDevices.map((device) => {
+                if (device.macAddressFramed === data.mac_address_framed) {
+                  device["algodata"] = data;
+                  return device;
+                }
+                return device;
+              });
+              // this.getPatientsForDoctor(this.getDoctorId);
+            }
             console.log("data--", JSON.parse(message));
-            if (data?.ecg_vals || data?.ppg_vals) {
+            if (data?.ecg_vals) {
               this.liveDevices = this.liveDevices.map((device) => {
                 if (device.macAddressFramed === data.mac_address_framed) {
                   device.showEcgChart = true;

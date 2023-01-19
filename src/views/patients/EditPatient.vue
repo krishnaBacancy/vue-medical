@@ -241,24 +241,39 @@
                   />
                 </v-col>
                 <v-col cols="12" sm="6" md="4">
-                  <v-select
+                  <!-- <v-select
                     :items="relations"
                     filled
                     dense
                     label="Select Relation"
                     :rules="selectRules"
                     v-model="familyInfo.selectedRelation"
-                  ></v-select>
+                  ></v-select> -->
+                  <v-text-field
+                    type="text"
+                    label="Member Relation"
+                    :rules="memberRelationRules"
+                    required
+                    filled
+                    dense
+                    v-model.trim="familyInfo.selectedRelation"
+                  />
                 </v-col>
                 <v-col cols="12" sm="12" md="4">
-                  <v-text-field
+                  <!-- <v-text-field
                     type="number"
                     label="Contact Number"
                     filled
                     dense
                     :rules="phoneRules"
                     v-model.trim="familyInfo.contactNo"
-                  />
+                  /> -->
+                  <vue-tel-input
+                    v-model.trim="familyInfo.contactNo"
+                    style="height: 53px"
+                    v-bind="relativePhoneProps"
+                    @validate="relativePhoneChanged"
+                  ></vue-tel-input>
                 </v-col>
               </v-row>
 
@@ -278,6 +293,7 @@
                       required
                       filled
                       dense
+                      :rules="bloodPressureRules"
                       v-model.trim="medicalInfo.bloodPressure"
                     />
                   </v-col>
@@ -289,15 +305,25 @@
                       label="Diabetics"
                       required
                       v-model.trim="medicalInfo.diabetics"
+                      :rules="diabeticsRules"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="12" md="4">
-                    <v-select
+                    <!-- <v-select
                       label="Heart Condition"
                       filled
                       dense
                       :items="heartCondition"
                       v-model="medicalInfo.heartCondition"
+                    /> -->
+                    <v-text-field
+                      type="text"
+                      label="Heart Condition"
+                      required
+                      filled
+                      dense
+                      :rules="heartConditionRules"
+                      v-model.trim="medicalInfo.heartCondition"
                     />
                   </v-col>
                 </v-row>
@@ -310,6 +336,7 @@
                       required
                       filled
                       dense
+                      :rules="thyroidRules"
                       v-model.trim="medicalInfo.thyroid"
                     />
                   </v-col>
@@ -320,6 +347,7 @@
                       dense
                       label="Obesity"
                       required
+                      :rules="obesityRules"
                       v-model.trim="medicalInfo.obesity"
                     ></v-text-field>
                   </v-col>
@@ -381,6 +409,12 @@ export default {
       ],
       gstNoRules: [(v) => !!v || "GST Number is required"],
       memberNameRules: [(v) => !!v || "Member name is required"],
+      memberRelationRules: [(v) => !!v || "Member Relation is required."],
+      bloodPressureRules: [(v) => !!v || "Blood Pressure is required"],
+      diabeticsRules: [(v) => !!v || "diabetics is required"],
+      thyroidRules: [(v) => !!v || "thyroid is required"],
+      obesityRules: [(v) => !!v || "obesity is required"],
+      heartConditionRules: [(v) => !!v || "Must enter Heart Condition"],
       relations: ["Son", "Daughter", "Mother", "Father"],
       heartCondition: ["Normal"],
       checkbox: false,
@@ -391,6 +425,7 @@ export default {
       userEmergencyPhone: "",
       isValidPhoneNumber: false,
       isValidEmergencyNumber: false,
+      isValidRelativePhoneNumber: false,
       emergencyPhoneProps: {
         preferredCountries: ["US", "GB"],
         mode: "international",
@@ -419,6 +454,20 @@ export default {
         validCharactersOnly: true,
         disabledFormatting: false,
       },
+      relativePhoneProps: {
+        preferredCountries: ["US", "GB"],
+        mode: "international",
+        inputOptions: {
+          showDialCode: false,
+          maxlength: 15,
+          placeholder: "Enter relative phone number",
+          required: true,
+        },
+        invalidMsg: "Invalid",
+        autoFormat: false,
+        validCharactersOnly: true,
+        disabledFormatting: false,
+      },
     };
   },
   async mounted() {
@@ -439,10 +488,17 @@ export default {
     emergencyPhoneChanged(e) {
       this.isValidEmergencyNumber = e?.valid;
     },
+    relativePhoneChanged(e) {
+      this.isValidRelativePhoneNumber = e?.valid;
+    },
     async updateUser() {
       this.$refs.form.validate();
       if (this.valid) {
-        if (!this.isValidPhoneNumber || !this.isValidEmergencyNumber) {
+        if (
+          !this.isValidPhoneNumber ||
+          !this.isValidEmergencyNumber ||
+          !this.isValidRelativePhoneNumber
+        ) {
           this.$toast.error("Please enter valid mobile number.", {
             timeout: 3000,
           });

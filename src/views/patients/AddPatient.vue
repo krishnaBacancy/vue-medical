@@ -198,22 +198,34 @@
                     />
                   </v-col>
                   <v-col cols="12" sm="6" md="3">
-                    <v-select
+                    <!-- <v-select
                       :items="relations"
                       filled
                       dense
                       label="Select Relation"
                       :rules="selectRules"
                       v-model="familyInfo.selectedRelation"
-                    ></v-select>
+                    ></v-select> -->
+                    <CustomTextField
+                      :type="'text'"
+                      :label="'Member Relation'"
+                      :fieldRules="memberRelationRules"
+                      v-model.trim="familyInfo.selectedRelation"
+                    />
                   </v-col>
                   <v-col cols="12" sm="12" md="3">
-                    <CustomTextField
+                    <!-- <CustomTextField
                       :type="'number'"
                       :label="'Contact Number'"
                       :fieldRules="phoneRules"
                       v-model.trim="familyInfo.contactNo"
-                    />
+                    /> -->
+                    <vue-tel-input
+                      v-model.trim="familyInfo.contactNo"
+                      style="height: 53px"
+                      v-bind="relativePhoneProps"
+                      @validate="relativePhoneChanged"
+                    ></vue-tel-input>
                   </v-col>
                   <v-col cols="12" md="3">
                     <svg
@@ -270,14 +282,20 @@
                     />
                   </v-col>
                   <v-col cols="12" sm="12" md="4">
-                    <v-select
+                    <!-- <v-select
                       :items="heartCondition"
                       filled
                       dense
                       label="Heart Condition"
                       :rules="selectRules"
                       v-model="medicalInfo.heartCondition"
-                    ></v-select>
+                    ></v-select> -->
+                    <CustomTextField
+                      :type="'text'"
+                      :label="'Heart Condition'"
+                      :fieldRules="heartConditionRules"
+                      v-model.trim="medicalInfo.heartCondition"
+                    />
                   </v-col>
                 </v-row>
 
@@ -360,7 +378,9 @@ export default {
       ],
       aadharRules: [(v) => !!v || "Aadhar Number is required"],
       memberNameRules: [(v) => !!v || "Member name is required"],
+      memberRelationRules: [(v) => !!v || "Member Relation is required."],
       contactNumberRules: [(v) => !!v || "Contact Number is required"],
+      heartConditionRules: [(v) => !!v || "Must enter Heart Condition"],
       selectRules: [(v) => !!v || "Must select this field."],
       relations: ["Son", "Daughter", "Mother", "Father"],
       heartCondition: ["Normal"],
@@ -398,6 +418,20 @@ export default {
         validCharactersOnly: true,
         disabledFormatting: false,
       },
+      relativePhoneProps: {
+        preferredCountries: ["US", "GB"],
+        mode: "international",
+        inputOptions: {
+          showDialCode: false,
+          maxlength: 15,
+          placeholder: "Enter relative phone number",
+          required: true,
+        },
+        invalidMsg: "Invalid",
+        autoFormat: false,
+        validCharactersOnly: true,
+        disabledFormatting: false,
+      },
       user: {
         fname: "",
         lname: "",
@@ -422,7 +456,7 @@ export default {
         thyroid: null,
         obesity: null,
       },
-      familyMemberInfo: [{ name: "", selectedRelation: "", contactNo: "" }],
+      familyMemberInfo: [{ name: "", selectedRelation: "", contactNo: null }],
       medicalInfo: {
         bloodPressure: null,
         diabetics: null,
@@ -432,6 +466,7 @@ export default {
       },
       isValidPhoneNumber: false,
       isValidEmergencyPhoneNumber: false,
+      isValidRelativePhoneNumber: false,
     };
   },
   methods: {
@@ -441,7 +476,9 @@ export default {
     },
     emergencyPhoneChanged(e) {
       this.isValidEmergencyPhoneNumber = e?.valid;
-      console.log("valid--", e?.valid);
+    },
+    relativePhoneChanged(e) {
+      this.isValidRelativePhoneNumber = e?.valid;
     },
     goToPreviousPage() {
       this.$router.go(-1);
@@ -472,7 +509,7 @@ export default {
         if (
           this.familyMemberInfo[i].name === "" ||
           this.familyMemberInfo[i].selectedRelation === "" ||
-          this.familyMemberInfo.contactNo === ""
+          this.familyMemberInfo[i].contactNo === null
         ) {
           this.valid = false;
           break;
@@ -492,7 +529,7 @@ export default {
         weight: this.user.weight,
         Address: this.user.address,
         password: this.user.password,
-        adharcard: this.user.aadhar,
+        adharcard: this.user.aadhar.replaceAll(" ", ""),
         DOB: this.dateValue,
         family_members: this.familyMemberInfo,
         medical_history: [
@@ -514,7 +551,11 @@ export default {
             timeout: 3000,
           });
         }
-        if (!this.isValidPhoneNumber || !this.isValidEmergencyPhoneNumber) {
+        if (
+          !this.isValidPhoneNumber ||
+          !this.isValidEmergencyPhoneNumber ||
+          !this.isValidRelativePhoneNumber
+        ) {
           this.$toast.error("Please enter valid mobile number.", {
             timeout: 3000,
           });
