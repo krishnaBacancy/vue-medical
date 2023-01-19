@@ -7,7 +7,7 @@
     />
     <br />
     <v-container fluid grid-list-md style="border-radius: 20px" class="mb-4">
-      <div class="d-flex ml-5" v-if="mobile">
+      <div class="d-flex" v-if="mobile">
         <h3>Filter</h3>
         <v-icon class="ml-4" color="white" @click="gridNumber = 4"
           >mdi-tally-mark-3</v-icon
@@ -31,16 +31,26 @@
           :class="showGrid"
         >
           <v-card
-            class="ml-2 mr-2 mt-2 mb-2 pa-2"
+            class="card-theme"
             style="width: 100%; border-radius: 20px"
             @click.stop="openDialog(device.id)"
           >
             <div class="d-flex align-center">
               <div class="d-flex flex-column text-start">
                 <h3 class="ml-5">{{ device.fullName }}</h3>
-                <h5 class="ml-5 mt-2 grey--text second__heading">Floor No.</h5>
-                <h5 class="ml-5 mt-2 grey--text second__heading">Room No.</h5>
-                <h5 class="ml-5 mt-2 grey--text second__heading">
+                <h5
+                  class="ml-5 mt-2 grey--text second__heading font-weight-regular"
+                >
+                  Floor No.
+                </h5>
+                <h5
+                  class="ml-5 mt-2 grey--text second__heading font-weight-regular"
+                >
+                  Room No.
+                </h5>
+                <h5
+                  class="ml-5 mt-2 grey--text second__heading font-weight-regular"
+                >
                   {{ device.macAddressFramed }}
                 </h5>
               </div>
@@ -712,6 +722,9 @@ h3 {
 }
 .second__heading {
   font-size: 18px;
+}
+.card-theme {
+  padding: 20px;
 }
 @media only screen and (max-width: 530px) {
   h3 {
