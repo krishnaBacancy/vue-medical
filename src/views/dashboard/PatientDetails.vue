@@ -13,98 +13,88 @@
         v-if="loadingStatus"
       ></v-progress-circular>
       <div v-else class="patient-header">
-        <div
-          class="d-flex align-center justify-md-space-around text-nowrap flex-wrap"
-        >
-          <v-img
-            class="rounded-circle"
-            src="https://picsum.photos/id/11/50/50"
-            max-width="80"
-            max-height="80"
-          />
-          <h3
-            class="ml-5"
-            :style="{
-              fontSize: $vuetify.breakpoint.smAndDown ? '20px' : '26px',
-            }"
-          >
-            {{
-              getFullName(
-                getSingleDeviceData[0]?.customerFirstName,
-                getSingleDeviceData[0]?.customerLastName
-              )
-            }}
-          </h3>
-          <button class="btn-orange mr-5">
-            <v-icon>mdi-cog</v-icon>
-          </button>
-          <v-spacer></v-spacer>
-          <div class="d-flex align-center justify-md-space-between">
-            <v-img
-              src="@/assets/floor.svg"
-              height="20"
-              width="20"
-              contain
-            ></v-img>
+        <div class="d-flex align-center text-nowrap flex-wrap">
+          <div class="user-pic-header mr-auto">
+            <img
+              class="rounded-circle user-image"
+              src="https://picsum.photos/id/11/50/50"
+              max-width="80"
+              max-height="80"
+            />
             <h3
-              class="ml-3 mr-10 font-weight-regular"
-              :style="{
-                fontSize: $vuetify.breakpoint.smAndDown ? '16px' : '20px',
-              }"
-            >
-              Floor - 1
-            </h3>
-            <v-img
-              src="@/assets/rooms.svg"
-              height="20"
-              width="20"
-              contain
-            ></v-img>
-            <h3
-              class="ml-3 mr-10 font-weight-regular"
-              :style="{
-                fontSize: $vuetify.breakpoint.smAndDown ? '16px' : '20px',
-              }"
-            >
-              Room - 1
-            </h3>
-            <v-img
-              src="@/assets/macAddress.svg"
-              height="20"
-              width="20"
-              contain
-            ></v-img>
-            <h3
-              class="ml-3 mr-10 font-weight-regular"
-              :style="{
-                fontSize: $vuetify.breakpoint.smAndDown ? '16px' : '20px',
-              }"
-            >
-              {{ getSingleDeviceData[0]?.macAddressFramed.toUpperCase() }}
-            </h3>
-            <v-img
-              src="@/assets/battery.svg"
               class="ml-5"
-              height="20"
-              width="20"
-              contain
-            ></v-img>
-            <h3
-              class="ml-3 mr-10 font-weight-regular"
               :style="{
-                fontSize: $vuetify.breakpoint.smAndDown ? '16px' : '20px',
+                fontSize: $vuetify.breakpoint.smAndDown ? '20px' : '26px',
               }"
             >
               {{
-                getSingleDeviceData[0]?.batdata
-                  ? getSingleDeviceData[0]?.batdata.bat_vals
-                  : "100"
+                getFullName(
+                  getSingleDeviceData[0]?.customerFirstName,
+                  getSingleDeviceData[0]?.customerLastName
+                )
               }}
-              %
             </h3>
+            <button class="btn-orange mr-4">
+              <v-icon>mdi-cog</v-icon>
+            </button>
           </div>
-          <v-spacer></v-spacer>
-          <div class="d-flex align-center justify-center mr-auto">
+          <div class="d-flex flex-wrap mr-auto">
+            <div class="item">
+              <img src="@/assets/floor.svg" height="20" width="20" contain />
+              <h3
+                class="ml-3 font-weight-regular"
+                :style="{
+                  fontSize: $vuetify.breakpoint.smAndDown ? '16px' : '20px',
+                }"
+              >
+                Floor - 1
+              </h3>
+            </div>
+            <div class="item">
+              <img src="@/assets/rooms.svg" height="20" width="20" contain />
+              <h3
+                class="ml-3 font-weight-regular"
+                :style="{
+                  fontSize: $vuetify.breakpoint.smAndDown ? '16px' : '20px',
+                }"
+              >
+                Room - 1
+              </h3>
+            </div>
+            <div class="item">
+              <img
+                src="@/assets/macAddress.svg"
+                height="20"
+                width="20"
+                contain
+              />
+              <h3
+                class="ml-3 font-weight-regular"
+                :style="{
+                  fontSize: $vuetify.breakpoint.smAndDown ? '16px' : '20px',
+                }"
+              >
+                {{ getSingleDeviceData[0]?.macAddressFramed.toUpperCase() }}
+              </h3>
+            </div>
+            <div class="item">
+              <img src="@/assets/battery.svg" height="20" width="20" contain />
+              <h3
+                class="ml-3 font-weight-regular"
+                :style="{
+                  fontSize: $vuetify.breakpoint.smAndDown ? '16px' : '20px',
+                }"
+              >
+                {{
+                  getSingleDeviceData[0]?.batdata
+                    ? getSingleDeviceData[0]?.batdata.bat_vals
+                    : "100"
+                }}
+                %
+              </h3>
+            </div>
+          </div>
+          <div class="d-flex align-center device-status-row">
             <h3
               class="mr-5 font-weight-medium green--text"
               style="font-size: 20px"
@@ -235,7 +225,7 @@
         </div>
 
         <v-layout row wrap class="mt-8">
-          <v-flex d-flex xs12 sm12 md6>
+          <v-flex d-flex xs12 sm12 md6 class="mb-5">
             <div class="d-flex align-center w-100">
               <h3>ECG</h3>
               <v-spacer></v-spacer>
@@ -266,7 +256,7 @@
               </div>
             </div>
           </v-flex>
-          <v-flex d-flex xs12 sm12 md6>
+          <v-flex d-flex xs12 sm12 md6 class="mb-5">
             <div class="d-flex w-100">
               <h3>PPG</h3>
               <v-spacer></v-spacer>
@@ -289,7 +279,7 @@
         </v-layout>
       </div>
       <v-layout row wrap>
-        <v-flex d-flex xs12 sm6 md4 column5>
+        <v-flex d-flex xs6 sm6 md4 column5>
           <div class="mini-light-box">
             <img
               src="@/assets/heartbeat.svg"
@@ -313,7 +303,7 @@
             </div> -->
           </div>
         </v-flex>
-        <v-flex d-flex xs12 sm6 md4 column5>
+        <v-flex d-flex xs6 sm6 md4 column5>
           <div class="mini-light-box">
             <img
               src="@/assets/lungs.svg"
@@ -328,7 +318,7 @@
             </div>
           </div>
         </v-flex>
-        <v-flex d-flex xs12 sm6 md4 column5>
+        <v-flex d-flex xs6 sm6 md4 column5>
           <div class="mini-light-box">
             <img
               src="@/assets/temprature.svg"
@@ -343,7 +333,7 @@
             </div>
           </div>
         </v-flex>
-        <v-flex d-flex xs12 sm6 md4 column5>
+        <v-flex d-flex xs6 sm6 md4 column5>
           <div class="mini-light-box">
             <img
               src="@/assets/steps.svg"
@@ -358,7 +348,7 @@
             </div>
           </div>
         </v-flex>
-        <v-flex d-flex xs12 sm6 md4 column5>
+        <v-flex d-flex sm12 md4 column5>
           <div class="mini-light-box">
             <img
               src="@/assets/Man.svg"
@@ -374,7 +364,7 @@
           </div>
         </v-flex>
         <div class="w-100"></div>
-        <v-flex d-flex xs12 sm6 lg4>
+        <v-flex d-flex sm12 lg4>
           <div class="mini-light-box">
             <div class="min-light-header">
               <div class="left">
@@ -415,7 +405,7 @@
             </div>
           </div>
         </v-flex>
-        <v-flex d-flex xs12 sm6 lg4>
+        <v-flex d-flex sm12 lg4>
           <div class="mini-light-box">
             <div class="min-light-header">
               <div class="left">
@@ -460,7 +450,7 @@
             </div>
           </div>
         </v-flex>
-        <v-flex d-flex xs12 sm6 lg4>
+        <v-flex d-flex sm12 lg4>
           <div class="mini-light-box">
             <div class="min-light-header">
               <div class="left">
@@ -1086,6 +1076,14 @@ small {
 h3 {
   font-size: 22px;
 }
+.user-image {
+  width: 80px;
+  height: 80px;
+}
+.user-pic-header {
+  display: flex;
+  align-items: center;
+}
 @media only screen and (max-width: 780px) {
   small {
     font-size: 14px;
@@ -1191,5 +1189,59 @@ h3 {
 }
 .text-nowrap {
   white-space: nowrap;
+}
+.item {
+  display: flex;
+  padding-right: 30px;
+  padding-top: 15px;
+  align-items: center;
+  padding-bottom: 5px;
+  flex-grow: 1;
+}
+@media (max-width: 991px) {
+  .user-image {
+    width: 58px;
+    height: 58px;
+  }
+}
+@media (max-width: 767px) {
+  .patient-header {
+    padding: 15px;
+  }
+  .mini-icon {
+    height: 50px;
+  }
+  .mini-light-box {
+    padding: 16px;
+  }
+  .mini-title {
+    font-size: 28px;
+  }
+  .mini-content {
+    line-height: 1.3;
+    margin-left: 10px;
+  }
+  .mini-content small {
+    font-size: 12px;
+  }
+  .user-image {
+    width: 45px;
+    height: 45px;
+  }
+  .user-pic-header {
+    width: 100%;
+  }
+  .user-pic-header h3 {
+    margin-right: auto;
+  }
+}
+@media (max-width: 575px) {
+  .item {
+    width: 50%;
+  }
+  .device-status-row {
+    width: 100%;
+    justify-content: space-between;
+  }
 }
 </style>

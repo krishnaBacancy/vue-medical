@@ -2,6 +2,12 @@
   <v-app>
     <v-app-bar app v-if="$vuetify.breakpoint.smAndDown && !getRoute">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <img
+        class="sidebar-logo ml-8"
+        src="@/assets/logo-white.svg"
+        @click="$router.push('/')"
+        height="30"
+      />
     </v-app-bar>
     <v-navigation-drawer
       app
@@ -361,6 +367,24 @@ span {
   margin-left: auto;
   padding: 40px 45px !important;
 }
+
+@media (max-width: 1600px) {
+  .sidebar a {
+    padding: 16px 10px;
+  }
+  .sidebar a span {
+    margin-top: 0;
+  }
+}
+@media (max-width: 1400px) {
+  .sidebar a {
+    padding: 12px 10px;
+  }
+  .sidebar a span {
+    margin-top: 0;
+  }
+}
+
 @media (max-width: 960px) {
   .main-wrapper {
     width: 100%;
@@ -399,10 +423,21 @@ span {
   background-color: rgb(245, 130, 32);
 }
 .v-navigation-drawer,
+.theme--light.v-app-bar.v-toolbar.v-sheet,
 .theme--dark.v-navigation-drawer {
-  background: linear-gradient(45deg, #e53985, #f58220) !important;
+  background: linear-gradient(45deg, #f58220, #e53985) !important;
 }
 .sidebar a .v-icon {
   color: #fff;
+}
+.v-app-bar__nav-icon.v-btn > .v-btn__content .v-icon {
+  color: rgb(245, 130, 32);
+}
+.v-app-bar__nav-icon.v-btn {
+  background-color: #fff;
+  border-radius: 10px;
+  height: 36px !important;
+  width: 36px !important;
+  left: 10px;
 }
 </style>
