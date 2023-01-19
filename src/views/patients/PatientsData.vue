@@ -4,9 +4,9 @@
       title="Patients"
       pageIcon="mdi-arrow-left"
       @goBack="$router.go(-1)"
-      btnName="Add"
+      btnName="Add Patient"
       color-name="warning"
-      btnIconName="mdi-account-plus"
+      btnIconName="mdi-plus"
       @addNewPatient="addPatient"
     />
     <br />

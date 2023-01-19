@@ -419,7 +419,7 @@ span {
 .v-navigation-drawer,
 .theme--light.v-app-bar.v-toolbar.v-sheet,
 .theme--dark.v-navigation-drawer {
-  background: linear-gradient(45deg, #e53985, #f58220) !important;
+  background: linear-gradient(45deg, #f58220, #e53985) !important;
 }
 .sidebar a .v-icon {
   color: #fff;

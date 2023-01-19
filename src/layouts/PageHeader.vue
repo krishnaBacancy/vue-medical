@@ -10,13 +10,14 @@
       {{ title }}
     </v-card-title>
     <v-btn
-      class="align-self-center ml-auto mr-10"
+      class="align-self-center ml-auto"
       :color="colorName"
       rounded
       @click="$emit('addNewPatient')"
       v-if="btnIconName && role === 'Doctor'"
     >
-      <v-icon>{{ btnIconName }}</v-icon>
+      <!-- <v-icon>{{ btnIconName }}</v-icon> -->
+      <span v-if="btnName">{{ btnName }}</span>
     </v-btn>
   </div>
 </template>
@@ -43,5 +44,14 @@ export default {
 }
 .icon-big {
   font-size: 32px;
+}
+.v-btn.theme--light,
+.v-btn:not(.v-btn--round).v-size--default {
+  padding: 14px 20px;
+  border-radius: 10px;
+  height: auto;
+  min-width: 190px;
+  text-transform: none;
+  font-weight: 600;
 }
 </style>
