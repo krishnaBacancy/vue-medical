@@ -6,10 +6,7 @@
       @goBack="$router.go(-1)"
     />
     <br />
-    <v-container
-      style="background-color: rgb(31, 32, 38); border-radius: 20px"
-      fluid
-    >
+    <v-container style="border-radius: 20px" fluid>
       <div class="mt-3 mb-3 pa-2">
         <v-btn
           color="warning"
@@ -28,7 +25,7 @@
           persistent
           v-model="assignDialog"
         >
-          <v-card dark>
+          <v-card>
             <v-card-title>
               <span class="text-h5 ml-3"
                 >Select below patient to assign device</span
@@ -68,7 +65,6 @@
           loading-text="Loading... Please wait"
           height="350"
           :items-per-page="5"
-          dark
           v-if="loadingStatus"
         ></v-data-table>
         <v-data-table
@@ -80,7 +76,6 @@
           show-select
           v-model="selected"
           :height="$vuetify.breakpoint.smAndDown ? '600' : '350'"
-          dark
         >
         </v-data-table>
       </div>

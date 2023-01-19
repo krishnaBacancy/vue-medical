@@ -1,5 +1,11 @@
 <template>
   <div class="d-flex mr-auto">
+    <v-icon
+      v-if="pageIcon"
+      class="black--text icon-big mr-4"
+      @click="$emit('goBack')"
+      >{{ pageIcon }}</v-icon
+    >
     <v-card-title class="font-weight-bold pl-0">
       {{ title }}
     </v-card-title>
@@ -34,5 +40,8 @@ export default {
 }
 .v-card__title {
   font-size: 30px;
+}
+.icon-big {
+  font-size: 32px;
 }
 </style>

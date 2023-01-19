@@ -10,9 +10,7 @@
       <v-layout row wrap>
         <v-flex d-flex xs12 sm12 md12>
           <v-card
-            dark
-            color="rgb(31, 32, 38)"
-            class="mt-2 mb-5 pa-5 white--text"
+            class="mt-2 mb-5 pa-5"
             style="width: 100%; border-radius: 20px"
           >
             <v-card-title

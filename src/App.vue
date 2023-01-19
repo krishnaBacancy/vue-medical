@@ -101,4 +101,31 @@ nav a.router-link-exact-active {
   padding-left: 15px;
   padding-right: 15px;
 }
+.w-100 {
+  width: 100%;
+}
+.text-success {
+  color: #29dca1;
+}
+.text-warning {
+  color: #f8d716;
+}
+.text-pink {
+  color: #29dca1;
+}
+.text-purple {
+  color: #7649f2;
+}
+.text-info {
+  color: #53eaff;
+}
+.text-danger {
+  color: #fd5d5d;
+}
+.text-pink {
+  color: #f719c2;
+}
+.text-brown {
+  color: #cba9a9;
+}
 </style>

@@ -10,10 +10,7 @@
       @addNewPatient="addPatient"
     />
     <br />
-    <v-container
-      style="background-color: rgb(31, 32, 38); border-radius: 20px"
-      fluid
-    >
+    <v-container style="border-radius: 20px" fluid>
       <div class="mt-3 mb-3 pa-2">
         <v-data-table
           item-key="name"
@@ -22,7 +19,6 @@
           loading-text="Loading... Please wait"
           height="350"
           :items-per-page="5"
-          dark
           v-if="loadingStatus"
         ></v-data-table>
         <v-data-table
@@ -32,7 +28,6 @@
           :items-per-page="5"
           class="elevation-1 table"
           height="600"
-          dark
         >
           <template v-slot:[`item.image`]>
             <v-img

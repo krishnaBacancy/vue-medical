@@ -1,19 +1,12 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      dark
-      class="white--text"
-      v-if="$vuetify.breakpoint.smAndDown && !getRoute"
-    >
+    <v-app-bar app v-if="$vuetify.breakpoint.smAndDown && !getRoute">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
     </v-app-bar>
     <v-navigation-drawer
       app
       v-model="drawer"
-      color="rgba(0,0,0,0.3)"
       width="10%"
-      dark
       :style="{
         width: $vuetify.breakpoint.smAndDown ? '280px' : '120px',
         backgroundColor: $vuetify.breakpoint.smAndDown
@@ -23,19 +16,14 @@
       :permanent="$vuetify.breakpoint.mdAndUp"
       v-if="!getRoute"
     >
-      <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title class="text-h6 mb-4 mt-4">
-            <img
-              src="@/assets/accuLive.svg"
-              @click="$router.push('/')"
-              height="30"
-              style="cursor: pointer"
-              contain
-            />
-          </v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
+      <v-list-item-title class="sidebar-logo-wrapper">
+        <img
+          class="sidebar-logo"
+          src="@/assets/logo-white.svg"
+          @click="$router.push('/')"
+          height="30"
+        />
+      </v-list-item-title>
       <div class="sidebar">
         <nav>
           <!-- Move event here -->
@@ -305,15 +293,18 @@ export default {
   color: white !important;
 }
 .sidebar {
-  padding-top: 20px;
+  padding-top: 45px;
   position: fixed;
-  height: calc(100vh - 88px);
+  height: calc(100vh - 70px);
   width: 120px;
   border-radius: 15px;
   margin-right: auto;
   overflow: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+.sidebar-logo-wrapper {
+  margin-top: 30px;
 }
 .sidebar::-webkit-scrollbar {
   width: 0;
@@ -374,14 +365,24 @@ span {
   .main-wrapper {
     width: 100%;
     margin-top: 56px;
+    padding: 20px 20px !important;
   }
   .sidebar {
     width: 100%;
   }
+  .sidebar-logo-wrapper {
+    margin-top: 20px;
+  }
+  .sidebar-logo {
+    height: 26px;
+  }
+  .sidebar {
+    padding-top: 20px;
+  }
   .sidebar a {
     flex-direction: row !important;
     justify-content: flex-start !important;
-    padding: 10px 20px;
+    padding: 5px 12px;
     border-radius: 40px;
   }
   .sidebar a .icon__color,
@@ -396,5 +397,12 @@ span {
 }
 .theme--dark.v-app-bar.v-toolbar.v-sheet {
   background-color: rgb(245, 130, 32);
+}
+.v-navigation-drawer,
+.theme--dark.v-navigation-drawer {
+  background: linear-gradient(45deg, #e53985, #f58220) !important;
+}
+.sidebar a .v-icon {
+  color: #fff;
 }
 </style>

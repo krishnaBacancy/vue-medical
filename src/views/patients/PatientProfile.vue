@@ -6,15 +6,7 @@
       @goBack="$router.go(-1)"
     />
     <br />
-    <v-container
-      fluid
-      grid-list-md
-      style="
-        background: rgb(31, 32, 38) 0% 0% no-repeat padding-box;
-        border-radius: 20px;
-      "
-      class="mb-4"
-    >
+    <v-container fluid grid-list-md style="border-radius: 20px" class="mb-4">
       <v-progress-circular
         indeterminate
         color="purple"
@@ -34,7 +26,7 @@
                   width="120"
                 ></v-img>
               </div>
-              <div class="white--text ml-5 text-start">
+              <div class="ml-5 text-start">
                 <h3 style="font-size: 32px">
                   {{ getSinglePatientData[0]?.fullName }}
                 </h3>
@@ -61,11 +53,7 @@
         </v-flex>
 
         <v-flex d-flex xs12 sm12 md12 class="mt-6 mb-2">
-          <v-card
-            color="#282934"
-            class="ml-2 mr-2 mb-2 pa-2 white--text"
-            style="width: 100%"
-          >
+          <v-card class="ml-2 mr-2 mb-2 pa-2" style="width: 100%">
             <v-card-title
               class="text-h5 font-weight-bold"
               style="color: #f58220"
@@ -190,11 +178,7 @@
         </v-flex>
 
         <v-flex d-flex xs12 sm12 md6 class="mb-2">
-          <v-card
-            color="#282934"
-            class="ml-2 mr-2 mb-2 pa-2 white--text"
-            style="width: 100%"
-          >
+          <v-card class="ml-2 mr-2 mb-2 pa-2" style="width: 100%">
             <v-card-title
               class="text-h5 font-weight-bold"
               style="color: #f58220"
@@ -236,11 +220,7 @@
         </v-flex>
 
         <v-flex d-flex xs12 sm12 md6 class="mb-2">
-          <v-card
-            color="#282934"
-            class="ml-2 mr-2 mb-2 pa-2 white--text"
-            style="width: 100%"
-          >
+          <v-card class="ml-2 mr-2 mb-2 pa-2" style="width: 100%">
             <v-card-title
               class="text-h5 font-weight-bold"
               style="color: #f58220"
