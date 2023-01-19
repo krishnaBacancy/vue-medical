@@ -34,7 +34,7 @@
         <nav>
           <!-- Move event here -->
           <ul>
-            <li>
+            <li v-if="role !== 'Admin'">
               <router-link
                 to="/"
                 class="d-flex flex-column text-center justify-center align-center"

@@ -170,7 +170,12 @@ export default {
         .then((success) => {
           console.log(success);
           this.isLoading = false;
-          this.$router.push({ path: "/" });
+          let userRole = localStorage.getItem("role");
+          if (userRole === "Admin") {
+            this.$router.push({ path: "/devices" });
+          } else {
+            this.$router.push({ path: "/" });
+          }
           this.$toast.success("Login successful", { timeout: 3000 });
         })
         .catch((err) => {
