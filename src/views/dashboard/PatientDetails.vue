@@ -134,7 +134,7 @@
         </div>
 
         <div class="d-flex mt-6 justify-md-space-around">
-          <div class="ml-6">
+          <!-- <div class="ml-6">
             <v-select
               :items="aggregateValues"
               filled
@@ -143,7 +143,7 @@
               label="Aggregate"
               v-model="selectedAggregate"
             ></v-select>
-          </div>
+          </div> -->
           <div class="ml-6">
             <v-select
               :items="timePeriodValues"
@@ -166,7 +166,7 @@
             >
               <template v-slot:activator="{ on }">
                 <v-text-field
-                  label="Start Date"
+                  label="Select Date"
                   readonly
                   hide-details
                   :value="startDateValue"
@@ -186,7 +186,7 @@
               ></v-date-picker>
             </v-menu>
           </div>
-          <div class="ml-6">
+          <!-- <div class="ml-6">
             <v-menu
               v-model="endDateMenu"
               :close-on-content-click="false"
@@ -218,7 +218,7 @@
                 @input="endDateMenu = false"
               ></v-date-picker>
             </v-menu>
-          </div>
+          </div> -->
         </div>
 
         <v-container fluid grid-list-md>
@@ -303,7 +303,7 @@
                   <v-spacer></v-spacer>
                   <div v-if="!$vuetify.breakpoint.smOnly">
                     <h3>Last Reading</h3>
-                    <small class="grey--text">2 hour ago</small>
+                    <small class="grey--text">{{ lastSaved }}</small>
                   </div>
                 </div>
                 <div class="d-flex justify-center align-center mt-5">
@@ -341,7 +341,7 @@
                   <v-spacer></v-spacer>
                   <div v-if="!$vuetify.breakpoint.smOnly">
                     <h3>Last Reading</h3>
-                    <small class="grey--text">2 hour ago</small>
+                    <small class="grey--text">{{ lastSaved }}</small>
                   </div>
                 </div>
                 <div class="d-flex justify-center align-center mt-5">
@@ -384,7 +384,7 @@
                   <v-spacer></v-spacer>
                   <div v-if="!$vuetify.breakpoint.smOnly">
                     <h3>Last Reading</h3>
-                    <small class="grey--text">2 hour ago</small>
+                    <small class="grey--text">{{ lastSaved }}</small>
                   </div>
                 </div>
                 <div class="d-flex justify-center align-center mt-5">
@@ -428,7 +428,7 @@
                   <v-spacer></v-spacer>
                   <div v-if="!$vuetify.breakpoint.smOnly">
                     <h3>Last Reading</h3>
-                    <small class="grey--text">2 hour ago</small>
+                    <small class="grey--text">{{ lastSaved }}</small>
                   </div>
                 </div>
                 <div class="d-flex justify-center align-center mt-5">
@@ -470,7 +470,7 @@
                   <v-spacer></v-spacer>
                   <div v-if="!$vuetify.breakpoint.smOnly">
                     <h3>Last Reading</h3>
-                    <small class="grey--text">2 hour ago</small>
+                    <small class="grey--text">{{ lastSaved }}</small>
                   </div>
                 </div>
                 <div class="d-flex justify-center align-center mt-5">
@@ -513,7 +513,7 @@
                   <v-spacer></v-spacer>
                   <div>
                     <h3>Last Reading</h3>
-                    <small class="grey--text">2 hour ago</small>
+                    <small class="grey--text">{{ lastSaved }}</small>
                   </div>
                 </div>
                 <div class="d-flex justify-center align-center mt-5">
@@ -551,7 +551,7 @@
                   <v-spacer></v-spacer>
                   <div>
                     <h3>Last Reading</h3>
-                    <small class="grey--text">2 hour ago</small>
+                    <small class="grey--text">{{ lastSaved }}</small>
                   </div>
                 </div>
                 <div class="d-flex justify-center align-center mt-5">
@@ -595,7 +595,7 @@
                   <v-spacer></v-spacer>
                   <div>
                     <h3>Last Reading</h3>
-                    <small class="grey--text">2 hour ago</small>
+                    <small class="grey--text">{{ lastSaved }}</small>
                   </div>
                 </div>
                 <div class="d-flex justify-center mt-5">
@@ -641,7 +641,7 @@
                   <v-spacer></v-spacer>
                   <div v-if="!$vuetify.breakpoint.smOnly">
                     <h3>Last Reading</h3>
-                    <small class="grey--text">2 hour ago</small>
+                    <small class="grey--text">{{ lastSaved }}</small>
                   </div>
                 </div>
                 <div class="d-flex justify-center align-center mt-5">
@@ -685,7 +685,7 @@
                   <v-spacer></v-spacer>
                   <div v-if="!$vuetify.breakpoint.smOnly">
                     <h3>Last Reading</h3>
-                    <small class="grey--text">2 hour ago</small>
+                    <small class="grey--text">{{ lastSaved }}</small>
                   </div>
                 </div>
                 <div class="d-flex justify-center align-center mt-5">
@@ -729,7 +729,7 @@
                   <v-spacer></v-spacer>
                   <div>
                     <h3>Last Reading</h3>
-                    <small class="grey--text">2 hour ago</small>
+                    <small class="grey--text">{{ lastSaved }}</small>
                   </div>
                 </div>
                 <div class="d-flex justify-center align-center mt-5">
@@ -774,7 +774,7 @@
                   <v-spacer></v-spacer>
                   <div v-if="!$vuetify.breakpoint.smOnly">
                     <h3>Last Reading</h3>
-                    <small class="grey--text">2 hour ago</small>
+                    <small class="grey--text">{{ lastSaved }}</small>
                   </div>
                 </div>
                 <div class="d-flex justify-center align-center mt-5">
@@ -817,7 +817,7 @@
                   <v-spacer></v-spacer>
                   <div v-if="!$vuetify.breakpoint.smOnly">
                     <h3>Last Reading</h3>
-                    <small class="grey--text">2 hour ago</small>
+                    <small class="grey--text">{{ lastSaved }}</small>
                   </div>
                 </div>
                 <div class="d-flex justify-center align-center mt-5">
@@ -861,7 +861,7 @@
                   <v-spacer></v-spacer>
                   <div>
                     <h3>Last Reading</h3>
-                    <small class="grey--text">2 hour ago</small>
+                    <small class="grey--text">{{ lastSaved }}</small>
                   </div>
                 </div>
                 <div class="d-flex justify-center align-center mt-5">
@@ -1099,15 +1099,6 @@
                       </div>
                     </h3>
                     <v-spacer></v-spacer>
-                    <div
-                      class="rounded-circle sleep__div"
-                      style="background-color: grey"
-                    >
-                      <span class="mr-3">W</span>
-                      <span class="mr-3">M</span>
-                      <span class="mr-3">6M</span>
-                    </div>
-                    <v-spacer></v-spacer>
                     <v-btn class="mr-3 export__btn" color="warning" outlined
                       >Export</v-btn
                     >
@@ -1151,7 +1142,12 @@ import PpgChart from "@/components/PpgChart.vue";
 import HeartRateGraph from "@/components/HeartRateGraph.vue";
 import OxygenGraph from "@/components/OxygenGraph.vue";
 import TempratureGraph from "@/components/TempratureGraph.vue";
-
+import moment from "moment";
+Date.prototype.addDays = function (days) {
+  var date = new Date(this.valueOf());
+  date.setDate(date.getDate() + days);
+  return date;
+};
 export default {
   name: "PatientDetails",
   components: {
@@ -1169,6 +1165,12 @@ export default {
       aggregateValues: ["average", "minimum", "maximum"],
       selectedAggregate: "average",
       timePeriodValues: ["1hour", "1day", "7days", "30days"],
+      timePeriodAddValue: {
+        "1hour": 0,
+        "1day": 1,
+        "7days": 7,
+        "30days": 30,
+      },
       selectedTimePeriod: "7days",
       ecgChartData: [],
       ppgChartData: [],
@@ -1177,7 +1179,7 @@ export default {
       startDateValue: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
         .toISOString()
         .slice(0, 10),
-      endDateValue: new Date().toISOString().slice(0, 10),
+      endDateValue: null,
       tempStartTime: null,
       startTime: null,
       showEcgChart: false,
@@ -1248,6 +1250,9 @@ export default {
         this.endDateValue
       );
     },
+    lastSaved() {
+      return moment(this.getAlgoData.createdAt).startOf("minutes").fromNow();
+    },
   },
   destroyed() {
     if (this.client.connected) {
@@ -1266,22 +1271,67 @@ export default {
     this.createConnection();
   },
   watch: {
-    selectAllFilters(newVal, oldVal) {
-      if (newVal || oldVal) {
-        this.getBodyTempGraph();
-        this.getBloodO2Grpah();
-        this.getStepsGraph();
-        this.getHeartRateGraph();
-      }
-    },
+    // selectAllFilters(newVal, oldVal) {
+    //   if (newVal || oldVal) {
+    //     this.getBodyTempGraph();
+    //     this.getBloodO2Grpah();
+    //     this.getStepsGraph();
+    //     this.getHeartRateGraph();
+    //   }
+    // },
     getMacAddress(val) {
-      if (val) {
+      if (
+        val &&
+        this.startDateValue &&
+        this.endDateValue &&
+        this.selectedTimePeriod
+      ) {
         this.displayAlgoData();
         this.getBodyTempGraph();
         this.getBloodO2Grpah();
         this.getStepsGraph();
         this.getHeartRateGraph();
       }
+    },
+    startDateValue: {
+      immediate: true,
+      handler() {
+        // this.selectedFilters["endDate"]
+        this.endDateValue = new Date(this.startDateValue)
+          .addDays(this.timePeriodAddValue[this.selectedTimePeriod])
+          .toISOString()
+          .slice(0, 10);
+        if (
+          this.getMacAddress.length &&
+          this.startDateValue &&
+          this.endDateValue &&
+          this.selectedTimePeriod
+        ) {
+          this.getBodyTempGraph();
+          this.getBloodO2Grpah();
+          this.getStepsGraph();
+          this.getHeartRateGraph();
+        }
+      },
+    },
+    selectedTimePeriod: {
+      handler() {
+        this.endDateValue = new Date(this.startDateValue)
+          .addDays(this.timePeriodAddValue[this.selectedTimePeriod])
+          .toISOString()
+          .slice(0, 10);
+        if (
+          this.getMacAddress &&
+          this.startDateValue &&
+          this.endDateValue &&
+          this.selectedTimePeriod
+        ) {
+          this.getBodyTempGraph();
+          this.getBloodO2Grpah();
+          this.getStepsGraph();
+          this.getHeartRateGraph();
+        }
+      },
     },
   },
   methods: {

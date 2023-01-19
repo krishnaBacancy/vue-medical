@@ -11,6 +11,7 @@ export default {
       options: {
         series: [
           {
+            name: "Blood Oxygen",
             data: [],
           },
         ],
@@ -104,7 +105,7 @@ export default {
             this.oxygenChart.render();
             this.oxygenChart.updateSeries([
               {
-                data: this.dataOfChart?.map((d) => Math.round(d["spo2"])),
+                data: val?.map((d) => Math.round(d["spo2"])),
               },
             ]);
           } else {
@@ -113,6 +114,9 @@ export default {
         }
       },
     },
+  },
+  destroyed() {
+    this.oxygenChart.destroy();
   },
 };
 </script>

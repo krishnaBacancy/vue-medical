@@ -101,6 +101,13 @@ export default {
                   legend: {
                     display: false,
                   },
+                  tooltip: {
+                    callbacks: {
+                      title: function () {
+                        return "";
+                      },
+                    },
+                  },
                 },
                 scales: {
                   x: {

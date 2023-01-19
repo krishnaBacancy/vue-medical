@@ -11,6 +11,7 @@ export default {
       options: {
         series: [
           {
+            name: "Steps",
             data: [],
           },
         ],
