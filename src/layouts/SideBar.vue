@@ -399,10 +399,21 @@ span {
   background-color: rgb(245, 130, 32);
 }
 .v-navigation-drawer,
+.theme--light.v-app-bar.v-toolbar.v-sheet,
 .theme--dark.v-navigation-drawer {
   background: linear-gradient(45deg, #e53985, #f58220) !important;
 }
 .sidebar a .v-icon {
   color: #fff;
+}
+.v-app-bar__nav-icon.v-btn > .v-btn__content .v-icon {
+  color: rgb(245, 130, 32);
+}
+.v-app-bar__nav-icon.v-btn {
+  background-color: #fff;
+  border-radius: 10px;
+  height: 36px !important;
+  width: 36px !important;
+  left: 10px;
 }
 </style>

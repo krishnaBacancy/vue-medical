@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex mr-auto">
+  <div class="d-flex mr-auto align-center">
     <v-icon
       v-if="pageIcon"
       class="black--text icon-big mr-4"
