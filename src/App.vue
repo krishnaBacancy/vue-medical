@@ -56,7 +56,13 @@ export default {
   text-align: center;
   /* background-color: cyan; */
 }
-
+.card__radio {
+  font-family: "Gilroy";
+}
+div .v-sheet.v-card:not(.v-sheet--outlined) {
+  box-shadow: 0px 12px 20px #00000014;
+  border: 1px solid #e9e9e9;
+}
 nav a {
   font-weight: bold;
   color: #2c3e50;
