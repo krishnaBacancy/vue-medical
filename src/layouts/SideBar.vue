@@ -2,6 +2,12 @@
   <v-app>
     <v-app-bar app v-if="$vuetify.breakpoint.smAndDown && !getRoute">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <img
+        class="sidebar-logo ml-8"
+        src="@/assets/logo-white.svg"
+        @click="$router.push('/')"
+        height="30"
+      />
     </v-app-bar>
     <v-navigation-drawer
       app

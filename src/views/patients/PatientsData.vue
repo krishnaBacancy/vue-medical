@@ -189,4 +189,10 @@ small {
 .btn-danger {
   background-color: #fd5d5d;
 }
+@media (max-width: 600px) {
+  .btn {
+    margin-left: 0;
+    margin-right: 10px;
+  }
+}
 </style>

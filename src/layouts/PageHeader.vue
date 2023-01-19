@@ -2,7 +2,7 @@
   <div class="d-flex mr-auto align-center">
     <v-icon
       v-if="pageIcon"
-      class="black--text icon-big mr-4"
+      class="black--text icon-big"
       @click="$emit('goBack')"
       >{{ pageIcon }}</v-icon
     >
@@ -53,5 +53,22 @@ export default {
   min-width: 190px;
   text-transform: none;
   font-weight: 600;
+}
+.icon-big {
+  margin-right: 16px;
+}
+@media (max-width: 600px) {
+  .icon-big {
+    margin-right: 10px;
+    font-size: 24px;
+  }
+  .v-card__title {
+    font-size: 22px;
+  }
+  .v-btn:not(.v-btn--round).v-size--default {
+    min-width: unset;
+    padding: 12px 18px;
+    border-radius: 8px;
+  }
 }
 </style>
