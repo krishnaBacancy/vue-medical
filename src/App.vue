@@ -209,7 +209,8 @@ nav a.router-link-exact-active {
     flex-wrap: wrap;
     padding: 8px 20px 20px;
     border: 1px solid #e9e9e9;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    margin-top: 0 !important;
     border-radius: 12px;
   }
 

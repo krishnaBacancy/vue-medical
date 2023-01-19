@@ -5,83 +5,79 @@
       pageIcon="mdi-arrow-left"
       @goBack="$router.go(-1)"
     />
-    <br />
-    <v-container style="border-radius: 20px" fluid>
-      <div class="mt-3 mb-3 pa-2">
+    <div class="table-changes">
+      <div class="text-right">
         <v-btn
           color="warning"
           height="53"
           width="248"
-          class="text-start mr-auto mb-5"
+          class="text-start ml-auto mb-5"
           v-if="role === 'Doctor'"
           @click="assignDevicesToPatient"
           >Assign to Patient
         </v-btn>
-
-        <v-dialog
-          transition="dialog-top-transition"
-          max-width="600"
-          overlay-color="white"
-          persistent
-          v-model="assignDialog"
-        >
-          <v-card>
-            <v-card-title>
-              <span class="text-h5 ml-3"
-                >Select below patient to assign device</span
-              >
-            </v-card-title>
-
-            <v-card-text>
-              <v-container>
-                <v-row>
-                  <v-col cols="12" sm="12" md="12">
-                    <v-select
-                      :items="getAllPatientsOnly"
-                      v-model="selectedHeaders"
-                      @change="getSelectedValue"
-                      item-text="fullName"
-                      placeholder="Select Patient"
-                      return-object
-                    ></v-select>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-card-text>
-
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="assignDialog = false">
-                Cancel
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-
-        <v-data-table
-          item-key="name"
-          class="elevation-1"
-          loading
-          loading-text="Loading... Please wait"
-          height="350"
-          :items-per-page="5"
-          v-if="loadingStatus"
-        ></v-data-table>
-        <v-data-table
-          v-else
-          :headers="headers"
-          :items="getPatients"
-          :items-per-page="5"
-          class="elevation-1 table"
-          show-select
-          v-model="selected"
-          :height="$vuetify.breakpoint.smAndDown ? '600' : '350'"
-        >
-        </v-data-table>
       </div>
 
-      <DeviceAssignDialog ref="assign" />
-    </v-container>
+      <v-dialog
+        transition="dialog-top-transition"
+        max-width="600"
+        overlay-color="white"
+        persistent
+        v-model="assignDialog"
+      >
+        <v-card>
+          <v-card-title>
+            <span class="text-h5 ml-3"
+              >Select below patient to assign device</span
+            >
+          </v-card-title>
+
+          <v-card-text>
+            <v-container>
+              <v-row>
+                <v-col cols="12" sm="12" md="12">
+                  <v-select
+                    :items="getAllPatientsOnly"
+                    v-model="selectedHeaders"
+                    @change="getSelectedValue"
+                    item-text="fullName"
+                    placeholder="Select Patient"
+                    return-object
+                  ></v-select>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-card-text>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text @click="assignDialog = false">
+              Cancel
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
+      <v-data-table
+        item-key="name"
+        class="elevation-1"
+        loading
+        loading-text="Loading... Please wait"
+        :items-per-page="5"
+        v-if="loadingStatus"
+      ></v-data-table>
+      <v-data-table
+        v-else
+        :headers="headers"
+        :items="getPatients"
+        :items-per-page="5"
+        class="elevation-1 table"
+        show-select
+        v-model="selected"
+      >
+      </v-data-table>
+    </div>
+    <DeviceAssignDialog ref="assign" />
   </div>
 </template>
 
