@@ -58,6 +58,7 @@ export default {
             document.getElementById(`temp-chart-${this.macAddress}`)
           ) {
             console.log("chart exist");
+            this.tempratureChart.render();
           } else {
             let ctx;
             if (document.getElementById(`temp-chart-${this.macAddress}`)) {
@@ -126,6 +127,9 @@ export default {
     if (this.tempratureChart) {
       this.tempratureChart?.destroy();
       this.tempratureChart = null;
+    }
+    if (document.getElementById("barCanvas")) {
+      document.getElementById("barCanvas").innerHTML = null;
     }
   },
 };

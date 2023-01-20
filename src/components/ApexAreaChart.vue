@@ -117,6 +117,7 @@ export default {
     dataOfChart: {
       immediate: true,
       async handler(val) {
+        console.log("val.length", val.length);
         if (val.length && val.length > 0) {
           if (!this.myAreaChart) {
             document.getElementById("chart").innerHTML = "";
@@ -136,6 +137,15 @@ export default {
         }
       },
     },
+  },
+  destroyed() {
+    if (this.myAreaChart) {
+      this.myAreaChart?.destroy();
+      this.myAreaChart = null;
+    }
+    if (document.getElementById("chart")) {
+      document.getElementById("chart").innerHTML = "";
+    }
   },
 };
 </script>

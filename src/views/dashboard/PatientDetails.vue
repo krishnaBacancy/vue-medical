@@ -34,7 +34,7 @@
                 )
               }}
             </h3>
-            <button class="btn-orange mr-4">
+            <button class="btn-orange mr-4" @click="$router.push('/settings')">
               <v-icon>mdi-cog</v-icon>
             </button>
           </div>
@@ -139,7 +139,7 @@
             </v-tooltip>
           </div>
         </div>
-        <div class="d-flex flex-wrap">
+        <div class="d-flex flex-wrap align-center">
           <!-- <div class="ml-6">
             <v-select
               :items="aggregateValues"
@@ -149,7 +149,7 @@
               v-model="selectedAggregate"
             ></v-select>
           </div> -->
-          <div class="mr-6 mt-5">
+          <div class="mr-6 mt-5 ml-auto mr-auto">
             <v-select
               :items="timePeriodValues"
               v-model="selectedTimePeriod"
@@ -158,7 +158,7 @@
               dense
             ></v-select>
           </div>
-          <div class="mt-5">
+          <div class="mt-5 mr-auto">
             <v-menu
               v-model="startDateMenu"
               :close-on-content-click="false"
@@ -563,7 +563,7 @@
                 <h3>Arrthymia</h3>
               </div>
               <div class="right">
-                <div v-if="!$vuetify.breakpoint.smOnly">
+                <div>
                   <h3 class="font-weight-medium">Last Reading</h3>
                   <small class="grey--text">{{ lastSaved }}</small>
                 </div>
@@ -597,7 +597,7 @@
                 <h3>Stroke Volume</h3>
               </div>
               <div class="right">
-                <div v-if="!$vuetify.breakpoint.smOnly">
+                <div>
                   <h3 class="font-weight-medium">Last Reading</h3>
                   <small class="grey--text">{{ lastSaved }}</small>
                 </div>
@@ -634,7 +634,7 @@
                 <h3 cl>Cardiac Output</h3>
               </div>
               <div class="right">
-                <div v-if="!$vuetify.breakpoint.smOnly">
+                <div>
                   <h3 class="font-weight-medium">Last Reading</h3>
                   <small class="grey--text">{{ lastSaved }}</small>
                 </div>
@@ -671,7 +671,7 @@
                 <h3 cl>Pulse Transit Time</h3>
               </div>
               <div class="right">
-                <div v-if="!$vuetify.breakpoint.smOnly">
+                <div>
                   <h3 class="font-weight-medium">Last Reading</h3>
                   <small class="grey--text">{{ lastSaved }}</small>
                 </div>
@@ -1011,6 +1011,10 @@ export default {
           this.initData();
           console.log("Successfully disconnected!");
         });
+        this.getPatientBodyTempData([]);
+        this.getPatientBloodOxygenData([]);
+        this.getPatientStepsData([]);
+        this.getPatientHeartRateData([]);
       } catch (error) {
         console.log("Disconnect failed", error.toString());
       }
@@ -1144,9 +1148,6 @@ export default {
         endDate: Date.parse(this.endDateValue),
       };
       this.getPatientBodyTempData(payload);
-      setTimeout(() => {
-        this.getPatientBodyTempData(payload);
-      }, 5000);
     },
     getBloodO2Grpah() {
       const payload = {
@@ -1221,7 +1222,7 @@ export default {
               `BMSFSEV/${this.getSingleDeviceData[0]?.macAddressFramed.toUpperCase()}/sTOf`
             );
           });
-          this.client.on("reconnect", this.handleOnReConnect);
+          // this.client.on("reconnect", this.handleOnReConnect);
           this.client.on("error", (error) => {
             console.log("Connection failed", error);
           });

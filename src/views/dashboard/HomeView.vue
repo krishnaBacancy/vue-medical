@@ -62,7 +62,7 @@
                 <div class="d-flex">
                   <img src="@/assets/User.svg" width="35" height="35" contain />
                   <h3 class="ml-3 font-weight-bold">
-                    {{ patient?.firstName + " " + patient?.lastName }}
+                    {{ patient?.fullName }}
                   </h3>
                 </div>
                 <v-spacer>

@@ -95,9 +95,10 @@ export default {
     dataOfChart: {
       immediate: true,
       async handler(val) {
+        console.log("val.length", val.length);
         if (val.length && val.length > 0) {
           if (!this.oxygenChart) {
-            document.getElementById("Oxygenchart").innerHTML = "";
+            // document.getElementById("Oxygenchart").innerHTML = "";
             this.oxygenChart = new ApexCharts(
               document.querySelector("#Oxygenchart"),
               this.options
@@ -116,7 +117,12 @@ export default {
     },
   },
   destroyed() {
-    this.oxygenChart.destroy();
+    if (this.oxygenChart) {
+      this.oxygenChart.destroy();
+    }
+    if (document.getElementById("Oxygenchart")) {
+      document.getElementById("Oxygenchart").innerHTML = "";
+    }
   },
 };
 </script>

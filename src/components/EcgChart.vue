@@ -81,7 +81,7 @@ export default {
               canvas.id = `ecg-chart-${this.macAddress}`;
               canvas.width = this.width;
               canvas.height = this.height;
-              canvas.style.backgroundColor = "black";
+              canvas.style.backgroundColor = "#fff";
 
               var body = document.getElementById(this.macAddress);
               // console.log("body", body);
@@ -139,7 +139,7 @@ export default {
                     stacked: true,
                     offset: true,
                     ticks: {
-                      color: "#FFFFFF",
+                      // color: "#FFFFFF",
                     },
                   },
                   x: {
@@ -184,8 +184,8 @@ export default {
             this.myChart?.update("none");
           }
         } else {
-          console.log("clear interval");
-          clearInterval(this.setIntervalMethod);
+          // console.log("clear interval");
+          // clearInterval(this.setIntervalMethod);
         }
       },
     },
