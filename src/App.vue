@@ -384,4 +384,12 @@ div.v-application .primary--text,
   text-align: left;
   padding: 0 26px;
 }
+.input-theme.v-input {
+  margin-top: 0;
+}
+.input-theme.v-text-field > .v-input__control > .v-input__slot {
+  border: 1px solid #e9e9e9;
+  border-radius: 10px;
+  padding: 14px;
+}
 </style>

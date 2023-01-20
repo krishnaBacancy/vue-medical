@@ -2,33 +2,31 @@
   <div>
     <v-dialog
       v-model="dialog"
-      :width="$vuetify.breakpoint.smAndUp ? '750px' : '400px'"
+      :width="$vuetify.breakpoint.smAndUp ? '600px' : '400px'"
       :max-width="options.width"
       :style="{ zIndex: options.zIndex }"
       @keydown.esc="cancel"
       overlay-color="white"
-      dark
     >
-      <v-card>
-        <v-toolbar dark :color="options.color" dense flat>
-          <v-toolbar-title class="text-h6 font-weight-bold grey--text">
-            {{ title }}
-          </v-toolbar-title>
-        </v-toolbar>
+      <v-card class="pa-sm-10 pa-5">
+        <h4 class="text-h6 font-weight-bold mb-5">
+          {{ title }}
+        </h4>
         <v-card-text
           v-show="!!message"
           class="pa-4 black--text"
           v-html="message"
         ></v-card-text>
-        <v-card-actions class="pt-3">
-          <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click.native="cancel">
-            Cancel
-          </v-btn>
-          <v-btn color="blue darken-1" text @click.native="agree">
-            Assign
-          </v-btn>
-        </v-card-actions>
+        <v-btn color="warning" large @click.native="agree"> Assign </v-btn>
+        <v-btn
+          color="warning"
+          class="ml-5"
+          outlined
+          large
+          @click.native="cancel"
+        >
+          Cancel
+        </v-btn>
       </v-card>
     </v-dialog>
   </div>
