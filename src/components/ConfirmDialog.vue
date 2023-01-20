@@ -7,29 +7,30 @@
       :max-width="options.width"
       :style="{ zIndex: options.zIndex }"
       @keydown.esc="cancel"
-      overlay-color="white"
-      dark
+      overlay-color="black"
     >
-      <v-card>
-        <v-toolbar dark :color="options.color" dense flat>
-          <v-toolbar-title class="text-h6 font-weight-bold grey--text">
-            {{ title }}
-          </v-toolbar-title>
-        </v-toolbar>
+      <v-card class="pa-sm-10 pa-5">
+        <h4 class="text-h6 font-weight-bold mb-5">
+          {{ title }}
+        </h4>
         <v-card-text
           v-show="!!message"
           class="pa-4 black--text"
           v-html="message"
         ></v-card-text>
-        <v-card-actions class="pt-3">
-          <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click.native="cancel">
-            Cancel
-          </v-btn>
-          <v-btn color="blue darken-1" text @click.native="agree">
-            Delete
-          </v-btn>
-        </v-card-actions>
+        <v-btn class="px-sm-8" large color="warning" @click.native="agree">
+          Delete
+        </v-btn>
+        <v-btn
+          large
+          class="ml-5 px-sm-6"
+          color="warning"
+          outlined
+          text
+          @click.native="cancel"
+        >
+          Cancel
+        </v-btn>
       </v-card>
     </v-dialog>
   </div>

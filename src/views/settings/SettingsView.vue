@@ -142,7 +142,7 @@
         </v-flex>
 
         <v-flex d-flex xs12 sm12 md6 class="mt-2 mb-4">
-          <v-card class="ml-2 mr-2 mb-5 mb-md-0 pa-2">
+          <v-card>
             <v-card-title
               class="text-left text-h7 font-weight-bold pb-0"
               style="color: #f58220"

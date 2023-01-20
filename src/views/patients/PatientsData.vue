@@ -116,15 +116,29 @@ export default {
           "Are you sure you want to delete this patient?"
         )
       ) {
-        this.deletePatient(item);
-        this.$toast.success("Patient deleted successfully.", {
-          timeout: 3000,
-        });
-        setTimeout(() => {
-          this.getAllPatientsData(this.getDoctorId);
-        }, 500);
+        this.deletePatient(item)
+          .then((data) => {
+            if (data.statusCode === 200) {
+              setTimeout(() => {
+                this.getAllPatientsData(this.getDoctorId);
+              }, 500);
+              this.dialogDelete = true;
+              this.$toast.success(data.message, {
+                timeout: 3000,
+              });
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+            setTimeout(() => {
+              this.getAllPatientsData(this.getDoctorId);
+            }, 500);
+            this.$toast.error(err.message, {
+              timeout: 3000,
+            });
+            this.dialogDelete = true;
+          });
       }
-      this.dialogDelete = true;
     },
   },
   mounted() {
@@ -174,6 +188,7 @@ small {
   color: #fff;
   margin-left: 12px;
   border-radius: 10px;
+  line-height: 1;
 }
 .btn-orange {
   background-color: #f58220;
@@ -187,7 +202,9 @@ small {
 @media (max-width: 600px) {
   .btn {
     margin-left: 0;
-    margin-right: 10px;
+  }
+  .btn + .btn {
+    margin-left: 8px;
   }
 }
 </style>

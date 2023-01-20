@@ -61,12 +61,13 @@ const mutations = {
         lastName:
           data.customerlastName?.charAt(0).toUpperCase() +
           data.customerlastName?.slice(1),
-        fullName:
-          data.customerfirstName?.charAt(0).toUpperCase() +
-          data.customerfirstName?.slice(1) +
-          " " +
-          data.customerlastName?.charAt(0).toUpperCase() +
-          data.customerlastName?.slice(1),
+        fullName: data.customerfirstName
+          ? data.customerfirstName?.charAt(0).toUpperCase() +
+            data.customerfirstName?.slice(1) +
+            " " +
+            data.customerlastName?.charAt(0).toUpperCase() +
+            data.customerlastName?.slice(1)
+          : "--",
         doctorFirstName: data.docterfirstName,
         doctorLastName: data.docterlastName,
         macAddress: data.mac_address,
@@ -92,12 +93,13 @@ const mutations = {
         lastName:
           patient.last_Name?.charAt(0).toUpperCase() +
           patient.last_Name?.slice(1),
-        fullName:
-          patient?.first_Name?.charAt(0).toUpperCase() +
-          patient?.first_Name?.slice(1) +
-          " " +
-          patient?.last_Name?.charAt(0).toUpperCase() +
-          patient?.last_Name?.slice(1),
+        fullName: patient?.first_Name
+          ? patient?.first_Name?.charAt(0).toUpperCase() +
+            patient?.first_Name?.slice(1) +
+            " " +
+            patient?.last_Name?.charAt(0).toUpperCase() +
+            patient?.last_Name?.slice(1)
+          : "--",
         email: patient.email,
         address: patient.Address,
         aadharcard: patient.adharcard,
@@ -116,12 +118,13 @@ const mutations = {
         id: patient.userId,
         firstName: patient.first_Name,
         licenseNo: patient.licenseno,
-        fullName:
-          patient?.first_Name?.charAt(0).toUpperCase() +
-          patient?.first_Name?.slice(1) +
-          " " +
-          patient?.last_Name?.charAt(0).toUpperCase() +
-          patient?.last_Name?.slice(1),
+        fullName: patient?.first_Name
+          ? patient?.first_Name?.charAt(0).toUpperCase() +
+            patient?.first_Name?.slice(1) +
+            " " +
+            patient?.last_Name?.charAt(0).toUpperCase() +
+            patient?.last_Name?.slice(1)
+          : "--",
         lastName: patient.last_Name,
         email: patient.email,
         address: patient.Address,
@@ -217,6 +220,7 @@ const actions = {
       commit("DELETE_PATIENT", id);
       commit("SET_LOADING_STATUS", false);
     }
+    return res.data;
   },
 };
 

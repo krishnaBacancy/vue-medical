@@ -192,31 +192,4 @@ export default {
   display: flex;
   justify-content: space-evenly;
 }
-.table >>> th {
-  font-size: 16px !important;
-}
-.table >>> tr > td {
-  font-size: 20px !important;
-}
-.table >>> tr {
-  margin-top: 30px !important;
-}
-.table >>> .v-data-footer__select,
-.table >>> .v-select__selection,
-.table >>> .v-data-footer__pagination {
-  font-size: 1rem;
-}
-@media only screen and (max-width: 960px) {
-  .table >>> th {
-    font-size: 12px !important;
-  }
-  .table >>> tr > td {
-    font-size: 16px !important;
-  }
-  .table >>> .v-data-footer__select,
-  .table >>> .v-select__selection,
-  .table >>> .v-data-footer__pagination {
-    font-size: 0.8rem;
-  }
-}
 </style>

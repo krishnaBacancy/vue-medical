@@ -127,6 +127,9 @@ export default {
       this.HeartRateChart?.destroy();
       this.HeartRateChart = null;
     }
+    if (document.getElementById("heartRateCanvas")) {
+      document.getElementById("heartRateCanvas").innerHTML = null;
+    }
   },
 };
 </script>
