@@ -46,7 +46,6 @@
               /> -->
               <vue-tel-input
                 v-model.trim="user.phone"
-                style="height: 53px"
                 v-bind="phoneProps"
                 @validate="phoneNumberChanged"
               ></vue-tel-input>
@@ -60,7 +59,6 @@
               /> -->
               <vue-tel-input
                 v-model.trim="user.emergencyPhone"
-                style="height: 53px"
                 v-bind="emergencyPhoneProps"
                 @validate="emergencyPhoneChanged"
               ></vue-tel-input>
@@ -201,7 +199,6 @@
               /> -->
               <vue-tel-input
                 v-model.trim="familyInfo.contactNo"
-                style="height: 53px"
                 v-bind="relativePhoneProps"
                 @validate="relativePhoneChanged"
               ></vue-tel-input>
@@ -562,12 +559,5 @@ export default {
 <style scoped>
 .main__svg {
   cursor: pointer;
-}
-.vue-tel-input {
-  border: 1px solid #efefef;
-  border-radius: 10px;
-}
-.vue-tel-input:focus-within {
-  box-shadow: none;
 }
 </style>
