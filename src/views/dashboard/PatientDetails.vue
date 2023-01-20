@@ -34,7 +34,7 @@
                 )
               }}
             </h3>
-            <button class="btn-orange mr-4">
+            <button class="btn-orange mr-4" @click="$router.push('/settings')">
               <v-icon>mdi-cog</v-icon>
             </button>
           </div>
@@ -139,7 +139,7 @@
             </v-tooltip>
           </div>
         </div>
-        <div class="d-flex flex-wrap">
+        <div class="d-flex flex-wrap align-center">
           <!-- <div class="ml-6">
             <v-select
               :items="aggregateValues"
@@ -149,7 +149,7 @@
               v-model="selectedAggregate"
             ></v-select>
           </div> -->
-          <div class="mr-6 mt-5">
+          <div class="mr-6 mt-5 ml-auto mr-auto">
             <v-select
               :items="timePeriodValues"
               v-model="selectedTimePeriod"
@@ -158,7 +158,7 @@
               dense
             ></v-select>
           </div>
-          <div class="mt-5">
+          <div class="mt-5 mr-auto">
             <v-menu
               v-model="startDateMenu"
               :close-on-content-click="false"
@@ -1011,6 +1011,10 @@ export default {
           this.initData();
           console.log("Successfully disconnected!");
         });
+        this.getPatientBodyTempData([]);
+        this.getPatientBloodOxygenData([]);
+        this.getPatientStepsData([]);
+        this.getPatientHeartRateData([]);
       } catch (error) {
         console.log("Disconnect failed", error.toString());
       }
@@ -1144,9 +1148,6 @@ export default {
         endDate: Date.parse(this.endDateValue),
       };
       this.getPatientBodyTempData(payload);
-      setTimeout(() => {
-        this.getPatientBodyTempData(payload);
-      }, 5000);
     },
     getBloodO2Grpah() {
       const payload = {
