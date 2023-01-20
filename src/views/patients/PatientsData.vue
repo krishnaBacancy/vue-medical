@@ -174,6 +174,7 @@ small {
   color: #fff;
   margin-left: 12px;
   border-radius: 10px;
+  line-height: 1;
 }
 .btn-orange {
   background-color: #f58220;
@@ -187,7 +188,9 @@ small {
 @media (max-width: 600px) {
   .btn {
     margin-left: 0;
-    margin-right: 10px;
+  }
+  .btn + .btn {
+    margin-left: 8px;
   }
 }
 </style>

@@ -161,6 +161,14 @@ nav a.router-link-exact-active {
   > td:not(.v-data-table__mobile-row) {
   border: none;
 }
+.theme--light.v-data-table
+  > .v-data-table__wrapper
+  > table
+  > thead
+  > tr:last-child
+  > th {
+  font-size: 14px;
+}
 .table-changes .theme--light.v-data-table {
   box-shadow: none !important;
 }
@@ -182,6 +190,7 @@ nav a.router-link-exact-active {
   border-bottom: 1px solid #e9e9e9 !important;
   font-weight: 500;
   padding: 15px 20px;
+  font-size: 18px;
 }
 .table-changes .v-data-table > .v-data-table__wrapper > table {
   border: 1px solid #e9e9e9;
@@ -207,7 +216,7 @@ nav a.router-link-exact-active {
     .v-data-table__mobile-table-row {
     display: flex;
     flex-wrap: wrap;
-    padding: 8px 20px 20px;
+    padding: 8px 10px 10px;
     border: 1px solid #e9e9e9;
     margin-bottom: 20px;
     margin-top: 0 !important;

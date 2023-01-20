@@ -1,168 +1,154 @@
 <template>
   <div style="width: 100%">
     <PageHeader
+      class="mb-8"
       title="Live"
       pageIcon="mdi-arrow-left"
       @goBack="$router.go(-1)"
     />
-    <br />
-    <v-container fluid grid-list-md style="border-radius: 20px" class="mb-4">
-      <div class="d-flex" v-if="mobile">
-        <h3>Filter</h3>
-        <v-icon class="ml-4" @click="gridNumber = 4">mdi-tally-mark-3</v-icon>
-        <v-icon class="ml-2" @click="gridNumber = 6">mdi-tally-mark-2</v-icon>
-        <v-icon class="ml-2" @click="gridNumber = 12">mdi-tally-mark-1</v-icon>
-      </div>
-
-      <v-layout row wrap class="mt-4">
-        <v-flex
-          d-flex
-          xs12
-          sm12
-          md6
-          v-for="device in liveDevices"
-          :key="device.id"
-          :class="showGrid"
+    <div class="d-flex align-center" v-if="mobile">
+      <h3>Filter</h3>
+      <v-icon class="ml-4" @click="gridNumber = 4">mdi-tally-mark-3</v-icon>
+      <v-icon class="ml-2" @click="gridNumber = 6">mdi-tally-mark-2</v-icon>
+      <v-icon class="ml-2" @click="gridNumber = 12">mdi-tally-mark-1</v-icon>
+    </div>
+    <v-layout row wrap class="mt-4">
+      <v-flex
+        d-flex
+        xs12
+        sm12
+        md6
+        v-for="device in liveDevices"
+        :key="device.id"
+        :class="showGrid"
+      >
+        <v-card
+          class="card-theme"
+          style="width: 100%; border-radius: 20px"
+          @click="$router.push(`/patient-details/${device?.id}`)"
         >
-          <v-card
-            class="card-theme"
-            style="width: 100%; border-radius: 20px"
-            @click="$router.push(`/patient-details/${device?.id}`)"
-          >
-            <div class="d-flex align-center">
-              <div class="d-flex flex-column text-start">
-                <h3 class="ml-5">{{ device.fullName }}</h3>
-                <h5
-                  class="ml-5 mt-2 grey--text second__heading font-weight-regular"
-                >
-                  Floor No.
-                </h5>
-                <h5
-                  class="ml-5 mt-2 grey--text second__heading font-weight-regular"
-                >
-                  Room No.
-                </h5>
-                <h5
-                  class="ml-5 mt-2 grey--text second__heading font-weight-regular"
-                >
-                  {{ device.macAddressFramed }}
-                </h5>
-              </div>
-              <v-spacer></v-spacer>
-              <div style="width: 70%" class="mr-3">
-                <div :id="device.macAddressFramed" style="overflow: hidden">
-                  <ecg-chart
-                    v-if="device.showEcgChart"
-                    :ecgDataFromProps="device.ecgValues"
-                    :macAddress="device.macAddressFramed"
-                    :key="device.showEcgChart"
-                    :width="600"
-                    :height="165"
-                  />
-                </div>
+          <div class="d-flex align-center w-100">
+            <div class="d-flex flex-column text-start w-100">
+              <h3>{{ device.fullName }}</h3>
+              <h5 class="mt-2 grey--text second__heading font-weight-regular">
+                Floor No.
+              </h5>
+              <h5 class="mt-2 grey--text second__heading font-weight-regular">
+                Room No.
+              </h5>
+              <h5 class="mt-2 grey--text second__heading font-weight-regular">
+                {{ device.macAddressFramed }}
+              </h5>
+            </div>
+            <v-spacer></v-spacer>
+            <div style="width: 70%" class="mr-3">
+              <div :id="device.macAddressFramed" style="overflow: hidden">
+                <ecg-chart
+                  v-if="device.showEcgChart"
+                  :ecgDataFromProps="device.ecgValues"
+                  :macAddress="device.macAddressFramed"
+                  :key="device.showEcgChart"
+                  :width="600"
+                  :height="165"
+                />
               </div>
             </div>
+          </div>
 
-            <div class="d-flex mt-3">
-              <v-card width="33%" height="70">
-                <div class="d-flex align-center">
-                  <v-flex>
-                    <v-tooltip bottom>
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-img
-                          v-on="on"
-                          v-bind="attrs"
-                          class="mt-2 ml-2"
-                          src="@/assets/heartbeat.svg"
-                          height="40"
-                          width="40"
-                          contain
-                        ></v-img>
-                      </template>
-                      <span>Heart Rate</span>
-                    </v-tooltip>
-                  </v-flex>
-                  <v-flex xs12>
-                    <div class="d-flex flex-column text-start mt-2 ml-2">
-                      <h5 class="green--text">
-                        {{ device?.algodata ? device.algodata?.hr : "--" }}
-                      </h5>
-                      <small class="">BPM</small>
-                    </div>
-                  </v-flex>
-                </div>
+          <v-row>
+            <v-col cols="12" sm="6" lg="4">
+              <v-card class="d-flex align-center pa-2 mt-4">
+                <v-flex>
+                  <v-tooltip bottom>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-img
+                        v-on="on"
+                        v-bind="attrs"
+                        src="@/assets/heartbeat.svg"
+                        height="40"
+                        width="40"
+                        contain
+                      ></v-img>
+                    </template>
+                    <span>Heart Rate</span>
+                  </v-tooltip>
+                </v-flex>
+                <v-flex xs12>
+                  <div class="d-flex flex-column text-start ml-2 lh-1">
+                    <h5 class="green--text">
+                      {{ device?.algodata ? device.algodata?.hr : "--" }}
+                    </h5>
+                    <small class="">BPM</small>
+                  </div>
+                </v-flex>
               </v-card>
-
-              <v-card width="33%" height="70" class="ml-2">
-                <div class="d-flex align-center">
-                  <v-flex>
-                    <v-tooltip bottom>
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-img
-                          v-on="on"
-                          v-bind="attrs"
-                          class="mt-2 ml-2"
-                          src="@/assets/oxygen.svg"
-                          height="40"
-                          width="40"
-                          contain
-                        ></v-img>
-                      </template>
-                      <span>Oxygen</span>
-                    </v-tooltip>
-                  </v-flex>
-                  <v-flex xs12>
-                    <div class="d-flex flex-column text-start ml-2 mt-2">
-                      <h5 class="yellow--text">
-                        {{
-                          device?.algodata
-                            ? Math.round(device.algodata?.spo2)
-                            : "--"
-                        }}
-                      </h5>
-                      <small class="">%</small>
-                    </div>
-                  </v-flex>
-                </div>
+            </v-col>
+            <v-col cols="12" sm="6" lg="4">
+              <v-card class="d-flex align-center pa-2 mt-4">
+                <v-flex>
+                  <v-tooltip bottom>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-img
+                        v-on="on"
+                        v-bind="attrs"
+                        src="@/assets/oxygen.svg"
+                        height="40"
+                        width="40"
+                        contain
+                      ></v-img>
+                    </template>
+                    <span>Oxygen</span>
+                  </v-tooltip>
+                </v-flex>
+                <v-flex xs12>
+                  <div class="d-flex flex-column text-start ml-2 lh-1">
+                    <h5 class="yellow--text">
+                      {{
+                        device?.algodata
+                          ? Math.round(device.algodata?.spo2)
+                          : "--"
+                      }}
+                    </h5>
+                    <small class="">%</small>
+                  </div>
+                </v-flex>
               </v-card>
-
-              <v-card width="33%" height="70" class="ml-2">
-                <div class="d-flex align-center">
-                  <v-flex>
-                    <v-tooltip bottom>
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-img
-                          v-on="on"
-                          v-bind="attrs"
-                          class="mt-2 ml-2"
-                          src="@/assets/temprature.svg"
-                          height="40"
-                          width="40"
-                          contain
-                        ></v-img>
-                      </template>
-                      <span>Temperature</span>
-                    </v-tooltip>
-                  </v-flex>
-                  <v-flex xs12>
-                    <div class="d-flex flex-column text-start ml-2 mt-2">
-                      <h5 class="text-danger">
-                        {{
-                          device?.algodata
-                            ? Math.round(device.algodata?.temp)
-                            : "--"
-                        }}
-                      </h5>
-                      <small class="">°C</small>
-                    </div>
-                  </v-flex>
-                </div>
+            </v-col>
+            <v-col cols="12" sm="6" lg="4">
+              <v-card class="d-flex align-center pa-2 mt-4">
+                <v-flex>
+                  <v-tooltip bottom>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-img
+                        v-on="on"
+                        v-bind="attrs"
+                        src="@/assets/temprature.svg"
+                        height="40"
+                        width="40"
+                        contain
+                      ></v-img>
+                    </template>
+                    <span>Temperature</span>
+                  </v-tooltip>
+                </v-flex>
+                <v-flex xs12>
+                  <div class="d-flex flex-column text-start ml-2 lh-1">
+                    <h5 class="text-danger">
+                      {{
+                        device?.algodata
+                          ? Math.round(device.algodata?.temp)
+                          : "--"
+                      }}
+                    </h5>
+                    <small class="">°C</small>
+                  </div>
+                </v-flex>
               </v-card>
-            </div>
-          </v-card>
-        </v-flex>
-      </v-layout>
-    </v-container>
+            </v-col>
+          </v-row>
+        </v-card>
+      </v-flex>
+    </v-layout>
   </div>
 </template>
 
@@ -444,5 +430,8 @@ h3 {
   .second__heading {
     font-size: 16px;
   }
+}
+.lh-1 {
+  line-height: 1.2;
 }
 </style>

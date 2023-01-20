@@ -1320,8 +1320,6 @@ h3 {
   border-radius: 26px;
   margin-bottom: 30px;
 }
-.patient-details-wrapper {
-}
 .btn-orange {
   width: 40px;
   height: 40px;
