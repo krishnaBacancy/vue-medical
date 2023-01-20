@@ -315,4 +315,19 @@ nav a.router-link-exact-active {
 .form-group {
   margin-bottom: 28px;
 }
+.v-text-field.v-text-field--enclosed:not(.v-text-field--rounded)
+  > .v-input__control
+  > .v-input__slot,
+.v-text-field.v-text-field--enclosed .v-text-field__details {
+  padding: 10px 20px;
+}
+.v-text-field--filled.v-input--dense .v-label,
+.v-text-field--full-width.v-input--dense .v-label {
+  top: 12px;
+}
+.apexcharts-canvas > svg,
+.apexcharts-canvas,
+.apexcharts-svg.apexcharts-zoomable.hovering-zoom {
+  max-width: 100%;
+}
 </style>

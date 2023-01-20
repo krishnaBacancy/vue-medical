@@ -114,8 +114,8 @@
                   v-bind="attrs"
                   class="mt-2"
                   src="@/assets/Live1.png"
-                  height="50"
-                  width="50"
+                  height="40"
+                  width="40"
                   contain
                   v-if="liveMessage === 'Online'"
                 ></v-img>
@@ -129,8 +129,8 @@
                   v-on="on"
                   class="mt-2"
                   src="@/assets/Scheduler.png"
-                  height="50"
-                  width="50"
+                  height="40"
+                  width="40"
                   contain
                   v-if="liveMessage === 'Offline'"
                 ></v-img>
@@ -139,8 +139,7 @@
             </v-tooltip>
           </div>
         </div>
-
-        <div class="d-flex mt-6 justify-md-space-around">
+        <div class="d-flex mt-6">
           <!-- <div class="ml-6">
             <v-select
               :items="aggregateValues"
@@ -150,7 +149,7 @@
               v-model="selectedAggregate"
             ></v-select>
           </div> -->
-          <div class="ml-6">
+          <div class="mr-6 form-group">
             <v-select
               :items="timePeriodValues"
               v-model="selectedTimePeriod"
@@ -159,7 +158,7 @@
               dense
             ></v-select>
           </div>
-          <div>
+          <div class="form-group">
             <v-menu
               v-model="startDateMenu"
               :close-on-content-click="false"
@@ -224,55 +223,51 @@
           </div> -->
         </div>
 
-        <v-layout row wrap class="mt-8">
-          <v-flex d-flex xs12 sm12 md6 class="mb-5">
+        <v-layout row wrap>
+          <v-flex xs12 sm12 md6>
             <div class="d-flex align-center w-100">
               <h3>ECG</h3>
               <v-spacer></v-spacer>
               <v-btn class="export__btn" color="warning" outlined>Export</v-btn>
             </div>
-            <div>
-              <div class="d-flex align-start mt-2">
-                <div
-                  :id="getSingleDeviceData[0]?.macAddressFramed.toUpperCase()"
-                  class="grid-container w-100"
-                >
-                  <!-- <LineChart
-                      :key="showEcgChart"
-                      :width="834.24"
-                      :height="299.53"
-                    /> -->
-                  <ecg-chart
-                    :ecgDataFromProps="ecgChartData"
-                    :macAddress="
-                      getSingleDeviceData[0]?.macAddressFramed.toUpperCase()
-                    "
+            <div class="d-flex align-start chart-css">
+              <div
+                :id="getSingleDeviceData[0]?.macAddressFramed.toUpperCase()"
+                class="grid-container w-100"
+              >
+                <!-- <LineChart
                     :key="showEcgChart"
-                    v-if="showEcgChart"
                     :width="834.24"
                     :height="299.53"
-                  />
-                </div>
+                  /> -->
+                <ecg-chart
+                  :ecgDataFromProps="ecgChartData"
+                  :macAddress="
+                    getSingleDeviceData[0]?.macAddressFramed.toUpperCase()
+                  "
+                  :key="showEcgChart"
+                  v-if="showEcgChart"
+                  :width="834.24"
+                  :height="299.53"
+                />
               </div>
             </div>
           </v-flex>
-          <v-flex d-flex xs12 sm12 md6 class="mb-5">
+          <v-flex xs12 sm12 md6>
             <div class="d-flex w-100">
               <h3>PPG</h3>
               <v-spacer></v-spacer>
               <v-btn class="export__btn" color="warning" outlined>Export</v-btn>
             </div>
-            <div>
-              <div class="d-flex align-start mt-2">
-                <div class="grid-container w-100">
-                  <ppg-chart
-                    :width="834.24"
-                    :height="299.53"
-                    :key="showPpgChart"
-                    v-if="showPpgChart"
-                    :ppgDataFromProps="ppgChartData"
-                  />
-                </div>
+            <div class="d-flex align-start chart-css">
+              <div class="grid-container w-100">
+                <ppg-chart
+                  :width="834.24"
+                  :height="299.53"
+                  :key="showPpgChart"
+                  v-if="showPpgChart"
+                  :ppgDataFromProps="ppgChartData"
+                />
               </div>
             </div>
           </v-flex>
@@ -709,7 +704,7 @@
       </v-layout>
       <v-layout row wrap>
         <v-flex d-flex xs12 sm12 md6>
-          <div class="mini-light-box">
+          <div class="mini-light-box align-start">
             <div class="w-100 d-flex justify-center align-center">
               <h3 class="d-flex align-center">
                 <span>
@@ -729,7 +724,11 @@
               <v-btn class="export__btn" color="warning" outlined>Export</v-btn>
             </div>
             <div class="grid-container w-100">
-              <div id="barCanvas" style="width: 100%; overflow-x: auto">
+              <div
+                id="barCanvas"
+                class="mt-5"
+                style="width: 100%; overflow-x: auto"
+              >
                 <div
                   :id="`temp-${getSingleDeviceData[0]?.macAddressFramed.toUpperCase()}`"
                   class="grid-container"
@@ -752,8 +751,8 @@
         </v-flex>
 
         <v-flex d-flex xs12 sm12 md6>
-          <div class="mini-light-box">
-            <div class="w-100 d-flex justify-center align-center">
+          <div class="mini-light-box align-start">
+            <div class="w-100 d-flex justify-center">
               <h3 class="d-flex align-center">
                 <v-img
                   src="@/assets/lungs.svg"
@@ -773,6 +772,7 @@
             </div>
             <div class="grid-container w-100">
               <oxygen-graph
+                class="mt-5"
                 :height="366"
                 :width="770"
                 :data-of-chart="getBloodOxygenGraphData"
@@ -793,7 +793,7 @@
           </div>
         </v-flex>
         <v-flex d-flex xs12 sm12 md6>
-          <div class="mini-light-box">
+          <div class="mini-light-box align-start">
             <div class="w-100 d-flex justify-center align-center">
               <h3 class="d-flex align-center">
                 <v-img
@@ -811,7 +811,11 @@
               <v-btn class="export__btn" color="warning" outlined>Export</v-btn>
             </div>
             <div class="grid-container w-100">
-              <div id="heartRateCanvas" style="width: 100%; overflow-x: auto">
+              <div
+                id="heartRateCanvas"
+                style="width: 100%; overflow-x: auto"
+                class="mt-5"
+              >
                 <heart-rate-graph
                   v-if="getBodyTempGraphData.length"
                   :key="getBodyTempGraphData.length"
@@ -829,7 +833,7 @@
         </v-flex>
 
         <v-flex d-flex xs12 sm12 md6>
-          <div class="mini-light-box">
+          <div class="mini-light-box align-start">
             <div class="w-100 d-flex justify-center align-center">
               <h3 class="d-flex align-center">
                 <span>
@@ -852,6 +856,7 @@
             </div>
             <div class="grid-container w-100">
               <ApexAreaChart
+                class="mt-5"
                 :height="366"
                 :width="770"
                 :data-of-chart="getPatientSteps"
@@ -1300,6 +1305,11 @@ h3 {
 .user-pic-header {
   display: flex;
   align-items: center;
+}
+.chart-css canvas {
+  border-radius: 20px;
+  padding: 3%;
+  margin: 30px 0;
 }
 @media only screen and (max-width: 780px) {
   small {
