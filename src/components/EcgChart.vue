@@ -195,6 +195,7 @@ export default {
       this.myChart.destroy();
       console.log("destroyed");
     }
+    clearInterval(this.setIntervalMethod);
   },
   mounted() {},
   methods: {
