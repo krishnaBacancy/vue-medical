@@ -89,6 +89,7 @@ const actions = {
       commit("DELETE_DEVICE", id);
       commit("SET_LOADING_STATUS", false);
     }
+    return res.data;
   },
   addDeviceData({ commit }, payload) {
     commit("SET_LOADING_STATUS", true);

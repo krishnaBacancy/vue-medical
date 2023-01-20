@@ -393,8 +393,22 @@ export default {
           "Are you sure you want to delete this device?"
         )
       ) {
-        this.deleteDevice(item);
-        this.$toast.success("Device deleted successfully.", { timeout: 3000 });
+        this.deleteDevice(item)
+          .then((data) => {
+            if (data.statusCode === 200) {
+              this.$toast.success(data.message, {
+                timeout: 3000,
+              });
+            }
+          })
+          .catch((err) => {
+            setTimeout(() => {
+              this.getAllDevices();
+            }, 500);
+            this.$toast.error(err.message, {
+              timeout: 3000,
+            });
+          });
       }
       this.dialogDelete = true;
     },

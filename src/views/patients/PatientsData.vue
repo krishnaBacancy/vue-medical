@@ -123,7 +123,7 @@ export default {
                 this.getAllPatientsData(this.getDoctorId);
               }, 500);
               this.dialogDelete = true;
-              this.$toast.success("Patient deleted successfully.", {
+              this.$toast.success(data.message, {
                 timeout: 3000,
               });
             }
@@ -133,7 +133,7 @@ export default {
             setTimeout(() => {
               this.getAllPatientsData(this.getDoctorId);
             }, 500);
-            this.$toast.error("Some error occured.", {
+            this.$toast.error(err.message, {
               timeout: 3000,
             });
             this.dialogDelete = true;
