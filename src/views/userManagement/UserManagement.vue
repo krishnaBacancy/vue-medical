@@ -30,7 +30,7 @@
             Select below patient to assign device
           </h4>
           <v-select
-            class="theme-select-box"
+            class="mb-3 theme-select-box"
             :items="getAllPatientsOnly"
             v-model="selectedHeaders"
             @change="getSelectedValue"

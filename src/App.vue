@@ -392,4 +392,14 @@ div.v-application .primary--text,
   border-radius: 10px;
   padding: 14px;
 }
+.v-text-field--full-width .v-input__prepend-outer,
+.v-text-field--full-width .v-input__prepend-inner,
+.v-text-field--full-width .v-input__append-inner,
+.v-text-field--full-width .v-input__append-outer,
+.v-text-field--enclosed .v-input__prepend-outer,
+.v-text-field--enclosed .v-input__prepend-inner,
+.v-text-field--enclosed .v-input__append-inner,
+.v-text-field--enclosed .v-input__append-outer {
+  margin-top: 6px;
+}
 </style>
