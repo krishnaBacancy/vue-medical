@@ -1005,25 +1005,32 @@ export default {
     },
   },
   destroyed() {
-    if (this.client.connected) {
-      try {
-        this.client.end(false, () => {
-          this.initData();
-          console.log("Successfully disconnected!");
-        });
-        this.getPatientBodyTempData([]);
-        this.getPatientBloodOxygenData([]);
-        this.getPatientStepsData([]);
-        this.getPatientHeartRateData([]);
-      } catch (error) {
-        console.log("Disconnect failed", error.toString());
-      }
-    }
+    console.log("this.client.connected", this.client);
+    this.client.end(false, () => {
+      this.initData();
+      console.log("Successfully disconnected!");
+    });
+    // if (this.client) {
+    //   try {
+    //     this.client.end(false, () => {
+    //       this.initData();
+    //       console.log("Successfully disconnected!");
+    //     });
+    //   } catch (error) {
+    //     console.log("Disconnect failed", error.toString());
+    //   }
+    // }
   },
   created() {
     this.getSingleDevice(this.$route?.params?.id);
     this.createConnection();
   },
+  // mounted() {
+  //   this.getPatientBodyTempData([]);
+  //   this.getPatientBloodOxygenData([]);
+  //   this.getPatientStepsData([]);
+  //   this.getPatientHeartRateData([]);
+  // },
   watch: {
     // selectAllFilters(newVal, oldVal) {
     //   if (newVal || oldVal) {
