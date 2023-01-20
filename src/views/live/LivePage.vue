@@ -213,20 +213,26 @@ export default {
     getPatients: {
       async handler(devices) {
         console.log("watch called");
-        // this.liveDevices = val.filter((device) => device.online === 0);
         this.liveDevices = devices
-          .filter((device) => {
-            return (
-              device.macAddressFramed === "C9F7BF309DC9" ||
-              device.macAddressFramed === "F1DDE98E9F16" ||
-              device.macAddressFramed === "F0B6FAE23614"
-            );
-          })
+          .filter((device) => device.is_online === 1)
           .map((device) => {
             device.showEcgChart = false;
             device.allEcgValues = [];
             return device;
           });
+        // this.liveDevices = devices
+        //   .filter((device) => {
+        //     return (
+        //       device.macAddressFramed === "C9F7BF309DC9" ||
+        //       device.macAddressFramed === "F1DDE98E9F16" ||
+        //       device.macAddressFramed === "F0B6FAE23614"
+        //     );
+        //   })
+        //   .map((device) => {
+        //     device.showEcgChart = false;
+        //     device.allEcgValues = [];
+        //     return device;
+        //   });
         const { ...options } = this.connection;
         const connectUrl = `wss://accu.live/ws/`;
         let connection = await mqtt.connect(connectUrl, options);

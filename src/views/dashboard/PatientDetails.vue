@@ -117,7 +117,7 @@
                   height="40"
                   width="40"
                   contain
-                  v-if="liveMessage === 'Online'"
+                  v-if="getSingleDeviceData[0].isOnline === 1"
                 ></v-img>
               </template>
               <span>Live Mode</span>
@@ -132,7 +132,7 @@
                   height="40"
                   width="40"
                   contain
-                  v-if="liveMessage === 'Offline'"
+                  v-if="getSingleDeviceData[0].isOnline === 0"
                 ></v-img>
               </template>
               <span>Scheduler Mode</span>
@@ -812,7 +812,7 @@
             </div>
             <div class="grid-container w-100">
               <div
-                id="heartRateCanvas"
+                :id="`heartRate-${getSingleDeviceData[0]?.macAddressFramed.toUpperCase()}`"
                 style="width: 100%; overflow-x: auto"
                 class="mt-5"
               >
@@ -846,9 +846,9 @@
                 </span>
                 <div class="d-flex ml-5 text-start flex-column">
                   <span>Steps</span>
-                  <span class="warning--text" style="font-size: 16px"
-                    >Hrs/Day</span
-                  >
+                  <!-- <span class="warning--text" style="font-size: 16px"
+                    >Steps/Day</span
+                  > -->
                 </div>
               </h3>
               <v-spacer></v-spacer>

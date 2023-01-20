@@ -53,35 +53,39 @@ export default {
         if (val?.length && val.length > 0) {
           let buffer = JSON.parse(JSON.stringify(val));
           console.log("buffer", buffer);
+          // if (document.getElementById(`temp-${this.macAddress}`).innerHTML) {
+          //   document.getElementById(`temp-${this.macAddress}`).innerHTML = null;
+          // }
           if (
             this.tempratureChart &&
             document.getElementById(`temp-chart-${this.macAddress}`)
           ) {
             console.log("chart exist");
-            this.tempratureChart.render();
+            // this.tempratureChart.render();
           } else {
+            // if (document.getElementById(`temp-chart-${this.macAddress}`)) {
+            //   ctx = document
+            //     .getElementById(`temp-chart-${this.macAddress}`)
+            //     ?.getContext("2d");
+            // } else {
+            if (document.getElementById(`temp-${this.macAddress}`)?.innerHTML) {
+              document.getElementById(`temp-${this.macAddress}`).innerHTML =
+                null;
+            }
             let ctx;
-            if (document.getElementById(`temp-chart-${this.macAddress}`)) {
-              ctx = document
-                .getElementById(`temp-chart-${this.macAddress}`)
-                ?.getContext("2d");
-            } else {
-              var canvas = document.createElement("canvas");
-              canvas.id = `temp-chart-${this.macAddress}`;
-              canvas.width = this.width;
-              canvas.height = this.height;
+            var canvas = document.createElement("canvas");
+            canvas.id = `temp-chart-${this.macAddress}`;
+            canvas.width = this.width;
+            canvas.height = this.height;
 
-              var body = document.getElementById(`temp-${this.macAddress}`);
-              console.log("body", body);
-              body?.appendChild(canvas);
-              ctx = document
-                .getElementById(`temp-chart-${this.macAddress}`)
-                ?.getContext("2d");
-            }
+            var body = document.getElementById(`temp-${this.macAddress}`);
+            console.log("body", body);
+            body?.appendChild(canvas);
+            ctx = document
+              .getElementById(`temp-chart-${this.macAddress}`)
+              ?.getContext("2d");
+            // }
             console.log("ctx", ctx);
-            if (this.tempratureChart != null) {
-              this.tempratureChart?.destroy();
-            }
             if (ctx) {
               this.tempratureChart = await new Chart(ctx, {
                 type: "bar",
@@ -133,8 +137,8 @@ export default {
       this.tempratureChart?.destroy();
       this.tempratureChart = null;
     }
-    if (document.getElementById("barCanvas")) {
-      document.getElementById("barCanvas").innerHTML = null;
+    if (document.getElementById(`temp-chart-${this.macAddress}`)) {
+      document.getElementById(`temp-chart-${this.macAddress}`).innerHTML = null;
     }
   },
 };

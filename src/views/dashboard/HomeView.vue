@@ -68,12 +68,12 @@
                 <v-spacer>
                   <span
                     class="active-status offline"
-                    v-if="realTimeMessage === 'Offline'"
+                    v-if="patient.isOnline === 0"
                   ></span>
                 </v-spacer>
                 <span
                   class="active-status online"
-                  v-if="realTimeMessage === 'Online'"
+                  v-if="patient.isOnline === 1"
                 ></span>
               </div>
               <div class="icon-text-block">
