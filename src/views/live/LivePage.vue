@@ -231,7 +231,8 @@ export default {
           .filter((device) => {
             return (
               device.macAddressFramed === "C9F7BF309DC9" ||
-              device.macAddressFramed === "F1DDE98E9F16"
+              device.macAddressFramed === "F1DDE98E9F16" ||
+              device.macAddressFramed === "F0B6FAE23614"
             );
           })
           .map((device) => {

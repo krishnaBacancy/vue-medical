@@ -81,7 +81,7 @@ export default {
             canvas.id = "myLineChart";
             canvas.width = this.width;
             canvas.height = this.height;
-            canvas.style.backgroundColor = "black";
+            canvas.style.backgroundColor = "#fff";
 
             var body = document.getElementById("ppgCanvas");
             body.appendChild(canvas);
@@ -132,7 +132,7 @@ export default {
                     stacked: true,
                     offset: true,
                     ticks: {
-                      color: "#FFFFFF",
+                      // color: "#FFFFFF",
                     },
                   },
                   x: {
@@ -173,9 +173,10 @@ export default {
             }, 1000);
             this.myChart?.update("none");
           }
-        } else {
-          clearInterval(this.setIntervalMethod);
         }
+        // else {
+        // clearInterval(this.setIntervalMethod);
+        // }
       },
     },
   },

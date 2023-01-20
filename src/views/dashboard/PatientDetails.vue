@@ -1221,7 +1221,7 @@ export default {
               `BMSFSEV/${this.getSingleDeviceData[0]?.macAddressFramed.toUpperCase()}/sTOf`
             );
           });
-          this.client.on("reconnect", this.handleOnReConnect);
+          // this.client.on("reconnect", this.handleOnReConnect);
           this.client.on("error", (error) => {
             console.log("Connection failed", error);
           });
