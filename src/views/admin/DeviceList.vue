@@ -41,17 +41,15 @@
       persistent
       v-model="addDialog"
     >
-      <v-card>
-        <v-card-title>
-          <span class="text-h5 ml-3">Add Device</span>
-        </v-card-title>
-
+      <v-card class="pa-sm-10 pa-5">
+        <h4 class="text-h6 font-weight-bold mb-5">Add Device</h4>
         <v-form ref="form" v-model="valid" lazy-validation>
           <v-card-text>
             <v-container>
               <v-row>
                 <v-col cols="12" sm="6" md="6">
                   <v-text-field
+                    class="input-theme"
                     label="Device Name"
                     v-model.trim="device.name"
                     :rules="nameRules"
@@ -59,6 +57,7 @@
                 </v-col>
                 <v-col cols="12" sm="6" md="6">
                   <v-text-field
+                    class="input-theme"
                     label="Mac Address"
                     v-model.trim="device.macAddress"
                     :rules="macAddressRules"
@@ -79,6 +78,7 @@
                   >
                     <template v-slot:activator="{ on }">
                       <v-text-field
+                        class="input-theme"
                         label="Manufacture Month"
                         readonly
                         hide-details

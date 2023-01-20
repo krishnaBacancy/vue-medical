@@ -139,7 +139,7 @@
             </v-tooltip>
           </div>
         </div>
-        <div class="d-flex flex-wrap align-center">
+        <v-row class="d-flex flex-wrap align-center">
           <!-- <div class="ml-6">
             <v-select
               :items="aggregateValues"
@@ -149,7 +149,7 @@
               v-model="selectedAggregate"
             ></v-select>
           </div> -->
-          <div class="mr-6 mt-5 ml-auto mr-auto">
+          <v-flex xs12 sm5 lg3 md4 class="mt-5">
             <v-select
               :items="timePeriodValues"
               v-model="selectedTimePeriod"
@@ -157,8 +157,8 @@
               label="Time Period"
               dense
             ></v-select>
-          </div>
-          <div class="mt-5 mr-auto">
+          </v-flex>
+          <v-flex xs12 sm5 lg3 md4 class="mt-5">
             <v-menu
               v-model="startDateMenu"
               :close-on-content-click="false"
@@ -188,7 +188,7 @@
                 :max="new Date().toISOString().slice(0, 10)"
               ></v-date-picker>
             </v-menu>
-          </div>
+          </v-flex>
           <!-- <div class="ml-6">
             <v-menu
               v-model="endDateMenu"
@@ -221,7 +221,7 @@
               ></v-date-picker>
             </v-menu>
           </div> -->
-        </div>
+        </v-row>
 
         <v-layout row wrap>
           <v-flex xs12 sm12 md6 class="mt-5">

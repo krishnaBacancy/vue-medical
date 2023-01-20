@@ -18,6 +18,7 @@
         xs12
         sm12
         md6
+        lg4
         v-for="device in liveDevices"
         :key="device.id"
         :class="showGrid"
@@ -56,7 +57,7 @@
           </div>
 
           <v-row>
-            <v-col cols="12" sm="6" lg="4">
+            <v-col cols="12" sm="6" md="6" lg="6" xl="4">
               <v-card class="d-flex align-center pa-2 mt-4">
                 <v-flex>
                   <v-tooltip bottom>
@@ -73,7 +74,7 @@
                     <span>Heart Rate</span>
                   </v-tooltip>
                 </v-flex>
-                <v-flex xs12>
+                <v-flex>
                   <div class="d-flex flex-column text-start ml-2 lh-1">
                     <h5 class="green--text">
                       {{ device?.algodata ? device.algodata?.hr : "--" }}
@@ -83,7 +84,7 @@
                 </v-flex>
               </v-card>
             </v-col>
-            <v-col cols="12" sm="6" lg="4">
+            <v-col cols="12" sm="6" md="6" lg="6" xl="4">
               <v-card class="d-flex align-center pa-2 mt-4">
                 <v-flex>
                   <v-tooltip bottom>
@@ -114,7 +115,7 @@
                 </v-flex>
               </v-card>
             </v-col>
-            <v-col cols="12" sm="6" lg="4">
+            <v-col cols="12" sm="6" md="6" lg="6" xl="4">
               <v-card class="d-flex align-center pa-2 mt-4">
                 <v-flex>
                   <v-tooltip bottom>

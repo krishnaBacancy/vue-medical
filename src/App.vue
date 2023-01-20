@@ -358,4 +358,30 @@ div .vue-tel-input:focus-within {
   box-shadow: none;
   border-color: #e9e9e9;
 }
+.theme-select-box.v-select {
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.theme-select-box.v-select > .v-input__control > .v-input__slot {
+  margin: 0;
+  border: 1px solid #e9e9e9;
+  border-radius: 10px;
+  padding: 14px;
+}
+
+.theme-select-box.v-select > .v-input__control > .v-input__slot input {
+  cursor: pointer;
+}
+
+div.v-application .primary--text,
+.v-application .primary--text {
+  color: orange !important;
+}
+
+.v-list-item--link {
+  text-align: left;
+  padding: 0 26px;
+}
 </style>

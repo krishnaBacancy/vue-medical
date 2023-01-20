@@ -25,36 +25,28 @@
         persistent
         v-model="assignDialog"
       >
-        <v-card>
-          <v-card-title>
-            <span class="text-h5 ml-3"
-              >Select below patient to assign device</span
-            >
-          </v-card-title>
-
-          <v-card-text>
-            <v-container>
-              <v-row>
-                <v-col cols="12" sm="12" md="12">
-                  <v-select
-                    :items="getAllPatientsOnly"
-                    v-model="selectedHeaders"
-                    @change="getSelectedValue"
-                    item-text="fullName"
-                    placeholder="Select Patient"
-                    return-object
-                  ></v-select>
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-card-text>
-
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="assignDialog = false">
-              Cancel
-            </v-btn>
-          </v-card-actions>
+        <v-card class="pa-sm-10 pa-5">
+          <h4 class="text-h6 font-weight-bold mb-5">
+            Select below patient to assign device
+          </h4>
+          <v-select
+            class="theme-select-box"
+            :items="getAllPatientsOnly"
+            v-model="selectedHeaders"
+            @change="getSelectedValue"
+            item-text="fullName"
+            placeholder="Select Patient"
+            return-object
+          ></v-select>
+          <v-btn
+            color="warning"
+            class="px-10"
+            large
+            outlined
+            @click="assignDialog = false"
+          >
+            Cancel
+          </v-btn>
         </v-card>
       </v-dialog>
 
