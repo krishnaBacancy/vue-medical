@@ -18,46 +18,25 @@ export default {
 </script>
 
 <style>
-@font-face {
-  font-family: "Gilroy";
-  src: url("assets/fonts/Gilroy-Light.ttf") format("truetype");
-  font-weight: 100;
-}
-
-@font-face {
-  font-family: "Gilroy";
-  src: url("assets/fonts/Gilroy-Regular.ttf") format("truetype");
-  font-weight: 300;
-}
-
-@font-face {
-  font-family: "Gilroy";
-  src: url("assets/fonts/Gilroy-Medium.ttf") format("truetype");
-  font-weight: 400;
-}
-
-@font-face {
-  font-family: "Gilroy";
-  src: url("assets/fonts/Gilroy-Bold.ttf") format("truetype");
-  font-weight: 500;
-}
-
-@font-face {
-  font-family: "Gilroy";
-  src: url("assets/fonts/Gilroy-ExtraBold.ttf") format("truetype");
-  font-weight: 600;
-}
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap");
 
 #app {
-  font-family: "Gilroy";
+  font-family: "Poppins", sans-serif;
+
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   /* background-color: cyan; */
 }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
 .card__radio {
-  font-family: "Gilroy";
+  font-family: "Poppins", sans-serif !important;
 }
 div .v-sheet.v-card:not(.v-sheet--outlined) {
   box-shadow: 0px 12px 20px #00000014;
