@@ -112,6 +112,7 @@
             rows="1"
             filled
             dense
+            :rules="addressRules"
           ></v-textarea>
         </v-col>
         <v-col class="form-group" cols="12" sm="6" md="4">
@@ -123,6 +124,7 @@
             required
             filled
             dense
+            :rules="aadharRules"
           ></v-text-field>
         </v-col>
         <v-col class="form-group" cols="12" sm="6" md="4">
@@ -165,6 +167,7 @@
             required
             filled
             dense
+            :rules="weightRules"
           ></v-text-field>
         </v-col>
 
@@ -176,6 +179,7 @@
             label="Height"
             filled
             dense
+            :rules="heightRules"
           ></v-text-field>
         </v-col>
         <v-col class="form-group" cols="12" sm="6" md="4">
@@ -359,6 +363,15 @@ export default {
         (v) => (v && v.length > 9) || "type valid phone number",
         (v) => (v && v.length < 11) || "type valid phone number",
       ],
+      addressRules: [(v) => !!v || "Address is required"],
+      aadharRules: [
+        (v) => !!v || "Aadhar Number is required",
+        (v) =>
+          /^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$/.test(v) ||
+          "Aadhar Number is invalid",
+      ],
+      weightRules: [(v) => !!v || "Weight is required"],
+      heightRules: [(v) => !!v || "Height is required"],
       gstNoRules: [(v) => !!v || "GST Number is required"],
       memberNameRules: [(v) => !!v || "Member name is required"],
       memberRelationRules: [(v) => !!v || "Member Relation is required."],

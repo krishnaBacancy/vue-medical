@@ -341,7 +341,12 @@ export default {
         (v) => !!v || "Password is required",
         (v) => (v && v.length >= 6) || "password must be at least 6 characters",
       ],
-      aadharRules: [(v) => !!v || "Aadhar Number is required"],
+      aadharRules: [
+        (v) => !!v || "Aadhar Number is required",
+        (v) =>
+          /^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$/.test(v) ||
+          "Aadhar Number is invalid",
+      ],
       memberNameRules: [(v) => !!v || "Member name is required"],
       memberRelationRules: [(v) => !!v || "Member Relation is required."],
       contactNumberRules: [(v) => !!v || "Contact Number is required"],
