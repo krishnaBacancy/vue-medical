@@ -139,7 +139,7 @@
             </v-tooltip>
           </div>
         </div>
-        <div class="d-flex mt-6">
+        <div class="d-flex flex-wrap">
           <!-- <div class="ml-6">
             <v-select
               :items="aggregateValues"
@@ -149,7 +149,7 @@
               v-model="selectedAggregate"
             ></v-select>
           </div> -->
-          <div class="mr-6 form-group">
+          <div class="mr-6 mt-5">
             <v-select
               :items="timePeriodValues"
               v-model="selectedTimePeriod"
@@ -158,7 +158,7 @@
               dense
             ></v-select>
           </div>
-          <div class="form-group">
+          <div class="mt-5">
             <v-menu
               v-model="startDateMenu"
               :close-on-content-click="false"
@@ -224,7 +224,7 @@
         </div>
 
         <v-layout row wrap>
-          <v-flex xs12 sm12 md6>
+          <v-flex xs12 sm12 md6 class="mt-5">
             <div class="d-flex align-center w-100">
               <h3>ECG</h3>
               <v-spacer></v-spacer>
@@ -253,7 +253,7 @@
               </div>
             </div>
           </v-flex>
-          <v-flex xs12 sm12 md6>
+          <v-flex xs12 sm12 md6 class="mt-5">
             <div class="d-flex w-100">
               <h3>PPG</h3>
               <v-spacer></v-spacer>
@@ -1305,11 +1305,6 @@ h3 {
 .user-pic-header {
   display: flex;
   align-items: center;
-}
-.chart-css canvas {
-  border-radius: 20px;
-  padding: 3%;
-  margin: 30px 0;
 }
 @media only screen and (max-width: 780px) {
   small {

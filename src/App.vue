@@ -330,4 +330,10 @@ nav a.router-link-exact-active {
 .apexcharts-svg.apexcharts-zoomable.hovering-zoom {
   max-width: 100%;
 }
+
+.chart-css canvas {
+  border-radius: 20px;
+  padding: 3%;
+  margin-top: 20px;
+}
 </style>
