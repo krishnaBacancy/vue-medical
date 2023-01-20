@@ -302,6 +302,7 @@ export default {
           value: "name",
         },
         { text: "Mac Address", value: "macAddressFramed" },
+        { text: "Doctor Name", value: "doctorFullName" },
         { text: "Patient Name", value: "fullName" },
         { text: "Actions", value: "actions", sortable: false },
       ],
@@ -364,20 +365,26 @@ export default {
         this.addDeviceData(data)
           .then((success) => {
             console.log(success);
+            setTimeout(() => {
+              this.getAllDevices();
+            }, 500);
             this.$toast.success("Device added successfully.", {
               timeout: 3000,
             });
+            this.addDialog = false;
+            this.device = {};
+            this.$refs.form.reset();
           })
           .catch((err) => {
             console.log(err);
+            this.addDialog = false;
             this.$toast.error(err.response.data.message, { timeout: 3000 });
+            setTimeout(() => {
+              this.getAllDevices();
+            }, 500);
+            this.device = {};
+            this.$refs.form.reset();
           });
-        this.addDialog = false;
-        setTimeout(() => {
-          this.getAllDevices();
-        }, 500);
-        this.device = {};
-        this.$refs.form.reset();
       }
     },
     async deleteSingleDevice(item) {

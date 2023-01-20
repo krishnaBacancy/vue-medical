@@ -37,18 +37,20 @@ const mutations = {
           macAddressFramed: device.mac_address_framed.toUpperCase(),
           doctorFirstName: device.docterfirstName,
           doctorLastName: device.docterlastName,
-          doctorFullName:
-            device.docterfirstName?.charAt(0).toUpperCase() +
-            device.docterfirstName?.slice(1) +
-            " " +
-            device.docterlastName?.charAt(0).toUpperCase() +
-            device.docterlastName?.slice(1),
-          fullName:
-            device.customerfirstName?.charAt(0).toUpperCase() +
-            device.customerfirstName?.slice(1) +
-            " " +
-            device.customerlastName?.charAt(0).toUpperCase() +
-            device.customerlastName?.slice(1),
+          doctorFullName: device.docterfirstName
+            ? device.docterfirstName?.charAt(0).toUpperCase() +
+              device.docterfirstName?.slice(1) +
+              " " +
+              device.docterlastName?.charAt(0).toUpperCase() +
+              device.docterlastName?.slice(1)
+            : "--",
+          fullName: device.customerfirstName
+            ? device.customerfirstName?.charAt(0).toUpperCase() +
+              device.customerfirstName?.slice(1) +
+              " " +
+              device.customerlastName?.charAt(0).toUpperCase() +
+              device.customerlastName?.slice(1)
+            : "--",
           customerFirstName: device.customerfirstName,
           customerLastName: device.customerlastName,
           adminId: device.adminId,

@@ -563,7 +563,7 @@
                 <h3>Arrthymia</h3>
               </div>
               <div class="right">
-                <div v-if="!$vuetify.breakpoint.smOnly">
+                <div>
                   <h3 class="font-weight-medium">Last Reading</h3>
                   <small class="grey--text">{{ lastSaved }}</small>
                 </div>
@@ -597,7 +597,7 @@
                 <h3>Stroke Volume</h3>
               </div>
               <div class="right">
-                <div v-if="!$vuetify.breakpoint.smOnly">
+                <div>
                   <h3 class="font-weight-medium">Last Reading</h3>
                   <small class="grey--text">{{ lastSaved }}</small>
                 </div>
@@ -634,7 +634,7 @@
                 <h3 cl>Cardiac Output</h3>
               </div>
               <div class="right">
-                <div v-if="!$vuetify.breakpoint.smOnly">
+                <div>
                   <h3 class="font-weight-medium">Last Reading</h3>
                   <small class="grey--text">{{ lastSaved }}</small>
                 </div>
@@ -671,7 +671,7 @@
                 <h3 cl>Pulse Transit Time</h3>
               </div>
               <div class="right">
-                <div v-if="!$vuetify.breakpoint.smOnly">
+                <div>
                   <h3 class="font-weight-medium">Last Reading</h3>
                   <small class="grey--text">{{ lastSaved }}</small>
                 </div>
