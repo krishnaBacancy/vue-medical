@@ -345,4 +345,17 @@ nav a.router-link-exact-active {
   padding: 3%;
   margin-top: 20px;
 }
+div .vue-tel-input {
+  border: 1px solid #efefef;
+  border-radius: 10px;
+}
+div .vue-tel-input {
+  border: 1px solid #e9e9e9;
+  border-radius: 10px;
+  padding: 17px 8px;
+}
+div .vue-tel-input:focus-within {
+  box-shadow: none;
+  border-color: #e9e9e9;
+}
 </style>

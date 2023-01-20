@@ -78,45 +78,50 @@ export default {
                 ?.getContext("2d");
             }
             console.log("ctx", ctx);
-            this.HeartRateChart = await new Chart(ctx, {
-              type: "bar",
-              data: {
-                labels: ["12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm"],
-                datasets: [
-                  {
-                    label: "HeartRate",
-                    data: buffer?.map((d) => Math.round(d["temp"])),
-                    borderWidth: 1,
-                    hoverBorderColor: "green",
-                    fill: 1,
-                    barPercentage: 0.25,
-                    categoryPercentage: 1,
-                    backgroundColor: this.chartBgColor,
-                  },
-                ],
-              },
-              options: {
-                responsive: true,
-                plugins: {
-                  legend: {
-                    display: false,
-                  },
-                  tooltip: {
-                    callbacks: {
-                      title: function () {
-                        return "";
+            if (this.HeartRateChart != null) {
+              this.HeartRateChart?.destroy();
+            }
+            if (ctx) {
+              this.HeartRateChart = await new Chart(ctx, {
+                type: "bar",
+                data: {
+                  labels: ["12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm"],
+                  datasets: [
+                    {
+                      label: "HeartRate",
+                      data: buffer?.map((d) => Math.round(d["temp"])),
+                      borderWidth: 1,
+                      hoverBorderColor: "green",
+                      fill: 1,
+                      barPercentage: 0.25,
+                      categoryPercentage: 1,
+                      backgroundColor: this.chartBgColor,
+                    },
+                  ],
+                },
+                options: {
+                  responsive: true,
+                  plugins: {
+                    legend: {
+                      display: false,
+                    },
+                    tooltip: {
+                      callbacks: {
+                        title: function () {
+                          return "";
+                        },
                       },
                     },
                   },
-                },
-                scales: {
-                  x: {
-                    display: false,
+                  scales: {
+                    x: {
+                      display: false,
+                    },
                   },
                 },
-              },
-            });
-            this.HeartRateChart.render();
+              });
+              this.HeartRateChart.render();
+            }
           }
         }
       },
