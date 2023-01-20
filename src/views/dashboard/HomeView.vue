@@ -289,7 +289,7 @@ export default {
   data() {
     return {
       getDoctorId: localStorage.getItem("user_id"),
-      gridNumber: 3,
+      gridNumber: 4,
       realTimeMessage: "Offline",
     };
   },
@@ -410,7 +410,7 @@ span {
   margin-bottom: 30px;
 }
 .card-header {
-  padding: 18px 12px 0;
+  padding: 18px 20px 0;
   display: flex;
   border: 1px solid #eeeeef;
   flex-wrap: wrap;
