@@ -52,13 +52,16 @@
       </v-flex>
 
       <v-flex d-flex xs12 sm12 md6>
-        <div class="card-light w-100">
-          <h4 class="text-left text-h5 font-weight-bold" style="color: #f58220">
+        <div class="card-light w-100 pb-4">
+          <h4
+            class="text-left text-h5 font-weight-bold mb-5"
+            style="color: #f58220"
+          >
             Patient Info
           </h4>
           <v-row>
             <v-col cols="12" sm="6" md="6">
-              <div class="d-flex flex-column align-start">
+              <div class="d-flex flex-column align-start mb-3">
                 <small>Email Address</small>
                 <h3 class="font-weight-medium word-break">
                   {{ getSinglePatientData[0]?.email }}
@@ -66,7 +69,7 @@
               </div>
             </v-col>
             <v-col cols="6" xs="6" sm="6" md="6">
-              <div class="d-flex flex-column align-start">
+              <div class="d-flex flex-column align-start mb-3">
                 <small class="">Date of Birth</small>
                 <h3 class="font-weight-medium">
                   {{ formatDate }}
@@ -74,7 +77,7 @@
               </div>
             </v-col>
             <v-col cols="6" xs="6" sm="6" md="6">
-              <div class="d-flex flex-column align-start">
+              <div class="d-flex flex-column align-start mb-3">
                 <small>Gender</small>
                 <h3 class="font-weight-medium">
                   {{ getSinglePatientData[0]?.gender }}
@@ -82,7 +85,7 @@
               </div>
             </v-col>
             <v-col cols="6" sm="6" md="6">
-              <div class="d-flex flex-column align-start text-start">
+              <div class="d-flex flex-column align-start mb-3 text-start">
                 <small class="font-weight-regular">Emergency No</small>
                 <h3 class="font-weight-medium">
                   +{{
@@ -94,7 +97,7 @@
               </div>
             </v-col>
             <v-col cols="3" sm="6" md="6">
-              <div class="d-flex flex-column align-start">
+              <div class="d-flex flex-column align-start mb-3">
                 <small>Weight</small>
                 <h3 class="font-weight-medium">
                   {{
@@ -106,7 +109,7 @@
               </div>
             </v-col>
             <v-col cols="3" sm="6" md="6">
-              <div class="d-flex flex-column align-start">
+              <div class="d-flex flex-column align-start mb-3">
                 <small class="font-weight-regular">Height</small>
                 <h3 class="font-weight-medium">
                   {{
@@ -121,7 +124,7 @@
 
           <v-row>
             <v-col cols="6" sm="6" md="6">
-              <div class="d-flex flex-column align-start">
+              <div class="d-flex flex-column align-start mb-3">
                 <small class="font-weight-regular">GST No</small>
                 <h3 class="font-weight-medium">
                   {{
@@ -133,7 +136,7 @@
               </div>
             </v-col>
             <v-col cols="6" sm="6" md="6">
-              <div class="d-flex flex-column align-start">
+              <div class="d-flex flex-column align-start mb-3">
                 <small class="font-weight-regular">Aadhar Number</small>
                 <h3 class="font-weight-medium">
                   {{
@@ -147,7 +150,7 @@
           </v-row>
           <v-row>
             <v-col cols="12" sm="12" md="12">
-              <div class="d-flex flex-column align-start">
+              <div class="d-flex flex-column align-start mb-3">
                 <small>Address</small>
                 <h3>{{ getSinglePatientData[0]?.address }}</h3>
               </div>
@@ -157,15 +160,19 @@
       </v-flex>
 
       <v-flex d-flex xs12 sm12 md6>
-        <div class="card-light w-100">
-          <v-card-title class="text-h5 font-weight-bold" style="color: #f58220"
-            >Emergency Contacts</v-card-title
+        <div class="card-light w-100 pb-4">
+          <h4
+            class="text-left text-h5 font-weight-bold mb-5"
+            style="color: #f58220"
           >
-          <v-row>
+            Emergency Contacts
+          </h4>
+          <v-row class="m-0">
             <v-col
               cols="12"
               sm="6"
               md="6"
+              class="pa-0 mb-5"
               v-for="(familyInfo, id) in getSinglePatientData[0]?.familyMembers"
               :key="id"
             >
@@ -174,13 +181,13 @@
                   <h3 class="font-weight-bold text-start">
                     {{ familyInfo.name ? familyInfo.name : "Not Available" }}
                   </h3>
-                  <h3 class="warning--text text-start">
+                  <h4 class="warning--text text-start font-weight-regular">
                     {{
                       familyInfo.selectedRelation
                         ? familyInfo.selectedRelation
                         : "Not Available"
                     }}
-                  </h3>
+                  </h4>
                   <small class="text-start">
                     {{
                       familyInfo.contactNo
@@ -196,13 +203,13 @@
       </v-flex>
 
       <v-flex d-flex xs12 sm12 md6>
-        <div class="card-light w-100">
+        <div class="card-light w-100 pb-4">
           <h4 class="text-h5 font-weight-bold text-left" style="color: #f58220">
             Medical Info
           </h4>
           <v-row>
             <v-col cols="12" sm="12" lg="4">
-              <div class="d-flex flex-column align-start">
+              <div class="d-flex flex-column align-start mb-3">
                 <small>Blood Pressure</small>
                 <h3 class="font-weight-medium">
                   {{
@@ -214,7 +221,7 @@
               </div>
             </v-col>
             <v-col cols="6" sm="6" lg="4">
-              <div class="d-flex flex-column align-start">
+              <div class="d-flex flex-column align-start mb-3">
                 <small class="">Diabetics</small>
                 <h3 class="font-weight-medium">
                   {{
@@ -226,7 +233,7 @@
               </div>
             </v-col>
             <v-col cols="6" sm="6" lg="4">
-              <div class="d-flex flex-column align-start">
+              <div class="d-flex flex-column align-start mb-3">
                 <small class="">Heart Condition</small>
                 <h3 class="font-weight-medium">
                   {{
@@ -238,7 +245,7 @@
               </div>
             </v-col>
             <v-col cols="6" sm="6" lg="4">
-              <div class="d-flex flex-column align-start">
+              <div class="d-flex flex-column align-start mb-3">
                 <small>Thyroid</small>
                 <h3 class="font-weight-medium">
                   {{
@@ -250,7 +257,7 @@
               </div>
             </v-col>
             <v-col cols="6" sm="6" lg="4">
-              <div class="d-flex flex-column align-start">
+              <div class="d-flex flex-column align-start mb-3">
                 <small class="">Obesity</small>
                 <h3 class="font-weight-medium">
                   {{
