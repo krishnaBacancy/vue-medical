@@ -1368,7 +1368,10 @@ h3 {
 }
 @media (min-width: 1800px) {
   .column5 {
-    flex-basis: auto;
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
     flex-grow: 1;
     max-width: 100%;
   }
