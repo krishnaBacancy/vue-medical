@@ -105,7 +105,7 @@
                   <div class="d-flex flex-column text-start ml-2 lh-1">
                     <h5 class="yellow--text">
                       {{
-                        device?.algodata
+                        device?.algodata?.spo2
                           ? Math.round(device.algodata?.spo2)
                           : "--"
                       }}
@@ -136,7 +136,7 @@
                   <div class="d-flex flex-column text-start ml-2 lh-1">
                     <h5 class="text-danger">
                       {{
-                        device?.algodata
+                        device?.algodata?.temp
                           ? Math.round(device.algodata?.temp)
                           : "--"
                       }}
@@ -214,7 +214,7 @@ export default {
       async handler(devices) {
         console.log("watch called");
         this.liveDevices = devices
-          .filter((device) => device.is_online === 1)
+          .filter((device) => device.isOnline === 1)
           .map((device) => {
             device.showEcgChart = false;
             device.allEcgValues = [];

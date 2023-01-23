@@ -242,7 +242,7 @@
       </v-list> -->
     </v-navigation-drawer>
 
-    <v-main class="main-wrapper">
+    <v-main class="main-wrapper live-page">
       <router-view />
     </v-main>
   </v-app>

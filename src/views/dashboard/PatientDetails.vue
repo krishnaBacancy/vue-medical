@@ -274,163 +274,213 @@
         </v-layout>
       </div>
       <v-layout row wrap>
-        <v-flex d-flex xs6 sm6 md4 column5>
-          <v-tooltip bottom>
-            <template v-slot:activator="{ on, attrs }">
-              <div class="mini-light-box" v-on="on" v-bind="attrs">
-                <img
+        <v-flex d-flex sm12 lg4>
+          <div class="mini-light-box">
+            <div class="min-light-header">
+              <div class="left">
+                <h3>Heart Rate</h3>
+              </div>
+              <div class="right">
+                <div>
+                  <h3 class="font-weight-medium">Last Reading</h3>
+                  <small class="grey--text">{{ lastSaved }}</small>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex justify-center align-center mt-5">
+              <v-flex>
+                <v-img
                   src="@/assets/heartbeat.svg"
                   height="70"
                   width="70"
                   contain
-                  class="mini-icon"
-                />
-                <div class="mini-content">
-                  <h4 class="mini-title text-success">
+                ></v-img>
+              </v-flex>
+              <v-flex xs12>
+                <div class="text-medium">
+                  <h1 class="text-success">
                     {{ getAlgoData?.hr ? getAlgoData.hr : "--" }}
-                  </h4>
+                  </h1>
                   <small>BPM</small>
                 </div>
-                <!-- <div v-if="!$vuetify.breakpoint.smOnly">
-                    <h3 class="font-weight-medium">Last Reading</h3>
-                    <small class="grey--text">{{lastSaved}}</small>
-                  </div> -->
-              </div>
-            </template>
-            <span>Heart Beat</span>
-          </v-tooltip>
+              </v-flex>
+            </div>
+          </div>
         </v-flex>
 
-        <v-flex d-flex xs6 sm6 md4 column5>
-          <v-tooltip bottom>
-            <template v-slot:activator="{ on, attrs }">
-              <div class="mini-light-box" v-on="on" v-bind="attrs">
-                <img
-                  src="@/assets/heartbeat.svg"
-                  height="70"
-                  width="70"
-                  contain
-                  class="mini-icon"
-                />
-                <div class="mini-content">
-                  <h4 class="mini-title text-success">
-                    {{ getAlgoData?.hrv ? Math.round(getAlgoData.hrv) : "--" }}
-                  </h4>
-                  <small>ms</small>
-                </div>
-                <!-- <div v-if="!$vuetify.breakpoint.smOnly">
-                    <h3 class="font-weight-medium">Last Reading</h3>
-                    <small class="grey--text">{{lastSaved}}</small>
-                  </div> -->
+        <v-flex d-flex sm12 lg4>
+          <div class="mini-light-box">
+            <div class="min-light-header">
+              <div class="left">
+                <h3>Oxygen</h3>
               </div>
-            </template>
-            <span>Heart Rate Variability</span>
-          </v-tooltip>
-        </v-flex>
-        <v-flex d-flex xs6 sm6 md4 column5>
-          <v-tooltip bottom>
-            <template v-slot:activator="{ on, attrs }">
-              <div class="mini-light-box" v-on="on" v-bind="attrs">
-                <img
+              <div class="right">
+                <div>
+                  <h3 class="font-weight-medium">Last Reading</h3>
+                  <small class="grey--text">{{ lastSaved }}</small>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex justify-center align-center mt-5">
+              <v-flex>
+                <v-img
                   src="@/assets/oxygen.svg"
                   height="70"
                   width="70"
                   contain
-                  class="mini-icon"
-                />
-                <div class="mini-content">
-                  <h4 class="mini-title warning--text">
+                ></v-img>
+              </v-flex>
+              <v-flex xs12>
+                <div class="text-medium">
+                  <h1 class="warning--text">
                     {{
                       getAlgoData?.spo2 ? Math.round(getAlgoData.spo2) : "--"
                     }}
-                  </h4>
+                  </h1>
                   <small>%</small>
                 </div>
-                <!-- <div v-if="!$vuetify.breakpoint.smOnly">
-                    <h3 class="font-weight-medium">Last Reading</h3>
-                    <small class="grey--text">{{lastSaved}}</small>
-                  </div> -->
-              </div>
-            </template>
-            <span>Oxygen</span>
-          </v-tooltip>
+              </v-flex>
+            </div>
+          </div>
         </v-flex>
-        <v-flex d-flex xs6 sm6 md4 column5>
-          <v-tooltip bottom>
-            <template v-slot:activator="{ on, attrs }">
-              <div class="mini-light-box" v-on="on" v-bind="attrs">
-                <img
+
+        <v-flex d-flex sm12 lg4>
+          <div class="mini-light-box">
+            <div class="min-light-header">
+              <div class="left">
+                <h3>Temperature</h3>
+              </div>
+              <div class="right">
+                <div>
+                  <h3 class="font-weight-medium">Last Reading</h3>
+                  <small class="grey--text">{{ lastSaved }}</small>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex justify-center align-center mt-5">
+              <v-flex>
+                <v-img
                   src="@/assets/temprature.svg"
                   height="70"
                   width="70"
                   contain
-                  class="mini-icon"
-                />
-                <div class="mini-content">
-                  <h4 class="mini-title text-danger">
+                ></v-img>
+              </v-flex>
+              <v-flex xs12>
+                <div class="text-medium">
+                  <h1 class="text-danger">
                     {{ getAlgoData?.temp ? getAlgoData.temp : "--" }}
-                  </h4>
+                  </h1>
                   <small>°C</small>
                 </div>
-                <!-- <div v-if="!$vuetify.breakpoint.smOnly">
-                    <h3 class="font-weight-medium">Last Reading</h3>
-                    <small class="grey--text">{{lastSaved}}</small>
-                  </div> -->
-              </div>
-            </template>
-            <span>Temperature</span>
-          </v-tooltip>
+              </v-flex>
+            </div>
+          </div>
         </v-flex>
-        <v-flex d-flex sm12 md4 column5>
-          <v-tooltip bottom>
-            <template v-slot:activator="{ on, attrs }">
-              <div class="mini-light-box" v-on="on" v-bind="attrs">
-                <img
+
+        <div class="w-100"></div>
+        <v-flex d-flex sm12 lg4>
+          <div class="mini-light-box">
+            <div class="min-light-header">
+              <div class="left">
+                <h3>Heart Rate Variability</h3>
+              </div>
+              <div class="right">
+                <div>
+                  <h3 class="font-weight-medium">Last Reading</h3>
+                  <small class="grey--text">{{ lastSaved }}</small>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex justify-center align-center mt-5">
+              <v-flex>
+                <v-img
+                  src="@/assets/heartbeat.svg"
+                  height="70"
+                  width="70"
+                  contain
+                ></v-img>
+              </v-flex>
+              <v-flex xs12>
+                <div class="text-medium">
+                  <h1 class="text-danger text-success">
+                    {{ getAlgoData?.hrv ? Math.round(getAlgoData.hrv) : "--" }}
+                  </h1>
+                  <small>ms</small>
+                </div>
+              </v-flex>
+            </div>
+          </div>
+        </v-flex>
+
+        <v-flex d-flex sm12 lg4>
+          <div class="mini-light-box">
+            <div class="min-light-header">
+              <div class="left">
+                <h3>Mean Arterial Pressure</h3>
+              </div>
+              <div class="right">
+                <div>
+                  <h3 class="font-weight-medium">Last Reading</h3>
+                  <small class="grey--text">{{ lastSaved }}</small>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex justify-center align-center mt-5">
+              <v-flex>
+                <v-img
+                  src="@/assets/Group 509.svg"
+                  height="70"
+                  width="70"
+                  contain
+                ></v-img>
+              </v-flex>
+              <v-flex xs12>
+                <div class="text-medium">
+                  <h1 class="text-danger text-danger">
+                    {{ getAlgoData?.map ? Math.round(getAlgoData?.map) : "--" }}
+                  </h1>
+                  <small>mmHg</small>
+                </div>
+              </v-flex>
+            </div>
+          </div>
+        </v-flex>
+
+        <v-flex d-flex sm12 lg4>
+          <div class="mini-light-box">
+            <div class="min-light-header">
+              <div class="left">
+                <h3>Pulse Rate Variability</h3>
+              </div>
+              <div class="right">
+                <div>
+                  <h3 class="font-weight-medium">Last Reading</h3>
+                  <small class="grey--text">{{ lastSaved }}</small>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex justify-center align-center mt-5">
+              <v-flex>
+                <v-img
                   src="@/assets/Group 507.svg"
                   height="70"
                   width="70"
                   contain
-                  class="mini-icon"
-                />
-                <div class="mini-content">
-                  <h4 class="mini-title text-success">
+                ></v-img>
+              </v-flex>
+              <v-flex xs12>
+                <div class="text-medium">
+                  <h1 class="text-danger text-success">
                     {{ getAlgoData?.prv ? Math.round(getAlgoData.prv) : "--" }}
-                  </h4>
+                  </h1>
                   <small>ms</small>
                 </div>
-                <!-- <div v-if="!$vuetify.breakpoint.smOnly">
-                    <h3 class="font-weight-medium">Last Reading</h3>
-                    <small class="grey--text">{{lastSaved}}</small>
-                  </div> -->
-              </div>
-            </template>
-            <span>Pulse Rate Variability</span>
-          </v-tooltip>
+              </v-flex>
+            </div>
+          </div>
         </v-flex>
-
         <div class="w-100"></div>
-        <!-- <v-flex d-flex xs6 sm6 md4 column5>
-          <v-tooltip bottom>
-            <template v-slot:activator="{ on, attrs }">
-              <div class="mini-light-box" v-on="on" v-bind="attrs">
-                <img
-                  src="@/assets/steps.svg"
-                  height="70"
-                  width="70"
-                  contain
-                  class="mini-icon"
-                />
-                <div class="mini-content">
-                  <h4 class="mini-title text-pink">
-                    {{ getAlgoData?.steps ? getAlgoData.steps : "--" }}
-                  </h4>
-                  <small>steps</small>
-                </div>
-              </div>
-            </template>
-            <span>Movement</span>
-          </v-tooltip>
-        </v-flex> -->
 
         <v-flex d-flex sm12 lg3>
           <div class="mini-light-box">
@@ -472,7 +522,7 @@
           <div class="mini-light-box">
             <div class="min-light-header">
               <div class="left">
-                <h3>Mean Arterial Pressure</h3>
+                <h3>Movement</h3>
               </div>
               <div class="right">
                 <div>
@@ -484,7 +534,7 @@
             <div class="d-flex justify-center align-center mt-5">
               <v-flex>
                 <v-img
-                  src="@/assets/Group 509.svg"
+                  src="@/assets/steps.svg"
                   height="70"
                   width="70"
                   contain
@@ -492,10 +542,10 @@
               </v-flex>
               <v-flex xs12>
                 <div class="text-medium">
-                  <h1 class="text-danger">
-                    {{ getAlgoData?.map ? Math.round(getAlgoData?.map) : "--" }}
+                  <h1 class="text-pink">
+                    {{ getAlgoData?.steps ? getAlgoData?.steps : "--" }}
                   </h1>
-                  <small>mmHg</small>
+                  <small>steps</small>
                 </div>
               </v-flex>
             </div>
