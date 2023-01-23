@@ -36,13 +36,12 @@
         xs12
         sm12
         md6
-        lg4
         v-for="device in liveDevices"
         :key="device.id"
         :class="showGrid"
       >
         <v-card
-          class="card-theme mt-lg-0"
+          class="card-theme"
           style="width: 100%; border-radius: 20px"
           @click="$router.push(`/patient-details/${device?.id}`)"
         >
