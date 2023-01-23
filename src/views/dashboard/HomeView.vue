@@ -131,7 +131,7 @@
                       v-on="on"
                       v-bind="attrs"
                       class="box-icon"
-                      src="@/assets/heartbeat-o.svg"
+                      src="@/assets/heartbeat.svg"
                       height="39"
                       width="39"
                       contain
@@ -151,7 +151,7 @@
                       v-on="on"
                       v-bind="attrs"
                       class="box-icon"
-                      src="@/assets/oxygen-o.svg"
+                      src="@/assets/oxygen.svg"
                       height="39"
                       width="39"
                       contain
@@ -175,7 +175,7 @@
                       v-on="on"
                       v-bind="attrs"
                       class="box-icon"
-                      src="@/assets/blood-oxygen-o.svg"
+                      src="@/assets/blood-oxygen.svg"
                       height="39"
                       width="39"
                       contain
@@ -199,7 +199,7 @@
                       v-on="on"
                       v-bind="attrs"
                       class="box-icon"
-                      src="@/assets/bloodPressure-o.svg"
+                      src="@/assets/bloodPressure.svg"
                       height="39"
                       width="39"
                       contain
@@ -228,7 +228,7 @@
                       v-on="on"
                       v-bind="attrs"
                       class="box-icon"
-                      src="@/assets/temprature-o.svg"
+                      src="@/assets/temprature.svg"
                       height="39"
                       width="39"
                       contain
@@ -255,7 +255,7 @@
                       v-on="on"
                       v-bind="attrs"
                       class="box-icon"
-                      src="@/assets/steps-o.svg"
+                      src="@/assets/steps.svg"
                       height="39"
                       width="39"
                       contain
