@@ -778,7 +778,7 @@
             <div class="w-100 d-flex justify-center">
               <h3 class="d-flex align-center">
                 <v-img
-                  src="@/assets/lungs.svg"
+                  src="@/assets/blood-oxygen.svg"
                   height="50"
                   width="50"
                   contain
