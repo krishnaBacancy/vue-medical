@@ -28,6 +28,7 @@
           src="@/assets/logo-white.svg"
           @click="$router.push('/')"
           height="30"
+          style="cursor: pointer"
         />
       </v-list-item-title>
       <div class="sidebar">
