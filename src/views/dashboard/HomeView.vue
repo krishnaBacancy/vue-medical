@@ -185,9 +185,7 @@
                 </v-tooltip>
                 <h5 class="text-purple">
                   {{
-                    patient?.algodata
-                      ? Math.round(patient.algodata?.map * 100) / 100
-                      : "--"
+                    patient?.algodata ? Math.round(patient.algodata?.map) : "--"
                   }}
                   <span class="unit">mmHg</span>
                 </h5>
