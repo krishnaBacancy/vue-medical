@@ -843,7 +843,7 @@
               <v-spacer></v-spacer>
               <v-btn class="export__btn" color="warning" outlined>Export</v-btn>
             </div>
-            <div class="grid-container w-100">
+            <div id="Oxygenchart" class="grid-container w-100">
               <oxygen-graph
                 class="mt-5"
                 :height="366"
@@ -927,7 +927,7 @@
               <v-spacer></v-spacer>
               <v-btn class="export__btn" color="warning" outlined>Export</v-btn>
             </div>
-            <div class="grid-container w-100">
+            <div id="chart" class="grid-container w-100">
               <ApexAreaChart
                 class="mt-5"
                 :height="366"

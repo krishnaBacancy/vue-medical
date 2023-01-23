@@ -395,7 +395,7 @@ export default {
     }
   },
   destroyed() {
-    if (this.socketConnection.connected) {
+    if (this.socketConnection) {
       try {
         this.socketConnection.end(false, () => {
           this.initData();
