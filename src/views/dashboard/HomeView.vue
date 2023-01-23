@@ -131,7 +131,7 @@
                       v-on="on"
                       v-bind="attrs"
                       class="box-icon"
-                      src="@/assets/heartbeat.svg"
+                      src="@/assets/heartbeat-o.svg"
                       height="39"
                       width="39"
                       contain
@@ -151,7 +151,7 @@
                       v-on="on"
                       v-bind="attrs"
                       class="box-icon"
-                      src="@/assets/oxygen.svg"
+                      src="@/assets/oxygen-o.svg"
                       height="39"
                       width="39"
                       contain
@@ -175,7 +175,7 @@
                       v-on="on"
                       v-bind="attrs"
                       class="box-icon"
-                      src="@/assets/Group 509.svg"
+                      src="@/assets/blood-oxygen-o.svg"
                       height="39"
                       width="39"
                       contain
@@ -199,7 +199,7 @@
                       v-on="on"
                       v-bind="attrs"
                       class="box-icon"
-                      src="@/assets/bloodPressure.svg"
+                      src="@/assets/bloodPressure-o.svg"
                       height="39"
                       width="39"
                       contain
@@ -228,7 +228,7 @@
                       v-on="on"
                       v-bind="attrs"
                       class="box-icon"
-                      src="@/assets/temprature.svg"
+                      src="@/assets/temprature-o.svg"
                       height="39"
                       width="39"
                       contain
@@ -255,7 +255,7 @@
                       v-on="on"
                       v-bind="attrs"
                       class="box-icon"
-                      src="@/assets/steps.svg"
+                      src="@/assets/steps-o.svg"
                       height="39"
                       width="39"
                       contain
@@ -399,7 +399,7 @@ span {
   transform: scale(1);
 }
 .btn-group .v-icon--link.active {
-  background-color: #f58220;
+  background: linear-gradient(45deg, #f58220, #e53985);
   color: #fff !important;
 }
 .active {
@@ -483,5 +483,8 @@ span {
 .box-icon {
   border-radius: 5px;
   margin-right: 10px;
+}
+.text-info {
+  color: #1ad2d9;
 }
 </style>
