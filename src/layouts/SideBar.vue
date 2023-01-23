@@ -242,7 +242,10 @@
       </v-list> -->
     </v-navigation-drawer>
 
-    <v-main class="main-wrapper live-page">
+    <v-main
+      class="main-wrapper"
+      :class="{ livePage: $route.path === '/live-device' }"
+    >
       <router-view />
     </v-main>
   </v-app>
@@ -368,7 +371,7 @@ span {
   margin-left: auto;
   padding: 40px 45px !important;
 }
-.main-wrapper.live-page {
+.livePage {
   width: 100% !important;
   padding-top: 1vw !important;
   padding-bottom: 1vw !important;

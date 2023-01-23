@@ -6,11 +6,29 @@
       pageIcon="mdi-arrow-left"
       @goBack="$router.go(-1)"
     />
-    <div class="d-flex align-center" v-if="mobile">
+    <div class="btn-group" v-if="mobile">
       <h3>Filter</h3>
-      <v-icon class="ml-4" @click="gridNumber = 4">mdi-tally-mark-3</v-icon>
-      <v-icon class="ml-2" @click="gridNumber = 6">mdi-tally-mark-2</v-icon>
-      <v-icon class="ml-2" @click="gridNumber = 12">mdi-tally-mark-1</v-icon>
+      <v-icon
+        class="ml-4"
+        color="#333"
+        @click="gridNumber = 4"
+        :class="{ active: gridNumber === 4 }"
+        >mdi-tally-mark-3</v-icon
+      >
+      <v-icon
+        class="ml-2"
+        color="#333"
+        @click="gridNumber = 6"
+        :class="{ active: gridNumber === 6 }"
+        >mdi-tally-mark-2</v-icon
+      >
+      <v-icon
+        class="ml-2"
+        color="#333"
+        @click="gridNumber = 12"
+        :class="{ active: gridNumber === 12 }"
+        >mdi-tally-mark-1</v-icon
+      >
     </div>
     <v-layout row wrap class="mt-4">
       <v-flex
@@ -24,7 +42,7 @@
         :class="showGrid"
       >
         <v-card
-          class="card-theme"
+          class="card-theme mt-lg-0"
           style="width: 100%; border-radius: 20px"
           @click="$router.push(`/patient-details/${device?.id}`)"
         >
@@ -429,7 +447,24 @@ h3 {
   font-size: 18px;
 }
 .card-theme {
+  margin-top: 10px;
   padding: 20px;
+}
+.btn-group {
+  display: flex;
+  align-items: center;
+  padding: 8px 5px;
+  border-radius: 12px;
+  margin-left: 5px;
+}
+.btn-group .v-icon--link {
+  border-radius: 5px;
+  width: 30px;
+  height: 30px;
+}
+.btn-group .v-icon--link.active {
+  background: linear-gradient(45deg, #f58220, #e53985);
+  color: #fff !important;
 }
 @media only screen and (max-width: 530px) {
   h3 {

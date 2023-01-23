@@ -400,10 +400,6 @@ span {
   background: linear-gradient(45deg, #f58220, #e53985);
   color: #fff !important;
 }
-.active {
-  background-color: #f58220;
-  color: #fff !important;
-}
 .card-item-row > * {
   margin-bottom: 30px;
 }
