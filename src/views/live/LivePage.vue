@@ -74,7 +74,7 @@
                     <span>Heart Rate</span>
                   </v-tooltip>
                 </v-flex>
-                <v-flex>
+                <v-flex xs12>
                   <div class="d-flex flex-column text-start ml-2 lh-1">
                     <h5 class="green--text">
                       {{ device?.algodata ? device.algodata?.hr : "--" }}

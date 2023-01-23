@@ -368,6 +368,12 @@ span {
   margin-left: auto;
   padding: 40px 45px !important;
 }
+.main-wrapper.live-page {
+  width: 100% !important;
+  padding-top: 1vw !important;
+  padding-bottom: 1vw !important;
+  margin-top: 0;
+}
 
 @media (max-width: 1600px) {
   .sidebar a {
