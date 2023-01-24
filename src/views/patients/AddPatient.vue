@@ -171,6 +171,7 @@
                 :label="'Member Name'"
                 :fieldRules="memberNameRules"
                 v-model.trim="familyInfo.name"
+                :value="familyInfo.name"
               />
             </v-col>
             <v-col class="form-group" cols="12" sm="4" lg="auto">
@@ -187,6 +188,7 @@
                 :label="'Member Relation'"
                 :fieldRules="memberRelationRules"
                 v-model.trim="familyInfo.selectedRelation"
+                :value="familyInfo.selectedRelation"
               />
             </v-col>
             <v-col class="form-group" cols="12" sm="4" lg="auto">
@@ -470,6 +472,7 @@ export default {
     },
     removeField(index, type) {
       type.splice(index, 1);
+      this.$refs.form.resetValidation();
     },
     checkEmptyFamilyMemberInfo() {
       for (let i = 0; i < this.familyMemberInfo.length; i++) {

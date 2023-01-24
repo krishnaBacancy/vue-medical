@@ -198,7 +198,6 @@
         :items="getDevices"
         :items-per-page="5"
         class="elevation-1 table"
-        height="500"
         show-select
         v-model="selected"
       >

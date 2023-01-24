@@ -8,6 +8,7 @@
       :type="type"
       :rules="fieldRules"
       :placeholder="placeholder"
+      :value="value"
       required
       @input="handleInput"
     ></v-text-field>
@@ -25,6 +26,7 @@ export default {
     name: String,
     type: String,
     hidden: String,
+    value: String,
   },
   model: {
     prop: "hidden",

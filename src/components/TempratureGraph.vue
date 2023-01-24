@@ -56,78 +56,76 @@ export default {
           // if (document.getElementById(`temp-${this.macAddress}`).innerHTML) {
           //   document.getElementById(`temp-${this.macAddress}`).innerHTML = null;
           // }
-          if (
-            this.tempratureChart &&
-            document.getElementById(`temp-chart-${this.macAddress}`)
-          ) {
-            console.log("chart exist");
-            // this.tempratureChart.render();
-          } else {
-            // if (document.getElementById(`temp-chart-${this.macAddress}`)) {
-            //   ctx = document
-            //     .getElementById(`temp-chart-${this.macAddress}`)
-            //     ?.getContext("2d");
-            // } else {
-            if (document.getElementById(`temp-${this.macAddress}`)?.innerHTML) {
-              document.getElementById(`temp-${this.macAddress}`).innerHTML =
-                null;
-            }
-            let ctx;
-            var canvas = document.createElement("canvas");
-            canvas.id = `temp-chart-${this.macAddress}`;
-            canvas.width = this.width;
-            canvas.height = this.height;
+          // if (
+          //   this.tempratureChart &&
+          //   document.getElementById(`temp-chart-${this.macAddress}`)
+          // ) {
+          //   console.log("chart exist");
+          // } else {
+          // if (document.getElementById(`temp-chart-${this.macAddress}`)) {
+          //   ctx = document
+          //     .getElementById(`temp-chart-${this.macAddress}`)
+          //     ?.getContext("2d");
+          // } else {
+          if (document.getElementById(`temp-${this.macAddress}`)?.innerHTML) {
+            document.getElementById(`temp-${this.macAddress}`).innerHTML = null;
+          }
+          let ctx;
+          var canvas = document.createElement("canvas");
+          canvas.id = `temp-chart-${this.macAddress}`;
+          canvas.width = this.width;
+          canvas.height = this.height;
 
-            var body = document.getElementById(`temp-${this.macAddress}`);
-            console.log("body", body);
-            body?.appendChild(canvas);
-            ctx = document
-              .getElementById(`temp-chart-${this.macAddress}`)
-              ?.getContext("2d");
-            // }
-            console.log("ctx", ctx);
-            if (ctx) {
-              this.tempratureChart = await new Chart(ctx, {
-                type: "bar",
-                data: {
-                  labels: ["12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm"],
-                  datasets: [
-                    {
-                      label: "Temprature",
-                      data: buffer?.map((d) => Math.round(d["temp"])),
-                      borderWidth: 1,
-                      hoverBorderColor: "red",
-                      fill: 1,
-                      barPercentage: 0.25,
-                      categoryPercentage: 1,
-                      backgroundColor: this.chartBgColor,
-                    },
-                  ],
-                },
-                options: {
-                  responsive: true,
-                  plugins: {
-                    legend: {
-                      display: false,
-                    },
-                    tooltip: {
-                      callbacks: {
-                        title: function () {
-                          return "";
-                        },
+          var body = document.getElementById(`temp-${this.macAddress}`);
+          console.log("body", body);
+          body?.appendChild(canvas);
+          ctx = document
+            .getElementById(`temp-chart-${this.macAddress}`)
+            ?.getContext("2d");
+          // }
+          console.log("ctx", ctx);
+          if (ctx) {
+            this.tempratureChart = await new Chart(ctx, {
+              type: "bar",
+              data: {
+                labels: ["12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm"],
+                datasets: [
+                  {
+                    label: "Temprature",
+                    data: buffer?.map((d) => Math.round(d["temp"])),
+                    borderWidth: 1,
+                    hoverBorderColor: "red",
+                    fill: 1,
+                    barPercentage: 0.25,
+                    categoryPercentage: 1,
+                    backgroundColor: this.chartBgColor,
+                  },
+                ],
+              },
+              options: {
+                responsive: true,
+                plugins: {
+                  legend: {
+                    display: false,
+                  },
+                  tooltip: {
+                    callbacks: {
+                      title: function () {
+                        return "";
                       },
                     },
                   },
-                  scales: {
-                    x: {
-                      display: false,
-                    },
+                },
+                scales: {
+                  x: {
+                    display: false,
                   },
                 },
-              });
-              this.tempratureChart.render();
-            }
+              },
+            });
+            this.tempratureChart.render();
           }
+          // }
         }
       },
     },

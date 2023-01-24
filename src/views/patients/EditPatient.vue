@@ -505,6 +505,7 @@ export default {
     },
     removeField(index, type) {
       type.splice(index, 1);
+      this.$refs.form.resetValidation();
     },
     checkEmptyFamilyMemberInfo() {
       for (let i = 0; i < this.user?.family_members.length; i++) {
