@@ -25,7 +25,7 @@ const getters = {
   getAlgoData(state) {
     return state?.patientAlgoData;
   },
-  getHeartRate(state) {
+  getHeartRateGraphData(state) {
     return state?.heartRate;
   },
 };
@@ -59,6 +59,7 @@ const actions = {
       commit("SET_PATIENT_ALGO_DATA", res.data.data);
       commit("SET_LOADING_STATUS", false);
     }
+    return res.data.data;
   },
   async getPatientBodyTempData({ commit }, payload) {
     commit("SET_LOADING_STATUS", true);

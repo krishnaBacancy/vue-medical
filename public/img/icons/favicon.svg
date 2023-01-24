@@ -1,37 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="70.705" height="26.503" viewBox="0 0 70.705 26.503">
+<svg id="f1a205ba-a2ac-4fe3-ace7-e24fde865641" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 50 50">
   <defs>
-    <linearGradient id="linear-gradient" x1="-1.007" y1="0.472" x2="1.806" y2="0.532" gradientUnits="objectBoundingBox">
-      <stop offset="0" stop-color="#fff"/>
-      <stop offset="0.043" stop-color="#fdeaeb"/>
-      <stop offset="0.13" stop-color="#f8b6b8"/>
-      <stop offset="0.254" stop-color="#f16368"/>
-      <stop offset="0.352" stop-color="#ec1d24"/>
-      <stop offset="0.4" stop-color="#eb1f23"/>
-      <stop offset="0.426" stop-color="#ea2721"/>
-      <stop offset="0.446" stop-color="#e9341f"/>
-      <stop offset="0.463" stop-color="#e6471a"/>
-      <stop offset="0.479" stop-color="#e46015"/>
-      <stop offset="0.493" stop-color="#e07f0f"/>
-      <stop offset="0.506" stop-color="#dca207"/>
-      <stop offset="0.517" stop-color="#d8c800"/>
-      <stop offset="0.523" stop-color="#c4c407"/>
-      <stop offset="0.536" stop-color="#96bd18"/>
-      <stop offset="0.551" stop-color="#6eb627"/>
-      <stop offset="0.567" stop-color="#4cb133"/>
-      <stop offset="0.583" stop-color="#30ac3e"/>
-      <stop offset="0.6" stop-color="#1aa946"/>
-      <stop offset="0.62" stop-color="#0ba64b"/>
-      <stop offset="0.642" stop-color="#02a54e"/>
-      <stop offset="0.676" stop-color="#00a550"/>
-      <stop offset="0.679" stop-color="#02a551"/>
-      <stop offset="0.772" stop-color="#5bc58e"/>
-      <stop offset="0.853" stop-color="#a1ddbe"/>
-      <stop offset="0.921" stop-color="#d4efe1"/>
-      <stop offset="0.972" stop-color="#f3faf6"/>
-      <stop offset="1" stop-color="#fff"/>
+    <linearGradient id="fe8e653a-e0aa-4635-be79-ce3e092473b1" x1="3.34" y1="3.34" x2="46.66" y2="46.66"
+      gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#e53985" />
+      <stop offset="1" stop-color="#f59320" />
     </linearGradient>
   </defs>
-  <g id="Group_482" data-name="Group 482" transform="translate(-849.169 171.643)">
-    <path id="Path_489" data-name="Path 489" d="M500.606,268.615H491.36V250.039a2.734,2.734,0,0,0-.758-2.023,2.147,2.147,0,0,0-1.581-.792,5.459,5.459,0,0,0-.739-.036,2.387,2.387,0,0,0-2.423,1.664l-1.98,6.817h-6.463a2.389,2.389,0,0,0-2.17,1.391l-3,6.519-5.168-14.941a2.388,2.388,0,0,0-2.207-1.779,2.364,2.364,0,0,0-2.352,1.583l-4.336,7.391h-6.735c-.068,0-.129-.016-.2-.016s-.131.012-.2.016h-.126a2.309,2.309,0,0,0-2.358,2.688c0,.005,0,.009,0,.015v4.478a6.621,6.621,0,0,1-1.377,4.5,5.763,5.763,0,0,1-7.892.018,6.667,6.667,0,0,1-1.359-4.52V250.691a2.709,2.709,0,0,0-.724-1.977,2.613,2.613,0,0,0-1.96-.741,2.552,2.552,0,0,0-2.719,2.719v12.076q0,5.191,2.737,7.892t7.962,2.7q5.226,0,7.98-2.719t2.754-7.874V260.61h5.9a2.388,2.388,0,0,0,2.249-1.585l2.424-4.484,4.781,16.7a2.388,2.388,0,0,0,4.48.391l5.143-11.19h5a2.38,2.38,0,0,0,1.774-.8v10.918a2.391,2.391,0,0,0,2.637,2.637h12.245q2.636,0,2.637-2.276Q503.243,268.615,500.606,268.615Z" transform="translate(416.631 -418.5)" fill="url(#linear-gradient)"/>
-  </g>
+  <rect x="1" y="1" width="48" height="48" rx="8" fill="url(#fe8e653a-e0aa-4635-be79-ce3e092473b1)" />
+  <path
+    d="M24.07,14.4A3.57,3.57,0,1,1,20.51,18,3.56,3.56,0,0,1,24.07,14.4ZM32,31c-2.62,4.48-5.15,11.77-2.61,18H21.91c-6.27-4.51-8.39-11.36-9.25-19.46a89.37,89.37,0,0,1,.51-21.81s.77.49,1.69,1c-.52,14.61,7.44,14.8,8.78,14.74,1.75-.07,11-.52,16-15.41l1.94-.48C39,19.81,36.08,24,32,31Z"
+    fill="#fff" />
 </svg>

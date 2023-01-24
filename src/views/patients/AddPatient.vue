@@ -171,6 +171,7 @@
                 :label="'Member Name'"
                 :fieldRules="memberNameRules"
                 v-model.trim="familyInfo.name"
+                :value="familyInfo.name"
               />
             </v-col>
             <v-col class="form-group" cols="12" sm="4" lg="auto">
@@ -187,6 +188,7 @@
                 :label="'Member Relation'"
                 :fieldRules="memberRelationRules"
                 v-model.trim="familyInfo.selectedRelation"
+                :value="familyInfo.selectedRelation"
               />
             </v-col>
             <v-col class="form-group" cols="12" sm="4" lg="auto">
@@ -209,6 +211,7 @@
                 width="34"
                 height="34"
                 class="ml-2 mt-2 main__svg"
+                v-show="index == familyMemberInfo.length - 1"
                 @click="addField(familyInfo, familyMemberInfo)"
               >
                 <path fill="none" d="M0 0h24v24H0z" />
@@ -469,6 +472,7 @@ export default {
     },
     removeField(index, type) {
       type.splice(index, 1);
+      this.$refs.form.resetValidation();
     },
     checkEmptyFamilyMemberInfo() {
       for (let i = 0; i < this.familyMemberInfo.length; i++) {
@@ -495,7 +499,7 @@ export default {
         weight: this.user.weight,
         Address: this.user.address,
         password: this.user.password,
-        adharcard: this.user.aadhar.replaceAll(" ", ""),
+        adharcard: this.user?.aadhar?.replaceAll(" ", ""),
         DOB: this.dateValue,
         family_members: this.familyMemberInfo,
         medical_history: [

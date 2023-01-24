@@ -299,7 +299,7 @@
               <v-flex xs12>
                 <div class="text-medium">
                   <h1 class="text-success">
-                    {{ getAlgoData?.hr ? getAlgoData.hr : "--" }}
+                    {{ algoData?.hr ? algoData.hr : "--" }}
                   </h1>
                   <small>BPM</small>
                 </div>
@@ -333,9 +333,7 @@
               <v-flex xs12>
                 <div class="text-medium">
                   <h1 class="warning--text">
-                    {{
-                      getAlgoData?.spo2 ? Math.round(getAlgoData.spo2) : "--"
-                    }}
+                    {{ algoData?.spo2 ? Math.round(algoData.spo2) : "--" }}
                   </h1>
                   <small>%</small>
                 </div>
@@ -369,7 +367,7 @@
               <v-flex xs12>
                 <div class="text-medium">
                   <h1 class="text-danger">
-                    {{ getAlgoData?.temp ? getAlgoData.temp : "--" }}
+                    {{ algoData?.temp ? algoData.temp : "--" }}
                   </h1>
                   <small>°C</small>
                 </div>
@@ -404,7 +402,7 @@
               <v-flex xs12>
                 <div class="text-medium">
                   <h1 class="text-danger text-success">
-                    {{ getAlgoData?.hrv ? Math.round(getAlgoData.hrv) : "--" }}
+                    {{ algoData?.hrv ? Math.round(algoData.hrv) : "--" }}
                   </h1>
                   <small>ms</small>
                 </div>
@@ -438,7 +436,7 @@
               <v-flex xs12>
                 <div class="text-medium">
                   <h1 class="text-danger text-danger">
-                    {{ getAlgoData?.map ? Math.round(getAlgoData?.map) : "--" }}
+                    {{ algoData?.map ? Math.round(algoData?.map) : "--" }}
                   </h1>
                   <small>mmHg</small>
                 </div>
@@ -472,7 +470,7 @@
               <v-flex xs12>
                 <div class="text-medium">
                   <h1 class="text-danger text-success">
-                    {{ getAlgoData?.prv ? Math.round(getAlgoData.prv) : "--" }}
+                    {{ algoData?.prv ? Math.round(algoData.prv) : "--" }}
                   </h1>
                   <small>ms</small>
                 </div>
@@ -507,9 +505,9 @@
               <v-flex xs12>
                 <div class="text-medium">
                   <h1 class="text-danger cyan--text">
-                    {{ getAlgoData?.bp ? Math.round(getAlgoData?.bp) : "--" }}
+                    {{ algoData?.bp ? Math.round(algoData?.bp) : "--" }}
                     /
-                    {{ getAlgoData?.dbp ? Math.round(getAlgoData?.dbp) : "--" }}
+                    {{ algoData?.dbp ? Math.round(algoData?.dbp) : "--" }}
                   </h1>
                   <small>mmHg</small>
                 </div>
@@ -543,7 +541,7 @@
               <v-flex xs12>
                 <div class="text-medium">
                   <h1 class="text-pink">
-                    {{ getAlgoData?.steps ? getAlgoData?.steps : "--" }}
+                    {{ algoData?.steps ? algoData?.steps : "--" }}
                   </h1>
                   <small>steps</small>
                 </div>
@@ -578,9 +576,7 @@
                 <div class="text-medium">
                   <h1 class="warning--text">
                     {{
-                      getAlgoData?.rr
-                        ? Math.round(getAlgoData?.rr * 100) / 100
-                        : "--"
+                      algoData?.rr ? Math.round(algoData?.rr * 100) / 100 : "--"
                     }}
                   </h1>
                   <small>seconds</small>
@@ -616,9 +612,7 @@
                 <div class="text-medium">
                   <h1 class="text-success">
                     {{
-                      getAlgoData?.pp
-                        ? Math.round(getAlgoData?.pp * 100) / 100
-                        : "--"
+                      algoData?.pp ? Math.round(algoData?.pp * 100) / 100 : "--"
                     }}
                   </h1>
                   <small>mmHg</small>
@@ -654,9 +648,7 @@
               <v-flex xs12>
                 <div class="text-medium">
                   <h1 class="text-warning">
-                    {{
-                      getAlgoData?.arrhythmia ? getAlgoData.arrhythmia : "--"
-                    }}
+                    {{ algoData?.arrhythmia ? algoData.arrhythmia : "--" }}
                   </h1>
                 </div>
               </v-flex>
@@ -689,9 +681,7 @@
                 <div class="text-medium">
                   <h1 class="text-info">
                     {{
-                      getAlgoData?.sv
-                        ? Math.round(getAlgoData?.sv * 100) / 100
-                        : "--"
+                      algoData?.sv ? Math.round(algoData?.sv * 100) / 100 : "--"
                     }}
                   </h1>
                   <small>ml</small>
@@ -726,9 +716,7 @@
                 <div class="text-medium">
                   <h1 class="text-danger">
                     {{
-                      getAlgoData?.co
-                        ? Math.round(getAlgoData?.co * 100) / 100
-                        : "--"
+                      algoData?.co ? Math.round(algoData?.co * 100) / 100 : "--"
                     }}
                   </h1>
                   <small>L/min</small>
@@ -763,8 +751,8 @@
                 <div class="text-medium">
                   <h1 class="text-danger">
                     {{
-                      getAlgoData?.ptt
-                        ? Math.round(getAlgoData?.ptt * 100) / 100
+                      algoData?.ptt
+                        ? Math.round(algoData?.ptt * 100) / 100
                         : "--"
                     }}
                   </h1>
@@ -890,9 +878,9 @@
                 class="mt-5"
               >
                 <heart-rate-graph
-                  v-if="getBodyTempGraphData.length"
-                  :key="getBodyTempGraphData.length"
-                  :heartrate-data="getBodyTempGraphData"
+                  v-if="getHeartRateGraphData.length"
+                  :key="getHeartRateGraphData.length"
+                  :heartrate-data="getHeartRateGraphData"
                   :macAddress="
                     getSingleDeviceData[0]?.macAddressFramed.toUpperCase()
                   "
@@ -965,6 +953,7 @@ import HeartRateGraph from "@/components/HeartRateGraph.vue";
 import OxygenGraph from "@/components/OxygenGraph.vue";
 import TempratureGraph from "@/components/TempratureGraph.vue";
 import moment from "moment";
+
 Date.prototype.addDays = function (days) {
   var date = new Date(this.valueOf());
   date.setDate(date.getDate() + days);
@@ -1051,6 +1040,7 @@ export default {
       connecting: false,
       retryTimes: 0,
       liveMessage: "Offline",
+      algoData: {},
     };
   },
   computed: {
@@ -1064,6 +1054,7 @@ export default {
       "getBloodOxygenGraphData",
       "getBodyTempGraphData",
       "getPatientSteps",
+      "getHeartRateGraphData",
     ]),
     selectAllFilters() {
       return (
@@ -1074,7 +1065,7 @@ export default {
       );
     },
     lastSaved() {
-      return moment(this.getAlgoData.createdAt).startOf("minutes").fromNow();
+      return moment(this.algoData.updatedAt).startOf("minutes").fromNow();
     },
   },
   destroyed() {
@@ -1213,11 +1204,11 @@ export default {
         s2?.slice(1)
       );
     },
-    displayAlgoData() {
+    async displayAlgoData() {
       const payload = {
         mac_address_framed: this.getMacAddress.toString().toUpperCase(),
       };
-      this.getPatientAlgoData(payload);
+      this.algoData = await this.getPatientAlgoData(payload);
     },
     getBodyTempGraph() {
       const payload = {
@@ -1313,7 +1304,8 @@ export default {
             this.ppgChartData = [];
             let data = await JSON.parse(message);
             if (data?.msg === 17) {
-              this.displayAlgoData();
+              // this.displayAlgoData();
+              this.algoData = data;
             }
             console.log("data--", JSON.parse(message));
             this.liveMessage = data?.message;
