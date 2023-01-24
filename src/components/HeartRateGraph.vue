@@ -93,7 +93,7 @@ export default {
                   datasets: [
                     {
                       label: "HeartRate",
-                      data: buffer?.map((d) => Math.round(d["temp"])),
+                      data: buffer?.map((d) => Math.round(d["hr"])),
                       borderWidth: 1,
                       hoverBorderColor: "green",
                       fill: 1,

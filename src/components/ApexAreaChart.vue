@@ -122,7 +122,7 @@ export default {
         //   console.log("newwww");
         //   // document.getElementById("chart").innerHTML = "";
         // } else {
-        if (document.querySelector("#chart").innerHTML) {
+        if (document.querySelector("#chart")?.innerHTML) {
           document.querySelector("#chart").innerHTML = null;
         }
         if (val.length && val.length > 0) {
