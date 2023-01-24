@@ -141,6 +141,7 @@ export default {
                     ticks: {
                       // color: "#FFFFFF",
                     },
+                    display: this.$route.path === "/live-device" ? false : true,
                   },
                   x: {
                     ticks: {

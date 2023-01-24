@@ -59,28 +59,32 @@ export default {
           ) {
             console.log("chart exist");
           } else {
+            if (
+              document.getElementById(`heartRate-${this.macAddress}`)?.innerHTML
+            ) {
+              document.getElementById(
+                `heartRate-${this.macAddress}`
+              ).innerHTML = null;
+            }
             let ctx;
-            if (document.getElementById(`heartRate-chart-${this.macAddress}`)) {
-              ctx = document
-                .getElementById(`heartRate-chart-${this.macAddress}`)
-                ?.getContext("2d");
-            } else {
-              var canvas = document.createElement("canvas");
-              canvas.id = `heartRate-chart-${this.macAddress}`;
-              canvas.width = this.width;
-              canvas.height = this.height;
+            // if (document.getElementById(`heartRate-chart-${this.macAddress}`)) {
+            //   ctx = document
+            //     .getElementById(`heartRate-chart-${this.macAddress}`)
+            //     ?.getContext("2d");
+            // } else {
+            var canvas = document.createElement("canvas");
+            canvas.id = `heartRate-chart-${this.macAddress}`;
+            canvas.width = this.width;
+            canvas.height = this.height;
 
-              var body = document.getElementById(`heartRateCanvas`);
-              console.log("body", body);
-              body?.appendChild(canvas);
-              ctx = document
-                .getElementById(`heartRate-chart-${this.macAddress}`)
-                ?.getContext("2d");
-            }
+            var body = document.getElementById(`heartRate-${this.macAddress}`);
+            console.log("body", body);
+            body?.appendChild(canvas);
+            ctx = document
+              .getElementById(`heartRate-chart-${this.macAddress}`)
+              ?.getContext("2d");
+            // }
             console.log("ctx", ctx);
-            if (this.HeartRateChart != null) {
-              this.HeartRateChart?.destroy();
-            }
             if (ctx) {
               this.HeartRateChart = await new Chart(ctx, {
                 type: "bar",
@@ -131,9 +135,6 @@ export default {
     if (this.HeartRateChart) {
       this.HeartRateChart?.destroy();
       this.HeartRateChart = null;
-    }
-    if (document.getElementById("heartRateCanvas")) {
-      document.getElementById("heartRateCanvas").innerHTML = null;
     }
   },
 };

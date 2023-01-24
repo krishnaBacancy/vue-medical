@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <div class="d-inline-flex">
-      <v-icon color="warning">mdi-magnify</v-icon>
+      <v-icon>mdi-magnify</v-icon>
       <input
         type="search"
         placeholder="Search by MAC Address"

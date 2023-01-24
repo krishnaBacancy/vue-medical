@@ -18,46 +18,25 @@ export default {
 </script>
 
 <style>
-@font-face {
-  font-family: "Gilroy";
-  src: url("assets/fonts/Gilroy-Light.ttf") format("truetype");
-  font-weight: 100;
-}
-
-@font-face {
-  font-family: "Gilroy";
-  src: url("assets/fonts/Gilroy-Regular.ttf") format("truetype");
-  font-weight: 300;
-}
-
-@font-face {
-  font-family: "Gilroy";
-  src: url("assets/fonts/Gilroy-Medium.ttf") format("truetype");
-  font-weight: 400;
-}
-
-@font-face {
-  font-family: "Gilroy";
-  src: url("assets/fonts/Gilroy-Bold.ttf") format("truetype");
-  font-weight: 500;
-}
-
-@font-face {
-  font-family: "Gilroy";
-  src: url("assets/fonts/Gilroy-ExtraBold.ttf") format("truetype");
-  font-weight: 600;
-}
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap");
 
 #app {
-  font-family: "Gilroy";
+  font-family: "Poppins", sans-serif;
+
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   /* background-color: cyan; */
 }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
 .card__radio {
-  font-family: "Gilroy";
+  font-family: "Poppins", sans-serif !important;
 }
 div .v-sheet.v-card:not(.v-sheet--outlined) {
   box-shadow: 0px 12px 20px #00000014;
@@ -357,5 +336,49 @@ div .vue-tel-input {
 div .vue-tel-input:focus-within {
   box-shadow: none;
   border-color: #e9e9e9;
+}
+.theme-select-box.v-select {
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.theme-select-box.v-select > .v-input__control > .v-input__slot {
+  margin: 0;
+  border: 1px solid #e9e9e9;
+  border-radius: 10px;
+  padding: 14px;
+}
+
+.theme-select-box.v-select > .v-input__control > .v-input__slot input {
+  cursor: pointer;
+}
+
+div.v-application .primary--text,
+.v-application .primary--text {
+  color: orange !important;
+}
+
+.v-list-item--link {
+  text-align: left;
+  padding: 0 26px;
+}
+.input-theme.v-input {
+  margin-top: 0;
+}
+.input-theme.v-text-field > .v-input__control > .v-input__slot {
+  border: 1px solid #e9e9e9;
+  border-radius: 10px;
+  padding: 14px;
+}
+.v-text-field--full-width .v-input__prepend-outer,
+.v-text-field--full-width .v-input__prepend-inner,
+.v-text-field--full-width .v-input__append-inner,
+.v-text-field--full-width .v-input__append-outer,
+.v-text-field--enclosed .v-input__prepend-outer,
+.v-text-field--enclosed .v-input__prepend-inner,
+.v-text-field--enclosed .v-input__append-inner,
+.v-text-field--enclosed .v-input__append-outer {
+  margin-top: 6px;
 }
 </style>

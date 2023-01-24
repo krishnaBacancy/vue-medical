@@ -14,8 +14,8 @@
               v-if="$vuetify.breakpoint.mdAndUp"
               class="ml-auto"
               src="@/assets/arrow1.svg"
-              height="100"
-              width="100"
+              height="140"
+              width="140"
               contain
             />
             <div class="text-start mt-n5 mb-15">
@@ -26,7 +26,7 @@
                 </h1>
               </v-flex>
               <v-flex md12>
-                <p class="mt-5 ml-sm-0">
+                <p class="mt-5 my-md-10 ml-sm-0">
                   Get access to essential health data that aids in taking
                   crucial decisions for life. Track vital information in a
                   graphical view and hasten the next step.

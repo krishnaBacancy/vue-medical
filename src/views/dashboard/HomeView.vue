@@ -68,12 +68,12 @@
                 <v-spacer>
                   <span
                     class="active-status offline"
-                    v-if="realTimeMessage === 'Offline'"
+                    v-if="patient.isOnline === 0"
                   ></span>
                 </v-spacer>
                 <span
                   class="active-status online"
-                  v-if="realTimeMessage === 'Online'"
+                  v-if="patient.isOnline === 1"
                 ></span>
               </div>
               <div class="icon-text-block">
@@ -175,7 +175,7 @@
                       v-on="on"
                       v-bind="attrs"
                       class="box-icon"
-                      src="@/assets/Group 509.svg"
+                      src="@/assets/blood-oxygen.svg"
                       height="39"
                       width="39"
                       contain
@@ -185,9 +185,7 @@
                 </v-tooltip>
                 <h5 class="text-purple">
                   {{
-                    patient?.algodata
-                      ? Math.round(patient.algodata?.map * 100) / 100
-                      : "--"
+                    patient?.algodata ? Math.round(patient.algodata?.map) : "--"
                   }}
                   <span class="unit">mmHg</span>
                 </h5>
@@ -399,11 +397,7 @@ span {
   transform: scale(1);
 }
 .btn-group .v-icon--link.active {
-  background-color: #f58220;
-  color: #fff !important;
-}
-.active {
-  background-color: #f58220;
+  background: linear-gradient(45deg, #f58220, #e53985);
   color: #fff !important;
 }
 .card-item-row > * {
@@ -483,5 +477,8 @@ span {
 .box-icon {
   border-radius: 5px;
   margin-right: 10px;
+}
+.text-info {
+  color: #1ad2d9;
 }
 </style>

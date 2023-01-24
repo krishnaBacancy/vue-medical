@@ -1,5 +1,5 @@
 <template>
-  <div id="Oxygenchart"></div>
+  <div></div>
 </template>
 
 <script>
@@ -96,9 +96,13 @@ export default {
       immediate: true,
       async handler(val) {
         console.log("val.length", val.length);
+        if (document.querySelector("#Oxygenchart")?.innerHTML) {
+          document.querySelector("#Oxygenchart").innerHTML = null;
+        }
+        // if (this.oxygenChart !== null) {
+        // document.getElementById("Oxygenchart").innerHTML = "";
         if (val.length && val.length > 0) {
-          if (!this.oxygenChart) {
-            // document.getElementById("Oxygenchart").innerHTML = "";
+          if (document.querySelector("#Oxygenchart")) {
             this.oxygenChart = new ApexCharts(
               document.querySelector("#Oxygenchart"),
               this.options
@@ -109,19 +113,23 @@ export default {
                 data: val?.map((d) => Math.round(d["spo2"])),
               },
             ]);
-          } else {
-            console.log("helloooooo");
           }
+          // } else {
+          //   console.log("helloooooo");
+          // }
         }
       },
     },
   },
+  beforeDestroy() {
+    if (document.querySelector("#Oxygenchart")?.innerHTML) {
+      document.querySelector("#Oxygenchart").innerHTML = null;
+    }
+  },
   destroyed() {
     if (this.oxygenChart) {
       this.oxygenChart.destroy();
-    }
-    if (document.getElementById("Oxygenchart")) {
-      document.getElementById("Oxygenchart").innerHTML = "";
+      this.oxygenChart = null;
     }
   },
 };

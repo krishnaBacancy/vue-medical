@@ -1,5 +1,5 @@
 <template>
-  <div id="chart"></div>
+  <div></div>
 </template>
 
 <script>
@@ -118,9 +118,15 @@ export default {
       immediate: true,
       async handler(val) {
         console.log("val.length", val.length);
+        // if (this.myAreaChart && document.querySelector("#chart")) {
+        //   console.log("newwww");
+        //   // document.getElementById("chart").innerHTML = "";
+        // } else {
+        if (document.querySelector("#chart").innerHTML) {
+          document.querySelector("#chart").innerHTML = null;
+        }
         if (val.length && val.length > 0) {
-          if (!this.myAreaChart) {
-            document.getElementById("chart").innerHTML = "";
+          if (document.querySelector("#chart")) {
             this.myAreaChart = new ApexCharts(
               document.querySelector("#chart"),
               this.options
@@ -131,20 +137,20 @@ export default {
                 data: this.dataOfChart?.map((d) => Math.round(d["step"])),
               },
             ]);
-          } else {
-            console.log("helloooooo");
           }
         }
       },
     },
   },
+  beforeDestroy() {
+    if (document.querySelector("#chart")?.innerHTML) {
+      document.querySelector("#chart").innerHTML = null;
+    }
+  },
   destroyed() {
     if (this.myAreaChart) {
       this.myAreaChart?.destroy();
       this.myAreaChart = null;
-    }
-    if (document.getElementById("chart")) {
-      document.getElementById("chart").innerHTML = "";
     }
   },
 };

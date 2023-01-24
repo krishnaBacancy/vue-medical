@@ -6,11 +6,29 @@
       pageIcon="mdi-arrow-left"
       @goBack="$router.go(-1)"
     />
-    <div class="d-flex align-center" v-if="mobile">
+    <div class="btn-group" v-if="mobile">
       <h3>Filter</h3>
-      <v-icon class="ml-4" @click="gridNumber = 4">mdi-tally-mark-3</v-icon>
-      <v-icon class="ml-2" @click="gridNumber = 6">mdi-tally-mark-2</v-icon>
-      <v-icon class="ml-2" @click="gridNumber = 12">mdi-tally-mark-1</v-icon>
+      <v-icon
+        class="ml-4"
+        color="#333"
+        @click="gridNumber = 4"
+        :class="{ active: gridNumber === 4 }"
+        >mdi-tally-mark-3</v-icon
+      >
+      <v-icon
+        class="ml-2"
+        color="#333"
+        @click="gridNumber = 6"
+        :class="{ active: gridNumber === 6 }"
+        >mdi-tally-mark-2</v-icon
+      >
+      <v-icon
+        class="ml-2"
+        color="#333"
+        @click="gridNumber = 12"
+        :class="{ active: gridNumber === 12 }"
+        >mdi-tally-mark-1</v-icon
+      >
     </div>
     <v-layout row wrap class="mt-4">
       <v-flex
@@ -56,7 +74,7 @@
           </div>
 
           <v-row>
-            <v-col cols="12" sm="6" lg="4">
+            <v-col cols="12" sm="6" md="6" lg="6" xl="4">
               <v-card class="d-flex align-center pa-2 mt-4">
                 <v-flex>
                   <v-tooltip bottom>
@@ -83,7 +101,7 @@
                 </v-flex>
               </v-card>
             </v-col>
-            <v-col cols="12" sm="6" lg="4">
+            <v-col cols="12" sm="6" md="6" lg="6" xl="4">
               <v-card class="d-flex align-center pa-2 mt-4">
                 <v-flex>
                   <v-tooltip bottom>
@@ -104,7 +122,7 @@
                   <div class="d-flex flex-column text-start ml-2 lh-1">
                     <h5 class="yellow--text">
                       {{
-                        device?.algodata
+                        device?.algodata?.spo2
                           ? Math.round(device.algodata?.spo2)
                           : "--"
                       }}
@@ -114,7 +132,7 @@
                 </v-flex>
               </v-card>
             </v-col>
-            <v-col cols="12" sm="6" lg="4">
+            <v-col cols="12" sm="6" md="6" lg="6" xl="4">
               <v-card class="d-flex align-center pa-2 mt-4">
                 <v-flex>
                   <v-tooltip bottom>
@@ -135,7 +153,7 @@
                   <div class="d-flex flex-column text-start ml-2 lh-1">
                     <h5 class="text-danger">
                       {{
-                        device?.algodata
+                        device?.algodata?.temp
                           ? Math.round(device.algodata?.temp)
                           : "--"
                       }}
@@ -212,20 +230,26 @@ export default {
     getPatients: {
       async handler(devices) {
         console.log("watch called");
-        // this.liveDevices = val.filter((device) => device.online === 0);
         this.liveDevices = devices
-          .filter((device) => {
-            return (
-              device.macAddressFramed === "C9F7BF309DC9" ||
-              device.macAddressFramed === "F1DDE98E9F16" ||
-              device.macAddressFramed === "F0B6FAE23614"
-            );
-          })
+          .filter((device) => device.isOnline === 1)
           .map((device) => {
             device.showEcgChart = false;
             device.allEcgValues = [];
             return device;
           });
+        // this.liveDevices = devices
+        //   .filter((device) => {
+        //     return (
+        //       device.macAddressFramed === "C9F7BF309DC9" ||
+        //       device.macAddressFramed === "F1DDE98E9F16" ||
+        //       device.macAddressFramed === "F0B6FAE23614"
+        //     );
+        //   })
+        //   .map((device) => {
+        //     device.showEcgChart = false;
+        //     device.allEcgValues = [];
+        //     return device;
+        //   });
         const { ...options } = this.connection;
         const connectUrl = `wss://accu.live/ws/`;
         let connection = await mqtt.connect(connectUrl, options);
@@ -371,7 +395,7 @@ export default {
     }
   },
   destroyed() {
-    if (this.socketConnection.connected) {
+    if (this.socketConnection) {
       try {
         this.socketConnection.end(false, () => {
           this.initData();
@@ -422,7 +446,24 @@ h3 {
   font-size: 18px;
 }
 .card-theme {
+  margin-top: 10px;
   padding: 20px;
+}
+.btn-group {
+  display: flex;
+  align-items: center;
+  padding: 8px 5px;
+  border-radius: 12px;
+  margin-left: 5px;
+}
+.btn-group .v-icon--link {
+  border-radius: 5px;
+  width: 30px;
+  height: 30px;
+}
+.btn-group .v-icon--link.active {
+  background: linear-gradient(45deg, #f58220, #e53985);
+  color: #fff !important;
 }
 @media only screen and (max-width: 530px) {
   h3 {

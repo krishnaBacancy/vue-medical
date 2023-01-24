@@ -28,6 +28,7 @@
           src="@/assets/logo-white.svg"
           @click="$router.push('/')"
           height="30"
+          style="cursor: pointer"
         />
       </v-list-item-title>
       <div class="sidebar">
@@ -241,7 +242,10 @@
       </v-list> -->
     </v-navigation-drawer>
 
-    <v-main class="main-wrapper">
+    <v-main
+      class="main-wrapper"
+      :class="{ livePage: $route.path === '/live-device' }"
+    >
       <router-view />
     </v-main>
   </v-app>
@@ -367,6 +371,12 @@ span {
   margin-left: auto;
   padding: 40px 45px !important;
 }
+.livePage {
+  width: 100% !important;
+  padding-top: 1vw !important;
+  padding-bottom: 1vw !important;
+  margin-top: 0;
+}
 
 @media (max-width: 1600px) {
   .sidebar a {
@@ -425,7 +435,7 @@ span {
 .v-navigation-drawer,
 .theme--light.v-app-bar.v-toolbar.v-sheet,
 .theme--dark.v-navigation-drawer {
-  background: linear-gradient(45deg, #f58220, #e53985) !important;
+  background: rgb(245, 130, 32) !important;
 }
 .sidebar a .v-icon {
   color: #fff;
