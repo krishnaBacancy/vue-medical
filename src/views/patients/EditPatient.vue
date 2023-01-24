@@ -197,7 +197,7 @@
         >Emergency Contact Info</v-card-title
       >
       <v-row v-for="(familyInfo, index) in user.family_members" :key="index">
-        <v-col class="form-group" cols="12" sm="6" md="4">
+        <v-col class="form-group" cols="12" sm="6" md="3">
           <v-text-field
             type="text"
             label="Member Name"
@@ -208,7 +208,7 @@
             v-model.trim="familyInfo.name"
           />
         </v-col>
-        <v-col class="form-group" cols="12" sm="6" md="4">
+        <v-col class="form-group" cols="12" sm="6" md="3">
           <!-- <v-select
             :items="relations"
             filled
@@ -227,7 +227,7 @@
             v-model.trim="familyInfo.selectedRelation"
           />
         </v-col>
-        <v-col class="form-group" cols="12" sm="12" md="4">
+        <v-col class="form-group" cols="12" sm="12" md="3">
           <!-- <v-text-field
             type="number"
             label="Contact Number"
@@ -241,6 +241,38 @@
             v-bind="relativePhoneProps"
             @validate="relativePhoneChanged"
           ></vue-tel-input>
+        </v-col>
+        <v-col class="form-group" cols="12" sm="auto" lg="auto">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="34"
+            height="34"
+            class="ml-2 mt-2 main__svg"
+            v-show="index == user.family_members.length - 1"
+            @click="addField(familyInfo, user.family_members)"
+          >
+            <path fill="none" d="M0 0h24v24H0z" />
+            <path
+              fill="green"
+              d="M11 11V7h2v4h4v2h-4v4h-2v-4H7v-2h4zm1 11C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"
+            />
+          </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="34"
+            height="34"
+            class="ml-10 main__svg"
+            v-show="user.family_members.length > 1"
+            @click="removeField(index, user.family_members)"
+          >
+            <path fill="none" d="M0 0h24v24H0z" />
+            <path
+              fill="#EC4899"
+              d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm0-9.414l2.828-2.829 1.415 1.415L13.414 12l2.829 2.828-1.415 1.415L12 13.414l-2.828 2.829-1.415-1.415L10.586 12 7.757 9.172l1.415-1.415L12 10.586z"
+            />
+          </svg>
         </v-col>
       </v-row>
 
@@ -453,8 +485,44 @@ export default {
     relativePhoneChanged(e) {
       this.isValidRelativePhoneNumber = e?.valid;
     },
+    addField(obj, type) {
+      if (
+        obj.name === "" ||
+        obj.selectedRelation === "" ||
+        obj.contactNo === ""
+      ) {
+        this.$toast.error("Please enter all details properly.", {
+          timeout: 3000,
+        });
+      } else {
+        let newObj = {};
+        for (const [key, val] of Object.entries(obj)) {
+          newObj[key] = "";
+          console.log(val);
+        }
+        type.push(newObj);
+      }
+    },
+    removeField(index, type) {
+      type.splice(index, 1);
+    },
+    checkEmptyFamilyMemberInfo() {
+      for (let i = 0; i < this.user?.family_members.length; i++) {
+        if (
+          this.user.family_members[i].name === "" ||
+          this.user.family_members[i].selectedRelation === "" ||
+          this.user.family_members[i].contactNo === null
+        ) {
+          this.valid = false;
+          break;
+        }
+        this.valid = true;
+      }
+    },
     async updateUser() {
       this.$refs.form.validate();
+      const checkEmptyFamilyMemberInfo = this.checkEmptyFamilyMemberInfo();
+      console.log("val--", checkEmptyFamilyMemberInfo);
       if (this.valid) {
         if (
           !this.isValidPhoneNumber ||
@@ -493,5 +561,8 @@ export default {
 <style scoped>
 .row + .row {
   margin-top: 0;
+}
+.main__svg {
+  cursor: pointer;
 }
 </style>

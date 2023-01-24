@@ -209,6 +209,7 @@
                 width="34"
                 height="34"
                 class="ml-2 mt-2 main__svg"
+                v-show="index == familyMemberInfo.length - 1"
                 @click="addField(familyInfo, familyMemberInfo)"
               >
                 <path fill="none" d="M0 0h24v24H0z" />
@@ -495,7 +496,7 @@ export default {
         weight: this.user.weight,
         Address: this.user.address,
         password: this.user.password,
-        adharcard: this.user.aadhar.replaceAll(" ", ""),
+        adharcard: this.user?.aadhar?.replaceAll(" ", ""),
         DOB: this.dateValue,
         family_members: this.familyMemberInfo,
         medical_history: [
