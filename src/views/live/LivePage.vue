@@ -124,7 +124,7 @@
                       {{
                         device?.algodata?.spo2
                           ? Math.round(device.algodata?.spo2)
-                          : "--"
+                          : device?.deviceAlgoData?.spo2
                       }}
                     </h5>
                     <small class="">%</small>
@@ -235,6 +235,7 @@ export default {
           .map((device) => {
             device.showEcgChart = false;
             device.allEcgValues = [];
+            device.deviceAlgoData = device.algodata;
             return device;
           });
         // this.liveDevices = devices

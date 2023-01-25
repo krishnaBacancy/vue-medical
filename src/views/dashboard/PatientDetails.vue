@@ -117,7 +117,7 @@
                   height="40"
                   width="40"
                   contain
-                  v-if="getSingleDeviceData[0].isOnline === 1"
+                  v-if="liveMessage === 'Online'"
                 ></v-img>
               </template>
               <span>Live Mode</span>
@@ -132,7 +132,7 @@
                   height="40"
                   width="40"
                   contain
-                  v-if="getSingleDeviceData[0].isOnline === 0"
+                  v-if="liveMessage === 'Offline'"
                 ></v-img>
               </template>
               <span>Scheduler Mode</span>
