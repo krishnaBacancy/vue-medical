@@ -30,7 +30,7 @@
             Select below patient to assign device
           </h4>
           <v-select
-            class="mb-3 theme-select-box"
+            class="mb-3 theme-select-box text-capitalize"
             :items="getAllPatientsOnly"
             v-model="selectedHeaders"
             @change="getSelectedValue"
@@ -51,22 +51,26 @@
       </v-dialog>
 
       <v-data-table
-        item-key="name"
-        class="elevation-1"
-        loading
+        :loading="loadingStatus"
         loading-text="Loading... Please wait"
-        :items-per-page="5"
-        v-if="loadingStatus"
-      ></v-data-table>
-      <v-data-table
-        v-else
         :headers="headers"
         :items="getPatients"
         :items-per-page="5"
-        class="elevation-1 table"
+        class="elevation-1 table text-capitalize"
         show-select
         v-model="selected"
+        :search="searchUserString"
+        :custom-filter="searchUser"
       >
+        <template v-slot:top>
+          <v-col cols="12" sm="12" md="12">
+            <v-text-field
+              v-model="searchUserString"
+              label="Search Patient By Name or Mac Address..."
+              class="input-theme"
+            ></v-text-field>
+          </v-col>
+        </template>
       </v-data-table>
     </div>
     <DeviceAssignDialog ref="assign" />
@@ -76,12 +80,14 @@
 <script>
 import DeviceAssignDialog from "@/components/DeviceAssignDialog.vue";
 import PageHeader from "@/layouts/PageHeader.vue";
+import searchUser from "@/mixins/searchUser";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
+  name: "UserManagement",
+  mixins: [searchUser],
   data() {
     return {
-      icon: "justify",
       getDoctorId: localStorage.getItem("user_id"),
       role: localStorage.getItem("role"),
       selectedHeaders: {},

@@ -10,9 +10,6 @@ const state = {
 };
 
 const getters = {
-  loadingStatusPatient(state) {
-    return state.loading;
-  },
   getBodyTempGraphData(state) {
     return state?.bodyTemp;
   },
@@ -21,9 +18,6 @@ const getters = {
   },
   getPatientSteps(state) {
     return state?.patientSteps;
-  },
-  getAlgoData(state) {
-    return state?.patientAlgoData;
   },
   getHeartRateGraphData(state) {
     return state?.heartRate;

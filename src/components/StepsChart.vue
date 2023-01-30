@@ -5,7 +5,7 @@
 <script>
 import ApexCharts from "apexcharts";
 export default {
-  name: "ApexChart",
+  name: "StepsChart",
   data() {
     return {
       options: {
@@ -118,10 +118,6 @@ export default {
       immediate: true,
       async handler(val) {
         console.log("val.length", val.length);
-        // if (this.myAreaChart && document.querySelector("#chart")) {
-        //   console.log("newwww");
-        //   // document.getElementById("chart").innerHTML = "";
-        // } else {
         if (document.querySelector("#chart")?.innerHTML) {
           document.querySelector("#chart").innerHTML = null;
         }

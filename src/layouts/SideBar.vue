@@ -50,7 +50,6 @@
                 to="/patients"
                 class="d-flex flex-column text-center justify-center align-center"
               >
-                <!-- <v-img src="@/assets/patients.svg" class="icon__color"></v-img> -->
                 <v-icon class="icon__color">mdi-account</v-icon>
                 <span>Patients</span>
               </router-link>
@@ -126,120 +125,6 @@
           </ul>
         </nav>
       </div>
-
-      <!-- <v-list dense nav>
-        <v-list-item-group active-class="bg-active">
-          <v-list-item class="list__item">
-            <div class="item__container" @click="goToLink('/')">
-              <v-list-item-icon style="margin-left: auto; margin-right: auto">
-                <v-icon>mdi-view-dashboard</v-icon>
-              </v-list-item-icon>
-
-              <v-list-item-content>
-                <v-list-item-title>Dashboard</v-list-item-title>
-              </v-list-item-content>
-            </div>
-          </v-list-item>
-
-          <v-list-item class="list__item" link v-if="role !== 'Admin'">
-            <div class="item__container" @click="goToLink('/patients')">
-              <v-list-item-icon style="margin-left: auto; margin-right: auto">
-                <v-img src="@/assets/patients.svg"></v-img>
-              </v-list-item-icon>
-
-              <v-list-item-content>
-                <v-list-item-title>Patients</v-list-item-title>
-              </v-list-item-content>
-            </div>
-          </v-list-item>
-
-          <v-list-item
-            class="list__item"
-            link
-            v-if="role !== 'Customer' && role !== 'Admin'"
-          >
-            <div
-              class="item__container"
-              @click="$router.push('/user-management')"
-            >
-              <v-list-item-icon style="margin-left: auto; margin-right: auto">
-                <v-img
-                  src="@/assets/Device List.png"
-                  contain
-                  height="40"
-                  width="50"
-                ></v-img>
-              </v-list-item-icon>
-
-              <v-list-item-content>
-                <v-list-item-title class="mt-4">Device List</v-list-item-title>
-              </v-list-item-content>
-            </div>
-          </v-list-item>
-
-          <v-list-item class="list__item" link v-if="role === 'Admin'">
-            <div class="item__container" @click="$router.push('/devices')">
-              <v-list-item-icon style="margin-left: auto; margin-right: auto">
-                <v-img
-                  src="@/assets/Device List.png"
-                  contain
-                  height="40"
-                  width="50"
-                ></v-img>
-              </v-list-item-icon>
-
-              <v-list-item-content>
-                <v-list-item-title class="mt-4">Device List</v-list-item-title>
-              </v-list-item-content>
-            </div>
-          </v-list-item>
-
-          <v-list-item
-            class="list__item"
-            link
-            v-if="role !== 'Customer' && role !== 'Admin'"
-          >
-            <div class="item__container" @click="$router.push('/live-device')">
-              <v-list-item-icon style="margin-left: auto; margin-right: auto">
-                <v-img
-                  src="@/assets/Live Device.png"
-                  contain
-                  height="40"
-                  width="50"
-                ></v-img>
-              </v-list-item-icon>
-
-              <v-list-item-content>
-                <v-list-item-title class="mt-4">Live</v-list-item-title>
-              </v-list-item-content>
-            </div>
-          </v-list-item>
-
-          <v-list-item class="list__item" link>
-            <div class="item__container" @click="goToLink('/settings')">
-              <v-list-item-icon style="margin-left: auto; margin-right: auto">
-                <v-icon>mdi-cog-outline</v-icon>
-              </v-list-item-icon>
-
-              <v-list-item-content>
-                <v-list-item-title>Settings</v-list-item-title>
-              </v-list-item-content>
-            </div>
-          </v-list-item>
-
-          <v-list-item class="list__item" link>
-            <div class="item__container" @click="logOut">
-              <v-list-item-icon style="margin-left: auto; margin-right: auto">
-                <v-icon>mdi-logout</v-icon>
-              </v-list-item-icon>
-
-              <v-list-item-content>
-                <v-list-item-title>Logout</v-list-item-title>
-              </v-list-item-content>
-            </div>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list> -->
     </v-navigation-drawer>
 
     <v-main
@@ -252,7 +137,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -262,7 +147,6 @@ export default {
     };
   },
   computed: {
-    ...mapState("users", ["user"]),
     getRoute() {
       if (this.$route.path === "/live-device") {
         return `expand-on-hover`;
@@ -276,9 +160,6 @@ export default {
       this.logoutUser();
       this.$router.push("/login");
       this.$toast.success("Logout successful", { timeout: 3000 });
-    },
-    goToLink(path) {
-      this.$router.push(path);
     },
   },
 };

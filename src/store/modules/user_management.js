@@ -2,7 +2,6 @@ import users from "@/api/users";
 
 const state = {
   userData: {},
-  users: [],
   isLoading: false,
 };
 
@@ -10,33 +9,11 @@ const getters = {
   loadingStatus(state) {
     return state.isLoading;
   },
-  getUsersData(state) {
-    return state?.users;
-  },
 };
 
 const mutations = {
   SET_LOADING_STATUS(state, loadingStatus) {
     state.isLoading = loadingStatus;
-  },
-  SET_USER(state, usersData) {
-    state.users = usersData.map((user) => {
-      return {
-        id: user.userId,
-        firstName: user.first_Name,
-        licenseNo: user.licenseno,
-        lastName: user.last_Name,
-        email: user.email,
-        address: user.Address,
-        aadharcard: user.adharcard,
-        gender: user.gender,
-        dob: user.DOB,
-        mobileNo: user.mobile_no,
-        gstNo: user.GSTNO,
-        roleId: user.roleId,
-        role: user.role,
-      };
-    });
   },
   SET_USER_INFO(state, data) {
     state.userData = data.data.data;

@@ -6,27 +6,29 @@
       @goBack="$router.go(-1)"
       btnName="Add Patient"
       color-name="warning"
-      btnIconName="mdi-plus"
       @addNewPatient="addPatient"
     />
     <br />
     <div class="table-changes">
       <v-data-table
-        item-key="name"
-        class="elevation-1"
-        loading
+        :loading="loadingStatus"
         loading-text="Loading... Please wait"
-        height="350"
-        :items-per-page="5"
-        v-if="loadingStatus"
-      ></v-data-table>
-      <v-data-table
-        v-else
         :headers="headers"
         :items="getAllPatientsOnly"
         :items-per-page="5"
-        class="elevation-1 table"
+        :search="searchUserString"
+        :custom-filter="searchUser"
+        class="elevation-1 table text-capitalize"
       >
+        <template v-slot:top>
+          <v-col cols="12" sm="12" md="12">
+            <v-text-field
+              v-model="searchUserString"
+              label="Search Patient By Name..."
+              class="input-theme"
+            ></v-text-field>
+          </v-col>
+        </template>
         <template v-slot:[`item.image`]>
           <v-img
             src="@/assets/Ellipse 10.png"
@@ -66,10 +68,12 @@
 
 <script>
 import PageHeader from "@/layouts/PageHeader.vue";
+import searchUser from "@/mixins/searchUser";
 import { mapActions, mapGetters } from "vuex";
 import ConfirmDialog from "../../components/ConfirmDialog.vue";
 export default {
   name: "PatientsData",
+  mixins: [searchUser],
   data() {
     return {
       getDoctorId: localStorage.getItem("user_id"),
@@ -100,15 +104,6 @@ export default {
     ...mapActions("doctors", ["getAllPatientsData", "deletePatient"]),
     addPatient() {
       this.$router.push("/add-new-patient");
-    },
-    getFullName(s1, s2) {
-      return (
-        s1.charAt(0).toUpperCase() +
-        s1.slice(1) +
-        " " +
-        s2.charAt(0).toUpperCase() +
-        s2.slice(1)
-      );
     },
     async deleteSinglePatient(item) {
       if (

@@ -53,20 +53,6 @@ export default {
         if (val?.length && val.length > 0) {
           let buffer = JSON.parse(JSON.stringify(val));
           console.log("buffer", buffer);
-          // if (document.getElementById(`temp-${this.macAddress}`).innerHTML) {
-          //   document.getElementById(`temp-${this.macAddress}`).innerHTML = null;
-          // }
-          // if (
-          //   this.tempratureChart &&
-          //   document.getElementById(`temp-chart-${this.macAddress}`)
-          // ) {
-          //   console.log("chart exist");
-          // } else {
-          // if (document.getElementById(`temp-chart-${this.macAddress}`)) {
-          //   ctx = document
-          //     .getElementById(`temp-chart-${this.macAddress}`)
-          //     ?.getContext("2d");
-          // } else {
           if (document.getElementById(`temp-${this.macAddress}`)?.innerHTML) {
             document.getElementById(`temp-${this.macAddress}`).innerHTML = null;
           }
@@ -82,7 +68,6 @@ export default {
           ctx = document
             .getElementById(`temp-chart-${this.macAddress}`)
             ?.getContext("2d");
-          // }
           console.log("ctx", ctx);
           if (ctx) {
             this.tempratureChart = await new Chart(ctx, {

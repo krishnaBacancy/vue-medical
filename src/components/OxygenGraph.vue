@@ -99,8 +99,6 @@ export default {
         if (document.querySelector("#Oxygenchart")?.innerHTML) {
           document.querySelector("#Oxygenchart").innerHTML = null;
         }
-        // if (this.oxygenChart !== null) {
-        // document.getElementById("Oxygenchart").innerHTML = "";
         if (val.length && val.length > 0) {
           if (document.querySelector("#Oxygenchart")) {
             this.oxygenChart = new ApexCharts(
@@ -114,9 +112,6 @@ export default {
               },
             ]);
           }
-          // } else {
-          //   console.log("helloooooo");
-          // }
         }
       },
     },

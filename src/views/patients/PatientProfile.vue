@@ -24,7 +24,7 @@
               />
             </div>
             <div class="ml-3 ml-md-5 text-start">
-              <h3 class="profile-name">
+              <h3 class="profile-name text-capitalize">
                 {{ getSinglePatientData[0]?.fullName }}
               </h3>
               <h4 class="text-start font-weight-regular contact">
@@ -91,7 +91,7 @@
                   +{{
                     getSinglePatientData[0]?.emergencyPhone
                       ? getSinglePatientData[0]?.emergencyPhone
-                      : "Not Available"
+                      : "--"
                   }}
                 </h3>
               </div>
@@ -103,7 +103,7 @@
                   {{
                     getSinglePatientData[0]?.weight
                       ? getSinglePatientData[0]?.weight
-                      : "Not Available"
+                      : "--"
                   }}
                 </h3>
               </div>
@@ -115,7 +115,7 @@
                   {{
                     getSinglePatientData[0]?.height
                       ? getSinglePatientData[0]?.height
-                      : "Not Available"
+                      : "--"
                   }}
                 </h3>
               </div>
@@ -130,7 +130,7 @@
                   {{
                     getSinglePatientData[0]?.gstNo
                       ? getSinglePatientData[0]?.gstNo
-                      : "Not Available"
+                      : "--"
                   }}
                 </h3>
               </div>
@@ -142,7 +142,7 @@
                   {{
                     getSinglePatientData[0]?.aadharcard
                       ? getSinglePatientData[0]?.aadharcard
-                      : "Not Available"
+                      : "--"
                   }}
                 </h3>
               </div>
@@ -179,21 +179,17 @@
               <div class="d-flex align-center">
                 <div class="d-flex flex-column ml-4">
                   <h3 class="font-weight-bold text-start">
-                    {{ familyInfo.name ? familyInfo.name : "Not Available" }}
+                    {{ familyInfo.name ? familyInfo.name : "--" }}
                   </h3>
                   <h4 class="warning--text text-start font-weight-regular">
                     {{
                       familyInfo.selectedRelation
                         ? familyInfo.selectedRelation
-                        : "Not Available"
+                        : "--"
                     }}
                   </h4>
                   <small class="text-start">
-                    {{
-                      familyInfo.contactNo
-                        ? familyInfo.contactNo
-                        : "Not Available"
-                    }}
+                    {{ familyInfo.contactNo ? familyInfo.contactNo : "--" }}
                   </small>
                 </div>
               </div>
@@ -215,7 +211,7 @@
                   {{
                     getSinglePatientData[0]?.bloodPressure
                       ? getSinglePatientData[0]?.bloodPressure
-                      : "Not Available"
+                      : "--"
                   }}
                 </h3>
               </div>
@@ -227,7 +223,7 @@
                   {{
                     getSinglePatientData[0]?.diabetics
                       ? getSinglePatientData[0]?.diabetics
-                      : "Not Available"
+                      : "--"
                   }}
                 </h3>
               </div>
@@ -239,7 +235,7 @@
                   {{
                     getSinglePatientData[0]?.heartCondition
                       ? getSinglePatientData[0]?.heartCondition
-                      : "Not Available"
+                      : "--"
                   }}
                 </h3>
               </div>
@@ -251,7 +247,7 @@
                   {{
                     getSinglePatientData[0]?.thyroid
                       ? getSinglePatientData[0]?.thyroid
-                      : "Not Available"
+                      : "--"
                   }}
                 </h3>
               </div>
@@ -263,7 +259,7 @@
                   {{
                     getSinglePatientData[0]?.obesity
                       ? getSinglePatientData[0]?.obesity
-                      : "Not Available"
+                      : "--"
                   }}
                 </h3>
               </div>

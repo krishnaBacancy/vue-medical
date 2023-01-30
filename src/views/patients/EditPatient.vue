@@ -53,16 +53,6 @@
           ></v-text-field>
         </v-col>
         <v-col class="form-group" cols="12" sm="6" md="4">
-          <!-- <v-text-field
-            type="number"
-            v-model.trim="user.mobile_no"
-            name="phone"
-            label="Phone"
-            required
-            filled
-            dense
-            :rules="phoneRules"
-          ></v-text-field> -->
           <vue-tel-input
             v-model="userPhoneNumber"
             v-bind="phoneProps"
@@ -70,15 +60,6 @@
           ></vue-tel-input>
         </v-col>
         <v-col class="form-group" cols="12" sm="6" md="4">
-          <!-- <v-text-field
-            type="number"
-            v-model.trim="user.emergencyPhone"
-            name="emergencyPhone"
-            label="Emergency Number"
-            filled
-            dense
-            :rules="emergencyPhoneRules"
-          ></v-text-field> -->
           <vue-tel-input
             v-model.trim="userEmergencyPhone"
             v-bind="emergencyPhoneProps"
@@ -228,14 +209,6 @@
           />
         </v-col>
         <v-col class="form-group" cols="12" sm="12" md="3">
-          <!-- <v-text-field
-            type="number"
-            label="Contact Number"
-            filled
-            dense
-            :rules="phoneRules"
-            v-model.trim="familyInfo.contactNo"
-          /> -->
           <vue-tel-input
             v-model.trim="familyInfo.contactNo"
             v-bind="relativePhoneProps"
@@ -411,7 +384,6 @@ export default {
       heartConditionRules: [(v) => !!v || "Must enter Heart Condition"],
       relations: ["Son", "Daughter", "Mother", "Father"],
       heartCondition: ["Normal"],
-      checkbox: false,
       dateMenu: false,
       dateValue: null,
       loading: false,

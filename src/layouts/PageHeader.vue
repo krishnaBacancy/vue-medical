@@ -14,9 +14,8 @@
       :color="colorName"
       rounded
       @click="$emit('addNewPatient')"
-      v-if="btnIconName && role === 'Doctor'"
+      v-if="btnName && role === 'Doctor'"
     >
-      <!-- <v-icon>{{ btnIconName }}</v-icon> -->
       <span v-if="btnName">{{ btnName }}</span>
     </v-btn>
   </div>
@@ -25,7 +24,7 @@
 <script>
 export default {
   name: "PageHeader",
-  props: ["title", "pageIcon", "btnName", "colorName", "btnIconName"],
+  props: ["title", "pageIcon", "btnName", "colorName"],
   data() {
     return {
       role: localStorage.getItem("role"),

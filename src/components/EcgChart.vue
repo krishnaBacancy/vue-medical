@@ -12,7 +12,6 @@ import {
   Title,
   CategoryScale,
 } from "chart.js";
-import { mapActions } from "vuex";
 
 Chart.register(
   LineController,
@@ -54,15 +53,11 @@ export default {
       async handler(val) {
         if (val?.length && val.length > 0) {
           let buffer = JSON.parse(JSON.stringify(val));
-          // console.log("this.myChart from watch", this.myChart);
           if (this.myChart) {
-            // this.myChart.destroy();
             clearInterval(this.setIntervalMethod);
             this.setIntervalMethod = setInterval(async () => {
               await this.adddatafromprops(buffer, 200);
               buffer.splice(0, 200);
-              // this.myChart.options.scales.y.min = Math.min(...buffer) - 5000;
-              // this.myChart.options.scales.y.max = Math.max(...buffer) + 5000;
               if (!buffer.length) {
                 console.log("empty buffer");
                 clearInterval(this.setIntervalMethod);
@@ -84,7 +79,6 @@ export default {
               canvas.style.backgroundColor = "#fff";
 
               var body = document.getElementById(this.macAddress);
-              // console.log("body", body);
               body.appendChild(canvas);
               ctx = document
                 .getElementById(`ecg-chart-${this.macAddress}`)
@@ -132,8 +126,6 @@ export default {
                 scales: {
                   y: {
                     suggestedMin: 0,
-                    // min: this.getMinEcgData - 30000,
-                    // max: this.getMinEcgData + 30000,
                     min: Math.min(...buffer.slice(0, 1000)) - 5000,
                     max: Math.max(...buffer.slice(0, 1000)) + 5000,
                     stacked: true,
@@ -179,9 +171,6 @@ export default {
                 clearInterval(this.setIntervalMethod);
               }
             }, 1000);
-            // this.displayedECGdata = 1000;
-            // this.removeDisplayedEcgData(1000);
-            // console.log("---my chart from mounted", this.myChart);
             this.myChart?.update("none");
           }
         } else {
@@ -198,13 +187,10 @@ export default {
     }
     clearInterval(this.setIntervalMethod);
   },
-  mounted() {},
   methods: {
-    ...mapActions("chartData", ["removeDisplayedEcgData"]),
     adddatafromprops(buffer, endIndex) {
       console.log("inside add data method");
       if (buffer.length) {
-        // let endIndex = this.displayedECGdata + 20;
         for (let i = 0; i < endIndex; i++) {
           if (buffer[i]) {
             this.myChart?.data.labels.splice(0, 1);
@@ -214,17 +200,11 @@ export default {
             );
             this.myChart?.data.datasets[0].data.push(buffer[i]);
           }
-          // this.displayedECGdata += 1;
         }
         this.myChart.options.scales.y.min =
           Math.min(...this.myChart?.data.datasets[0].data) - 5000;
         this.myChart.options.scales.y.max =
           Math.max(...this.myChart?.data.datasets[0].data) + 5000;
-        // this.removeDisplayedEcgData(20);
-        // this.displayedECGdata =
-        //   this.displayedECGdata - 20 < 0 ? 0 : this.displayedECGdata - 20;
-        // console.log("myChart?.data.labels.length", myChart?.data.labels.length);
-        // console.log("myChart", this.myChart);
         this.myChart?.update("none");
       }
     },

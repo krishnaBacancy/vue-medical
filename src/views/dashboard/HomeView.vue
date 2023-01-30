@@ -61,7 +61,7 @@
               <div class="d-flex card-title-row">
                 <div class="d-flex">
                   <img src="@/assets/User.svg" width="35" height="35" contain />
-                  <h3 class="ml-3 font-weight-bold">
+                  <h3 class="ml-3 font-weight-bold text-capitalize">
                     {{ patient?.fullName }}
                   </h3>
                 </div>
@@ -302,12 +302,6 @@ export default {
   },
   methods: {
     ...mapActions("doctors", ["getPatientsForDoctor"]),
-    getFullName(s1, s2) {
-      return s1 + " " + s2;
-    },
-    onClick(path) {
-      this.$router.push(path);
-    },
   },
   mounted() {
     if (this.getDoctorId) {
