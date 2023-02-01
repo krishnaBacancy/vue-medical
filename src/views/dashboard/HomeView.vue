@@ -175,7 +175,7 @@
                       v-on="on"
                       v-bind="attrs"
                       class="box-icon"
-                      src="@/assets/blood-oxygen.svg"
+                      src="@/assets/Group 509.svg"
                       height="39"
                       width="39"
                       contain

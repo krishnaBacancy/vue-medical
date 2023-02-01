@@ -54,14 +54,14 @@
         </v-col>
         <v-col class="form-group" cols="12" sm="6" md="4">
           <vue-tel-input
-            v-model="userPhoneNumber"
+            v-model="user.mobile_no"
             v-bind="phoneProps"
             @validate="phoneNumberChanged"
           ></vue-tel-input>
         </v-col>
         <v-col class="form-group" cols="12" sm="6" md="4">
           <vue-tel-input
-            v-model.trim="userEmergencyPhone"
+            v-model.trim="user.emergencyPhone"
             v-bind="emergencyPhoneProps"
             @validate="emergencyPhoneChanged"
           ></vue-tel-input>
@@ -343,6 +343,7 @@ export default {
   data() {
     return {
       valid: true,
+      role: localStorage.getItem("role"),
       user: {},
       dob: "",
       selected: "",
@@ -387,8 +388,6 @@ export default {
       dateMenu: false,
       dateValue: null,
       loading: false,
-      userPhoneNumber: "",
-      userEmergencyPhone: "",
       isValidPhoneNumber: false,
       isValidEmergencyNumber: false,
       isValidRelativePhoneNumber: false,
@@ -440,8 +439,8 @@ export default {
     this.loading = true;
     const res = await doctors.getSinglePatientData(this.$route?.params?.id);
     this.user = res.data.data[0];
-    this.userPhoneNumber = this.user?.mobile_no.toString();
-    this.userEmergencyPhone = this.user?.emergencyPhone.toString();
+    this.user["mobile_no"] = this.user?.mobile_no.toString();
+    this.user["emergencyPhone"] = this.user?.emergencyPhone.toString();
     let dateOfBirth = res.data.data[0].DOB;
     let formattedDate = moment(dateOfBirth).format("YYYY-MM-DD");
     this.dob = formattedDate;
@@ -511,7 +510,13 @@ export default {
             this.user
           );
           if (res.status === 200) {
-            this.$router.push({ path: "/patients" });
+            if (this.role === "Doctor") {
+              this.$router.push({ path: "/patients" });
+            } else if (this.role === "Customer") {
+              this.$router.push({
+                path: `/patients/patient/${this.user.userId}`,
+              });
+            }
             this.$toast.success("User Updated successfully.", {
               timeout: 3000,
             });

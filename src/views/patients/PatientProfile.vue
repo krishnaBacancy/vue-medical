@@ -36,7 +36,7 @@
           <div class="d-flex mr-1 mr-sm-5">
             <v-btn
               class="px-md-10"
-              v-if="role === 'Doctor' || role === 'Admin'"
+              v-if="role === 'Doctor' || role === 'Customer'"
               color="warning"
               outlined
               :height="53"

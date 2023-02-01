@@ -45,7 +45,7 @@
               </router-link>
             </li>
 
-            <li v-if="role !== 'Admin'">
+            <li v-if="role === 'Doctor'">
               <router-link
                 to="/patients"
                 class="d-flex flex-column text-center justify-center align-center"
@@ -87,7 +87,7 @@
               </router-link>
             </li>
 
-            <li v-if="role !== 'Admin'">
+            <li v-if="role === 'Doctor'">
               <router-link
                 to="/live-device"
                 class="d-flex flex-column text-center justify-center align-center"
@@ -100,6 +100,16 @@
                   class="icon__color"
                 />
                 <span>Live</span>
+              </router-link>
+            </li>
+
+            <li v-if="role === 'Customer'">
+              <router-link
+                :to="{ name: 'patient-profile', params: { id: getUserId } }"
+                class="d-flex flex-column text-center justify-center align-center"
+              >
+                <v-icon class="icon__color">mdi-account</v-icon>
+                <span>Profile</span>
               </router-link>
             </li>
 
