@@ -18,10 +18,6 @@
   </v-card>
 </template>
 
-<script>
-export default {};
-</script>
-
 <style scoped>
 input:focus {
   outline: none;

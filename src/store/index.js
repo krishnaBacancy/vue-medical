@@ -3,7 +3,6 @@ import Vuex from "vuex";
 import users from "./modules/users";
 import user_management from "./modules/user_management";
 import doctors from "./modules/doctors";
-import chartData from "./modules/chartData";
 import patientData from "./modules/patientData";
 import devices from "./modules/devices";
 
@@ -18,7 +17,6 @@ export default new Vuex.Store({
     users,
     userManagement: user_management,
     doctors,
-    chartData,
     patientData,
     devices,
   },

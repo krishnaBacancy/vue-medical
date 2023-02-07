@@ -38,12 +38,6 @@
               />
             </v-col>
             <v-col class="form-group" cols="12" sm="6" md="4">
-              <!-- <CustomTextField
-                :type="'number'"
-                :label="'Phone Number'"
-                :fieldRules="phoneRules"
-                v-model="user.phone"
-              /> -->
               <vue-tel-input
                 v-model.trim="user.phone"
                 v-bind="phoneProps"
@@ -51,12 +45,6 @@
               ></vue-tel-input>
             </v-col>
             <v-col class="form-group" cols="12" sm="6" md="4">
-              <!-- <CustomTextField
-                :type="'number'"
-                :label="'Emergency Number'"
-                :fieldRules="phoneRules"
-                v-model="user.emergencyPhone"
-              /> -->
               <vue-tel-input
                 v-model.trim="user.emergencyPhone"
                 v-bind="emergencyPhoneProps"
@@ -192,12 +180,6 @@
               />
             </v-col>
             <v-col class="form-group" cols="12" sm="4" lg="auto">
-              <!-- <CustomTextField
-                :type="'number'"
-                :label="'Contact Number'"
-                :fieldRules="phoneRules"
-                v-model.trim="familyInfo.contactNo"
-              /> -->
               <vue-tel-input
                 v-model.trim="familyInfo.contactNo"
                 v-bind="relativePhoneProps"

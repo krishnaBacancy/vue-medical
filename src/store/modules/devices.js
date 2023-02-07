@@ -14,12 +14,6 @@ const getters = {
   getDevices(state) {
     return state?.devices;
   },
-  getAssignDevicesOfDoctor(state) {
-    return state?.assignDevicesOfDoctor;
-  },
-  getAssignDevicesOfPatient(state) {
-    return state?.assignDevicesOfPatient;
-  },
 };
 
 const mutations = {
@@ -38,18 +32,10 @@ const mutations = {
           doctorFirstName: device.docterfirstName,
           doctorLastName: device.docterlastName,
           doctorFullName: device.docterfirstName
-            ? device.docterfirstName?.charAt(0).toUpperCase() +
-              device.docterfirstName?.slice(1) +
-              " " +
-              device.docterlastName?.charAt(0).toUpperCase() +
-              device.docterlastName?.slice(1)
+            ? device.docterfirstName + " " + device.docterlastName
             : "--",
           fullName: device.customerfirstName
-            ? device.customerfirstName?.charAt(0).toUpperCase() +
-              device.customerfirstName?.slice(1) +
-              " " +
-              device.customerlastName?.charAt(0).toUpperCase() +
-              device.customerlastName?.slice(1)
+            ? device.customerfirstName + " " + device.customerlastName
             : "--",
           customerFirstName: device.customerfirstName,
           customerLastName: device.customerlastName,

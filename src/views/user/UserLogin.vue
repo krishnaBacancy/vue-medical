@@ -153,7 +153,6 @@ export default {
         (v) => !!v || "Password is required",
         (v) => (v && v.length >= 6) || "password must be at least 6 characters",
       ],
-      errorMessage: "",
       showPassIcon: false,
       isLoading: false,
     };

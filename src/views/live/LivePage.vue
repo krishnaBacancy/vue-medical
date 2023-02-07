@@ -47,7 +47,7 @@
         >
           <div class="d-flex align-center w-100">
             <div class="d-flex flex-column text-start w-100">
-              <h3>{{ device.fullName }}</h3>
+              <h3 class="text-capitalize">{{ device.fullName }}</h3>
               <h5 class="mt-2 grey--text second__heading font-weight-regular">
                 Floor No.
               </h5>

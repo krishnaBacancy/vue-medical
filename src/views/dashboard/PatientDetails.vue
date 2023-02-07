@@ -22,17 +22,12 @@
               max-height="80"
             />
             <h3
-              class="ml-5"
+              class="ml-5 text-capitalize"
               :style="{
                 fontSize: $vuetify.breakpoint.smAndDown ? '20px' : '26px',
               }"
             >
-              {{
-                getFullName(
-                  getSingleDeviceData[0]?.customerFirstName,
-                  getSingleDeviceData[0]?.customerLastName
-                )
-              }}
+              {{ getSingleDeviceData[0]?.customerFullName }}
             </h3>
             <button class="btn-orange mr-4" @click="$router.push('/settings')">
               <v-icon>mdi-cog</v-icon>
@@ -140,15 +135,6 @@
           </div>
         </div>
         <v-row class="d-flex flex-wrap align-center">
-          <!-- <div class="ml-6">
-            <v-select
-              :items="aggregateValues"
-              filled
-              dense
-              label="Aggregate"
-              v-model="selectedAggregate"
-            ></v-select>
-          </div> -->
           <v-flex xs12 sm5 lg3 md4 class="mt-5">
             <v-select
               :items="timePeriodValues"
@@ -189,42 +175,10 @@
               ></v-date-picker>
             </v-menu>
           </v-flex>
-          <!-- <div class="ml-6">
-            <v-menu
-              v-model="endDateMenu"
-              :close-on-content-click="false"
-              :nudge-right="40"
-              transition="scale-transition"
-              offset-y
-              min-width="290px"
-              max-width="290px"
-            >
-              <template v-slot:activator="{ on }">
-                <v-text-field
-                  label="End Date"
-                  readonly
-                  hide-details
-                  :value="endDateValue"
-                  @focus="focusEndDate"
-                  filled
-                  dense
-                  v-on="on"
-                ></v-text-field>
-              </template>
-              <v-date-picker
-                locale="en-in"
-                v-model="endDateValue"
-                no-title
-                :min="startDateValue"
-                :max="new Date().toISOString().slice(0, 10)"
-                @input="endDateMenu = false"
-              ></v-date-picker>
-            </v-menu>
-          </div> -->
         </v-row>
 
         <v-layout row wrap>
-          <v-flex xs12 sm12 md6 class="mt-5">
+          <v-flex xs12 sm12 md12 class="mt-5">
             <div class="d-flex align-center w-100">
               <h3>ECG</h3>
               <v-spacer></v-spacer>
@@ -235,11 +189,6 @@
                 :id="getSingleDeviceData[0]?.macAddressFramed.toUpperCase()"
                 class="grid-container w-100"
               >
-                <!-- <LineChart
-                    :key="showEcgChart"
-                    :width="834.24"
-                    :height="299.53"
-                  /> -->
                 <ecg-chart
                   :ecgDataFromProps="ecgChartData"
                   :macAddress="
@@ -253,7 +202,7 @@
               </div>
             </div>
           </v-flex>
-          <v-flex xs12 sm12 md6 class="mt-5">
+          <!-- <v-flex xs12 sm12 md12 class="mt-5">
             <div class="d-flex w-100">
               <h3>PPG</h3>
               <v-spacer></v-spacer>
@@ -268,9 +217,10 @@
                   v-if="showPpgChart"
                   :ppgDataFromProps="ppgChartData"
                 />
+                <apex-line-chart />
               </div>
             </div>
-          </v-flex>
+          </v-flex> -->
         </v-layout>
       </div>
       <v-layout row wrap>
@@ -916,7 +866,7 @@
               <v-btn class="export__btn" color="warning" outlined>Export</v-btn>
             </div>
             <div id="chart" class="grid-container w-100">
-              <ApexAreaChart
+              <steps-chart
                 class="mt-5"
                 :height="366"
                 :width="770"
@@ -946,13 +896,14 @@
 import { mapActions, mapGetters } from "vuex";
 import mqtt from "mqtt/dist/mqtt";
 import PageHeader from "@/layouts/PageHeader.vue";
-import ApexAreaChart from "@/components/ApexAreaChart.vue";
 import EcgChart from "@/components/EcgChart.vue";
-import PpgChart from "@/components/PpgChart.vue";
+// import PpgChart from "@/components/PpgChart.vue";
 import HeartRateGraph from "@/components/HeartRateGraph.vue";
 import OxygenGraph from "@/components/OxygenGraph.vue";
 import TempratureGraph from "@/components/TempratureGraph.vue";
 import moment from "moment";
+// import ApexLineChart from "@/components/ApexLineChart.vue";
+import StepsChart from "@/components/StepsChart.vue";
 
 Date.prototype.addDays = function (days) {
   var date = new Date(this.valueOf());
@@ -963,18 +914,18 @@ export default {
   name: "PatientDetails",
   components: {
     PageHeader,
-    ApexAreaChart,
     EcgChart,
-    PpgChart,
+    // PpgChart,
     HeartRateGraph,
     OxygenGraph,
     TempratureGraph,
+    // ApexLineChart,
+    StepsChart,
   },
   data() {
     return {
       pushNotification: true,
       getDoctorId: localStorage.getItem("user_id"),
-      aggregateValues: ["average", "minimum", "maximum"],
       selectedAggregate: "average",
       timePeriodValues: ["1hour", "1day", "7days", "30days"],
       timePeriodAddValue: {
@@ -987,7 +938,6 @@ export default {
       ecgChartData: [],
       ppgChartData: [],
       startDateMenu: false,
-      endDateMenu: false,
       startDateValue: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
         .toISOString()
         .slice(0, 10),
@@ -1010,18 +960,6 @@ export default {
         password: "ufUPnVWbLoMwwFaL",
         useSSL: true,
         reconnect: true,
-        // options: {
-        //   // clean: true,
-        //   connectTimeout: 4000,
-        //   // reconnectPeriod: 2000,
-        //   // keepAlive: 120,
-        //   clientId: "lens_3DtlcZfxvR0idKzXQ90Vzm69vAM",
-        //   username: "MYsmO5Oc7O6DKkS8",
-        //   password: "ufUPnVWbLoMwwFaL",
-        // },
-        // clean: true, // Reserved session
-        // connectTimeout: 4000, // Time out
-        // reconnectPeriod: 4000, // Reconnection interval
       },
       subscription: {
         topic: "BMSFSEV/C9F7BF309DC9/sTOf",
@@ -1050,7 +988,6 @@ export default {
       "getMacAddress",
     ]),
     ...mapGetters("patientData", [
-      "getAlgoData",
       "getBloodOxygenGraphData",
       "getBodyTempGraphData",
       "getPatientSteps",
@@ -1089,12 +1026,6 @@ export default {
     this.getSingleDevice(this.$route?.params?.id);
     this.createConnection();
   },
-  // mounted() {
-  //   this.getPatientBodyTempData([]);
-  //   this.getPatientBloodOxygenData([]);
-  //   this.getPatientStepsData([]);
-  //   this.getPatientHeartRateData([]);
-  // },
   watch: {
     // selectAllFilters(newVal, oldVal) {
     //   if (newVal || oldVal) {
@@ -1121,7 +1052,6 @@ export default {
     startDateValue: {
       immediate: true,
       handler() {
-        // this.selectedFilters["endDate"]
         this.endDateValue = new Date(this.startDateValue)
           .addDays(this.timePeriodAddValue[this.selectedTimePeriod])
           .toISOString()
@@ -1161,11 +1091,6 @@ export default {
   },
   methods: {
     ...mapActions("doctors", ["getSingleDevice"]),
-    ...mapActions("chartData", [
-      "setEcgData",
-      "setPpgData",
-      "setSchedulerData",
-    ]),
     ...mapActions("patientData", [
       "getPatientAlgoData",
       "getPatientBodyTempData",
@@ -1180,13 +1105,6 @@ export default {
         }
       }, 200);
     },
-    focusEndDate() {
-      setTimeout(() => {
-        if (!this.endDateMenu) {
-          this.endDateMenu = true;
-        }
-      }, 200);
-    },
     initData() {
       this.client = {
         connected: false,
@@ -1194,15 +1112,6 @@ export default {
       this.retryTimes = 0;
       this.connecting = false;
       this.subscribeSuccess = false;
-    },
-    getFullName(s1, s2) {
-      return (
-        s1?.charAt(0).toUpperCase() +
-        s1?.slice(1) +
-        " " +
-        s2?.charAt(0).toUpperCase() +
-        s2?.slice(1)
-      );
     },
     async displayAlgoData() {
       const payload = {
@@ -1304,12 +1213,10 @@ export default {
             this.ppgChartData = [];
             let data = await JSON.parse(message);
             if (data?.msg === 17) {
-              // this.displayAlgoData();
               this.algoData = data;
             }
             console.log("data--", JSON.parse(message));
             this.liveMessage = data?.message;
-            // if (this.liveMessage == "Online") {
             this.tempStartTime = data?.start_time;
             this.startTime = new Date(this.tempStartTime).toLocaleString(
               undefined,
@@ -1317,18 +1224,13 @@ export default {
             );
             console.log("set data from parent", data?.ecg_vals);
             if (data?.ecg_vals || data?.ppg_vals) {
-              // this.showEcgChart = false;
-              // this.showPpgChart = false;
               this.$nextTick(() => {
                 this.showEcgChart = true;
                 this.showPpgChart = true;
               });
               this.ecgChartData = data?.ecg_vals;
               this.ppgChartData = data?.ppg_vals;
-              await this.setEcgData(this.ecgChartData);
-              await this.setPpgData(this.ppgChartData);
             }
-            // }
           });
         }
       } catch (error) {

@@ -2,20 +2,16 @@ import user from "../../api/login";
 
 const state = {
   user: [],
-  roleId: null,
-  loggedIn: false,
 };
 
 const mutations = {
   setUserInfo(state, data) {
     state.user = data.data.data;
-    state.loggedIn = true;
     localStorage.setItem("user_id", data.data?.data[0]?.userId);
     localStorage.setItem("role", data.data?.data[0]?.role);
   },
   removeUserInfo(state) {
     state.user = [];
-    state.loggedIn = false;
     localStorage.removeItem("user_id");
     localStorage.removeItem("role");
   },

@@ -124,7 +124,7 @@
         <v-row>
           <v-col cols="12" sm="12" md="12" class="mb-3">
             <v-select
-              class="theme-select-box"
+              class="theme-select-box text-capitalize"
               :items="getAllPatientsOnly"
               v-model="selectedHeadersPatient"
               @change="getSelectedValuePatient"
@@ -166,7 +166,7 @@
               return-object
               item-text="fullName"
               placeholder="Select Doctor"
-              class="theme-select-box"
+              class="theme-select-box text-capitalize"
             ></v-select>
           </v-col>
         </v-row>
@@ -184,23 +184,26 @@
 
     <div class="table-changes">
       <v-data-table
-        item-key="name"
-        class="elevation-1"
-        loading
+        :loading="loadingStatus"
         loading-text="Loading... Please wait"
-        height="350"
-        :items-per-page="5"
-        v-if="loadingStatus"
-      ></v-data-table>
-      <v-data-table
-        v-else
         :headers="headers"
         :items="getDevices"
         :items-per-page="5"
-        class="elevation-1 table"
+        class="elevation-1 table text-capitalize"
         show-select
         v-model="selected"
+        :search="searchUserString"
+        :custom-filter="searchUser"
       >
+        <template v-slot:top>
+          <v-col cols="12" sm="12" md="12">
+            <v-text-field
+              v-model="searchUserString"
+              label="Search User By Name or Mac Address..."
+              class="input-theme"
+            ></v-text-field>
+          </v-col>
+        </template>
         <template v-slot:[`item.actions`]="{ item }">
           <button
             class="btn btn-orange"
@@ -235,6 +238,7 @@
               <v-row>
                 <v-col cols="12" sm="12" md="12">
                   <v-text-field
+                    class="input-theme"
                     v-model="editedItem.name"
                     label="Device Name"
                   ></v-text-field>
@@ -245,8 +249,12 @@
 
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="close"> Cancel </v-btn>
-            <v-btn color="blue darken-1" text @click="save"> Save </v-btn>
+            <div class="mb-5">
+              <v-btn color="warning" large @click="save"> Save </v-btn>
+              <v-btn color="warning" large outlined class="ml-5" @click="close">
+                Cancel
+              </v-btn>
+            </div>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -262,8 +270,11 @@ import PageHeader from "@/layouts/PageHeader.vue";
 import axios from "axios";
 import { mapActions, mapGetters } from "vuex";
 import DeviceAssignDialog from "@/components/DeviceAssignDialog.vue";
+import searchUser from "@/mixins/searchUser";
 
 export default {
+  name: "DeviceList",
+  mixins: [searchUser],
   data() {
     return {
       icon: "justify",

@@ -53,34 +53,15 @@
           ></v-text-field>
         </v-col>
         <v-col class="form-group" cols="12" sm="6" md="4">
-          <!-- <v-text-field
-            type="number"
-            v-model.trim="user.mobile_no"
-            name="phone"
-            label="Phone"
-            required
-            filled
-            dense
-            :rules="phoneRules"
-          ></v-text-field> -->
           <vue-tel-input
-            v-model="userPhoneNumber"
+            v-model="user.mobile_no"
             v-bind="phoneProps"
             @validate="phoneNumberChanged"
           ></vue-tel-input>
         </v-col>
         <v-col class="form-group" cols="12" sm="6" md="4">
-          <!-- <v-text-field
-            type="number"
-            v-model.trim="user.emergencyPhone"
-            name="emergencyPhone"
-            label="Emergency Number"
-            filled
-            dense
-            :rules="emergencyPhoneRules"
-          ></v-text-field> -->
           <vue-tel-input
-            v-model.trim="userEmergencyPhone"
+            v-model.trim="user.emergencyPhone"
             v-bind="emergencyPhoneProps"
             @validate="emergencyPhoneChanged"
           ></vue-tel-input>
@@ -228,14 +209,6 @@
           />
         </v-col>
         <v-col class="form-group" cols="12" sm="12" md="3">
-          <!-- <v-text-field
-            type="number"
-            label="Contact Number"
-            filled
-            dense
-            :rules="phoneRules"
-            v-model.trim="familyInfo.contactNo"
-          /> -->
           <vue-tel-input
             v-model.trim="familyInfo.contactNo"
             v-bind="relativePhoneProps"
@@ -370,6 +343,7 @@ export default {
   data() {
     return {
       valid: true,
+      role: localStorage.getItem("role"),
       user: {},
       dob: "",
       selected: "",
@@ -411,12 +385,9 @@ export default {
       heartConditionRules: [(v) => !!v || "Must enter Heart Condition"],
       relations: ["Son", "Daughter", "Mother", "Father"],
       heartCondition: ["Normal"],
-      checkbox: false,
       dateMenu: false,
       dateValue: null,
       loading: false,
-      userPhoneNumber: "",
-      userEmergencyPhone: "",
       isValidPhoneNumber: false,
       isValidEmergencyNumber: false,
       isValidRelativePhoneNumber: false,
@@ -468,8 +439,8 @@ export default {
     this.loading = true;
     const res = await doctors.getSinglePatientData(this.$route?.params?.id);
     this.user = res.data.data[0];
-    this.userPhoneNumber = this.user?.mobile_no.toString();
-    this.userEmergencyPhone = this.user?.emergencyPhone.toString();
+    this.user["mobile_no"] = this.user?.mobile_no.toString();
+    this.user["emergencyPhone"] = this.user?.emergencyPhone.toString();
     let dateOfBirth = res.data.data[0].DOB;
     let formattedDate = moment(dateOfBirth).format("YYYY-MM-DD");
     this.dob = formattedDate;
@@ -539,7 +510,13 @@ export default {
             this.user
           );
           if (res.status === 200) {
-            this.$router.push({ path: "/patients" });
+            if (this.role === "Doctor") {
+              this.$router.push({ path: "/patients" });
+            } else if (this.role === "Customer") {
+              this.$router.push({
+                path: `/patients/patient/${this.user.userId}`,
+              });
+            }
             this.$toast.success("User Updated successfully.", {
               timeout: 3000,
             });

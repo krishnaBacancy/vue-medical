@@ -62,11 +62,7 @@ const mutations = {
           data.customerlastName?.charAt(0).toUpperCase() +
           data.customerlastName?.slice(1),
         fullName: data.customerfirstName
-          ? data.customerfirstName?.charAt(0).toUpperCase() +
-            data.customerfirstName?.slice(1) +
-            " " +
-            data.customerlastName?.charAt(0).toUpperCase() +
-            data.customerlastName?.slice(1)
+          ? data.customerfirstName + " " + data.customerlastName
           : "--",
         doctorFirstName: data.docterfirstName,
         doctorLastName: data.docterlastName,
@@ -94,11 +90,7 @@ const mutations = {
           patient.last_Name?.charAt(0).toUpperCase() +
           patient.last_Name?.slice(1),
         fullName: patient?.first_Name
-          ? patient?.first_Name?.charAt(0).toUpperCase() +
-            patient?.first_Name?.slice(1) +
-            " " +
-            patient?.last_Name?.charAt(0).toUpperCase() +
-            patient?.last_Name?.slice(1)
+          ? patient?.first_Name + " " + patient?.last_Name
           : "--",
         email: patient.email,
         address: patient.Address,
@@ -119,11 +111,7 @@ const mutations = {
         firstName: patient.first_Name,
         licenseNo: patient.licenseno,
         fullName: patient?.first_Name
-          ? patient?.first_Name?.charAt(0).toUpperCase() +
-            patient?.first_Name?.slice(1) +
-            " " +
-            patient?.last_Name?.charAt(0).toUpperCase() +
-            patient?.last_Name?.slice(1)
+          ? patient?.first_Name + " " + patient?.last_Name
           : "--",
         lastName: patient.last_Name,
         email: patient.email,
@@ -165,6 +153,9 @@ const mutations = {
         doctorLastName: device.docterlastName,
         customerFirstName: device.customerfirstName,
         customerLastName: device.customerlastName,
+        customerFullName: device?.customerfirstName
+          ? device?.customerfirstName + " " + device?.customerlastName
+          : "--",
         adminId: device.adminId,
         doctorId: device.doctorId,
         customerId: device.customerId,
