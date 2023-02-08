@@ -32,7 +32,7 @@
             <!-- <button class="btn-orange mr-4" @click="$router.push('/settings')">
               <v-icon>mdi-cog</v-icon>
             </button> -->
-            <button class="btn-orange mr-4" @click="downloadCsvData">
+            <button class="btn-orange mr-4" @click="downloadPatientData">
               <v-icon>mdi-cog</v-icon>
             </button>
           </div>
@@ -1122,38 +1122,68 @@ export default {
         endDate: Date.parse(this.endDateValue),
       };
       const ecgData = await this.getPatientEcgData(payload);
-      console.log("ecgData------", ecgData);
-      let csv = "Date, Ecg-Data\n";
-      for (let i = 0; i < ecgData.length; i++) {
-        let line = "";
-        for (const index in ecgData[i]) {
-          if (line !== "") line += ",";
-          line += ecgData[i][index];
-        }
-        csv += line + "\r\n";
-      }
+
+      let csv = "Date,Ecg-Data\n";
+      ecgData.forEach((data) => {
+        let updatedDate = new Date(data.start_time).toLocaleDateString();
+        let row = updatedDate + "," + data.ecg_vals + "\n";
+        csv += row;
+      });
+
       const anchor = document.createElement("a");
       anchor.href = "data:text/csv;charset=utf-8," + encodeURIComponent(csv);
       anchor.target = "_blank";
       anchor.download = `${this.getSingleDeviceData[0]?.customerFullName}-Ecg Data.csv`;
       anchor.click();
     },
-    downloadCsvData() {
-      let csv =
-        "Person Data,Mac Address, Heart Rate, Hrv, Prv, RR, Blood Pressure, MAP, Pulse Pressure, Arrthymia, SV, CO, Steps, PTT, DBP, Spo2, Temp\n";
+    calculateVals(val, unit) {
+      return Math.round(val * 1000) / 1000 + " " + unit;
+    },
+    downloadPatientData() {
       let newData = [this.algoData];
-      // newData.forEach((row) => {
-      //   csv += row.join(",");
-      //   csv += "\n";
-      // });
-      for (let i = 0; i < newData.length; i++) {
-        let line = "";
-        for (const index in newData[i]) {
-          if (line !== "") line += ",";
-          line += newData[i][index];
-        }
-        csv += line + "\r\n";
-      }
+
+      let csv =
+        "Date,Heart Rate,Hrv,Prv,RR,Blood Pressure,MAP,Pulse Pressure,Arrthymia,SV,CO,Steps,PTT,DBP,Spo2,Temp\n";
+      newData.forEach((data) => {
+        let updatedDate = new Date(data.updatedAt).toLocaleDateString();
+        let row =
+          updatedDate +
+          "," +
+          data.hr +
+          " BPM" +
+          "," +
+          this.calculateVals(data.hrv, "ms") +
+          "," +
+          this.calculateVals(data.prv, "ms") +
+          "," +
+          this.calculateVals(data.rr, "sec") +
+          "," +
+          this.calculateVals(data.bp, "mmHg") +
+          "," +
+          this.calculateVals(data.map, "mmHg") +
+          "," +
+          this.calculateVals(data.pp, "mmHg") +
+          "," +
+          data.arrhythmia +
+          "," +
+          this.calculateVals(data.sv, "ml") +
+          "," +
+          this.calculateVals(data.co, "L/min") +
+          "," +
+          data.steps +
+          "," +
+          this.calculateVals(data.ptt, "ms") +
+          "," +
+          this.calculateVals(data.dbp, "mmHg") +
+          "," +
+          this.calculateVals(data.spo2, "%") +
+          "," +
+          data.temp +
+          " °C" +
+          "\n";
+
+        csv += row;
+      });
 
       const anchor = document.createElement("a");
       anchor.href = "data:text/csv;charset=utf-8," + encodeURIComponent(csv);
