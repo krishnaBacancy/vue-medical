@@ -187,9 +187,7 @@ export default {
       getDoctorId: localStorage.getItem("user_id"),
       gridNumber: 6,
       liveDevices: [],
-      socketConnections: {},
       socketConnection: null,
-      allDeviceEcgData: [],
       connection: {
         clean: true,
         connectTimeout: 30 * 1000,
@@ -199,18 +197,6 @@ export default {
         username: "MYsmO5Oc7O6DKkS8",
         password: "ufUPnVWbLoMwwFaL",
         useSSL: true,
-        // options: {
-        //   // clean: true,
-        //   connectTimeout: 4000,
-        //   // reconnectPeriod: 2000,
-        //   // keepAlive: 120,
-        //   clientId: "lens_3DtlcZfxvR0idKzXQ90Vzm69vAM",
-        //   username: "MYsmO5Oc7O6DKkS8",
-        //   password: "ufUPnVWbLoMwwFaL",
-        // },
-        // clean: true, // Reserved session
-        // connectTimeout: 4000, // Time out
-        // reconnectPeriod: 4000, // Reconnection interval
       },
       subscribeSuccess: false,
       connecting: false,
@@ -275,10 +261,6 @@ export default {
             console.log("Connection failed", error);
           });
           this.socketConnection.on("message", async (_, message) => {
-            // this.showEcgChart = true;
-            // this.showPpgChart = true;
-            // this.ecgChartData = [];
-            // this.ppgChartData = [];
             let data = await JSON.parse(message);
             if (data?.msg === 17) {
               this.liveDevices = this.liveDevices.map((device) => {
@@ -288,7 +270,6 @@ export default {
                 }
                 return device;
               });
-              // this.getPatientsForDoctor(this.getDoctorId);
             }
             console.log("data--", JSON.parse(message));
             if (data?.ecg_vals) {
@@ -302,91 +283,8 @@ export default {
                 return device;
               });
             }
-            // }
           });
         }
-
-        /** working code when connectio  single device */
-        // this.socketConnections[this.liveDevices[3].macAddressFramed] =
-        //   connection;
-        // if (this.socketConnections[this.liveDevices[3].macAddressFramed].on) {
-        //   this.socketConnections[this.liveDevices[3].macAddressFramed].on(
-        //     "connect",
-        //     () => {
-        //       this.connecting = false;
-        //       console.log("Connection succeeded!");
-        //       this.subscribeSuccess = true;
-        //       this.socketConnections[
-        //         this.liveDevices[3].macAddressFramed
-        //       ].subscribe(
-        //         `BMSFSEV/${this.liveDevices[3].macAddressFramed.toUpperCase()}/sTOf`
-        //       );
-        //     }
-        //   );
-        //   this.socketConnections[this.liveDevices[3].macAddressFramed].on(
-        //     "reconnect",
-        //     this.handleOnReConnect
-        //   );
-        //   this.socketConnections[this.liveDevices[3].macAddressFramed].on(
-        //     "error",
-        //     (error) => {
-        //       console.log("Connection failed", error);
-        //     }
-        //   );
-        //   this.socketConnections[this.liveDevices[3].macAddressFramed].on(
-        //     "message",
-        //     async (_, message) => {
-        //       // this.showEcgChart = true;
-        //       // this.showPpgChart = true;
-        //       // this.ecgChartData = [];
-        //       // this.ppgChartData = [];
-        //       let data = await JSON.parse(message);
-        //       // if (data?.msg === 17) {
-        //       //   this.displayAlgoData();
-        //       // }
-        //       console.log("data--", data);
-        //       if (data?.ecg_vals || data?.ppg_vals) {
-        //         console.log(
-        //           "this.liveDevices[data.mac_address_framed]",
-        //           this.liveDevices[3]
-        //         );
-        //         // this.liveDevices[3]["ecgValues"] = data?.ecg_vals;
-        //         // this.$nextTick(() => {
-        //         //   this.liveDevices[3]["showEcgChart"] = true;
-        //         // });
-        //         this.liveDevices = this.liveDevices.map((device) => {
-        //           if (device.macAddressFramed === data.mac_address_framed) {
-        //             device.showEcgChart = true;
-        //             device["ecgValues"] = data?.ecg_vals;
-        //             return device;
-        //           }
-        //           return device;
-        //         });
-        //       }
-        //       // this.liveMessage = data?.message;
-        //       // if (this.liveMessage == "Online") {
-        //       // this.tempStartTime = data?.start_time;
-        //       // this.startTime = new Date(this.tempStartTime).toLocaleString(
-        //       //   undefined,
-        //       //   { timeZone: "Asia/Kolkata" }
-        //       // );
-        //       // console.log("set data from parent", data?.ecg_vals);
-        //       // if (data?.ecg_vals || data?.ppg_vals) {
-        //       //   // this.showEcgChart = false;
-        //       //   // this.showPpgChart = false;
-        //       //   this.$nextTick(() => {
-        //       //     this.showEcgChart = true;
-        //       //     this.showPpgChart = true;
-        //       //   });
-        //       //   this.ecgChartData = data?.ecg_vals;
-        //       //   this.ppgChartData = data?.ppg_vals;
-        //       //   await this.setEcgData(this.ecgChartData);
-        //       //   await this.setPpgData(this.ppgChartData);
-        //       // }
-        //       // }
-        //     }
-        //   );
-        // }
       },
     },
   },

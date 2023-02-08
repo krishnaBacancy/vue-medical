@@ -29,7 +29,10 @@
             >
               {{ getSingleDeviceData[0]?.customerFullName }}
             </h3>
-            <button class="btn-orange mr-4" @click="$router.push('/settings')">
+            <!-- <button class="btn-orange mr-4" @click="$router.push('/settings')">
+              <v-icon>mdi-cog</v-icon>
+            </button> -->
+            <button class="btn-orange mr-4" @click="downloadCsvData">
               <v-icon>mdi-cog</v-icon>
             </button>
           </div>
@@ -182,7 +185,13 @@
             <div class="d-flex align-center w-100">
               <h3>ECG</h3>
               <v-spacer></v-spacer>
-              <v-btn class="export__btn" color="warning" outlined>Export</v-btn>
+              <v-btn
+                class="export__btn"
+                color="warning"
+                outlined
+                @click="downloadEcgData"
+                >Export</v-btn
+              >
             </div>
             <div class="d-flex align-start chart-css">
               <div
@@ -1097,6 +1106,7 @@ export default {
       "getPatientBloodOxygenData",
       "getPatientStepsData",
       "getPatientHeartRateData",
+      "getPatientEcgData",
     ]),
     focusStartDate() {
       setTimeout(() => {
@@ -1104,6 +1114,52 @@ export default {
           this.startDateMenu = true;
         }
       }, 200);
+    },
+    async downloadEcgData() {
+      const payload = {
+        mac_address_framed: this.getMacAddress.toString().toUpperCase(),
+        startDate: Date.parse(this.startDateValue),
+        endDate: Date.parse(this.endDateValue),
+      };
+      const ecgData = await this.getPatientEcgData(payload);
+      console.log("ecgData------", ecgData);
+      let csv = "Date, Ecg-Data\n";
+      for (let i = 0; i < ecgData.length; i++) {
+        let line = "";
+        for (const index in ecgData[i]) {
+          if (line !== "") line += ",";
+          line += ecgData[i][index];
+        }
+        csv += line + "\r\n";
+      }
+      const anchor = document.createElement("a");
+      anchor.href = "data:text/csv;charset=utf-8," + encodeURIComponent(csv);
+      anchor.target = "_blank";
+      anchor.download = `${this.getSingleDeviceData[0]?.customerFullName}-Ecg Data.csv`;
+      anchor.click();
+    },
+    downloadCsvData() {
+      let csv =
+        "Person Data,Mac Address, Heart Rate, Hrv, Prv, RR, Blood Pressure, MAP, Pulse Pressure, Arrthymia, SV, CO, Steps, PTT, DBP, Spo2, Temp\n";
+      let newData = [this.algoData];
+      // newData.forEach((row) => {
+      //   csv += row.join(",");
+      //   csv += "\n";
+      // });
+      for (let i = 0; i < newData.length; i++) {
+        let line = "";
+        for (const index in newData[i]) {
+          if (line !== "") line += ",";
+          line += newData[i][index];
+        }
+        csv += line + "\r\n";
+      }
+
+      const anchor = document.createElement("a");
+      anchor.href = "data:text/csv;charset=utf-8," + encodeURIComponent(csv);
+      anchor.target = "_blank";
+      anchor.download = `${this.getSingleDeviceData[0]?.customerFullName}.csv`;
+      anchor.click();
     },
     initData() {
       this.client = {

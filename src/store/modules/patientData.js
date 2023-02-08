@@ -7,6 +7,7 @@ const state = {
   bloodOxygen: [],
   patientSteps: [],
   heartRate: [],
+  ecgData: [],
 };
 
 const getters = {
@@ -21,6 +22,9 @@ const getters = {
   },
   getHeartRateGraphData(state) {
     return state?.heartRate;
+  },
+  getEcgData(state) {
+    return state?.ecgData;
   },
 };
 
@@ -42,6 +46,9 @@ const mutations = {
   },
   SET_PATIENT_HEART_RATE_GRAPH(state, hr) {
     state.heartRate = hr;
+  },
+  SET_PATIENT_ECG_DATA(state, ecgData) {
+    state.ecgData = ecgData;
   },
 };
 
@@ -90,6 +97,15 @@ const actions = {
       commit("SET_PATIENT_HEART_RATE_GRAPH", res.data.data);
       commit("SET_LOADING_STATUS", false);
     }
+  },
+  async getPatientEcgData({ commit }, payload) {
+    commit("SET_LOADING_STATUS", true);
+    const res = await patient.getPatientEcgData(payload);
+    if (res.status === 200) {
+      commit("SET_PATIENT_ECG_DATA", res.data.data);
+      commit("SET_LOADING_STATUS", false);
+    }
+    return res.data?.data;
   },
 };
 

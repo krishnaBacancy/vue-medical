@@ -21,4 +21,8 @@ export default {
     client.post(
       `devices/gethrdata??speedometerId=${params.speedometerId}&agrFunction=${params.agrFunction}&timePeriod=${params.timePeriod}&startDate=${params.startDate}&endDate=${params.endDate}`
     ),
+  getPatientEcgData: (params) =>
+    client.post(
+      `devices/getecgdata?mac_address_framed=${params.mac_address_framed}&startDate=${params.startDate}&endDate=${params.endDate}`
+    ),
 };
