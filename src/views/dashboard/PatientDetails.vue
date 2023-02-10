@@ -948,8 +948,18 @@
             class="px-10 mr-10"
             outlined
             @click="showExportECGDateModel = false"
+            :disabled="isLoading"
           >
             Cancel
+          </v-btn>
+          <v-btn color="warning" large class="px-10" outlined v-if="isLoading">
+            <v-progress-circular
+              class="mr-5 ml-5"
+              :size="25"
+              :width="3"
+              indeterminate
+              color="orange"
+            ></v-progress-circular>
           </v-btn>
           <v-btn
             color="warning"
@@ -957,6 +967,7 @@
             class="px-10"
             outlined
             @click="downloadEcgData"
+            v-else
           >
             Export
           </v-btn>
@@ -978,6 +989,7 @@ import TempratureGraph from "@/components/TempratureGraph.vue";
 import moment from "moment";
 // import ApexLineChart from "@/components/ApexLineChart.vue";
 import StepsChart from "@/components/StepsChart.vue";
+import _ from "lodash";
 
 Date.prototype.addDays = function (days) {
   var date = new Date(this.valueOf());
@@ -1035,16 +1047,6 @@ export default {
         useSSL: true,
         reconnect: true,
       },
-      subscription: {
-        topic: "BMSFSEV/C9F7BF309DC9/sTOf",
-        qos: 0,
-      },
-      publish: {
-        topic: "BMSFSEV//sTOf",
-        qos: 0,
-        payload: '{ "msg": "Hello, I am browser." }',
-      },
-      qosList: [0, 1, 2],
       client: {
         connected: false,
       },
@@ -1056,6 +1058,7 @@ export default {
       showExportECGDateModel: false,
       exportECGDate: new Date(Date.now()).toISOString().slice(0, 10),
       showExportECGDatepicker: false,
+      isLoading: false,
     };
   },
   computed: {
@@ -1194,34 +1197,45 @@ export default {
           startDate: Date.parse(this.exportECGDate),
           endDate: Date.parse(endDate),
         };
+        this.isLoading = true;
         const ecgData = await this.getPatientEcgData(payload);
+        if (!ecgData.length) {
+          this.$toast.error(
+            `ECG data for ${this.exportECGDate} not available. Please select another date.`,
+            { timeout: 3000 }
+          );
+          this.isLoading = false;
+          return;
+        }
 
-        let csv = "Date,Ecg-Data\n";
+        let csv = "\n";
+        let ecgDataRow = [];
         ecgData.forEach((data) => {
-          // let updatedDate = new Date(data.start_time).toLocaleDateString();
           let updatedDate = new Date(data.start_time).toLocaleTimeString();
-          // console.log(
-          //   "time string",
-          //   new Date(data.start_time).toLocaleTimeString()
-          // );
-          let row = updatedDate + "," + data.ecg_vals.slice(0, 1023) + "\n";
-          csv += row;
-          if (data.ecg_vals.length >= 1023) {
-            let row1 =
-              " ," + data.ecg_vals.slice(1023, data.ecg_vals.length) + "\n";
-            csv += row1;
-          }
+          let row = [updatedDate, ...data.ecg_vals];
+          ecgDataRow.push(row);
         });
-        // console.log(csv);
+        let rotatedEcgDataRow = _.zip(...ecgDataRow);
+        rotatedEcgDataRow.forEach((row) => {
+          csv += `${row}\n`;
+        });
+        let updatedDate = new Date(ecgData[0].start_time).toLocaleDateString();
 
         const anchor = document.createElement("a");
         anchor.href = "data:text/csv;charset=utf-8," + encodeURIComponent(csv);
         anchor.target = "_blank";
-        anchor.download = `${this.getSingleDeviceData[0]?.customerFullName}-Ecg Data.csv`;
+        anchor.download = `${this.getSingleDeviceData[0]?.customerFullName}-${updatedDate}-Ecg Data.csv`;
         anchor.click();
+        this.$toast.success(
+          `ECG data for ${this.exportECGDate} exported successfully.`,
+          { timeout: 3000 }
+        );
         this.showExportECGDateModel = false;
+        this.isLoading = false;
       } catch (e) {
+        console.log("errooorr", e);
         this.showExportECGDateModel = false;
+        this.isLoading = false;
       }
     },
     calculateVals(val, unit) {
@@ -1291,12 +1305,9 @@ export default {
       const payload = {
         mac_address_framed: this.getMacAddress.toString().toUpperCase(),
       };
-      this.algoData = await this.getPatientAlgoData(payload);
-      // let algoData = await this.getPatientAlgoData(payload);
-      // console.log("algoData.updatedAt1", algoData.updatedAt);
-      // algoData.updatedAt = moment(algoData.updatedAt);
-      // console.log("algoData.updatedAt", algoData.updatedAt);
-      // this.algoData = algoData;
+      let algoData = await this.getPatientAlgoData(payload);
+      algoData.updatedAt = algoData.updatedAt.replace(/.\d+Z$/g, "");
+      this.algoData = algoData;
     },
     getBodyTempGraph() {
       const payload = {
