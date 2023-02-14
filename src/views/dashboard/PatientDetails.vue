@@ -134,55 +134,19 @@
             </v-tooltip>
           </div>
         </div>
-        <v-row class="d-flex flex-wrap align-center">
-          <v-flex xs12 sm5 lg3 md4 class="mt-5">
-            <v-select
-              :items="timePeriodValues"
-              v-model="selectedTimePeriod"
-              filled
-              label="Time Period"
-              dense
-            ></v-select>
-          </v-flex>
-          <v-flex xs12 sm5 lg3 md4 class="mt-5">
-            <v-menu
-              v-model="startDateMenu"
-              :close-on-content-click="false"
-              :nudge-right="40"
-              transition="scale-transition"
-              offset-y
-              min-width="290px"
-              max-width="290px"
-            >
-              <template v-slot:activator="{ on }">
-                <v-text-field
-                  label="Select Date"
-                  readonly
-                  hide-details
-                  :value="startDateValue"
-                  @focus="focusStartDate"
-                  filled
-                  dense
-                  v-on="on"
-                ></v-text-field>
-              </template>
-              <v-date-picker
-                locale="en-in"
-                v-model="startDateValue"
-                no-title
-                @input="startDateMenu = false"
-                :max="new Date().toISOString().slice(0, 10)"
-              ></v-date-picker>
-            </v-menu>
-          </v-flex>
-        </v-row>
 
         <v-layout row wrap>
           <v-flex xs12 sm12 md12 class="mt-5">
             <div class="d-flex align-center w-100">
               <h3>ECG</h3>
               <v-spacer></v-spacer>
-              <v-btn class="export__btn" color="warning" outlined>Export</v-btn>
+              <v-btn
+                class="export__btn"
+                color="warning"
+                outlined
+                @click="showExportECGDateModel = true"
+                >Export</v-btn
+              >
             </div>
             <div class="d-flex align-start chart-css">
               <div
@@ -713,6 +677,50 @@
           </div>
         </v-flex>
       </v-layout>
+      <div class="patient-header">
+        <v-row class="d-flex flex-wrap align-center justify-center">
+          <v-flex xs12 sm5 lg3 md4>
+            <v-select
+              :items="timePeriodValues"
+              v-model="selectedTimePeriod"
+              filled
+              label="Time Period"
+              dense
+            ></v-select>
+          </v-flex>
+          <v-flex xs12 sm5 lg3 md4>
+            <v-menu
+              v-model="startDateMenu"
+              :close-on-content-click="false"
+              :nudge-right="40"
+              transition="scale-transition"
+              offset-y
+              min-width="290px"
+              max-width="290px"
+            >
+              <template v-slot:activator="{ on }">
+                <v-text-field
+                  label="Select Date"
+                  readonly
+                  hide-details
+                  :value="startDateValue"
+                  @focus="focusStartDate"
+                  filled
+                  dense
+                  v-on="on"
+                ></v-text-field>
+              </template>
+              <v-date-picker
+                locale="en-in"
+                v-model="startDateValue"
+                no-title
+                @input="startDateMenu = false"
+                :max="new Date().toISOString().slice(0, 10)"
+              ></v-date-picker>
+            </v-menu>
+          </v-flex>
+        </v-row>
+      </div>
       <v-layout row wrap>
         <v-flex d-flex xs12 sm12 md6>
           <div class="mini-light-box align-start">
@@ -889,6 +897,83 @@
         </v-flex>
       </v-layout>
     </div>
+    <v-dialog
+      transition="dialog-top-transition"
+      max-width="600"
+      overlay-color="white"
+      persistent
+      v-model="showExportECGDateModel"
+    >
+      <v-card class="pa-sm-10 pa-5">
+        <h4 class="text-h6 font-weight-bold mb-5">
+          Select date to export ECG data
+        </h4>
+        <v-row>
+          <v-col cols="12" sm="12" md="12" class="mb-3">
+            <v-menu
+              v-model="showExportECGDatepicker"
+              :close-on-content-click="false"
+              :nudge-right="40"
+              transition="scale-transition"
+              offset-y
+              min-width="290px"
+              max-width="290px"
+            >
+              <template v-slot:activator="{ on }">
+                <v-text-field
+                  label="Select Date"
+                  readonly
+                  hide-details
+                  :value="exportECGDate"
+                  @input="showExportECGDatepicker = true"
+                  filled
+                  dense
+                  v-on="on"
+                ></v-text-field>
+              </template>
+              <v-date-picker
+                locale="en-in"
+                v-model="exportECGDate"
+                no-title
+                @input="showExportECGDatepicker = false"
+                :max="new Date().toISOString().slice(0, 10)"
+              ></v-date-picker>
+            </v-menu>
+          </v-col>
+        </v-row>
+        <v-row class="d-flex flex-wrap align-center justify-center">
+          <v-btn
+            color="warning"
+            large
+            class="px-10 mr-10"
+            outlined
+            @click="showExportECGDateModel = false"
+            :disabled="isLoading"
+          >
+            Cancel
+          </v-btn>
+          <v-btn color="warning" large class="px-10" outlined v-if="isLoading">
+            <v-progress-circular
+              class="mr-5 ml-5"
+              :size="25"
+              :width="3"
+              indeterminate
+              color="orange"
+            ></v-progress-circular>
+          </v-btn>
+          <v-btn
+            color="warning"
+            large
+            class="px-10"
+            outlined
+            @click="downloadEcgData"
+            v-else
+          >
+            Export
+          </v-btn>
+        </v-row>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -904,6 +989,7 @@ import TempratureGraph from "@/components/TempratureGraph.vue";
 import moment from "moment";
 // import ApexLineChart from "@/components/ApexLineChart.vue";
 import StepsChart from "@/components/StepsChart.vue";
+import _ from "lodash";
 
 Date.prototype.addDays = function (days) {
   var date = new Date(this.valueOf());
@@ -961,16 +1047,6 @@ export default {
         useSSL: true,
         reconnect: true,
       },
-      subscription: {
-        topic: "BMSFSEV/C9F7BF309DC9/sTOf",
-        qos: 0,
-      },
-      publish: {
-        topic: "BMSFSEV//sTOf",
-        qos: 0,
-        payload: '{ "msg": "Hello, I am browser." }',
-      },
-      qosList: [0, 1, 2],
       client: {
         connected: false,
       },
@@ -979,6 +1055,10 @@ export default {
       retryTimes: 0,
       liveMessage: "Offline",
       algoData: {},
+      showExportECGDateModel: false,
+      exportECGDate: new Date(Date.now()).toISOString().slice(0, 10),
+      showExportECGDatepicker: false,
+      isLoading: false,
     };
   },
   computed: {
@@ -1088,6 +1168,12 @@ export default {
         }
       },
     },
+    getSingleDeviceData: {
+      immediate: true,
+      handler(val) {
+        this.liveMessage = val[0].isOnline ? "Online" : "Offline";
+      },
+    },
   },
   methods: {
     ...mapActions("doctors", ["getSingleDevice"]),
@@ -1097,6 +1183,7 @@ export default {
       "getPatientBloodOxygenData",
       "getPatientStepsData",
       "getPatientHeartRateData",
+      "getPatientEcgData",
     ]),
     focusStartDate() {
       setTimeout(() => {
@@ -1104,6 +1191,113 @@ export default {
           this.startDateMenu = true;
         }
       }, 200);
+    },
+    async downloadEcgData() {
+      try {
+        let endDate = new Date(this.exportECGDate)
+          .addDays(1)
+          .toISOString()
+          .slice(0, 10);
+        const payload = {
+          mac_address_framed: this.getMacAddress.toString().toUpperCase(),
+          startDate: Date.parse(this.exportECGDate),
+          endDate: Date.parse(endDate),
+        };
+        this.isLoading = true;
+        const ecgData = await this.getPatientEcgData(payload);
+        if (!ecgData.length) {
+          this.$toast.error(
+            `ECG data for ${this.exportECGDate} not available. Please select another date.`,
+            { timeout: 3000 }
+          );
+          this.isLoading = false;
+          return;
+        }
+
+        let csv = "\n";
+        let ecgDataRow = [];
+        ecgData.forEach((data) => {
+          let updatedDate = new Date(data.start_time).toLocaleTimeString();
+          let row = [updatedDate, ...data.ecg_vals];
+          ecgDataRow.push(row);
+        });
+        let rotatedEcgDataRow = _.zip(...ecgDataRow);
+        rotatedEcgDataRow.forEach((row) => {
+          csv += `${row}\n`;
+        });
+        let updatedDate = new Date(ecgData[0].start_time).toLocaleDateString();
+
+        const anchor = document.createElement("a");
+        anchor.href = "data:text/csv;charset=utf-8," + encodeURIComponent(csv);
+        anchor.target = "_blank";
+        anchor.download = `${this.getSingleDeviceData[0]?.customerFullName}-${updatedDate}-Ecg Data.csv`;
+        anchor.click();
+        this.$toast.success(
+          `ECG data for ${this.exportECGDate} exported successfully.`,
+          { timeout: 3000 }
+        );
+        this.showExportECGDateModel = false;
+        this.isLoading = false;
+      } catch (e) {
+        console.log("errooorr", e);
+        this.showExportECGDateModel = false;
+        this.isLoading = false;
+      }
+    },
+    calculateVals(val, unit) {
+      return Math.round(val * 1000) / 1000 + " " + unit;
+    },
+    downloadPatientData() {
+      let newData = [this.algoData];
+
+      let csv =
+        "Date,Heart Rate,Hrv,Prv,RR,Blood Pressure,MAP,Pulse Pressure,Arrthymia,SV,CO,Steps,PTT,DBP,Spo2,Temp\n";
+      newData.forEach((data) => {
+        let updatedDate = new Date(data.updatedAt).toLocaleDateString();
+        let row =
+          updatedDate +
+          "," +
+          data.hr +
+          " BPM" +
+          "," +
+          this.calculateVals(data.hrv, "ms") +
+          "," +
+          this.calculateVals(data.prv, "ms") +
+          "," +
+          this.calculateVals(data.rr, "sec") +
+          "," +
+          this.calculateVals(data.bp, "mmHg") +
+          "," +
+          this.calculateVals(data.map, "mmHg") +
+          "," +
+          this.calculateVals(data.pp, "mmHg") +
+          "," +
+          data.arrhythmia +
+          "," +
+          this.calculateVals(data.sv, "ml") +
+          "," +
+          this.calculateVals(data.co, "L/min") +
+          "," +
+          data.steps +
+          "," +
+          this.calculateVals(data.ptt, "ms") +
+          "," +
+          this.calculateVals(data.dbp, "mmHg") +
+          "," +
+          this.calculateVals(data.spo2, "%") +
+          "," +
+          data.temp +
+          " °C" +
+          "\n";
+
+        csv += row;
+      });
+
+      const anchor = document.createElement("a");
+      anchor.href = "data:text/csv;charset=utf-8," + encodeURIComponent(csv);
+      anchor.target = "_blank";
+      anchor.download = `${this.getSingleDeviceData[0]?.customerFullName}.csv`;
+      anchor.click();
     },
     initData() {
       this.client = {
@@ -1117,7 +1311,9 @@ export default {
       const payload = {
         mac_address_framed: this.getMacAddress.toString().toUpperCase(),
       };
-      this.algoData = await this.getPatientAlgoData(payload);
+      let algoData = await this.getPatientAlgoData(payload);
+      algoData.updatedAt = algoData.updatedAt.replace(/.\d+Z$/g, "");
+      this.algoData = algoData;
     },
     getBodyTempGraph() {
       const payload = {
@@ -1212,11 +1408,13 @@ export default {
             this.ecgChartData = [];
             this.ppgChartData = [];
             let data = await JSON.parse(message);
+            if (data?.msg === 1) {
+              this.liveMessage = data?.message;
+            }
             if (data?.msg === 17) {
               this.algoData = data;
             }
             console.log("data--", JSON.parse(message));
-            this.liveMessage = data?.message;
             this.tempStartTime = data?.start_time;
             this.startTime = new Date(this.tempStartTime).toLocaleString(
               undefined,
