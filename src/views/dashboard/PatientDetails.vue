@@ -1168,6 +1168,12 @@ export default {
         }
       },
     },
+    getSingleDeviceData: {
+      immediate: true,
+      handler(val) {
+        this.liveMessage = val[0].isOnline ? "Online" : "Offline";
+      },
+    },
   },
   methods: {
     ...mapActions("doctors", ["getSingleDevice"]),
