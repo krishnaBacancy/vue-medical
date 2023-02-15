@@ -113,6 +113,16 @@
               </router-link>
             </li>
 
+            <li v-if="role === 'Admin'">
+              <router-link
+                to="/add-doctor"
+                class="d-flex flex-column text-center justify-center align-center"
+              >
+                <v-icon class="icon__color">mdi-plus-circle</v-icon>
+                <span>Add Doctor</span>
+              </router-link>
+            </li>
+
             <li>
               <router-link
                 to="/settings"
