@@ -740,7 +740,13 @@
                 </div>
               </h3>
               <v-spacer></v-spacer>
-              <v-btn class="export__btn" color="warning" outlined>Export</v-btn>
+              <v-btn
+                class="export__btn"
+                color="warning"
+                outlined
+                @click="exportBodyTempData"
+                >Export</v-btn
+              >
             </div>
             <div class="grid-container w-100">
               <div
@@ -787,7 +793,13 @@
                 </div>
               </h3>
               <v-spacer></v-spacer>
-              <v-btn class="export__btn" color="warning" outlined>Export</v-btn>
+              <v-btn
+                class="export__btn"
+                color="warning"
+                outlined
+                @click="exportBloodOxygenData"
+                >Export</v-btn
+              >
             </div>
             <div id="Oxygenchart" class="grid-container w-100">
               <oxygen-graph
@@ -827,7 +839,13 @@
                 </div>
               </h3>
               <v-spacer></v-spacer>
-              <v-btn class="export__btn" color="warning" outlined>Export</v-btn>
+              <v-btn
+                class="export__btn"
+                color="warning"
+                outlined
+                @click="exportHeartRateData"
+                >Export</v-btn
+              >
             </div>
             <div class="grid-container w-100">
               <div
@@ -871,7 +889,13 @@
                 </div>
               </h3>
               <v-spacer></v-spacer>
-              <v-btn class="export__btn" color="warning" outlined>Export</v-btn>
+              <v-btn
+                class="export__btn"
+                color="warning"
+                outlined
+                @click="exportStepsData"
+                >Export</v-btn
+              >
             </div>
             <div id="chart" class="grid-container w-100">
               <steps-chart
@@ -1171,7 +1195,7 @@ export default {
     getSingleDeviceData: {
       immediate: true,
       handler(val) {
-        this.liveMessage = val[0].isOnline ? "Online" : "Offline";
+        this.liveMessage = val[0]?.isOnline ? "Online" : "Offline";
       },
     },
   },
@@ -1298,6 +1322,127 @@ export default {
       anchor.target = "_blank";
       anchor.download = `${this.getSingleDeviceData[0]?.customerFullName}.csv`;
       anchor.click();
+    },
+    exportBodyTempData() {
+      let tempData = this.getBodyTempGraphData;
+      if (tempData.length) {
+        let csv = "Date,Time,Temperature\n";
+        tempData.forEach((data) => {
+          let updatedDate = new Date(data.date).toLocaleDateString();
+          let updatedTime = new Date(data.date).toLocaleTimeString();
+          let row =
+            updatedDate +
+            "," +
+            updatedTime +
+            "," +
+            Math.round(data.temp * 10) / 10 +
+            " °C" +
+            "\n";
+          csv += row;
+        });
+
+        const anchor = document.createElement("a");
+        anchor.href = "data:text/csv;charset=utf-8," + encodeURIComponent(csv);
+        anchor.target = "_blank";
+        anchor.download = `${this.getSingleDeviceData[0]?.customerFullName}-Temperature Data.csv`;
+        anchor.click();
+        this.$toast.success(`Temperature data exported successfully.`, {
+          timeout: 3000,
+        });
+      } else {
+        this.$toast.error(`No data found, select different date.`, {
+          timeout: 3000,
+        });
+      }
+    },
+    exportBloodOxygenData() {
+      let bloodOxygenData = this.getBloodOxygenGraphData;
+      if (bloodOxygenData.length) {
+        let csv = "Date,Time,SPO2\n";
+        bloodOxygenData.forEach((data) => {
+          let updatedDate = new Date(data.date).toLocaleDateString();
+          let updatedTime = new Date(data.date).toLocaleTimeString();
+          let row =
+            updatedDate +
+            "," +
+            updatedTime +
+            "," +
+            Math.round(data.spo2) +
+            " %" +
+            "\n";
+          csv += row;
+        });
+
+        const anchor = document.createElement("a");
+        anchor.href = "data:text/csv;charset=utf-8," + encodeURIComponent(csv);
+        anchor.target = "_blank";
+        anchor.download = `${this.getSingleDeviceData[0]?.customerFullName}-Spo2 Data.csv`;
+        anchor.click();
+        this.$toast.success(`Spo2 data exported successfully.`, {
+          timeout: 3000,
+        });
+      } else {
+        this.$toast.error(`No data found, select different date.`, {
+          timeout: 3000,
+        });
+      }
+    },
+    exportHeartRateData() {
+      let heartRateData = this.getHeartRateGraphData;
+      if (heartRateData.length) {
+        let csv = "Date,Time,Heart Rate\n";
+        heartRateData.forEach((data) => {
+          let updatedDate = new Date(data.date).toLocaleDateString();
+          let updatedTime = new Date(data.date).toLocaleTimeString();
+          let row =
+            updatedDate + "," + updatedTime + "," + data.hr + " BPM" + "\n";
+          csv += row;
+        });
+
+        const anchor = document.createElement("a");
+        anchor.href = "data:text/csv;charset=utf-8," + encodeURIComponent(csv);
+        anchor.target = "_blank";
+        anchor.download = `${this.getSingleDeviceData[0]?.customerFullName}-Heart Rate Data.csv`;
+        anchor.click();
+        this.$toast.success(`Heart Rate data exported successfully.`, {
+          timeout: 3000,
+        });
+      } else {
+        this.$toast.error(`No data found, select different date.`, {
+          timeout: 3000,
+        });
+      }
+    },
+    exportStepsData() {
+      let stepsData = this.getPatientSteps;
+      if (stepsData.length) {
+        let csv = "Date,Time,Steps\n";
+        stepsData.forEach((data) => {
+          let updatedDate = new Date(data.date).toLocaleDateString();
+          let updatedTime = new Date(data.date).toLocaleTimeString();
+          let row =
+            updatedDate +
+            "," +
+            updatedTime +
+            "," +
+            Math.round(data.step) +
+            "\n";
+          csv += row;
+        });
+
+        const anchor = document.createElement("a");
+        anchor.href = "data:text/csv;charset=utf-8," + encodeURIComponent(csv);
+        anchor.target = "_blank";
+        anchor.download = `${this.getSingleDeviceData[0]?.customerFullName}-Steps Data.csv`;
+        anchor.click();
+        this.$toast.success(`Steps data exported successfully.`, {
+          timeout: 3000,
+        });
+      } else {
+        this.$toast.error(`No data found, select different date.`, {
+          timeout: 3000,
+        });
+      }
     },
     initData() {
       this.client = {
