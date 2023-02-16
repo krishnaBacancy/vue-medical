@@ -248,8 +248,11 @@ export default {
               this.connecting = false;
               console.log("Connection succeeded!");
               this.subscribeSuccess = true;
+              // this.socketConnection.subscribe(
+              //   `BMSFSEV/${element.macAddressFramed.toUpperCase()}/sTOf`
+              // );
               this.socketConnection.subscribe(
-                `BMSFSEV/${element.macAddressFramed.toUpperCase()}/sTOf`
+                `BacAccuLive/${element.macAddressFramed.toUpperCase()}/atoc`
               );
             });
           }
