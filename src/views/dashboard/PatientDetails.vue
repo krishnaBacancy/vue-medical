@@ -1539,8 +1539,11 @@ export default {
             this.connecting = false;
             console.log("Connection succeeded!");
             this.subscribeSuccess = true;
+            // this.client.subscribe(
+            //   `BMSFSEV/${this.getSingleDeviceData[0]?.macAddressFramed.toUpperCase()}/sTOf`
+            // );
             this.client.subscribe(
-              `BMSFSEV/${this.getSingleDeviceData[0]?.macAddressFramed.toUpperCase()}/sTOf`
+              `BacAccuLive/${this.getSingleDeviceData[0]?.macAddressFramed.toUpperCase()}/atoc`
             );
           });
           // this.client.on("reconnect", this.handleOnReConnect);
