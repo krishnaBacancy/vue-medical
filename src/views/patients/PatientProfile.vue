@@ -57,7 +57,7 @@
             class="text-left text-h5 font-weight-bold mb-5"
             style="color: #f58220"
           >
-            Patient Info
+            {{ role !== "Admin" ? "Patient Info" : "Doctor Info" }}
           </h4>
           <v-row>
             <v-col cols="12" sm="6" md="6">
@@ -96,7 +96,7 @@
                 </h3>
               </div>
             </v-col>
-            <v-col cols="3" sm="6" md="6">
+            <v-col cols="3" sm="6" md="6" v-if="role !== 'Admin'">
               <div class="d-flex flex-column align-start mb-3">
                 <small>Weight</small>
                 <h3 class="font-weight-medium">
@@ -108,7 +108,7 @@
                 </h3>
               </div>
             </v-col>
-            <v-col cols="3" sm="6" md="6">
+            <v-col cols="3" sm="6" md="6" v-if="role !== 'Admin'">
               <div class="d-flex flex-column align-start mb-3">
                 <small class="font-weight-regular">Height</small>
                 <h3 class="font-weight-medium">
@@ -122,7 +122,7 @@
             </v-col>
           </v-row>
 
-          <v-row>
+          <v-row v-if="role !== 'Admin'">
             <v-col cols="6" sm="6" md="6">
               <div class="d-flex flex-column align-start mb-3">
                 <small class="font-weight-regular">GST No</small>
@@ -160,7 +160,13 @@
       </v-flex>
 
       <v-flex d-flex xs12 sm12 md6>
-        <div class="card-light w-100 pb-4">
+        <div
+          class="card-light w-100 pb-4"
+          v-if="
+            getSinglePatientData[0]?.familyMembers.length > 0 &&
+            role !== 'Admin'
+          "
+        >
           <h4
             class="text-left text-h5 font-weight-bold mb-5"
             style="color: #f58220"
@@ -199,8 +205,11 @@
       </v-flex>
 
       <v-flex d-flex xs12 sm12 md6>
-        <div class="card-light w-100 pb-4">
-          <h4 class="text-h5 font-weight-bold text-left" style="color: #f58220">
+        <div class="card-light w-100 pb-4" v-if="role !== 'Admin'">
+          <h4
+            class="text-h5 font-weight-bold text-left mb-5"
+            style="color: #f58220"
+          >
             Medical Info
           </h4>
           <v-row>

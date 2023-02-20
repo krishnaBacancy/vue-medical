@@ -14,7 +14,7 @@
       :color="colorName"
       rounded
       @click="$emit('addNewPatient')"
-      v-if="btnName && role === 'Doctor'"
+      v-if="btnName && (role === 'Doctor' || role === 'Admin')"
     >
       <span v-if="btnName">{{ btnName }}</span>
     </v-btn>

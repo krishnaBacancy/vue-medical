@@ -257,7 +257,7 @@ export default {
           this.addUser(data)
             .then((success) => {
               console.log(success);
-              this.$router.push({ path: "/devices" });
+              this.$router.push({ path: "/doctors" });
               this.$toast.success("Doctor Added successfully.", {
                 timeout: 3000,
               });

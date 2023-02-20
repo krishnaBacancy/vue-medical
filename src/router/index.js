@@ -57,6 +57,11 @@ const routes = [
     component: () => import("../views/live/LivePage.vue"),
   },
   {
+    path: "/doctors",
+    name: "doctors",
+    component: () => import("../views/admin/DoctorData.vue"),
+  },
+  {
     path: "/add-doctor",
     name: "add-doctor",
     component: () => import("../views/admin/AddDoctor.vue"),
