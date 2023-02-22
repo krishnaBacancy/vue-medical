@@ -140,7 +140,7 @@
                   <span>Heart Rate</span>
                 </v-tooltip>
                 <h5 class="text-success">
-                  {{ patient?.algodata ? patient.algodata?.hr : "--" }}
+                  {{ patient?.algodata?.hr ? patient.algodata?.hr : "--" }}
                   <span class="unit">BPM</span>
                 </h5>
               </div>
@@ -161,8 +161,8 @@
                 </v-tooltip>
                 <h5 class="text-warning">
                   {{
-                    patient?.spo2data
-                      ? Math.round(patient.spo2data?.spo2_vals)
+                    patient?.algodata?.spo2
+                      ? Math.round(patient.algodata.spo2)
                       : "--"
                   }}
                   <span class="unit">%</span>
@@ -185,7 +185,9 @@
                 </v-tooltip>
                 <h5 class="text-purple">
                   {{
-                    patient?.algodata ? Math.round(patient.algodata?.map) : "--"
+                    patient?.algodata?.map
+                      ? Math.round(patient.algodata?.map)
+                      : "--"
                   }}
                   <span class="unit">mmHg</span>
                 </h5>
@@ -207,11 +209,15 @@
                 </v-tooltip>
                 <h5 class="text-info">
                   {{
-                    patient?.algodata ? Math.round(patient.algodata?.bp) : "--"
+                    patient?.algodata?.bp
+                      ? Math.round(patient.algodata?.bp)
+                      : "--"
                   }}
                   /
                   {{
-                    patient?.algodata ? Math.round(patient.algodata?.dbp) : "--"
+                    patient?.algodata?.dbp
+                      ? Math.round(patient.algodata?.dbp)
+                      : "--"
                   }}
                   <span class="unit">mmHg</span>
                 </h5>
@@ -236,8 +242,8 @@
                 </v-tooltip>
                 <h5 class="text-danger">
                   {{
-                    patient?.tempdata
-                      ? Math.round(patient.tempdata?.temp_vals)
+                    patient?.algodata?.temp
+                      ? Math.round(patient.algodata?.temp)
                       : "--"
                   }}
                   <span class="unit">°C</span>
@@ -262,7 +268,7 @@
                   <span>Steps</span>
                 </v-tooltip>
                 <h5 class="text-pink">
-                  {{ patient?.algodata ? patient.algodata?.steps : "--" }}
+                  {{ patient?.algodata?.steps ? patient.algodata?.steps : 0 }}
                   <span class="unit">Steps</span>
                 </h5>
               </div>
