@@ -112,7 +112,7 @@
                   height="40"
                   width="40"
                   contain
-                  v-if="liveMessage === 'Online'"
+                  v-show="liveMessage == 'Online'"
                 ></v-img>
               </template>
               <span>Live Mode</span>
@@ -127,7 +127,7 @@
                   height="40"
                   width="40"
                   contain
-                  v-if="liveMessage === 'Offline'"
+                  v-show="liveMessage == 'Offline'"
                 ></v-img>
               </template>
               <span>Scheduler Mode</span>
@@ -1457,7 +1457,7 @@ export default {
         mac_address_framed: this.getMacAddress.toString().toUpperCase(),
       };
       let algoData = await this.getPatientAlgoData(payload);
-      algoData.updatedAt = algoData.updatedAt.replace(/.\d+Z$/g, "");
+      algoData.updatedAt = algoData?.updatedAt?.replace(/.\d+Z$/g, "");
       this.algoData = algoData;
     },
     getBodyTempGraph() {
@@ -1555,27 +1555,31 @@ export default {
             this.showPpgChart = true;
             this.ecgChartData = [];
             this.ppgChartData = [];
-            let data = await JSON.parse(message);
-            if (data?.msg === 1) {
-              this.liveMessage = data?.message;
-            }
-            if (data?.msg === 17) {
-              this.algoData = data;
-            }
-            console.log("data--", JSON.parse(message));
-            this.tempStartTime = data?.start_time;
-            this.startTime = new Date(this.tempStartTime).toLocaleString(
-              undefined,
-              { timeZone: "Asia/Kolkata" }
-            );
-            console.log("set data from parent", data?.ecg_vals);
-            if (data?.ecg_vals || data?.ppg_vals) {
-              this.$nextTick(() => {
-                this.showEcgChart = true;
-                this.showPpgChart = true;
-              });
-              this.ecgChartData = data?.ecg_vals;
-              this.ppgChartData = data?.ppg_vals;
+            if (
+              message.toString() === "Online" ||
+              message.toString() === "Offline"
+            ) {
+              this.liveMessage = message.toString();
+            } else {
+              let data = await JSON.parse(message);
+              if (data?.msg_id === 17) {
+                this.algoData = data;
+              }
+              console.log("data--", JSON.parse(message));
+              this.tempStartTime = data?.start_time;
+              this.startTime = new Date(this.tempStartTime).toLocaleString(
+                undefined,
+                { timeZone: "Asia/Kolkata" }
+              );
+              // console.log("set data from parent", data?.ecg_vals);
+              if (data?.ecg_vals || data?.ppg_vals) {
+                this.$nextTick(() => {
+                  this.showEcgChart = true;
+                  this.showPpgChart = true;
+                });
+                this.ecgChartData = data?.ecg_vals;
+                this.ppgChartData = data?.ppg_vals;
+              }
             }
           });
         }
