@@ -115,6 +115,16 @@
 
             <li v-if="role === 'Admin'">
               <router-link
+                to="/doctors"
+                class="d-flex flex-column text-center justify-center align-center"
+              >
+                <v-icon class="icon__color">mdi-account</v-icon>
+                <span>Doctors</span>
+              </router-link>
+            </li>
+
+            <li v-if="role === 'Admin'">
+              <router-link
                 to="/add-doctor"
                 class="d-flex flex-column text-center justify-center align-center"
               >

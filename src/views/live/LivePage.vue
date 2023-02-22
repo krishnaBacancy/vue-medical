@@ -265,9 +265,12 @@ export default {
           });
           this.socketConnection.on("message", async (_, message) => {
             let data = await JSON.parse(message);
-            if (data?.msg === 17) {
+            if (data?.msg_id === 17) {
               this.liveDevices = this.liveDevices.map((device) => {
-                if (device.macAddressFramed === data.mac_address_framed) {
+                if (
+                  device.macAddressFramed ===
+                  data.mac_address_framed.replaceAll(":", "")
+                ) {
                   device["algodata"] = data;
                   return device;
                 }
@@ -277,7 +280,10 @@ export default {
             console.log("data--", JSON.parse(message));
             if (data?.ecg_vals) {
               this.liveDevices = this.liveDevices.map((device) => {
-                if (device.macAddressFramed === data.mac_address_framed) {
+                if (
+                  device.macAddressFramed ===
+                  data.mac_address_framed.replaceAll(":", "")
+                ) {
                   device.showEcgChart = true;
                   device["ecgValues"] = data?.ecg_vals;
                   device["allEcgValues"].push(data?.ecg_vals);
