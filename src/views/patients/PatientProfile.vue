@@ -84,7 +84,12 @@
                 </h3>
               </div>
             </v-col>
-            <v-col cols="6" sm="6" md="6">
+            <v-col
+              cols="6"
+              sm="6"
+              md="6"
+              v-if="getSinglePatientData[0]?.emergencyPhone"
+            >
               <div class="d-flex flex-column align-start mb-3 text-start">
                 <small class="font-weight-regular">Emergency No</small>
                 <h3 class="font-weight-medium">

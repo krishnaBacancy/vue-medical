@@ -1493,7 +1493,7 @@ export default {
     getHeartRateGraph() {
       const payload = {
         speedometerId: this.getMacAddress.toString().toUpperCase(),
-        agrFunction: this.selectedAggregate,
+        agrFunction: "maximum",
         timePeriod: this.selectedTimePeriod,
         startDate: Date.parse(this.startDateValue),
         endDate: Date.parse(this.endDateValue),

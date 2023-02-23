@@ -41,7 +41,7 @@
         <template v-slot:[`item.actions`]="{ item }">
           <button
             class="btn btn-orange"
-            @click="$router.push(`/patients/patient/${item.id}`)"
+            @click="$router.push(`/doctors/${item.id}`)"
           >
             <v-icon color="white" size="22"> mdi-eye </v-icon>
           </button>

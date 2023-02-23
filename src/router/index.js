@@ -4,67 +4,85 @@ import HomeView from "../views/dashboard/HomeView.vue";
 
 Vue.use(VueRouter);
 
+let role = localStorage.getItem("role");
+
 const routes = [
   {
     path: "/",
     name: "home",
     component: HomeView,
+    meta: { requiresAuth: true, roles: ["Doctor", "Customer"] },
   },
   {
     path: "/patient-details/:id",
     name: "patient-details",
     component: () => import("../views/dashboard/PatientDetails.vue"),
+    meta: { requiresAuth: true, roles: ["Doctor"] },
   },
   {
     path: "/login",
     name: "userlogin",
     component: () => import("../views/user/UserLogin.vue"),
-    meta: { guest: true },
   },
   {
     path: "/user-management",
     name: "usermanagement",
     component: () => import("../views/userManagement/UserManagement.vue"),
+    meta: { requiresAuth: true, roles: ["Doctor"] },
   },
   {
     path: "/devices",
     name: "devices",
     component: () => import("../views/admin/DeviceList.vue"),
+    meta: { requiresAuth: true, roles: ["Admin"] },
   },
   {
     path: "/patients",
     name: "patients",
     component: () => import("../views/patients/PatientsData.vue"),
+    meta: { requiresAuth: true, roles: ["Doctor"] },
   },
   {
     path: "/add-new-patient",
     name: "add-patient",
     component: () => import("../views/patients/AddPatient.vue"),
+    meta: { requiresAuth: true, roles: ["Doctor"] },
   },
   {
     path: "/patients/patient/:id",
     name: "patient-profile",
     component: () => import("../views/patients/PatientProfile.vue"),
+    meta: { requiresAuth: true, roles: ["Doctor", "Customer"] },
+  },
+  {
+    path: "/doctors/:id",
+    name: "doctor-profile",
+    component: () => import("../views/patients/PatientProfile.vue"),
+    meta: { requiresAuth: true, roles: ["Admin"] },
   },
   {
     path: "/edit-patient/:id",
     name: "edit-patient",
     component: () => import("../views/patients/EditPatient.vue"),
+    meta: { requiresAuth: true, roles: ["Doctor", "Customer"] },
   },
   {
     path: "/live-device",
     name: "live-device",
     component: () => import("../views/live/LivePage.vue"),
+    meta: { requiresAuth: true, roles: ["Doctor"] },
   },
   {
     path: "/doctors",
     name: "doctors",
     component: () => import("../views/admin/DoctorData.vue"),
+    meta: { requiresAuth: true, roles: ["Admin"] },
   },
   {
     path: "/add-doctor",
     name: "add-doctor",
     component: () => import("../views/admin/AddDoctor.vue"),
+    meta: { requiresAuth: true, roles: ["Admin"] },
   },
   {
     path: "/settings",
@@ -85,16 +103,19 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  // redirect to login page if not logged in and trying to access a restricted page
-  const publicPages = ["/login"];
-  const authRequired = !publicPages.includes(to.path);
-  const loggedIn = localStorage.getItem("user_id");
-
-  if (authRequired && !loggedIn) {
-    return next("/login");
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (!role) {
+      next({
+        path: "/login",
+      });
+    } else if (to.meta.roles && !to.meta.roles.includes(role)) {
+      next({ name: "settings" });
+    } else {
+      next();
+    }
+  } else {
+    next();
   }
-
-  next();
 });
 
 export default router;
