@@ -126,12 +126,22 @@ const mutations = {
         emergencyPhone: patient.emergencyPhone,
         height: patient.height,
         weight: patient.weight,
-        bloodPressure: patient?.medical_history[0]?.bloodPressure,
-        diabetics: patient?.medical_history[0]?.diabetics,
-        heartCondition: patient?.medical_history[0]?.heartCondition,
-        obesity: patient?.medical_history[0]?.obesity,
-        thyroid: patient?.medical_history[0]?.thyroid,
-        familyMembers: patient?.family_members,
+        bloodPressure: patient.medical_history
+          ? patient.medical_history[0].bloodPressure
+          : "",
+        diabetics: patient.medical_history
+          ? patient.medical_history[0].diabetics
+          : "",
+        heartCondition: patient.medical_history
+          ? patient.medical_history[0].heartCondition
+          : "",
+        obesity: patient.medical_history
+          ? patient.medical_history[0].obesity
+          : "",
+        thyroid: patient.medical_history
+          ? patient.medical_history[0].thyroid
+          : "",
+        familyMembers: patient.family_members || [],
       };
     });
   },
