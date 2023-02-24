@@ -113,6 +113,8 @@ router.beforeEach((to, from, next) => {
     } else {
       next();
     }
+  } else if (to.fullPath === "/login" && role) {
+    router.go(-1);
   } else {
     next();
   }
