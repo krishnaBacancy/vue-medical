@@ -94,7 +94,13 @@
                 <v-flex xs12>
                   <div class="d-flex flex-column text-start ml-2 lh-1">
                     <h5 class="green--text">
-                      {{ device?.algodata ? device.algodata?.hr : "--" }}
+                      {{
+                        device?.algodata
+                          ? device?.algodata?.hr != 0
+                            ? device.algodata?.hr
+                            : "--"
+                          : "--"
+                      }}
                     </h5>
                     <small class="">BPM</small>
                   </div>
@@ -123,8 +129,10 @@
                     <h5 class="yellow--text">
                       {{
                         device?.algodata?.spo2
-                          ? Math.round(device.algodata?.spo2)
-                          : device?.deviceAlgoData?.spo2
+                          ? device?.algodata?.spo2 != 0
+                            ? Math.round(device.algodata?.spo2)
+                            : device?.deviceAlgoData?.spo2
+                          : "--"
                       }}
                     </h5>
                     <small class="">%</small>
@@ -154,7 +162,9 @@
                     <h5 class="text-danger">
                       {{
                         device?.algodata?.temp
-                          ? Math.round(device.algodata?.temp)
+                          ? device?.algodata?.temp != 0
+                            ? Math.round(device.algodata?.temp)
+                            : "--"
                           : "--"
                       }}
                     </h5>
