@@ -506,7 +506,7 @@ export default {
           });
         } else {
           const res = await axios.patch(
-            `https://api.accu.live/api/v1/users/updateuser/${this.user.userId}`,
+            `${process.env.VUE_APP_API_URL}/users/updateuser/${this.user.userId}`,
             this.user
           );
           if (res.status === 200) {

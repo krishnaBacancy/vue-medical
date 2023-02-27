@@ -213,7 +213,13 @@
               <v-flex xs12>
                 <div class="text-medium">
                   <h1 class="text-success">
-                    {{ algoData?.hr ? algoData.hr : "--" }}
+                    {{
+                      algoData?.hr
+                        ? algoData?.hr != 0
+                          ? algoData.hr
+                          : "--"
+                        : "--"
+                    }}
                   </h1>
                   <small>BPM</small>
                 </div>
@@ -247,7 +253,13 @@
               <v-flex xs12>
                 <div class="text-medium">
                   <h1 class="warning--text">
-                    {{ algoData?.spo2 ? Math.round(algoData.spo2) : "--" }}
+                    {{
+                      algoData?.spo2
+                        ? algoData?.spo2 != 0
+                          ? Math.round(algoData.spo2)
+                          : "--"
+                        : "--"
+                    }}
                   </h1>
                   <small>%</small>
                 </div>
@@ -281,7 +293,13 @@
               <v-flex xs12>
                 <div class="text-medium">
                   <h1 class="text-danger">
-                    {{ algoData?.temp ? algoData.temp : "--" }}
+                    {{
+                      algoData?.temp
+                        ? algoData?.temp != 0
+                          ? algoData.temp
+                          : "--"
+                        : "--"
+                    }}
                   </h1>
                   <small>°C</small>
                 </div>
@@ -316,7 +334,13 @@
               <v-flex xs12>
                 <div class="text-medium">
                   <h1 class="text-danger text-success">
-                    {{ algoData?.hrv ? Math.round(algoData.hrv) : "--" }}
+                    {{
+                      algoData?.hrv
+                        ? algoData?.hrv != 0
+                          ? Math.round(algoData.hrv)
+                          : "--"
+                        : "--"
+                    }}
                   </h1>
                   <small>ms</small>
                 </div>
@@ -350,7 +374,13 @@
               <v-flex xs12>
                 <div class="text-medium">
                   <h1 class="text-danger text-danger">
-                    {{ algoData?.map ? Math.round(algoData?.map) : "--" }}
+                    {{
+                      algoData?.map
+                        ? algoData?.map != 0
+                          ? Math.round(algoData?.map)
+                          : "--"
+                        : "--"
+                    }}
                   </h1>
                   <small>mmHg</small>
                 </div>
@@ -384,7 +414,13 @@
               <v-flex xs12>
                 <div class="text-medium">
                   <h1 class="text-danger text-success">
-                    {{ algoData?.prv ? Math.round(algoData.prv) : "--" }}
+                    {{
+                      algoData?.prv
+                        ? algoData?.prv != 0
+                          ? Math.round(algoData.prv)
+                          : "--"
+                        : "--"
+                    }}
                   </h1>
                   <small>ms</small>
                 </div>
@@ -419,9 +455,21 @@
               <v-flex xs12>
                 <div class="text-medium">
                   <h1 class="text-danger cyan--text">
-                    {{ algoData?.bp ? Math.round(algoData?.bp) : "--" }}
+                    {{
+                      algoData?.bp
+                        ? algoData?.bp != 0
+                          ? Math.round(algoData?.bp)
+                          : "--"
+                        : "--"
+                    }}
                     /
-                    {{ algoData?.dbp ? Math.round(algoData?.dbp) : "--" }}
+                    {{
+                      algoData?.dbp
+                        ? algoData?.dbp != 0
+                          ? Math.round(algoData?.dbp)
+                          : "--"
+                        : "--"
+                    }}
                   </h1>
                   <small>mmHg</small>
                 </div>
@@ -455,7 +503,13 @@
               <v-flex xs12>
                 <div class="text-medium">
                   <h1 class="text-pink">
-                    {{ algoData?.steps ? algoData?.steps : "--" }}
+                    {{
+                      algoData?.steps
+                        ? algoData?.steps != 0
+                          ? algoData?.steps
+                          : "--"
+                        : "--"
+                    }}
                   </h1>
                   <small>steps</small>
                 </div>
@@ -490,7 +544,11 @@
                 <div class="text-medium">
                   <h1 class="warning--text">
                     {{
-                      algoData?.rr ? Math.round(algoData?.rr * 100) / 100 : "--"
+                      algoData?.rr
+                        ? algoData?.rr != 0
+                          ? Math.round(algoData?.rr * 100) / 100
+                          : "--"
+                        : "--"
                     }}
                   </h1>
                   <small>seconds</small>
@@ -526,7 +584,11 @@
                 <div class="text-medium">
                   <h1 class="text-success">
                     {{
-                      algoData?.pp ? Math.round(algoData?.pp * 100) / 100 : "--"
+                      algoData?.pp
+                        ? algoData?.pp != 0
+                          ? Math.round(algoData?.pp * 100) / 100
+                          : "--"
+                        : "--"
                     }}
                   </h1>
                   <small>mmHg</small>
@@ -595,7 +657,11 @@
                 <div class="text-medium">
                   <h1 class="text-info">
                     {{
-                      algoData?.sv ? Math.round(algoData?.sv * 100) / 100 : "--"
+                      algoData?.sv
+                        ? algoData?.sv != 0
+                          ? Math.round(algoData?.sv * 100) / 100
+                          : "--"
+                        : "--"
                     }}
                   </h1>
                   <small>ml</small>
@@ -630,7 +696,11 @@
                 <div class="text-medium">
                   <h1 class="text-danger">
                     {{
-                      algoData?.co ? Math.round(algoData?.co * 100) / 100 : "--"
+                      algoData?.co
+                        ? algoData?.co != 0
+                          ? Math.round(algoData?.co * 100) / 100
+                          : "--"
+                        : "--"
                     }}
                   </h1>
                   <small>L/min</small>
@@ -666,7 +736,9 @@
                   <h1 class="text-danger">
                     {{
                       algoData?.ptt
-                        ? Math.round(algoData?.ptt * 100) / 100
+                        ? algoData?.ptt != 0
+                          ? Math.round(algoData?.ptt * 100) / 100
+                          : "--"
                         : "--"
                     }}
                   </h1>
@@ -1523,7 +1595,8 @@ export default {
         this.connecting = true;
         const { protocol, host, port, endpoint, ...options } = this.connection;
         // const connectUrl = `${protocol}://${host}:${port}/${endpoint}`;
-        const connectUrl = `wss://accu.live/ws/`;
+        // const connectUrl = `wss://accu.live/ws/`;
+        const connectUrl = process.env.VUE_APP_SOCKET_URL;
         this.client = mqtt.connect(connectUrl, options);
         console.log(
           "url--",

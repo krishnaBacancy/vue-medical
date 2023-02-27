@@ -4,8 +4,6 @@ import HomeView from "../views/dashboard/HomeView.vue";
 
 Vue.use(VueRouter);
 
-let role = localStorage.getItem("role");
-
 const routes = [
   {
     path: "/",
@@ -104,15 +102,22 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (!role) {
+    if (!localStorage.getItem("role")) {
       next({
         path: "/login",
       });
-    } else if (to.meta.roles && !to.meta.roles.includes(role)) {
+    } else if (
+      to.meta.roles &&
+      !to.meta.roles.includes(localStorage.getItem("role"))
+    ) {
       next({ name: "settings" });
     } else {
       next();
     }
+  } else if (to.fullPath === "/login" && localStorage.getItem("role")) {
+    next({
+      path: "/",
+    });
   } else {
     next();
   }
