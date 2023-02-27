@@ -1595,7 +1595,8 @@ export default {
         this.connecting = true;
         const { protocol, host, port, endpoint, ...options } = this.connection;
         // const connectUrl = `${protocol}://${host}:${port}/${endpoint}`;
-        const connectUrl = `wss://accu.live/ws/`;
+        // const connectUrl = `wss://accu.live/ws/`;
+        const connectUrl = process.env.VUE_APP_SOCKET_URL;
         this.client = mqtt.connect(connectUrl, options);
         console.log(
           "url--",

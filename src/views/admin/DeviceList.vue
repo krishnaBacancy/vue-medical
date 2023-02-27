@@ -423,7 +423,7 @@ export default {
     async save() {
       if (this.editedIndex > -1) {
         const res = await axios.put(
-          `https://api.accu.live/api/v1/devices/updatesingledevicedetails?deviceId=${this.itemId}`,
+          `${process.env.VUE_APP_API_URL}/devices/updatesingledevicedetails?deviceId=${this.itemId}`,
           this.editedItem
         );
         if (res.status === 200) {
