@@ -503,12 +503,18 @@ export default {
             timeout: 3000,
           });
         }
-        if (
-          !this.isValidPhoneNumber ||
-          !this.isValidEmergencyPhoneNumber ||
-          !this.isValidRelativePhoneNumber
-        ) {
-          this.$toast.error("Please enter valid mobile number.", {
+        if (!this.isValidPhoneNumber) {
+          this.$toast.error("Please enter valid phone number.", {
+            timeout: 3000,
+          });
+        }
+        if (!this.isValidEmergencyPhoneNumber) {
+          this.$toast.error("Please enter valid emergency phone number.", {
+            timeout: 3000,
+          });
+        }
+        if (!this.isValidRelativePhoneNumber) {
+          this.$toast.error("Please enter valid relative phone number.", {
             timeout: 3000,
           });
         } else {

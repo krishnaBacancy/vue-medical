@@ -135,6 +135,12 @@
           </div>
         </div>
 
+        <TestReport
+          :patientData="algoData"
+          :deviceDetails="getSingleDeviceData[0]"
+          v-if="getSingleDeviceData[0].algodata !== undefined"
+        />
+
         <v-layout row wrap>
           <v-flex xs12 sm12 md12 class="mt-5">
             <div class="d-flex align-center w-100">
@@ -1086,6 +1092,7 @@ import moment from "moment";
 // import ApexLineChart from "@/components/ApexLineChart.vue";
 import StepsChart from "@/components/StepsChart.vue";
 import _ from "lodash";
+import TestReport from "./TestReport.vue";
 
 Date.prototype.addDays = function (days) {
   var date = new Date(this.valueOf());
@@ -1103,6 +1110,7 @@ export default {
     TempratureGraph,
     // ApexLineChart,
     StepsChart,
+    TestReport,
   },
   data() {
     return {

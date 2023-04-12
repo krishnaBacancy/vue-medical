@@ -249,8 +249,8 @@ export default {
             timeout: 3000,
           });
         }
-        if (!this.isValidPhoneNumber || !this.isValidEmergencyPhoneNumber) {
-          this.$toast.error("Please enter valid mobile number.", {
+        if (!this.isValidEmergencyPhoneNumber) {
+          this.$toast.error("Please enter valid emergency phone number.", {
             timeout: 3000,
           });
         } else {

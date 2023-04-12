@@ -209,6 +209,7 @@ const actions = {
       commit("SET_SINGLE_PATIENT", res.data.data);
       commit("SET_LOADING_STATUS", false);
     }
+    return res.data.data[0];
   },
   async getSingleDevice({ commit }, id) {
     commit("SET_LOADING_STATUS", true);
